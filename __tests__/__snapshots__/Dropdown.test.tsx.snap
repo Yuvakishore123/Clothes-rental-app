@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenderDropdown renders correctly when closed 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "alignItems": "center",
+        "color": "#3E54AC",
+        "fontSize": 18,
+        "fontWeight": "700",
+        "marginTop": 20,
+      }
+    }
+  >
+    Gender:
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": 10,
+          "height": 48,
+          "marginTop": 15,
+          "width": 250,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "alignItems": "center",
+            "color": "#3E54AC",
+            "fontFamily": "poppins",
+            "fontSize": 18,
+            "fontWeight": "700",
+            "justifyContent": "center",
+            "marginTop": 15,
+          }
+        }
+      >
+         select 
+      </Text>
+    </View>
+  </View>
+</View>
+`;
