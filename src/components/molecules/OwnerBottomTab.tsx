@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Colors from '../../constants/Colors';
 import Icons, {icons} from '../atoms/Icons';
@@ -11,35 +11,40 @@ const tabIcons = [
     routeName: 'OwnerHome',
   },
   {
-    ico1: 'ios-add-circle-sharp',
-    ico2: 'ios-add-circle-outline',
-    type: icons.Ionicons,
+    ico1: 'plussquare',
+    ico2: 'plussquareo',
+    type: icons.AntDesign,
     routeName: 'Additems',
   },
   {
     ico1: 'user',
     ico2: 'user-o',
     type: icons.FontAwesome,
-    routeName: 'OwnerProfile',
+    routeName: 'OwnerProfileStack',
   },
 ];
 
 const OwnerBottomTab = ({navigation}) => {
   const [focused, setFocused] = useState('OwnerHome');
 
-  const navigate = (routeName: string) => {
-    console.log('navigation:', navigation);
-    console.log('routeName', routeName);
-    if (routeName !== '') {
-      navigation.navigate(routeName);
-    }
-  };
+  const navigate = useCallback(
+    (routeName: string) => {
+      console.log('navigation:', navigation);
+      console.log('routeName', routeName);
+      if (routeName !== '') {
+        navigation.navigate(routeName);
+      }
+    },
+    [navigation],
+  );
+
   useEffect(() => {
     const subscribe = navigation.addListener('focus', () => {
       setFocused('OwnerHome');
     });
     return () => subscribe;
   }, [navigation]);
+
   return (
     <>
       <View

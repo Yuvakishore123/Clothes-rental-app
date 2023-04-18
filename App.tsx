@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {StatusBar, Text, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import {Provider, useDispatch, useSelector} from 'react-redux';
@@ -14,31 +14,28 @@ import SignupScreen from './src/screens/SignUp/SignupScreen';
 import OwnerHome from './src/screens/OwnerHomepage/OwnerHome';
 import Additems from './src/screens/Additems/Additems';
 import OwnerProfile from './src/screens/Ownerprofile/OwnerProfile';
+import OwnerImage from './src/screens/OwnerImage/OwnerImage';
+import MyRentals from './src/screens/My Rentals/MyRentals';
+import OproductDetailspage from './src/screens/OwnerProductdetailsPage/OproductDetails';
+import OtpScreen from './src/screens/OtpScreen/OtpScreen';
+// import Init from './src/redux/actions/actions';
+import Ownerstack from './src/navigation/Ownerbottomtab/Ownerstack';
+import MyStack from './src/navigation/Userbottomtab/UserStack';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 const Stack = createSharedElementStackNavigator();
-
-const MyStack = () => {
+const Tab = createMaterialBottomTabNavigator();
+const MyStacknavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="main" component={Home} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="SignupScreen" component={SignupScreen} />
-    </Stack.Navigator>
-  );
-};
-const OwnerStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="OwnerHome" component={OwnerHome} />
-      <Stack.Screen name="Additems" component={Additems} />
-      <Stack.Screen name="OwnerProfile" component={OwnerProfile} />
-    </Stack.Navigator>
+    <NavigationContainer screenOptions={{headerShown: false}}>
+      <MyStack />
+    </NavigationContainer>
   );
 };
 const OwnerNavigation = () => {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <OwnerStack />
+      <Ownerstack />
     </NavigationContainer>
   );
 }
@@ -49,6 +46,7 @@ const AuthStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="OtpScreen" component={OtpScreen} />
       <Stack.Screen name="SignupScreen" component={SignupScreen} />
     </Stack.Navigator>
   );

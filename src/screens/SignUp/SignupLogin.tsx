@@ -1,90 +1,25 @@
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
 import {View, TextInput, Text, TouchableOpacity, Image} from 'react-native';
-import {useDispatch} from 'react-redux';
-import Colors from '../../constants/Colors';
-import {SignUp} from '../../redux/actions/actions';
-import {useNavigation} from '@react-navigation/native';
 import Styles from './Signupstyle';
-import {useState} from 'react';
-import {Formik} from 'formik';
-import {Alert} from 'react-native';
-import axios from 'axios';
-import {SignupAndLogin} from '../../redux/actions';
 import {ScrollView} from 'react-native-gesture-handler';
-const SignUpSchema = Yup.object().shape({
-  firstName: Yup.string().required('Required'),
-  lastName: Yup.string().required('Required'),
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string()
-    .min(8, 'Must be at least 8 characters')
-    .required('Required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Required'),
-});
+import Usesignup from './Usesignup';
+import {useNavigation} from '@react-navigation/native';
 export default function SignUpScreen() {
   const navigation = useNavigation();
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phoneNumber, setphoneNumber] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const dispatch = useDispatch();
-  const handleSignupfun = async () => {
-    try {
-      const response = await axios.post(
-        'http://dfb1-106-51-70-135.ngrok-free.app/user/signup',
-        {
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          password,
-        },
-      );
-      Alert.alert('Signup Successful!');
-      console.log(response.data);
-      navigation.navigate('LoginScreen');
-    } catch (error) {
-      Alert.alert('Signup Error!', error.message);
-      console.log(error);
-    }
-  };
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      phoneNumber: '',
-    },
-    validationSchema: SignUpSchema,
-    onSubmit: handleSignupfun,
-  });
-  const handleFirstNameChange = (value: string) => {
-    setFirstName(value);
-    formik.setFieldValue('firstName', value);
-  };
-  const handlephoneNumber = (value: string) => {
-    setphoneNumber(value);
-    formik.setFieldValue('phoneNumber', value);
-  };
-  const handleLastNameChange = (value: string) => {
-    setLastName(value);
-    formik.setFieldValue('lastName', value);
-  };
-  const handleEmailChange = (value: string) => {
-    setEmail(value);
-    formik.setFieldValue('email', value);
-  };
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-    formik.setFieldValue('password', value);
-  };
-  const handleBlur = (field: string) => {
-    formik.setFieldTouched(field);
-  };
+  const {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    password,
+    formik,
+    handleFirstNameChange,
+    handlephoneNumber,
+    handleLastNameChange,
+    handleEmailChange,
+    handlePasswordChange,
+    handleBlur,
+    handleSignupfun,
+  } = Usesignup();
   return (
     <ScrollView>
       <View style={Styles.mainContainer}>
@@ -111,7 +46,7 @@ export default function SignUpScreen() {
                 onBlur={() => handleBlur('firstName')}
               />
               {formik.touched.firstName && formik.errors.firstName && (
-                <Text style={Styles.errorText}>{formik.errors.firstName}</Text>
+                <Text style={Styles.errorTxt}>{formik.errors.firstName}</Text>
               )}
             </View>
             <View>
@@ -128,7 +63,7 @@ export default function SignUpScreen() {
                 onBlur={() => handleBlur('lastName')}
               />
               {formik.touched.lastName && formik.errors.lastName && (
-                <Text style={Styles.errorText}>{formik.errors.lastName}</Text>
+                <Text style={Styles.errorTxt}>{formik.errors.lastName}</Text>
               )}
             </View>
             <View>
@@ -145,7 +80,7 @@ export default function SignUpScreen() {
                 onBlur={() => handleBlur('email')}
               />
               {formik.touched.email && formik.errors.email && (
-                <Text style={Styles.errorText}>{formik.errors.email}</Text>
+                <Text style={Styles.errorTxt}>{formik.errors.email}</Text>
               )}
             </View>
             <View>
@@ -162,9 +97,7 @@ export default function SignUpScreen() {
                 onBlur={() => handleBlur('phoneNumber')}
               />
               {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                <Text style={Styles.errorText}>
-                  {formik.errors.phoneNumber}
-                </Text>
+                <Text style={Styles.errorTxt}>{formik.errors.phoneNumber}</Text>
               )}
             </View>
             <View>
@@ -181,17 +114,18 @@ export default function SignUpScreen() {
                 onBlur={() => handleBlur('password')}
               />
               {formik.touched.password && formik.errors.password && (
-                <Text style={Styles.errorText}>{formik.errors.password}</Text>
+                <Text style={Styles.errorTxt}>{formik.errors.password}</Text>
               )}
             </View>
           </View>
-          <View style={Styles.buttonContainer} onPress={handleSignupfun}>
-            <TouchableOpacity style={Styles.touchablebtn}>
+          <View style={Styles.buttonContainer}>
+            <TouchableOpacity
+              style={Styles.touchablebtn}
+              onPress={handleSignupfun}>
               <Text style={Styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
             <Text style={Styles.signupText}>Already have an account?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={Styles.signupButton}> Sign in</Text>
             </TouchableOpacity>
           </View>

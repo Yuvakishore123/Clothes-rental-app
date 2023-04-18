@@ -1,16 +1,16 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const OwnerImagestyles = StyleSheet.create({
-  mainContainer: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: Colors.main,
-  },
+  // mainContainer: {
+  //   height: '50%',
+  //   width: '100%',
+  //   backgroundColor: Colors.main,
+  // },
   TitletextContainer: {
     flexDirection: 'row',
     margin: 15,
-    padding: 10,
+    // padding: 10,
+    // backgroundColor: '#000',
   },
   Icon: {
     color: Colors.iconscolor,
@@ -24,11 +24,13 @@ const OwnerImagestyles = StyleSheet.create({
     marginTop: 20,
   },
   ImageContainer: {
-    height: '30%',
+    height: '15%',
     // width: '100%',
     marginTop: 5,
     alignItems: 'center',
-    // backgroundColor:'#000',
+    justifyContent: 'center',
+    marginRight: 20,
+    // backgroundColor: '#000',
     // marginLeft: 30,
     // justifyContent: 'center',
   },
@@ -36,6 +38,8 @@ const OwnerImagestyles = StyleSheet.create({
     height: 200,
     width: 200,
     justifyContent: 'center',
+    marginTop: 20,
+    // backgroundColor: '#000',
   },
   Addimage: {
     height: 109,
@@ -46,7 +50,12 @@ const OwnerImagestyles = StyleSheet.create({
     alignItems: 'center',
   },
   ImageBox: {
+    marginTop: 40,
     marginLeft: 55,
+    marginBottom: 200,
+    // backgroundColor: '#000',
+    width: '60%',
+    height: '90%',
   },
   AddIcon: {
     alignItems: 'center',
@@ -59,6 +68,7 @@ const OwnerImagestyles = StyleSheet.create({
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
+    // marginTop: 20,
   },
   Price: {
     width: 252,
@@ -72,7 +82,34 @@ const OwnerImagestyles = StyleSheet.create({
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
-    marginTop: 10,
+    marginTop: 40,
+  },
+  Scroll: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: Colors.main,
+  },
+  Sizecontainer: {
+    marginTop: 20,
+    height: '7%',
+    width: '30%',
+  },
+  Sizetext: {
+    // width: '40%',
+    // height: '40%',
+    padding: 2,
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+  },
+  addImagesText: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginLeft:20,
   },
 });
 export default OwnerImagestyles;

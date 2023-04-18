@@ -1,61 +1,29 @@
-import React, {useState} from 'react';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
+import React from 'react';
 import {
-  Stylesheet,
   View,
   TextInput,
   Text,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import Colors from '../../constants/Colors';
-import {Login} from '../../redux/actions/actions';
-import SignupScreen from '../Signup/Signup';
+import Useformik from './Useloginscreen';
 import {useNavigation} from '@react-navigation/native';
 import Styles from './LoginStyle';
-import styles from '../Signup/Signupstyle';
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string()
-    .min(8)
-    .required('Please enter password')
-    .matches(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-      'Must contain * characters and uppercase letters',
-    ),
-});
 export default function LoginScreen() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordError, setPasswordError] = useState<string>('');
-  const dispatch = useDispatch();
-  const handleLogin = () => {
-    dispatch(Login(email, password));
-  };
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: LoginSchema,
-    onSubmit: handleLogin,
-  });
-  const handleEmailChange = (value: string) => {
-    setEmail(value);
-    formik.setFieldValue('email', value);
-  };
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-    formik.setFieldValue('password', value);
-  };
-  const handleBlur = (field: string) => {
-    formik.setFieldTouched(field);
-  };
+  const {
+    email,
+    password,
+    handleEmailChange,
+    handlePasswordChange,
+    handleBlur,
+    formik,
+    passwordError,
+    handleLogin,
+  } = Useformik();
   return (
-    <View style={Styles.mainContainer}>
+    <ScrollView style={Styles.mainContainer}>
       <View style={Styles.container}>
         <View style={Styles.titleTextContainer}>
           <Text style={Styles.titleText}>Login</Text>
@@ -100,9 +68,7 @@ export default function LoginScreen() {
           {passwordError.length > 0 && <Text>{passwordError}</Text>}
         </View>
         <View style={Styles.touchablebtnContainer}>
-          <TouchableOpacity
-            style={Styles.touchablebtn}
-            onPress={formik.handleSubmit}>
+          <TouchableOpacity style={Styles.touchablebtn} onPress={handleLogin}>
             <Text style={Styles.touchableText}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -112,7 +78,12 @@ export default function LoginScreen() {
             <Text style={Styles.signuptext}>Sign up</Text>
           </TouchableOpacity>
         </View>
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate('OtpScreen')}>
+            <Text style={Styles.signuptext}>Continue with OTP {'>'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }

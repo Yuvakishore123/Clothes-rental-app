@@ -1,43 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
 import axios from 'axios';
-import {useEffect} from 'react';
-// import AntDesign from '@expo/vector-icons/AntDesign';
-const data = [
-  {label: 'Small', value: '1'},
-  {label: 'Large', value: '2'},
-  {label: 'Extra Large', value: '3'},
-  {label: 'Item 4', value: '4'},
-];
-const TypeSelction = () => {
-  const [CategoriesData, setCategoriesData] = useState([]);
-  const [value, setValue] = useState(null);
+import Useadditems from '../../screens/Additems/Useadditems';
+
+const DropdownComponent = ({value, onChange}) => {
+  const {subCategoriesData} = Useadditems();
   const [isFocus, setIsFocus] = useState(false);
-  useEffect(() => {
-    var config = {
-      method: 'get',
-      url: 'https://fakestoreapi.com/products/categories',
-    };
-    axios(config)
-      .then(response => {
-        console.log(JSON.stringify(response.data));
-        var count = Object.keys(response.data).length;
-        let CategoriesArray = [];
-        for (var i = 0; i < count; i++) {
-          CategoriesArray.push({
-            value: response.data[i],
-            label: response.data[i],
-          });
-        }
-        setCategoriesData(CategoriesArray);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+
   return (
     <View style={Ownerstyles.scrollView}>
       <View style={styles.dropdownContainer}>
@@ -47,18 +19,18 @@ const TypeSelction = () => {
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={CategoriesData}
+          data={subCategoriesData}
           search
           maxHeight={400}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
+          placeholder={!isFocus ? 'Select Type' : '...'}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.value);
+            onChange(item.value);
             setIsFocus(false);
           }}
         />
@@ -66,7 +38,8 @@ const TypeSelction = () => {
     </View>
   );
 };
-export default TypeSelction;
+
+export default DropdownComponent;
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: 'white',
@@ -123,11 +96,12 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
-    // marginLeft: '35%',
     // color: Colors.iconscolor,
   },
   inputSearchStyle: {
     height: 40,
-    fontSize: 16,
+    fontSize: 18,
+    backgroundColor: Colors.white,
+    color: Colors.main,
   },
 });

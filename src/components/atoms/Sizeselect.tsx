@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import Ownerstyles from '../../screens/OwnerItems/OwnerStyles';
+import Ownerstyles from '../../screens/OwnerHomepage/OwnerHomestyle';
 import Colors from '../../constants/Colors';
 import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import axios from 'axios';
@@ -9,12 +9,14 @@ import {object} from 'yup';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
 const data = [
-  {label: 'Small', value: '1'},
-  {label: 'Large', value: '2'},
-  {label: 'Extra Large', value: '3'},
+  {label: 'XS', value: '1'},
+  {label: 'S', value: '2'},
+  {label: 'L', value: '3'},
+  {label: 'XL', value: '4'},
+  {label: 'XXL', value: '5'},
 ];
 
-const Sizeselection = () => {
+const Sizeselection = ({onChange}) => {
   //   const [CategoriesData, setCategoriesData] = useState([]);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -56,13 +58,13 @@ const Sizeselection = () => {
           maxHeight={400}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
+          placeholder={!isFocus ? 'Select Size' : '...'}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.value);
+            onChange(item.label);
             setIsFocus(false);
           }}
         />
