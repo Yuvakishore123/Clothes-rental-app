@@ -1,6 +1,7 @@
 import React from 'react';
 import OwnerEditProfile from '../../screens/Ownereditprofile/Ownereditprofile';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Owneraddresspage from '../../screens/Owneraddaddress/Owneraddresspage';
 import Owneraddaddress from '../../screens/Owneraddaddress/Owneraddaddress';
@@ -14,6 +15,7 @@ import OwnerImage from '../../screens/OwnerImage/OwnerImage';
 import Imagepicker from '../../components/atoms/Imagepicker';
 import OproductDetails from '../../screens/OwnerProductdetailsPage/OproductDetails';
 import Owneredititems from '../../screens/Owneredititems/Owneredititems';
+import Colors from '../../constants/Colors';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,6 +30,7 @@ const OwnerProfilestack = () => {
       <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
       <Stack.Screen name="MyRentals" component={MyRentals} />
+      <Stack.Screen name="OproductDetails" component={OproductDetails} />
     </Stack.Navigator>
   );
 };
@@ -58,8 +61,15 @@ const Ownerstack = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true,
-        tabBarStyle: {backgroundColor: 'white'},
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'white',
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
+          height: 60,
+          elevation: 30,
+          borderColor: Colors.iconscolor,
+        },
         tabBarInactiveTintColor: 'grey',
         tabBarActiveTintColor: '#3E54AC',
         tabBarLabelStyle: {fontSize: 10, paddingBottom: 5},
@@ -68,9 +78,8 @@ const Ownerstack = () => {
         name="Home"
         component={OwnerHomestack}
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={35} />
+            <MaterialIcon name="house" color={color} size={42} />
           ),
         }}
       />
@@ -78,9 +87,8 @@ const Ownerstack = () => {
         name="Additem"
         component={Owneradditemsstack}
         options={{
-          tabBarLabel: 'Additems',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="plus-box" color={color} size={35} />
+            <MaterialCommunityIcons name="plus-box" color={color} size={40} />
           ),
         }}
       />
@@ -88,10 +96,14 @@ const Ownerstack = () => {
         name="ProfileScreen"
         component={OwnerProfilestack}
         options={({route}) => ({
-          tabBarStyle: {display: getRouteName(route)},
-          tabBarLabel: 'Profile',
+          tabBarStyle: {
+            display: getRouteName(route),
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            height: 60,
+          },
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={35} />
+            <MaterialCommunityIcons name="account" color={color} size={42} />
           ),
         })}
       />

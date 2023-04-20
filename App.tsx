@@ -22,8 +22,11 @@ import OtpScreen from './src/screens/OtpScreen/OtpScreen';
 import Ownerstack from './src/navigation/Ownerbottomtab/Ownerstack';
 import MyStack from './src/navigation/Userbottomtab/UserStack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import OwnerNavigation from './src/navigation/OwnerNavigation';
+// import { useSelector } from 'react-redux';
 const Stack = createSharedElementStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
 const MyStacknavigation = () => {
   return (
     <NavigationContainer screenOptions={{headerShown: false}}>
@@ -31,14 +34,14 @@ const MyStacknavigation = () => {
     </NavigationContainer>
   );
 };
-const OwnerNavigation = () => {
-  return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
-      <Ownerstack />
-    </NavigationContainer>
-  );
-}
+// const OwnerNavigation = () => {
+//   return (
+//     <NavigationContainer>
+//       <StatusBar backgroundColor="black" barStyle="light-content" />
+//       <Ownerstack />
+//     </NavigationContainer>
+//   );
+// };
 const AuthStack = () => {
   return (
     <Stack.Navigator
@@ -77,7 +80,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {token === null ? <AuthStack /> : <MyStack />}
+      {token === null ? <AuthStack /> : <OwnerNavigation />}
     </NavigationContainer>
   );
 };

@@ -92,6 +92,7 @@ const Styles = StyleSheet.create({
   signuptext: {
     marginTop: 20,
     alignItems: 'center',
+    color: '#3E54AC',
     //marginRight: 20,
     //margin: 15,
     //paddingLeft: 25,

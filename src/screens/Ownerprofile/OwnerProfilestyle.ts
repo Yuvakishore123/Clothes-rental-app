@@ -35,12 +35,14 @@ const style = StyleSheet.create({
     marginTop: 80,
   },
   imageContainer: {
-    marginTop: 50,
+    // marginTop: 50,
+    zIndex: 1,
   },
   profileStyle: {
     width: '100%',
     height: '100%',
     backgroundColor: '#ECF2FF',
+    zIndex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -120,10 +122,12 @@ const style = StyleSheet.create({
     fontSize: 16,
   },
   buttonContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    margin: 20,
+    // position: 'absolute',
+    // top: 0,
+    // right: 0,
+    // margin: 20,
+    marginTop: 15,
+    zIndex: 2,
   },
 });
 export default style;

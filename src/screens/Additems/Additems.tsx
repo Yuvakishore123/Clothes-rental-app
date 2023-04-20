@@ -77,6 +77,7 @@ const Additems = () => {
               <TextInput
                 style={Ownerstyles.Descriptionfield}
                 onChangeText={setDescription}
+                multiline
                 value={description}
               />
               <Text style={Ownerstyles.Itemname}>Select Gender</Text>

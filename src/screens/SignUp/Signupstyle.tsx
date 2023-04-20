@@ -141,5 +141,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  signText: {
+    color: '#3E54AC',
+    fontSize: 14,
+    opacity: 3,
+    flexDirection: 'row',
+  },
+  signuptext: {
+    marginTop: 20,
+    alignItems: 'center',
+    color: '#3E54AC',
+    //marginRight: 20,
+    //margin: 15,
+    //paddingLeft: 25,
+  },
 });
 export default styles;

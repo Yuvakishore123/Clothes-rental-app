@@ -8,7 +8,6 @@ type Props = {
   route: {name: string};
   navigation: any;
 };
-
 export default function OwnerHome({navigation}: Props) {
   const {products} = Useownerhome();
   if (!products) {
@@ -32,16 +31,15 @@ export default function OwnerHome({navigation}: Props) {
       </View>
     );
   }
-
   return (
     <ScrollView style={styles.mainContainer}>
       <View>
         <Text style={styles.headertxt}>Welcome John</Text>
       </View>
       <View style={styles.card}>
-        <Text style={styles.title}>dashboard</Text>
+        <Text style={styles.title}>Dashboard</Text>
         <View style={styles.rentalitemscard}>
-          <Text style={styles.renteditems1}>Rented items</Text>
+          <Text style={styles.renteditems1}>Rented Items</Text>
           <Text style={styles.renteditems2}>Total Earnings</Text>
         </View>
         <View style={styles.rentalitemscard}>
@@ -53,6 +51,32 @@ export default function OwnerHome({navigation}: Props) {
         <Text style={styles.headertxt}>Recently Added</Text>
       </View>
       <View>
+        <FlatList
+          data={products}
+          keyExtractor={item => item.id.toString()}
+          horizontal={true}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.recentlyaddedcard}
+              onPress={() =>
+                navigation.navigate('OproductDetails', {product: item})
+              }>
+              <View style={styles.cardContainer}>
+                <Image
+                  source={{uri: item.imageURL}}
+                  style={styles.recentlyaddedimage}
+                />
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.cardText}>{item.description}</Text>
+                <Text style={styles.cardText}>₹ {item.price}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+      {/* <View>
         <FlatList
           data={products}
           keyExtractor={item => item.id}
@@ -68,6 +92,7 @@ export default function OwnerHome({navigation}: Props) {
                 source={{uri: item.imageURL}}
                 style={styles.recentlyaddedimage}
               />
+              <View></View>
               <View style={styles.cardText}>
                 <Text style={styles.cardText}>{item.description}</Text>
                 <Text style={styles.cardText}>{item.price}</Text>
@@ -75,7 +100,7 @@ export default function OwnerHome({navigation}: Props) {
             </TouchableOpacity>
           )}
         />
-      </View>
+      </View> */}
       <View>
         <Text style={styles.headertxt}>Rental History</Text>
       </View>
@@ -98,9 +123,9 @@ export default function OwnerHome({navigation}: Props) {
                       source={{uri: item.imageURL}}
                       style={styles.recentlyaddedimage}
                     />
-                    <View style={styles.cardText}>
+                    <View style={styles.cardTextContainer}>
                       <Text style={styles.cardText}>{item.description}</Text>
-                      <Text style={styles.cardText}>{item.price}</Text>
+                      <Text style={styles.cardText}>₹ {item.price}</Text>
                     </View>
                   </TouchableOpacity>
                   {products[index + 1] && (
@@ -116,12 +141,12 @@ export default function OwnerHome({navigation}: Props) {
                         source={{uri: products[index + 1].imageURL}}
                         style={styles.recentlyaddedimage}
                       />
-                      <View style={styles.cardText}>
+                      <View style={styles.cardTextContainer}>
                         <Text style={styles.cardText}>
                           {products[index + 1].description}
                         </Text>
                         <Text style={styles.cardText}>
-                          {products[index + 1].price}
+                          ₹ {products[index + 1].price}
                         </Text>
                       </View>
                     </TouchableOpacity>

@@ -118,15 +118,10 @@ export default function SignUpScreen() {
               )}
             </View>
           </View>
-          <View style={Styles.buttonContainer}>
-            <TouchableOpacity
-              style={Styles.touchablebtn}
-              onPress={handleSignupfun}>
-              <Text style={Styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-            <Text style={Styles.signupText}>Already have an account?</Text>
+          <View style={Styles.signText}>
+            <Text style={Styles.signuptext}>Don't have an account? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={Styles.signupButton}> Sign in</Text>
+              <Text style={Styles.signuptext}>Sign up</Text>
             </TouchableOpacity>
           </View>
           {/* <View style={Styles.signupTextCont}> */}

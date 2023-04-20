@@ -106,7 +106,7 @@ const Imagepicker = () => {
       });
       axios({
         method: 'post',
-        url: 'http://6965-180-151-211-33.ngrok.io/file/upload', // Update the URL to the new API endpoint
+        url: 'https://07f9-106-51-70-135.ngrok.io/file/upload', // Update the URL to the new API endpoint
         data: formdata,
       })
         .then(function (response) {

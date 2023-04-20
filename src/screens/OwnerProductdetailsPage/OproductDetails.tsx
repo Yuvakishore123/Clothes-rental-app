@@ -14,7 +14,7 @@ export default function DetailScreen({route, navigation}: Props) {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
-      <ImageBackground style={{flex: 0.7}} source={{uri: product.image}}>
+      <ImageBackground style={{flex: 0.7}} source={{uri: product.imageURL}}>
         <View style={styles.dheader}>
           <Icon
             name="arrow-back-ios"

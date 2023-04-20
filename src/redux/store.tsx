@@ -11,6 +11,7 @@ import {AddressReducers} from './reducers/AddressReducers';
 import {ItemsReducer} from './reducers/Additemsreducers';
 import SizeReducer from './reducers/sizeReducer';
 import GenderReducer from './reducers/GenderReducer';
+import Rolereducer from './reducers/Rolereducer';
 const RootReducers = combineReducers({
   // reducers
   Reducers,
@@ -20,6 +21,7 @@ const RootReducers = combineReducers({
   ItemsReducer,
   SizeReducer,
   GenderReducer,
+  Rolereducer,
 });
 
 export const store = createStore(RootReducers, applyMiddleware(thunk));

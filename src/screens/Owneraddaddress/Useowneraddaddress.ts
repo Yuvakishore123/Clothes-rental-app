@@ -13,6 +13,14 @@ export const OwnerAddAddressCustomHook = (
   const [country, setCountry] = useState('');
   const [state, setStateName] = useState('');
   const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState('home');
+  const handleOptionChange = option => {
+    setSelectedOption(option);
+  };
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   const handleSaveAddress = () => {
     if (
       addressLine1 !== '' &&
@@ -53,5 +61,9 @@ export const OwnerAddAddressCustomHook = (
     setaddressLine1,
     setaddressLine2,
     handleSaveAddress,
+    handleCheckboxChange,
+    handleOptionChange,
+    selectedOption,
+    isChecked,
   };
 };

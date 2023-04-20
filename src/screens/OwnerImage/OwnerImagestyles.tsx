@@ -9,8 +9,29 @@ const OwnerImagestyles = StyleSheet.create({
   TitletextContainer: {
     flexDirection: 'row',
     margin: 15,
+    marginLeft: 30,
     // padding: 10,
     // backgroundColor: '#000',
+  },
+  form: {
+    marginLeft: 20,
+  },
+  touchableContainer: {
+    height: 40,
+    width: 100,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.iconscolor,
+    // padding: 20,
+  },
+  removeText: {
+    color: Colors.white,
+    alignItems: 'center',
+  },
+  removeContainer: {
+    padding: 20,
+    alignItems: 'center',
   },
   Icon: {
     color: Colors.iconscolor,
@@ -39,6 +60,7 @@ const OwnerImagestyles = StyleSheet.create({
     width: 200,
     justifyContent: 'center',
     marginTop: 20,
+    marginLeft: 25,
     // backgroundColor: '#000',
   },
   Addimage: {
@@ -82,7 +104,13 @@ const OwnerImagestyles = StyleSheet.create({
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
-    marginTop: 40,
+    marginTop: 60,
+  },
+  Quantitytext: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 20,
   },
   Scroll: {
     width: '100%',
@@ -97,7 +125,7 @@ const OwnerImagestyles = StyleSheet.create({
   Sizetext: {
     // width: '40%',
     // height: '40%',
-    padding: 2,
+    // padding: 1,
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
@@ -109,7 +137,7 @@ const OwnerImagestyles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginLeft:20,
+    marginLeft: 10,
   },
 });
 export default OwnerImagestyles;

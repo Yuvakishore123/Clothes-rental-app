@@ -1,4 +1,4 @@
-import {Image, Text, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OwnerImagestyles from './OwnerImagestyles';
@@ -11,43 +11,55 @@ export default function Owneraddimages() {
   const {
     postData,
     onHandleOwnerItems,
-    Onhandlepress,
+    // Onhandlepress,
     handleSizeTypeChange,
     setSelectedsize,
     setPrice,
     setQuantity,
+    setSelectedImage,
+    handleremove,
+    onSelectImage,
+    selectedImage,
   } = Useownerimage();
   return (
     <ScrollView style={OwnerImagestyles.Scroll}>
-      <View>
-        <View style={OwnerImagestyles.TitletextContainer}>
-          <MaterialIcons
-            style={OwnerImagestyles.Icon}
-            onPress={onHandleOwnerItems}
-            name="arrow-back-ios"
-          />
-          <Text style={OwnerImagestyles.TitleText}>Add Items</Text>
-        </View>
-        <View style={OwnerImagestyles.ImageContainer}>
-          <Image
-            style={OwnerImagestyles.image}
-            source={require('../../../Assets/AddImage.png')}
-          />
-        </View>
+      <View style={OwnerImagestyles.TitletextContainer}>
+        <MaterialIcons
+          style={OwnerImagestyles.Icon}
+          onPress={onHandleOwnerItems}
+          name="arrow-back-ios"
+        />
+        <Text style={OwnerImagestyles.TitleText}>Add Items</Text>
+      </View>
+      <View style={OwnerImagestyles.form}>
         <View style={OwnerImagestyles.ImageBox}>
           <Text style={OwnerImagestyles.addImagesText}>Add Images</Text>
-          <Text style={OwnerImagestyles.addImagesText}>
-            {/* {CircularJSON.stringify(data)} */}
-          </Text>
-          <View style={OwnerImagestyles.Addimage}>
-            <MaterialIcons
-              style={OwnerImagestyles.AddIcon}
-              name="add-to-photos"
-            />
-            <Text onPress={Onhandlepress} style={OwnerImagestyles.imagesText}>
-              Add Image
-            </Text>
-          </View>
+          {selectedImage ? (
+            <>
+              <Image
+                style={OwnerImagestyles.image}
+                source={{uri: selectedImage}}
+              />
+              <View style={OwnerImagestyles.removeContainer}>
+                <TouchableOpacity
+                  onPress={handleremove}
+                  style={OwnerImagestyles.touchableContainer}>
+                  <Text style={OwnerImagestyles.removeText}>Remove</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            // <Mainbutton onPress={undefined} text="remove" />
+            <View style={OwnerImagestyles.Addimage}>
+              <MaterialIcons
+                style={OwnerImagestyles.AddIcon}
+                name="add-to-photos"
+              />
+              <Text onPress={onSelectImage} style={OwnerImagestyles.imagesText}>
+                Add Image
+              </Text>
+            </View>
+          )}
           <View style={OwnerImagestyles.Sizecontainer}>
             <Text style={OwnerImagestyles.Sizetext}> Size</Text>
             <Sizeselection
@@ -61,7 +73,7 @@ export default function Owneraddimages() {
             keyboardType="numeric"
             onChangeText={(value: any) => setPrice(value)}
           />
-          <Text style={OwnerImagestyles.Pricetext}> Quantity</Text>
+          <Text style={OwnerImagestyles.Quantitytext}> Quantity</Text>
           <TextInput
             keyboardType="numeric"
             style={OwnerImagestyles.Price}

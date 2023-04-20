@@ -128,28 +128,25 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+// import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import style from './Ownereditprofilestyle';
 import Colors from '../../constants/Colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import MaterialIcon from 'react-native-vector-icons/Ionicons';
 const OwnerEditProfile = () => {
   const navigation = useNavigation();
-
   // State variables for profile information
   const [firstName, setfirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setphoneNumber] = useState('');
-
   const handleReset = () => {
     setfirstName('');
     setlastName('');
     setEmail('');
     setphoneNumber('');
   };
-
   // Function to update profile information
   const handleUpdate = async () => {
     try {
@@ -169,7 +166,6 @@ const OwnerEditProfile = () => {
           }),
         },
       );
-
       // Check if API call was successful
       if (response.ok) {
         Alert.alert('Profile updated!');
@@ -182,7 +178,6 @@ const OwnerEditProfile = () => {
       Alert.alert('Failed to update profile');
     }
   };
-
   return (
     <ScrollView>
       <View style={style.container}>
@@ -192,49 +187,52 @@ const OwnerEditProfile = () => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <MaterialCommunityIcons
-              name="arrow-left"
+            <MaterialIcon
+              name="md-chevron-back"
               color={Colors.iconscolor}
               size={26}
             />
           </TouchableOpacity>
           <Text style={style.addAddressText}>Edit Profile</Text>
         </View>
+        <View style={style.line} />
         <View style={style.cardStyle}>
           <View>
             <Text style={style.text}>FirstName</Text>
             <TextInput
               style={style.input}
-              placeholder="firstName"
+              // placeholder="First Name"
+              placeholderTextColor="#999"
+              // fontWeight="300"
               value={firstName}
               onChangeText={text => setfirstName(text)}
             />
             <Text style={style.text}>LastName</Text>
             <TextInput
               style={style.input}
-              placeholder="lastName"
+              // placeholder="Last Name"
               value={lastName}
               onChangeText={text => setlastName(text)}
             />
             <Text style={style.text}>Email</Text>
             <TextInput
               style={style.input}
-              placeholder="email"
+              // placeholder="Email"
               value={email}
               onChangeText={text => setEmail(text)}
             />
             <Text style={style.text}>phonenumber</Text>
             <TextInput
               style={style.input}
-              placeholder="Telephone Number"
+              // placeholder="Telephone"
               value={phoneNumber}
               onChangeText={text => setphoneNumber(text)}
             />
           </View>
         </View>
         <View style={style.buttons}>
-          <TouchableOpacity style={style.btnfield} onPress={handleReset}>
-            <Text style={style.btntext}>Reset </Text>
+          <TouchableOpacity style={style.btnfield1} onPress={handleReset}>
+            <Text style={style.btntext1}>Reset </Text>
           </TouchableOpacity>
           <TouchableOpacity style={style.btnfield} onPress={handleUpdate}>
             <Text style={style.btntext}>Update </Text>

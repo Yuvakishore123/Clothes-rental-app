@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
-
 const Styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: Colors.main,
@@ -11,7 +10,7 @@ const Styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: Colors.iconscolor,
-    marginTop: 40,
+    marginTop: 35,
     marginLeft: 25,
   },
   // bottomTabWrapper: {
@@ -34,7 +33,6 @@ const Styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   title: {
@@ -73,25 +71,28 @@ const Styles = StyleSheet.create({
     height: 150,
     width: '100%',
     backgroundColor: 'white',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   recentlyaddedcard: {
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.black,
     borderRadius: 10,
     padding: 20,
     margin: 20,
     width: 150,
+    marginTop: 10,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 10,
+    marginBottom: -15,
   },
   recentlyaddedimage: {
-    width: 100,
-    height: 100,
+    width: 160,
+    height: 150,
     alignSelf: 'center',
-    // backgroundColor: '#000'
+    marginBottom: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
   },
   recentlyaddedname: {
     fontSize: 18,
@@ -101,10 +102,34 @@ const Styles = StyleSheet.create({
   },
   cardText: {
     color: Colors.iconscolor,
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 'bold',
-    height: 40,
+    height: 20,
     width: 100,
+    marginBottom: 3,
+    left: 10,
+  },
+  cardContainer: {
+    width: 100,
+    height: 150,
+    alignSelf: 'center',
+    // marginBottom: 10,
+    // marginTop: 10,
+    // color: 'red',
+    // padding: 10,
+    // backgroundColor: "#000",
+    marginBottom: 7,
+  },
+  cardTextContainer: {
+    width: 160,
+    height: 45,
+    alignSelf: 'center',
+    backgroundColor: '#3E54AC1A',
+    // marginBottom: 10,
+    // marginVertical: 5,
+    // marginTop: 10,
+    // color: 'red',
+    borderRadius: 5,
   },
   recentlyaddedprice: {
     fontSize: 16,

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Dispatch} from 'redux';
+import { AddAddressUrl } from '../../constants/Apis';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -23,6 +24,7 @@ export const ADD_EVENT = 'ADD_EVENT';
 export const ADD_SIZE = 'ADD_SIZE';
 export const ADD_TYPE = 'ADD_TYPE';
 export const ADD_OUTFIT = 'ADD_OUTFIT';
+export const SET_ROLE = 'SET_ROLE';
 export const addname = (Name: any) => ({
   type: ADD_NAME,
   payload: Name,
@@ -74,10 +76,7 @@ export const addAddress = (data: {
 }) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.post(
-        'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/address/add?token=7799a9f1-52a2-461d-9146-c91db88ea8ef',
-        data,
-      );
+      const response = await axios.post(AddAddressUrl, data);
       console.log('address added', response.data);
       dispatch({
         type: ADD_ADDRESS,
@@ -224,3 +223,8 @@ export const addGenderData = genderData => {
     payload: genderData,
   };
 };
+
+export const setRole = (role: string) => ({
+  type: SET_ROLE,
+  role,
+});

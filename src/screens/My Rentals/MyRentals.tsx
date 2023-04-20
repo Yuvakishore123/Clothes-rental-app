@@ -8,10 +8,8 @@ import Usemyrental from './Usemyrental';
 type Props = {
   navigation: any;
 };
-
 export default function OwnerHome({navigation}: Props) {
   const {products} = Usemyrental();
-
   if (!products) {
     return (
       <View
@@ -33,7 +31,6 @@ export default function OwnerHome({navigation}: Props) {
       </View>
     );
   }
-
   return (
     <View style={styles.mainContainer}>
       <ScrollView>
@@ -66,9 +63,9 @@ export default function OwnerHome({navigation}: Props) {
                         source={{uri: item.imageURL}}
                         style={styles.recentlyaddedimage}
                       />
-                      <View style={styles.cardText}>
+                      <View style={styles.cardTextContainer}>
                         <Text style={styles.cardText}>{item.description}</Text>
-                        <Text style={styles.cardText}>{item.price}</Text>
+                        <Text style={styles.cardText}>₹ {item.price}</Text>
                       </View>
                     </TouchableOpacity>
                     {products[index + 1] && (
@@ -84,12 +81,12 @@ export default function OwnerHome({navigation}: Props) {
                           source={{uri: products[index + 1].imageURL}}
                           style={styles.recentlyaddedimage}
                         />
-                        <View style={styles.cardText}>
+                        <View style={styles.cardTextContainer}>
                           <Text style={styles.cardText}>
                             {products[index + 1].description}
                           </Text>
                           <Text style={styles.cardText}>
-                            {products[index + 1].price}
+                            ₹ {products[index + 1].price}
                           </Text>
                         </View>
                       </TouchableOpacity>

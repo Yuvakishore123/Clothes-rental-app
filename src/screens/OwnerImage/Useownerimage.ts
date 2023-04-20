@@ -1,11 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
-import Additems from '../Additems/Additems';
-import Imagepicker from '../../components/atoms/Imagepicker';
+// import RNFS from 'react-native-fs';
+// import Imagepicker from '../../components/atoms/Imagepicker/Imagepicker';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {addsize} from '../../redux/actions/actions';
-import {SetStateAction, useState} from 'react';
-import {Alert} from 'react-native';
+import {SetStateAction, useEffect, useState} from 'react';
+import {Alert, Platform} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import {androidCameraPermission} from '../../constants/Permissions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {ItemsReducer} from '../../redux/reducers/AddItemsReducer';
 const OwnerImage = () => {
   const navigation = useNavigation();
@@ -19,10 +22,19 @@ const OwnerImage = () => {
   console.log(categoryIds);
   console.log(subcategoryIds);
   const size = useSelector(state => state.SizeReducer.selected);
-  const [selectedImage, setSelectedImage] = useState('');
+  // const {selectedImage, setSelectedImage} = useImagepicker();
   const [selectedsize, setSelectedsize] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [url, setUrl] = useState('');
+  const getImageUrl = async () => {
+    const url = await AsyncStorage.getItem('url');
+    setUrl(url);
+    console.log('Retrieved URL:', url);
+  };
+  useEffect(() => {
+    getImageUrl();
+  }, []);
   const handleSizeTypeChange = (selectedSize: SetStateAction<string>) => {
     setSelectedsize(selectedSize);
   };
@@ -32,24 +44,26 @@ const OwnerImage = () => {
   const onHandleOwnerItems = () => {
     navigation.goBack();
   };
-  const Onhandlepress = () => {
-    navigation.navigate(Imagepicker);
-  };
+  // const Onhandlepress = () => {
+  //   navigation.navigate(Imagepicker);
+  // };
+  // console.log(url); // Wrap subcategoryIds in an array
   const postData = () => {
+    console.log('url in the post', url);
     const data = {
       categoryIds: categoryIds, // Wrap categoryIds in an array
       name: name,
       description: description,
       id: 0,
-      imageURL: 'URL', // Add imageURL field with selectedImage value
+      imageURL: url, // Add imageURL field with selectedImage value
       price: price,
       quantity: quantity,
       size: selectedsize,
-      subcategoryIds: subcategoryIds, // Wrap subcategoryIds in an array
+      subcategoryIds: subcategoryIds,
     };
     axios({
       method: 'post',
-      url: 'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/product/add',
+      url: 'https://f013-106-51-70-135.ngrok-free.app/api/v1/product/add?token=7799a9f1-52a2-461d-9146-c91db88ea8ef',
       data: data,
     })
       .then(response => {
@@ -62,11 +76,121 @@ const OwnerImage = () => {
     Alert.alert('Item Successfully Added');
     navigation.navigate('OwnerHome');
   };
-
+  const [selectedImage, setSelectedImage] = useState('');
+  // const navigation = useNavigation();
+  const handleback = () => {
+    navigation.navigate(OwnerImage);
+  };
+  const handleremove = () => {
+    setSelectedImage('');
+  };
+  const onSelectImage = async () => {
+    const permissionStatus = await androidCameraPermission();
+    const onCamera = () => {
+      ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
+        mediaType: 'photo',
+        includeBase64: true,
+      }).then(image => {
+        console.log(image);
+        setSelectedImage(image.path);
+        handleback();
+        navigation.navigate(OwnerImage, {image: image.path});
+      });
+    };
+    const onGallery = () => {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        mediaType: 'photo',
+        cropping: true,
+      }).then(image => {
+        console.log('Seleted Image', image);
+        setSelectedImage(image.path);
+        handleback();
+        setTimeout(() => {
+          imageUpload(image.path);
+        });
+      });
+    };
+    // const imageUpload = (imagePath: string) => {
+    //   var Myheaders = new Headers();
+    //   Myheaders.append('Content-Type', 'multipart/form-data');
+    //   const formdata = new FormData();
+    //   formdata.append('file', {
+    //     uri: imagePath,
+    //     type: 'image/png',
+    //     name: 'image.png',
+    //     fileName: 'image',
+    //     // type: imagePath.type,
+    //     // name: ,
+    //   });
+    //   axios({
+    //     method: 'post',
+    //     url: 'http://07f9-106-51-70-135.ngrok.io/file/upload', // Update the URL to the new API endpoint
+    //     data: formdata,
+    //     // headers: Myheaders,
+    //     timeout: 5000,
+    //   })
+    //     .then(function (response) {
+    //       console.log('Image uploaded:', response.headers);
+    //     })
+    //     .catch(function (error) {
+    //       console.log('Error uploading image:', error.message);
+    //     });
+    // };
+    const imageUpload = async (imagePath: string) => {
+      const formData = new FormData();
+      const url = await AsyncStorage.getItem('url');
+      formData.append('file', {
+        uri: imagePath,
+        type: 'image/png',
+        name: 'image.png',
+      });
+      try {
+        const response = await fetch(
+          'https://d2cd-106-51-70-135.ngrok-free.app/file/upload',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            body: formData,
+          },
+        );
+        const result = await response.json();
+        const url = result.url;
+        await AsyncStorage.setItem('url', url);
+        console.log('Image uploaded:', result);
+        getImageUrl();
+        console.log('heloo', url);
+      } catch (error) {
+        console.log('Error uploading image:', error);
+      }
+    };
+    if (permissionStatus || Platform.OS === 'ios') {
+      Alert.alert('Profile Picture', 'Choose option', [
+        {
+          text: 'Camera',
+          onPress: onCamera,
+        },
+        {
+          text: 'Gallery',
+          onPress: onGallery,
+        },
+        {
+          text: 'cancel',
+          onPress: () => {},
+        },
+      ]);
+    }
+  };
   console.log(name, size);
   return {
     onHandleOwnerItems,
-    Onhandlepress,
+    // Onhandlepress,
     // data,
     postData,
     handleSelectedImage,
@@ -77,6 +201,8 @@ const OwnerImage = () => {
     setSelectedsize,
     setPrice,
     setQuantity,
+    onSelectImage,
+    handleremove,
   };
 };
 export default OwnerImage;

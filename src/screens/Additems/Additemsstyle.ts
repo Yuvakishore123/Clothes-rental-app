@@ -16,6 +16,7 @@ const Ownerstyles = StyleSheet.create({
   mainButton: {
     alignItems: 'center',
     height: '50%',
+    marginBottom: 20,
   },
   mainTouchable: {
     height: 48,
@@ -74,10 +75,9 @@ const Ownerstyles = StyleSheet.create({
     // alignItems : 'center',
   },
   Descriptionfield: {
-    height: 110,
     width: 250,
     backgroundColor: '#FFFFFF',
-    marginTop: 15,
+    marginTop: 10,
     borderRadius: 10,
     elevation: 5,
     shadowColor: '#3E54AC',

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // elevation: 3,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   icon: {
     marginRight: 20,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: Colors.iconscolor,
-    marginLeft: '30%',
+    marginLeft: 15,
   },
   selectedTextStyle: {
     fontSize: 18,
@@ -120,11 +120,13 @@ const styles = StyleSheet.create({
     color: Colors.iconscolor,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: '40%',
+    marginLeft: 15,
   },
   iconStyle: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
+    marginRight: 15,
+    color: Colors.iconscolor,
     // color: Colors.iconscolor,
   },
   inputSearchStyle: {

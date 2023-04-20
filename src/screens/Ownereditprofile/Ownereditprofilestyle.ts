@@ -1,4 +1,6 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
+const screenWidth = Dimensions.get('window').width;
 import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
@@ -7,6 +9,7 @@ const style = StyleSheet.create({
     backgroundColor: '#ECF2FF',
   },
   cardStyle: {
+    marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
     paddingTop: 20,
@@ -23,17 +26,18 @@ const style = StyleSheet.create({
   },
   text: {
     // padding: 5,
-    marginLeft: 25,
-    color: 'blue',
+    marginLeft: 38,
+    color: '#3E54AC',
     fontSize: 20,
     fontFamily: 'poppins',
     fontWeight: '900',
   },
   input: {
+    textAlign: 'left',
     backgroundColor: '#ECF2FF',
     marginTop: 20,
     margin: 40,
-    textAlign: 'center',
+    // textAlign: 'center',
     fontSize: 18,
     color: '#3E54AC',
     fontWeight: 'bold',
@@ -53,6 +57,13 @@ const style = StyleSheet.create({
     backgroundColor: '#3E54AC',
     borderRadius: 8,
   },
+  btnfield1: {
+    alignItems: 'center',
+    width: 160,
+    height: 59,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+  },
   btntext: {
     // position: 'absolute',
     textAlign: 'center',
@@ -64,10 +75,20 @@ const style = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  btntext1: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 14,
+    fontWeight: 'bold',
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    color: '#3E54AC',
+  },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 15,
+    margin: 30,
   },
   whiteBtn: {
     alignItems: 'center',
@@ -159,5 +180,31 @@ const style = StyleSheet.create({
     color: '#3E54AC',
     fontWeight: 'bold',
   },
+  line: {
+    // borderColor:'red',
+    // borderBottomColor:"red",
+    // marginTop: 42,
+    width: '100%',
+    height: 2,
+    backgroundColor: '#3E54AC',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5,
+  },
+  //  divider: {
+  //   marginTop:10,
+  //   height: 4,
+  //   backgroundColor: '#ECF2FF',
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 1 },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 1,
+  //   elevation: 1,
+  // },
 });
 export default style;

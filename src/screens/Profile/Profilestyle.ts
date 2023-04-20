@@ -5,6 +5,14 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ECF2FF',
   },
+  buttonContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    marginEnd: 30,
+    marginVertical: -20,
+    zIndex: 1,
+  },
   header: {
     borderBottomRightRadius: 16,
     borderBottomLeftRadius: 16,

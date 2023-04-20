@@ -1,10 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
+import {OwnerProductsUrl} from '../../constants/Apis';
 export const fetchProducts = createAsyncThunk('fetchProducts', async () => {
-  const res = await axios.get(
-    'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/product/list',
-    {},
-  );
+  const res = await axios.get(OwnerProductsUrl, {});
   return res.data;
 });
 const ProductSlice = createSlice({

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
+import {url} from '../../constants/Apis';
 import {
   addItemsData,
   addGender,
@@ -11,7 +12,7 @@ import {
   addoutfit,
 } from '../../redux/actions/actions';
 import axios from 'axios';
-
+import {OwnerCategoryUrl} from '../../constants/Apis';
 function Useadditems() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -40,9 +41,9 @@ function Useadditems() {
     // console.log(gender);
     const fetchSubCategoryData = async () => {
       try {
-        setIsLoading(true);
+        // setIsLoading(true);
         const response = await axios.get(
-          `https://e5b5-122-172-176-124.ngrok-free.app/api/v1/subcategory/listbyid/${genderData}`,
+          `${url}/api/v1/subcategory/listbyid/${genderData}`,
         );
         // console.log(response);
         const subCategoriesArray = response.data.map(
@@ -55,9 +56,9 @@ function Useadditems() {
         console.log(subCategoriesArray);
       } catch (error) {
         console.log(error);
-        setIsLoading(true);
+        // setIsLoading(true);
       } finally {
-        setIsLoading(false); // Set isLoading to false after the API call completes
+        // setIsLoading(false); // Set isLoading to false after the API call completes
       }
     };
     fetchSubCategoryData();
@@ -67,9 +68,9 @@ function Useadditems() {
     // console.log(gender);
     const fetchEventCategoryData = async () => {
       try {
-        setIsLoading(true);
+        // setIsLoading(true);
         const response = await axios.get(
-          `https://e5b5-122-172-176-124.ngrok-free.app/api/v1/subcategory/listbyid/${1}`,
+          `${url}/api/v1/subcategory/listbyid/${1}`,
         );
         // console.log(response);
         const subEventCategoriesArray = response.data.map(
@@ -82,9 +83,9 @@ function Useadditems() {
         console.log(subEventCategoriesArray);
       } catch (error) {
         console.log(error);
-        setIsLoading(true);
+        // setIsLoading(true);
       } finally {
-        setIsLoading(false); // Set isLoading to false after the API call completes
+        // setIsLoading(false); // Set isLoading to false after the API call completes
       }
     };
     fetchEventCategoryData();
@@ -94,9 +95,9 @@ function Useadditems() {
     // console.log(gender);
     const subOutfitCategoriesData = async () => {
       try {
-        setIsLoading(true);
+        // setIsLoading(true);
         const response = await axios.get(
-          `https://e5b5-122-172-176-124.ngrok-free.app/api/v1/subcategory/listbyid/${2}`,
+          `${url}/api/v1/subcategory/listbyid/${2}`,
         );
         // console.log(response);
         const subOutfitCategoriesArray = response.data.map(
@@ -109,9 +110,9 @@ function Useadditems() {
         console.log(subOutfitCategoriesArray);
       } catch (error) {
         console.log(error);
-        setIsLoading(true);
+        // setIsLoading(true);
       } finally {
-        setIsLoading(false); // Set isLoading to false after the API call completes
+        // setIsLoading(false); // Set isLoading to false after the API call completes
       }
     };
     subOutfitCategoriesData();
@@ -121,10 +122,8 @@ function Useadditems() {
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
-        setIsLoading(true);
-        const response = await axios.get(
-          'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/category/list',
-        );
+        // setIsLoading(true);
+        const response = await axios.get(OwnerCategoryUrl);
         const categoriesArray = response.data.map(
           (category: {id: any; categoryName: any}) => ({
             ...category,
@@ -135,7 +134,6 @@ function Useadditems() {
         setCategoriesData(categoriesArray);
       } catch (error) {
         console.log(error);
-        setIsLoading(true);
       } finally {
         setIsLoading(false); // Set isLoading to false after the API call completes
       }

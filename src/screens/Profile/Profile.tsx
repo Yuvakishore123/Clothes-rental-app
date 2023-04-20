@@ -15,6 +15,7 @@ import Owneraddaddress from '../Owneraddaddress/Owneraddaddress';
 import Owneraddresspage from '../Owneraddaddress/Owneraddresspage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import SwitchAccountButton from '../../components/atoms/SwtichAccountButton';
 type Props = {
   route: {name: string};
 };
@@ -43,6 +44,10 @@ export default function Profile({route}: Props) {
         <Text style={styles.addAddressText}>Profile</Text>
       </View>
       <View style={style.container}>
+        <View style={style.buttonContainer}>
+          <SwitchAccountButton />
+        </View>
+
         <View style={style.profileStyle}>
           <View>
             <Image
