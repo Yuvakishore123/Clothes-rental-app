@@ -1,12 +1,29 @@
 import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
+  productSizeBox: {
+    marginTop: 10,
+    borderWidth: 2,
+    borderColor: '#3E54AC',
+    width: 50, // set a width that works for your layout
+    height: 30, // set a height that works for your layout
+    justifyContent: 'center', // vertically center the text
+    alignItems: 'center', // horizontally center the text
+  },
+  detailsdescription: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
   container: {
-    backgroundColor: '#ECF2FF',
+    zIndex: 0,
+    // backgroundColor: '#ECF2FF',
+    backgroundColor: 'white',
     width: 400,
-    height: 800,
+
+    // height: 800,
   },
   btnfield: {
-    position: 'absolute',
+    position: 'relative',
     width: 330,
     height: 59,
     left: 26,
@@ -42,12 +59,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   detailsContainer: {
+    zIndex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 40,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     backgroundColor: '#ECF2FF',
-    flex: 0.7,
+    // backgroundColor: '#ECF2FF',
+    flex: 1,
+    // marginBottom: 120,
   },
   iconContainer: {
     height: 60,
@@ -101,12 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  detailsdescription: {
-    marginLeft: 5,
-    marginTop: 10,
-    lineHeight: 22,
-    color: '#493d8a',
-  },
+
   sizelabel: {
     width: 200,
     height: 48.66,
@@ -220,5 +235,35 @@ const styles = StyleSheet.create({
     zIndex: 1,
     opacity: 0.5,
   },
+
+  touchableText: {
+    // margin:15,
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    justifyContent: 'center',
+  },
+  touchablebtn: {
+    height: 59,
+    width: 309,
+    backgroundColor: '#3E54AC',
+    margin: 15,
+    marginTop: 20,
+    borderRadius: 8,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  touchablebtnContainer: {
+    justifyContent: 'center',
+    marginBottom: 20,
+    // alignItems:"center",
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 20,
+  },
 });
+
 export default styles;

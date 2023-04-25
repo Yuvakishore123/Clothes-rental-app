@@ -133,10 +133,12 @@ const Styles = StyleSheet.create({
     color: 'red',
   },
   mainButton: {
-    // marginLeft: 85,
+    justifyContent:'center',
+    marginTop:15,
+    
+    
     alignItems: 'center',
-    height: '50%',
-    marginRight: 35,
+    
   },
   mainTouchable: {
     height: 48,

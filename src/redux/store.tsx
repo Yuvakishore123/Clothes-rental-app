@@ -12,6 +12,9 @@ import {ItemsReducer} from './reducers/Additemsreducers';
 import SizeReducer from './reducers/sizeReducer';
 import GenderReducer from './reducers/GenderReducer';
 import Rolereducer from './reducers/Rolereducer';
+import CartReducer from './reducers/cartReducer';
+import WishlistReducer from './reducers/wishlistReducer';
+import UserProductSlice from './slice/userProductSlice';
 const RootReducers = combineReducers({
   // reducers
   Reducers,
@@ -22,6 +25,9 @@ const RootReducers = combineReducers({
   SizeReducer,
   GenderReducer,
   Rolereducer,
+  CartReducer,
+  WishlistReducer,
+  UserProducts: UserProductSlice,
 });
 
 export const store = createStore(RootReducers, applyMiddleware(thunk));

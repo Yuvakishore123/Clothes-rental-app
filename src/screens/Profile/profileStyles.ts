@@ -1,37 +1,12 @@
 import {StyleSheet} from 'react-native';
+import React from 'react';
 const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ECF2FF',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    marginEnd: 30,
-    marginVertical: -20,
-    zIndex: 1,
-  },
-  header: {
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    marginHorizontal: 4,
-    color: '#3E54AC',
-    fontWeight: 'bold',
-  },
-  bottomTabWrapper: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   btnfield: {
     alignItems: 'center',
 
     width: 300,
     height: 59,
+    marginTop: 30,
 
     backgroundColor: '#3E54AC',
     borderRadius: 8,
@@ -61,8 +36,11 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 3,
+    marginTop: 80,
   },
   profileStyle: {
+    width: 400,
+    height: 800,
     backgroundColor: '#ECF2FF',
     // justifyContent: 'center',
     alignItems: 'center',
@@ -103,8 +81,9 @@ const style = StyleSheet.create({
   },
   btnPText: {
     position: 'absolute',
+    // textAlign:'center',
 
-    left: 110,
+    left: 120,
     top: 15,
     height: 29,
     width: 104,
@@ -112,6 +91,21 @@ const style = StyleSheet.create({
     fontFamily: 'Poppins',
     fontSize: 20,
     color: '#3E54AC',
+  },
+
+  imageContainer: {
+    // marginTop: 50,
+    zIndex: 1,
+  },
+
+
+   buttonContainer: {
+    // position: 'absolute',
+    // top: 0,
+    // right: 0,
+    // margin: 20,
+    marginTop: 15,
+    zIndex: 2,
   },
 });
 export default style;

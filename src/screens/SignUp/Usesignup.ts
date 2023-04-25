@@ -28,7 +28,7 @@ function Usesignup() {
     console.log('indrill');
     try {
       const response = await axios.post(
-        'http://7269-180-151-121-182.ngrok.io/api/user/save',
+        'https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/signup',
         {
           firstName,
           lastName,

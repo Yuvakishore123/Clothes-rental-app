@@ -124,6 +124,14 @@ export default function SignUpScreen() {
               <Text style={Styles.signuptext}>Sign up</Text>
             </TouchableOpacity>
           </View>
+
+          <View style={Styles.touchablebtnContainer}>
+            <TouchableOpacity
+              onPress={handleSignupfun}
+              style={Styles.touchablebtn}>
+              <Text style={Styles.touchableText}>Signup</Text>
+            </TouchableOpacity>
+          </View>
           {/* <View style={Styles.signupTextCont}> */}
           {/* </View> */}
         </View>

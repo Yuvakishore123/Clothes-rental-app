@@ -191,7 +191,7 @@ const Useowneredititems = () => {
     };
     axios({
       method: 'PUT',
-      url: `https://dff4-106-51-70-135.ngrok-free.app/api/v1/product/update/${editProductId}?token=7799a9f1-52a2-461d-9146-c91db88ea8ef`,
+      url: `http://58d1-106-51-70-135.ngrok-free.app/api/v1/product/update/${editProductId}?token=7799a9f1-52a2-461d-9146-c91db88ea8ef`,
       data: data,
     })
       .then(response => {

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Dispatch} from 'redux';
-import { AddAddressUrl } from '../../constants/Apis';
+import {AddAddressUrl, url} from '../../constants/Apis';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -25,6 +25,12 @@ export const ADD_SIZE = 'ADD_SIZE';
 export const ADD_TYPE = 'ADD_TYPE';
 export const ADD_OUTFIT = 'ADD_OUTFIT';
 export const SET_ROLE = 'SET_ROLE';
+//-------------------------------------------changes for wishlist and cart
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
+export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
+
 export const addname = (Name: any) => ({
   type: ADD_NAME,
   payload: Name,
@@ -65,25 +71,30 @@ export const removeAddress = (id: number, index: any) => {
     }
   };
 };
+
 export const addAddress = (data: {
-  adddressLine1: string;
+  addressLine1: string;
   addressLine2: string;
   addressType: string;
   city: string;
   country: string;
   postalCode: string;
+  defaultType: boolean;
   state: string;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.post(AddAddressUrl, data);
+      const response = await axios.post(
+        'https://64267853556bad2a5b505aec.mockapi.io/login',
+        data,
+      );
       console.log('address added', response.data);
       dispatch({
         type: ADD_ADDRESS,
         payload: response.data,
       });
     } catch (error) {
-      console.log('address add error', error.message);
+      console.log('address add error', error);
     }
   };
 };
@@ -149,7 +160,7 @@ export const Login = (email: string, password: string) => {
         type: LOGIN_REQUEST,
       });
       const response = await axios.post(
-        'https://3566-180-151-121-182.ngrok-free.app/api/login',
+        'https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/login',
         {
           email: email,
           password: password,
@@ -159,10 +170,11 @@ export const Login = (email: string, password: string) => {
             // Authorization: `Bearer ${await AsyncStorage.getItem(
             //   'access_token',
             // )}`,
+            // Authorization: `Bearer ${access_token}`,
           },
         },
       );
-      const token = response.headers.access_token;
+      const token = response.data.token;
       await AsyncStorage.setItem('token', token);
       console.log('token stored');
       console.log(token);
@@ -188,7 +200,7 @@ export const SignupAndLogin = (
 ) => {
   return async (dispatch: Dispatch) => {
     axios
-      .post('http://7269-180-151-121-182.ngrok.io/api/user/save', {
+      .post('https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/signup', {
         firstName,
         lastName,
         email,
@@ -208,6 +220,79 @@ export const SignupAndLogin = (
       });
   };
 };
+
+// export const Login = (email: string, password: string) => {
+//   return async (dispatch: Dispatch) => {
+//     try {
+//       dispatch({
+//         type: LOGIN_REQUEST,
+//       });
+//       const response = await axios.post(
+//         `https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/login`,
+//         {
+//           email: email,
+//           password: password,
+//         },
+//         {
+//           headers: {
+//             // Authorization: `Bearer ${await AsyncStorage.getItem(
+//             //   'access_token',
+//             // )}`,
+//           },
+//         },
+//       );
+
+//       const token = response.headers.access_token;
+
+//       await AsyncStorage.setItem('token', token);
+//       // if (response && response.data && response.data.access_token) {
+//       //   await AsyncStorage.setItem('userToken', response.data.access_token);
+//       // }
+//       console.log(token);
+//       console.log('token stored');
+//       console.log(token);
+//       dispatch({
+//         type: LOGIN_SUCCESS,
+//         payload: token,
+//       });
+//     } catch (error) {
+//       console.log('login error', error);
+//       dispatch({
+//         type: LOGIN_FAILURE,
+//         payload: error.message,
+//       });
+//     }
+//   };
+// };
+// export const SignupAndLogin = (
+//   firstName: string,
+//   lastName: string,
+//   email: string,
+//   phoneNumber: string,
+//   password: string,
+// ) => {
+//   return async (dispatch: Dispatch) => {
+//     axios
+//       .post(`https://d38a-122-171-148-208.ngrok-free.app/v1/user/signup`, {
+//         firstName,
+//         lastName,
+//         email,
+//         phoneNumber,
+//         password,
+//       })
+//       .then((response: {data: any}) => {
+//         console.log('signup success');
+//         payload: response.data;
+//       })
+//       .catch(error => {
+//         console.log('signup error', error);
+//         dispatch({
+//           type: LOGIN_FAILURE,
+//           payload: error.message,
+//         });
+//       });
+//   };
+// };
 export const Logout = () => {
   return async (dispatch: Dispatch) => {
     await AsyncStorage.clear();
@@ -228,3 +313,68 @@ export const setRole = (role: string) => ({
   type: SET_ROLE,
   role,
 });
+
+//===============================================================
+
+//changes done for wishlist and cart
+
+export const addItemToCart = data => ({
+  type: ADD_TO_CART,
+  payload: data,
+});
+
+export const removeFromCart = index => ({
+  type: REMOVE_FROM_CART,
+  payload: index,
+});
+
+export const addToWishlist = data => ({
+  type: ADD_TO_WISHLIST,
+  payload: data,
+});
+
+export const removeFromWishlist = index => ({
+  type: REMOVE_FROM_WISHLIST,
+  payload: index,
+});
+
+//----------
+//changes for wishlist api
+
+// action creator
+export const postProductToAPI = item => {
+  console.log('hello', item);
+  // const token = await AsyncStorage.getItem('unifiedToken');
+  // console.log(token);
+  return dispatch => {
+    // make API call
+    fetch(
+      `https://d38a-122-171-148-208.ngrok-free.app/api/v1/wishlist/739ba91c-9ef2-48a7-895d-99be4c73fcb5`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item),
+      },
+    )
+      .then(response => response.json())
+      .then(data => {
+        // update the Redux store with the response data
+        dispatch(addProductToStore(data));
+        console.log('succes');
+      })
+      .catch(error => console.log(error));
+  };
+};
+
+// action type
+export const ADD_PRODUCT_TO_STORE = 'ADD_PRODUCT_TO_STORE';
+
+// action creator
+export const addProductToStore = product => {
+  return {
+    type: ADD_PRODUCT_TO_STORE,
+    payload: product,
+  };
+};

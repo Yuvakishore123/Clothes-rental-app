@@ -14,10 +14,7 @@ const OwnerProfile = ({navigation}: Props) => {
           <SwitchAccountButton />
         </View>
         <View style={style.imageContainer}>
-          {/* <Image
-            source={require('../../../assets/images/UserProfilePic.jpg')}
-            style={style.profileImg}
-          /> */}
+        
           <AddImages />
         </View>
         <View>
@@ -55,13 +52,5 @@ const OwnerProfile = ({navigation}: Props) => {
     </View>
   );
 };
-// const styles = StyleSheet.create({
-//   buttonContainer: {
-//     top: 0,
-//     right: 0,
-//     margin: 20,
-//     marginLeft: 180,
-//     // marginRight: 0,
-//   },
-// });
+
 export default OwnerProfile;

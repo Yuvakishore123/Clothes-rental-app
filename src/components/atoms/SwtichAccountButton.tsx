@@ -11,11 +11,11 @@ const SwitchAccountButton = () => {
   const userType = useSelector(state => state.Rolereducer.role);
 
   const [accountType, setAccountType] = useState(
-    userType === 1 ? 'Owner' : 'Borrower',
+    userType === 1 ? 'Borrower' : 'Owner',
   );
 
   useEffect(() => {
-    setAccountType(userType === 1 ? 'Owner' : 'Borrower');
+    setAccountType(userType === 1 ? 'Borrower' : 'Owner');
   }, [userType]);
 
   const handlePress = () => {
@@ -24,7 +24,7 @@ const SwitchAccountButton = () => {
 
   const handleOptionPress = option => {
     setAccountType(option);
-    dispatch(setRole(option === 'Owner' ? 1 : 2));
+    dispatch(setRole(option === 'Borrower' ? 1 : 2));
     setShowOptions(false);
   };
 
@@ -34,7 +34,7 @@ const SwitchAccountButton = () => {
         onPress={handlePress}
         style={styles.button}
         accessibilityLabel={`Switch account type to ${
-          accountType === 'Borrower' ? 'Owner' : 'Borrower'
+          accountType === 'Owner' ? 'Borrower' : 'Owner'
         }`}>
         <Text style={styles.label}>Switch</Text>
         <IonIcon name="chevron-down" color={'#FFF'} size={20} />
@@ -42,27 +42,8 @@ const SwitchAccountButton = () => {
       {showOptions && (
         <View style={styles.options}>
           <TouchableOpacity
-            onPress={() => handleOptionPress('Owner')}
-            accessibilityLabel=" Owner">
-            <View
-              style={
-                accountType === 'Owner'
-                  ? styles.buttonContainer
-                  : styles.buttonUnselected
-              }>
-              <Text
-                style={
-                  accountType === 'Owner'
-                    ? styles.optionSelected
-                    : styles.option
-                }>
-                {'Owner'}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
             onPress={() => handleOptionPress('Borrower')}
-            accessibilityLabel=" Borrower">
+            accessibilityLabel="Borrower">
             <View
               style={
                 accountType === 'Borrower'
@@ -76,6 +57,25 @@ const SwitchAccountButton = () => {
                     : styles.option
                 }>
                 {'Borrower'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleOptionPress('Owner')}
+            accessibilityLabel="Owner">
+            <View
+              style={
+                accountType === 'Owner'
+                  ? styles.buttonContainer
+                  : styles.buttonUnselected
+              }>
+              <Text
+                style={
+                  accountType === 'Owner'
+                    ? styles.optionSelected
+                    : styles.option
+                }>
+                {'Owner'}
               </Text>
             </View>
           </TouchableOpacity>
