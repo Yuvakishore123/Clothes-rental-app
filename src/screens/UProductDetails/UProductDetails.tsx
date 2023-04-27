@@ -28,7 +28,7 @@ export default function UDetailScreen({route, navigation}: Props) {
 
         <ImageBackground
           style={{height: 500, backgroundColor: 'green'}}
-          source={{uri: product.imageURL}}>
+          source={{uri: product.image}}>
           <View style={styles.dheader}>
             <Icon
               name="arrow-back-ios"

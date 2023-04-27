@@ -46,8 +46,8 @@ export default function OwnerHome({navigation}: Props) {
           <Text style={styles.renteditems2}>Total Earnings</Text>
         </View>
         <View style={styles.rentalitemscard}>
-          <Text style={styles.cardsrentalprices}>100</Text>
-          <Text style={styles.cardsTotalprices}>2000</Text>
+          <Text style={styles.cardsrentalprices}>0</Text>
+          <Text style={styles.cardsTotalprices}>₹</Text>
         </View>
       </View>
       <View>
@@ -190,35 +190,6 @@ export default function OwnerHome({navigation}: Props) {
     </ScrollView>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React from 'react';
 // import {FlatList, Image, TouchableOpacity, View} from 'react-native';

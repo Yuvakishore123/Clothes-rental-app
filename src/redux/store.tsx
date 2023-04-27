@@ -15,6 +15,8 @@ import Rolereducer from './reducers/Rolereducer';
 import CartReducer from './reducers/cartReducer';
 import WishlistReducer from './reducers/wishlistReducer';
 import UserProductSlice from './slice/userProductSlice';
+import wishlistSlice from './slice/wishlistSlice';
+import cartSlice from './slice/cartSlice';
 const RootReducers = combineReducers({
   // reducers
   Reducers,
@@ -28,6 +30,8 @@ const RootReducers = combineReducers({
   CartReducer,
   WishlistReducer,
   UserProducts: UserProductSlice,
+  WishlistProducts: wishlistSlice,
+  CartProducts: cartSlice,
 });
 
 export const store = createStore(RootReducers, applyMiddleware(thunk));

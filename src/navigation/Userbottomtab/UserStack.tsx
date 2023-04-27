@@ -143,6 +143,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import Category from '../../screens/Category/Category';
 import UProductDetails from '../../screens/UProductDetails/UProductDetails';
+import Subcategory from '../../screens/Subcategory/Subcategory';
+import CategoryProducts from '../../screens/CategoryProducts/CategoryProducts';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -153,6 +155,18 @@ const HomeStack = () => {
       initialRouteName="Homescreen">
       <Stack.Screen name="Homescreen" component={Homescreen} />
       <Stack.Screen name="UProductDetails" component={UProductDetails} />
+    </Stack.Navigator>
+  );
+};
+
+const CategoryStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Category">
+      <Stack.Screen name="Category" component={Category} />
+      <Stack.Screen name="Subcategory" component={Subcategory} />
+      <Stack.Screen name="CategoryProducts" component={CategoryProducts} />
     </Stack.Navigator>
   );
 };
@@ -185,7 +199,7 @@ const MyStack = () => {
       />
       <Tab.Screen
         name="Category"
-        component={Category}
+        component={CategoryStack}
         options={{
           tabBarLabel: 'Category',
           tabBarIcon: ({color}) => (
@@ -203,11 +217,11 @@ const MyStack = () => {
             <View>
               {/* <MaterialCommunityIcons name="account" color={color} size={35} /> */}
               <HeartIcon name="heart-o" color={color} size={30} />
-              <View style={styles.Count}>
+              {/* <View style={styles.Count}>
                 <Text style={styles.CountText}>
                   {data.WishlistReducer.length}
                 </Text>
-              </View>
+              </View> */}
             </View>
           ),
         })}
@@ -220,9 +234,9 @@ const MyStack = () => {
           tabBarIcon: ({color}) => (
             <View>
               <MaterialCommunityIcons name="cart" color={color} size={30} />
-              <View style={styles.Count}>
+              {/* <View style={styles.Count}>
                 <Text style={styles.CountText}>{data.CartReducer.length}</Text>
-              </View>
+              </View> */}
             </View>
           ),
         })}

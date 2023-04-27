@@ -7,8 +7,8 @@ function useHome() {
   }, []);
 
   const dispatch = useDispatch();
-  const UserProducts = useSelector(state => state.UserProducts.data);
-  console.log(JSON.stringify(UserProducts));
-  return {UserProducts};
+  const WishlistProducts = useSelector(state => state.WishlistProducts.data);
+  console.log(JSON.stringify(WishlistProducts));
+  return {WishlistProducts};
 }
 export default useHome;

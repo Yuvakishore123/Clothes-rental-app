@@ -3,19 +3,16 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchWishlistProducts = createAsyncThunk(
-  'fetchWishlist',
+  'fetchWishlistProducts',
   async () => {
-    const res = await axios.get(
-      'https://d38a-122-171-148-208.ngrok-free.app/api/v1/wishlist/739ba91c-9ef2-48a7-895d-99be4c73fcb5',
-      {},
-    );
+    const res = await axios.get('https://fakestoreapi.com/products', {});
 
     return res.data;
   },
 );
 
-const WishlistProductSlice = createSlice({
-  name: 'WishlistProduct',
+const WishlistSlice = createSlice({
+  name: 'WishlistProducts',
   initialState: {
     data: null,
     // sda: [],
@@ -37,4 +34,4 @@ const WishlistProductSlice = createSlice({
   },
   reducers: undefined,
 });
-export default WishlistProductSlice.reducer;
+export default WishlistSlice.reducer;

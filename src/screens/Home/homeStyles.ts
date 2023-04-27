@@ -20,10 +20,10 @@ const style = StyleSheet.create({
   image: {
     width: '100%',
     height: 145,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
   },
   name: {
     fontSize: 10,

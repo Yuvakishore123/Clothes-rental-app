@@ -12,32 +12,6 @@ const DropdownComponent = ({value, onChange}) => {
   const [isFocus, setIsFocus] = useState(false);
   // const [selectedGender, setSelectedGender] = useState('');
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         'https://4a59-106-51-70-135.ngrok-free.app/category/list',
-  //       );
-  //       const categoriesArray = response.data.map(
-  //         (category: {id: any; categoryName: any}) => ({
-  //           ...category,
-  //           value: category.id,
-  //           label: category.categoryName,
-  //         }),
-  //       );
-  //       setCategoriesData(categoriesArray);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // const handleGenderChange = (selectedGender: string) => {
-  //   setSelectedGender(selectedGender);
-  //   onSelectGender(selectedGender);
-  // };
-
   return (
     <View style={Ownerstyles.scrollView}>
       <View style={styles.dropdownContainer}>
@@ -57,7 +31,7 @@ const DropdownComponent = ({value, onChange}) => {
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onChange={(item) => {
+          onChange={item => {
             onChange(item.value);
             // handleGenderChange(item.label);
             setIsFocus(false);
@@ -136,3 +110,38 @@ const styles = StyleSheet.create({
     color: Colors.main,
   },
 });
+
+// import React from 'react';
+// import {View, Text} from 'react-native';
+// import Dropdown from 'react-native-dropdown-picker';
+
+// const GenderDropdown = ({onSelectGender, onChange}) => {
+//   const data = [
+//     {label: 'Men', value: 'men'},
+//     {label: 'Women', value: 'women'},
+//   ];
+
+//   return (
+//     <View>
+//       <Dropdown
+//         items={data.filter(
+//           item => item.value === 'men' || item.value === 'women',
+//         )}
+//         defaultValue={'Select Gender'}
+//         containerStyle={{height: 50}}
+//         style={{backgroundColor: '#fafafa'}}
+//         itemStyle={{
+//           justifyContent: 'flex-start',
+//         }}
+//         labelStyle={{fontSize: 16, color: '#000'}}
+//         dropDownStyle={{backgroundColor: '#fafafa'}}
+//         onChangeItem={item => {
+//           onSelectGender(item.value);
+//           onChange();
+//         }}
+//       />
+//     </View>
+//   );
+// };
+
+// export default GenderDropdown;

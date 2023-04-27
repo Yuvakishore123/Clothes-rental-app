@@ -115,36 +115,75 @@ export const Init = () => {
     }
   };
 };
+// export const getOTP = (phoneNo: string) => {
+//   return async (dispatch: Dispatch) => {
+//     dispatch({type: VERIFY_OTP_REQUEST});
+//     try {
+//       const response = await axios.post(
+//         'https://338a-106-51-70-135.ngrok-free.app/api/phoneNo',
+//         {
+//           phoneNo,
+//         },
+//       );
+//       console.log('otp send');
+//       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
+//     } catch (error) {
+//       dispatch({type: VERIFY_OTP_FAILURE, payload: error.message});
+//     }
+//   };
+// };
+
+// export const submitOTP = (phoneNo: string, otp: number) => {
+//   return async (dispatch: Dispatch) => {
+//     dispatch({type: LOGIN_REQUEST});
+//     try {
+//       const response = await axios.post(
+//         'https://338a-106-51-70-135.ngrok-free.app/api/otp',
+//         {
+//           phoneNo: phoneNo,
+//           otp: otp,
+//         },
+//       );
+//       const token = response.headers.access_token;
+//       await AsyncStorage.setItem('token', token);
+//       dispatch({type: LOGIN_SUCCESS, payload: token});
+//     } catch (error) {
+//       dispatch({type: LOGIN_FAILURE, payload: error.message});
+//     }
+//   };
+// };
+
 export const getOTP = (phoneNo: string) => {
   return async (dispatch: Dispatch) => {
     dispatch({type: VERIFY_OTP_REQUEST});
     try {
       const response = await axios.post(
-        'http://7269-180-151-121-182.ngrok.io/api/phoneNo',
+        'https://338a-106-51-70-135.ngrok-free.app/api/phoneNo',
         {
           phoneNo,
         },
+        Alert.alert('button Pressed'),
       );
       console.log('otp send');
       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
     } catch (error) {
-      dispatch({type: VERIFY_OTP_FAILURE, payload: error.message});
+      dispatch({type: VERIFY_OTP_FAILURE, payload: error});
     }
   };
 };
-
 export const submitOTP = (phoneNo: string, otp: number) => {
   return async (dispatch: Dispatch) => {
     dispatch({type: LOGIN_REQUEST});
     try {
       const response = await axios.post(
-        'http://7269-180-151-121-182.ngrok.io/api/otplogin',
+        'https://338a-106-51-70-135.ngrok-free.app/api/otp',
         {
           phoneNo: phoneNo,
           otp: otp,
         },
+        // console.log('Phone no', phoneNo, otp),
       );
-      const token = response.data.access_token;
+      const token = response.headers.access_token;
       await AsyncStorage.setItem('token', token);
       dispatch({type: LOGIN_SUCCESS, payload: token});
     } catch (error) {
@@ -160,7 +199,7 @@ export const Login = (email: string, password: string) => {
         type: LOGIN_REQUEST,
       });
       const response = await axios.post(
-        'https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/login',
+        'https://6e07-106-51-70-135.ngrok-free.app/api/login',
         {
           email: email,
           password: password,
@@ -174,10 +213,10 @@ export const Login = (email: string, password: string) => {
           },
         },
       );
-      const token = response.data.token;
+      const token = response.headers.access_token;
       await AsyncStorage.setItem('token', token);
       console.log('token stored');
-      console.log(token);
+      console.log('this is token', token);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: token,
@@ -200,7 +239,7 @@ export const SignupAndLogin = (
 ) => {
   return async (dispatch: Dispatch) => {
     axios
-      .post('https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/signup', {
+      .post('https://6e07-106-51-70-135.ngrok-free.app/user/signup', {
         firstName,
         lastName,
         email,
@@ -342,26 +381,27 @@ export const removeFromWishlist = index => ({
 //changes for wishlist api
 
 // action creator
+
 export const postProductToAPI = item => {
   console.log('hello', item);
   // const token = await AsyncStorage.getItem('unifiedToken');
   // console.log(token);
   return dispatch => {
     // make API call
-    fetch(
-      `https://d38a-122-171-148-208.ngrok-free.app/api/v1/wishlist/739ba91c-9ef2-48a7-895d-99be4c73fcb5`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(item),
+    fetch(`https://6449b682a8370fb3213c7b3f.mockapi.io/api/v1/postWishlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify(item),
+    })
       .then(response => response.json())
       .then(data => {
         // update the Redux store with the response data
         dispatch(addProductToStore(data));
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
         console.log('succes');
       })
       .catch(error => console.log(error));
@@ -375,6 +415,45 @@ export const ADD_PRODUCT_TO_STORE = 'ADD_PRODUCT_TO_STORE';
 export const addProductToStore = product => {
   return {
     type: ADD_PRODUCT_TO_STORE,
+    payload: product,
+  };
+};
+//changes for wishlist api done till here!
+//------------------------------------
+
+export const postProductToCartAPI = item => {
+  console.log('hello cart', item);
+  // const token = await AsyncStorage.getItem('unifiedToken');
+  // console.log(token);
+  return dispatch => {
+    // make API call
+    fetch(`https://6e07-106-51-70-135.ngrok-free.app/cart/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(item),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // update the Redux store with the response data
+        dispatch(addProductToCartStore(data));
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
+        console.log('succes');
+      })
+      .catch(error => console.log(error));
+  };
+};
+
+// action type
+export const ADD_PRODUCT_TO_CART_STORE = 'ADD_PRODUCT_TO_CART_STORE';
+
+// action creator
+export const addProductToCartStore = product => {
+  return {
+    type: ADD_PRODUCT_TO_CART_STORE,
     payload: product,
   };
 };

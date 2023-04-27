@@ -16,12 +16,14 @@ import UDetailScreen from '../UProductDetails/UProductDetails';
 
 // import UserProductdetails from '../UserProductDetails/UserProductDetails';
 
-import {addToWishlist, postProductToAPI} from '../../redux/actions/actions';
+import {
+  addToWishlist,
+  postProductToAPI,
+  postProductToCartAPI,
+} from '../../redux/actions/actions';
 
 import style from './homeStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-// import SearchIcon from '@mui/icons-material/Search';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -141,7 +143,7 @@ const Homescreen = ({navigation}: Props) => {
                     }>
                     <View style={style.imageContainer}>
                       <Image
-                        source={{uri: item.imageURL}}
+                        source={{uri: item.image}}
                         style={style.image}
                         //changes
                         // onPress={() =>
@@ -178,7 +180,8 @@ const Homescreen = ({navigation}: Props) => {
                       <TouchableOpacity
                         style={style.rentButton}
                         onPress={() => {
-                          dispatch(addItemToCart(item));
+                          // dispatch(addItemToCart(item));
+                          dispatch(postProductToCartAPI({...item}));
                         }}>
                         <Text style={style.rentText}>Rent</Text>
                       </TouchableOpacity>

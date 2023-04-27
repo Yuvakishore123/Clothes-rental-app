@@ -2,11 +2,25 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import axios from 'axios';
 // var sds =[]
-export const fetchUserProducts = createAsyncThunk('fetchProducts', async () => {
-  const res = await axios.get('https://d38a-122-171-148-208.ngrok-free.app/api/v1/product/list?pageNumber=0&pageSize=10', {});
+export const fetchUserProducts = createAsyncThunk('fetchUserProducts', async () => {
+  const res = await axios.get('https://fakestoreapi.com/products', {});
   //   sds = res.data
   return res.data;
 });
+
+
+// export const fetchUserProducts = createAsyncThunk(
+//   'fetchUserProducts',
+//   async (_, {getState}) => {
+//     const token = getState().auth.token;
+//     const res = await axios.get('https://338a-106-51-70-135.ngrok-free.app/product/list', {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return res.data;
+//   },
+// );
 
 const UserProductSlice = createSlice({
   name: 'UserProducts',

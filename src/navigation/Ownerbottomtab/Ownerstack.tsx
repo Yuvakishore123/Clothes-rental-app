@@ -48,7 +48,6 @@ const OwnerProfilestack = () => {
 //   );
 // };
 
-
 const OwnerHomestack = () => {
   return (
     <Stack.Navigator
@@ -57,17 +56,12 @@ const OwnerHomestack = () => {
       <Stack.Screen name="OwnerHome" component={OwnerHome} />
       <Stack.Screen name="Oproduct" component={OwnerHome} />
       <Stack.Screen name="Additems" component={Additems} />
+
       <Stack.Screen name="MyRentals" component={MyRentals} />
       <Stack.Screen name="OproductDetails" component={OproductDetails} />
     </Stack.Navigator>
   );
 };
-
-
-
-
-
-
 
 const Owneradditemsstack = () => {
   return (

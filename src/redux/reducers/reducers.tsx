@@ -18,7 +18,7 @@ const initialState = {
   loading: false,
   isAuthenticated: false,
   error: '',
-  verifyingOTP: false // new state to keep track of whether OTP is being verified
+  verifyingOTP: false, // new state to keep track of whether OTP is being verified
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -30,19 +30,21 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         loading: true,
-        verifyingOTP: true // set verifyingOTP to true while OTP is being verified
+        verifyingOTP: true, // set verifyingOTP to true while OTP is being verified
       };
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
     case OTP_SUCCESS:
+      console.log('kishore', action.payload);
       return {
         ...state,
         loading: false,
         authToken: action.payload,
         isAuthenticated: true,
         error: '',
-        verifyingOTP: false // set verifyingOTP to false after OTP is successfully verified
+        verifyingOTP: false, // set verifyingOTP to false after OTP is successfully verified
       };
+
     case LOGIN_FAILURE:
     case SIGNUP_FAILURE:
     case OTP_FAILURE:
@@ -52,17 +54,17 @@ const authReducer = (state = initialState, action: any) => {
         loading: false,
         isAuthenticated: false,
         error: action.payload,
-        verifyingOTP: false // set verifyingOTP to false after OTP verification fails
+        verifyingOTP: false, // set verifyingOTP to false after OTP verification fails
       };
     case VERIFY_OTP_SUCCESS: // add new action type for OTP verification success
       return {
         ...state,
-        verifyingOTP: false // set verifyingOTP to false after OTP is successfully verified
+        verifyingOTP: false, // set verifyingOTP to false after OTP is successfully verified
       };
     case 'LOGOUT':
       return {
         authToken: null,
-        verifyingOTP: false // reset verifyingOTP to false on logout
+        verifyingOTP: false, // reset verifyingOTP to false on logout
       };
     default:
       return state;

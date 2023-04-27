@@ -81,9 +81,7 @@ const style = StyleSheet.create({
   },
   btnPText: {
     position: 'absolute',
-    // textAlign:'center',
-
-    left: 120,
+    left: 110,
     top: 15,
     height: 29,
     width: 104,
@@ -91,6 +89,7 @@ const style = StyleSheet.create({
     fontFamily: 'Poppins',
     fontSize: 20,
     color: '#3E54AC',
+    alignItems: 'center',
   },
 
   imageContainer: {

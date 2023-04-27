@@ -11,10 +11,14 @@ const CartItem = ({
   onAddToCart,
 }) => {
   return (
-    <View style={style.container}>
+   
+   
+   
+   
+   <View style={style.container}>
       <TouchableOpacity>
         <View style={style.imageContainer}>
-          <Image source={{uri: item.imageURL}} style={style.image} />
+          <Image source={{uri: item.image}} style={style.image} />
         </View>
       </TouchableOpacity>
 

@@ -120,6 +120,132 @@
 //   );
 // };
 // export default OwnerEditProfile;
+// import {
+//   Text,
+//   TextInput,
+//   View,
+//   Alert,
+//   TouchableOpacity,
+//   ScrollView,
+// } from 'react-native';
+// // import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+// import React, {useState} from 'react';
+// import {useNavigation} from '@react-navigation/native';
+// import style from './Ownereditprofilestyle';
+// import Colors from '../../constants/Colors';
+// import MaterialIcon from 'react-native-vector-icons/Ionicons';
+// const OwnerEditProfile = () => {
+//   const navigation = useNavigation();
+//   // State variables for profile information
+//   const [firstName, setfirstName] = useState('');
+//   const [lastName, setlastName] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [phoneNumber, setphoneNumber] = useState('');
+//   const handleReset = () => {
+//     setfirstName('');
+//     setlastName('');
+//     setEmail('');
+//     setphoneNumber('');
+//   };
+//   // Function to update profile information
+//   const handleUpdate = async () => {
+//     try {
+//       // Make API call to update profile information
+//       const response = await fetch(
+//         'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/user/update?token=7799a9f1-52a2-461d-9146-c91db88ea8ef',
+//         {
+//           method: 'PUT',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             firstName: firstName,
+//             lastName: lastName,
+//             email: email,
+//             phoneNumber: phoneNumber,
+//           }),
+//         },
+//       );
+//       // Check if API call was successful
+//       if (response.ok) {
+//         Alert.alert('Profile updated!');
+//         navigation.navigate('OwnerProfile');
+//       } else {
+//         throw new Error('Failed to update profile');
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       Alert.alert('Failed to update profile');
+//     }
+//   };
+//   return (
+//     // <ScrollView>
+//     <View style={style.container}>
+//       <View style={style.addAddressHeader}>
+//         <TouchableOpacity
+//           style={style.backBtn}
+//           onPress={() => {
+//             navigation.goBack();
+//           }}>
+//           <MaterialIcon
+//             name="md-chevron-back"
+//             color={Colors.iconscolor}
+//             size={26}
+//           />
+//         </TouchableOpacity>
+//         <Text style={style.addAddressText}>Edit Profile</Text>
+//       </View>
+//       <View style={style.line} />
+//       <ScrollView>
+//         <View style={style.cardStyle}>
+//           <View>
+//             <Text style={style.text}>FirstName</Text>
+//             <TextInput
+//               style={style.input}
+//               // placeholder="First Name"
+//               placeholderTextColor="#999"
+//               // fontWeight="300"
+//               value={firstName}
+//               onChangeText={text => setfirstName(text)}
+//             />
+//             <Text style={style.text}>LastName</Text>
+//             <TextInput
+//               style={style.input}
+//               // placeholder="Last Name"
+//               value={lastName}
+//               onChangeText={text => setlastName(text)}
+//             />
+//             <Text style={style.text}>Email</Text>
+//             <TextInput
+//               style={style.input}
+//               // placeholder="Email"
+//               value={email}
+//               onChangeText={text => setEmail(text)}
+//             />
+//             <Text style={style.text}>phonenumber</Text>
+//             <TextInput
+//               style={style.input}
+//               // placeholder="Telephone"
+//               value={phoneNumber}
+//               onChangeText={text => setphoneNumber(text)}
+//             />
+//           </View>
+//         </View>
+//       </ScrollView>
+//       <View style={style.buttons}>
+//         <TouchableOpacity style={style.btnfield1} onPress={handleReset}>
+//           <Text style={style.btntext1}>Reset </Text>
+//         </TouchableOpacity>
+//         <TouchableOpacity style={style.btnfield} onPress={handleUpdate}>
+//           <Text style={style.btntext}>Update </Text>
+//         </TouchableOpacity>
+//       </View>
+//     </View>
+//     // </ScrollView>
+//   );
+// };
+// export default OwnerEditProfile;
+
 import {
   Text,
   TextInput,
@@ -128,19 +254,43 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-// import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import React, {useState} from 'react';
+// import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import style from './Ownereditprofilestyle';
 import Colors from '../../constants/Colors';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
 const OwnerEditProfile = () => {
   const navigation = useNavigation();
-  // State variables for profile information
   const [firstName, setfirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setphoneNumber] = useState('');
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        // Make API call to get user profile data
+        const response = await fetch(
+          'https://e046-106-51-70-135.ngrok-free.app/user/userdetails?userId=6',
+        );
+        // Check if API call was successful
+        if (response.ok) {
+          const profileData = await response.json();
+          // Set state variables with retrieved profile data
+          setfirstName(profileData.firstName);
+          setlastName(profileData.lastName);
+          setEmail(profileData.email);
+          setphoneNumber(profileData.phoneNumber);
+        } else {
+          throw new Error('Failed to fetch profile data');
+        }
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Failed to fetch profile data');
+      }
+    };
+    fetchProfileData();
+  }, []);
   const handleReset = () => {
     setfirstName('');
     setlastName('');
@@ -149,23 +299,28 @@ const OwnerEditProfile = () => {
   };
   // Function to update profile information
   const handleUpdate = async () => {
+    const data = JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+    });
+    console.log(data);
     try {
       // Make API call to update profile information
       const response = await fetch(
-        'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/user/update?token=7799a9f1-52a2-461d-9146-c91db88ea8ef',
+        'https://e046-106-51-70-135.ngrok-free.app/user/update',
         {
           method: 'PUT',
           headers: {
+            Authorization:
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQGdtYWlsLmNvbSIsInJvbGVzIjpbIm93bmVyIl0sImlzcyI6Imh0dHA6Ly9lMDQ2LTEwNi01MS03MC0xMzUubmdyb2stZnJlZS5hcHAvYXBpL2xvZ2luIiwiZXhwIjoxNjgyNTA5OTM0fQ.IXwV31N2R8OSJkmVmkAAOGFc-7zuCkQeXLR-ospPNko',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phoneNumber: phoneNumber,
-          }),
+          body: data,
         },
       );
+      console.log();
       // Check if API call was successful
       if (response.ok) {
         Alert.alert('Profile updated!');
