@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Dispatch} from 'redux';
 import {AddAddressUrl, url} from '../../constants/Apis';
+import { Alert } from 'react-native';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -362,9 +363,9 @@ export const addItemToCart = data => ({
   payload: data,
 });
 
-export const removeFromCart = index => ({
+export const removeFromCart = (productId) => ({
   type: REMOVE_FROM_CART,
-  payload: index,
+  payload: productId,
 });
 
 export const addToWishlist = data => ({
@@ -372,9 +373,9 @@ export const addToWishlist = data => ({
   payload: data,
 });
 
-export const removeFromWishlist = index => ({
+export const removeFromWishlist = (data) => ({
   type: REMOVE_FROM_WISHLIST,
-  payload: index,
+  payload: data,
 });
 
 //----------
@@ -384,27 +385,29 @@ export const removeFromWishlist = index => ({
 
 export const postProductToAPI = item => {
   console.log('hello', item);
-  // const token = await AsyncStorage.getItem('unifiedToken');
-  // console.log(token);
-  return dispatch => {
-    // make API call
-    fetch(`https://6449b682a8370fb3213c7b3f.mockapi.io/api/v1/postWishlist`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(item),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // update the Redux store with the response data
-        dispatch(addProductToStore(data));
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
-        console.log('succes');
-      })
-      .catch(error => console.log(error));
+  return async dispatch => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log(token);
+      // make API call
+      const response = await fetch(`${url}/wishlist/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(item),
+      });
+      const data = await response.json();
+      // update the Redux store with the response data
+      dispatch(addProductToStore(data));
+      console.log('====================================');
+      console.log(data);
+      console.log('====================================');
+      console.log('success');
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
@@ -448,6 +451,12 @@ export const addProductToStore = product => {
 // };
 
 export const postProductToCartAPI = (item: any) => {
+  const modifiedItem = {
+    productId: item.id,
+    quantity: item.quantity,
+    // rentalEndDate: item.rentalEndDate,
+    // rentalStartDate: item.rentalStartDate,
+  };
   console.log('hello cart', item);
   return async (dispatch: any) => {
     const token = await AsyncStorage.getItem('token');
@@ -458,7 +467,7 @@ export const postProductToCartAPI = (item: any) => {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(item),
+      body: JSON.stringify(modifiedItem),
     })
       .then(response => response.text())
       .then(data => {
@@ -466,10 +475,7 @@ export const postProductToCartAPI = (item: any) => {
           const parsedData = JSON.parse(data);
           // update the Redux store with the response data
           dispatch(addProductToCartStore(parsedData));
-          console.log('====================================');
-          console.log(parsedData);
-          console.log('====================================');
-          console.log('success');
+          Alert.alert('item Added Successfully');
         } catch (error) {
           console.log('Error parsing response:', error);
           console.log('Raw response:', data);

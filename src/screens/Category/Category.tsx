@@ -9,11 +9,10 @@ import {
 import React, {useState, useEffect} from 'react';
 import style from './categoryStyles';
 
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-import Subcategory from '../Subcategory/Subcategory';
 import axios from 'axios';
-import { url } from '../../constants/Apis';
+import {url} from '../../constants/Apis';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);

@@ -2,19 +2,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 import axios from 'axios';
+import {url} from '../../constants/Apis';
 
 export const fetchWishlistProducts = createAsyncThunk(
   'fetchWishlistProducts',
   async () => {
     const token = await AsyncStorage.getItem('token');
-    const res = await axios.get(
-      'https://fa68-103-146-217-155.ngrok-free.app/api/v1/wishlist/addtowishlist',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    console.log('yokes', token);
+    const res = await axios.get(`${url}/wishlist/addtowishlist`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
 
     return res.data;
   },

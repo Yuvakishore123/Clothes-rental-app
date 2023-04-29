@@ -1,41 +1,42 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
-// import CartItem from './CartItem';
-import style from './CartItemStyles';
 import {useDispatch, useSelector} from 'react-redux';
 import DatePicker from '../../components/atoms/DatePicker';
-import {
-  addItemToCart,
-  addToWishlist,
-  removeFromCart,
-} from '../../redux/actions/actions';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useCart from './useCart';
+import style from './CartItemStyles';
+
 type Props = {
   route: {name: string};
   navigation: any;
 };
+
 const Cart = ({navigation}: Props) => {
-  // const [cartList, setCartList] = useState([]);
-  // const cartData = useSelector(state => state.CartReducer);
-  // const dispatch = useDispatch();
-
   const dispatch = useDispatch();
-
-  const CartProducts = useCart();
-  const allCartProducts = useSelector(state => state.CartProducts.data);
-  console.log('hey cart products', allCartProducts);
+  const {CartProducts, handleCheckout, handleRemove} = useCart();
+  const cartData = useSelector(state => state.CartProducts.data);
+  const totalCost = useSelector(state => state.CartReducer.totalCost);
   const isLoading = useSelector(state => state.CartProducts.isLoader);
   const error = useSelector(state => state.CartProducts.error);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState(null);
+  const [rentalStartDate, setRentalStartDate] = useState(new Date());
+  const [rentalEndDate, setRentalEndDate] = useState(new Date());
+  console.log('cartItems:', cartData);
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
+
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -48,177 +49,124 @@ const Cart = ({navigation}: Props) => {
           justifyContent: 'center',
           height: '100%',
         }}>
-        {/* <Image
-          source={require('../../../Assets/LoginImage.png')}
-          style={{
-            height: 200,
-            width: 200,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        /> */}
         <Text>The Items are Loading...</Text>
       </View>
     );
   }
 
-  //   useEffect(() => {
-  //     AsyncStorage.getItem('cartData').then(data => {
-  //       if (data) {
-  //         setCartList(JSON.parse(data));
-  //       }
-  //     });
-  //   }, []);
   return (
-    <View style={{flex: 1}}>
-      <View style={{marginLeft: 63, marginTop: 20}}>
-        <Text
-          style={{
-            color: '#3E54AC',
-            fontSize: 15,
-            fontFamily: 'poppins',
-            fontWeight: 'bold',
-          }}>
-          Cart
-        </Text>
+    <>
+      <View style={{width: 34, height: 29, left: 65, marginTop: 20}}>
+        <View style={{}}>
+          <Text
+            style={{
+              color: '#3E54AC',
+              fontSize: 15,
+              fontFamily: 'poppins',
+              fontWeight: 'bold',
+            }}>
+            Cart
+          </Text>
+        </View>
       </View>
-      <FlatList
-        data={allCartProducts}
-        renderItem={({item, index}) => {
-          return (
-            // // <CartItem
-            // //   onAddWishlist={x => {
-            // //     dispatch(addToWishlist(x));
-            // //     // ,AsyncStorage.setItem(
-            // //     //   'wishlistData',
-            // //     //   JSON.stringify(WishlistData)
-            // //     // );
-            // //   }}
-            // //   item={item}
-            // //   onRemoveItem={() => {
-            // //     dispatch(removeFromCart(index));
-            // //     // AsyncStorage.setItem('cartData', JSON.stringify(cartData));
-            // //   }}
-            // // />
-
-            // <View style={style.cardContainer}>
-            //   <TouchableOpacity>
-            //     <View style={style.image}>
-            // <Image source={{uri: item.image}} style={style.image} />
-
-            //   <View style={style.cardTextContainer}>
-            //     <View
-            //       style={{
-            //         flexDirection: 'row',
-            //         justifyContent: 'space-between',
-            //       }}>
-            //       <Text style={style.name}>{item.title}</Text>
-            //       <TouchableOpacity
-            //         style={style.addButton}
-            //         // onPress={() => {}}
-            //       >
-            //         <Text
-            //           style={{
-            //             color: '#3E54AC',
-            //             fontWeight: 'bold',
-            //             fontSize: 12,
-            //           }}>
-            //           +
-            //         </Text>
-            //       </TouchableOpacity>
-            //     </View>
-
-            //     <View style={style.textContainer}>
-            //       <Text style={style.name}>{'₹' + item.price}</Text>
-
-            //       <TouchableOpacity
-            //         style={style.rentButton}
-            //         // onPress={() => {
-            //         // onAddToCart(item);
-            //         // handleAddToCart(item); imp
-            //         // }}
-            //       >
-            //         <Text style={style.rentText}>Remove</Text>
-            //       </TouchableOpacity>
-            //     </View>
-            //   </View>
-            // </View>
-            <View style={style.cardContainer}>
-              <Image source={{uri: item.imageURL}} style={style.image} />
-              <Text style={style.priceText}>₹ {item.price}</Text>
-              <Text style={style.TextItemname}></Text>
-              <Text style={style.TextRentfrom}>Rent From</Text>
-              <View style={style.buttonContainer}>
-                <View style={style.buttonRentFrom}>
-                  <Text style={style.buttonTextRentto}>Rent To</Text>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <ScrollView style={style.mainContainer}>
+          {cartData?.cartItems?.map((item, index) => (
+            <View key={index} style={style.cardContainer}>
+              <Image
+                source={{uri: item.product.imageURL}}
+                style={style.image}
+              />
+              <View style={style.cardTextContainer}>
+                <Text style={style.productname}>{item.product.name}</Text>
+                <Text style={style.name}>Rent From</Text>
+                <DatePicker
+                  fromDate={rentalStartDate}
+                  toDate={rentalEndDate}
+                  onFromDateChange={setRentalStartDate}
+                  onToDateChange={setRentalEndDate}
+                />
+                <TouchableOpacity
+                  style={style.RemoveButton}
+                  onPress={() => handleRemove(item.product.id)}>
+                  <Text style={style.RemoveButtonText}>remove</Text>
+                </TouchableOpacity>
+                <Text style={style.name}>Size</Text>
+                <View style={style.productSizeBox}>
+                  <Text style={style.detailsdescription}>
+                    {item.product.size}
+                  </Text>
                 </View>
-                <Text style={style.TextSizeTo}>To</Text>
-                <View style={style.buttonContainer}>
-                  <TouchableOpacity style={style.buttonRentTo}>
-                    <Text style={style.buttonTextRentto}>Rent To</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={style.buttonQuantity}
-                    onPress={decrementQuantity}>
-                    <Text style={style.buttonTextDecrement}>-</Text>
-                  </TouchableOpacity>
-                  <Text style={style.quantityText}>{quantity}</Text>
-                  <TouchableOpacity
-                    style={style.buttonQuantity}
-                    onPress={incrementQuantity}>
-                    <Text style={style.buttonTextIncrement}>+</Text>
-                  </TouchableOpacity>
-                  <Text style={style.TextSize}>Size</Text>
-                  <TouchableOpacity
-                    style={style.buttonSize}
-                    onPress={() => setSize('S')}>
-                    <Text
-                      style={[
-                        style.buttonSizeText,
-                        size === 'S' && style.activeButtonText,
-                      ]}>
-                      S
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={style.buttonSize}
-                    onPress={() => setSize('M')}>
-                    <Text
-                      style={[
-                        style.buttonSizeText,
-                        size === 'M' && styles.activeButtonText,
-                      ]}>
-                      M
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={style.buttonSize}
-                    onPress={() => setSize('L')}>
-                    <Text
-                      style={[
-                        style.buttonSizeText,
-                        size === 'L' && style.activeButtonText,
-                      ]}>
-                      L
-                    </Text>
-                  </TouchableOpacity>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={style.priceText}>
+                    {'₹' + item.product.price}
+                  </Text>
+                  <View style={style.quantityContainer}>
+                    <TouchableOpacity onPress={decrementQuantity}>
+                      <View
+                        style={{
+                          borderRightWidth: 1,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          paddingRight: 5,
+                        }}>
+                        <Icon name="minus" size={15} />
+                      </View>
+                    </TouchableOpacity>
+                    <View style={{alignItems: 'center', bottom: 2}}>
+                      <Text>{quantity}</Text>
+                    </View>
+                    <TouchableOpacity onPress={incrementQuantity}>
+                      <View
+                        style={{
+                          borderLeftWidth: 1,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          paddingLeft: 5,
+                        }}>
+                        <Icon name="plus" size={15} />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
-          );
-        }}
-      />
-      <View>
-        <Text style={style.TextGrand}>Grand Total</Text>
-        <View style={style.cardContaineramount}>
-          <Text style={style.TextTotal}>Total Amount </Text>
-          <Text style={style.priceTotalText}>₹ 5</Text>
+          ))}
+        </ScrollView>
+        <View style={{marginTop: 10, padding: 20}}>
+          <Text style={{color: '#3E54AC', fontWeight: '600', fontSize: 18}}>
+            Grand Total
+          </Text>
+          <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: 10,
+                width: 320,
+                backgroundColor: '#3E54AC1A',
+                height: 50,
+                borderRadius: 5,
+                alignItems: 'center',
+                padding: 10,
+              }}>
+              <Text>Total Amount</Text>
+              <Text>{'₹' + totalCost}</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={style.PaymentButton}
+            onPress={handleCheckout}>
+            <Text style={style.PaymentButtonText}>Proceed To CheckOut</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={style.PaymentButton}>
-          <Text style={style.PaymentButtonText}>Proceed To CheckOut</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 };
 

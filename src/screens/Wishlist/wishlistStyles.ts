@@ -3,18 +3,17 @@ import {Dimensions} from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
-textStyle:{
+  textStyle: {
     color: '#3E54AC',
-            fontSize: 15,
-            fontFamily: 'poppins',
-            fontWeight: 'bold',
-
-},
+    fontSize: 15,
+    fontFamily: 'poppins',
+    fontWeight: 'bold',
+  },
 
   rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
-container:{flex: 1},
-textConatiner:{marginLeft: 63, marginTop: 20},
- cartItemContainer: {
+  container: {flex: 1, marginLeft: 10, marginTop: 10},
+  textConatiner: {marginLeft: 63, marginTop: 20},
+  cartItemContainer: {
     marginTop: 20,
     marginRight: 10,
     width: '40%',
@@ -109,21 +108,19 @@ textConatiner:{marginLeft: 63, marginTop: 20},
     paddingTop: 7,
   },
   wishlistBtn: {
-   
-      // width: 35,
-      // height: 35,
+    // width: 35,
+    // height: 35,
 
-      // borderRadius: 20,
-      // // elevation: 5,
-      // // position: 'relative',
-      // top: 10,
-      // right: 10,
-      // // justifyContent: 'center',
-      // alignItems: 'center',
-      position: 'absolute',
+    // borderRadius: 20,
+    // // elevation: 5,
+    // // position: 'relative',
+    // top: 10,
+    // right: 10,
+    // // justifyContent: 'center',
+    // alignItems: 'center',
+    position: 'absolute',
     top: 10,
-    right: 60,
-    
+    left: 110,
   },
 
   //   imageContainer: {
@@ -189,9 +186,9 @@ textConatiner:{marginLeft: 63, marginTop: 20},
 
     borderRadius: 20,
     // elevation: 5,
-    position: 'absolute',
+    // position: 'absolute',
     top: 10,
-    right: 10,
+    right: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -206,7 +203,6 @@ textConatiner:{marginLeft: 63, marginTop: 20},
   //   },
 
   //changes
-
 
   imageContainer: {
     backgroundColor: 'green',
@@ -229,9 +225,5 @@ textConatiner:{marginLeft: 63, marginTop: 20},
 
     alignItems: 'center',
   },
-
-
-
-
 });
 export default style;

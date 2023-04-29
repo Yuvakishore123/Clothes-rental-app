@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
-  const {categoryId} = route.params;
+  const {subcategoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
   const navigation = useNavigation();
 
@@ -25,7 +25,7 @@ const CategoryProducts = ({route}) => {
       };
 
       const response = await axios.get(
-        `${url}/subcategory/listbyid/${categoryId}`,
+        `${url}/product/listBySubcategoryId/${subcategoryId}`,
         config, // pass the config object as the second argument
       );
       const subcategoriesData = response.data;
@@ -33,12 +33,12 @@ const CategoryProducts = ({route}) => {
     };
 
     fetchSubcategories();
-  }, [categoryId]);
+  }, [subcategoryId]);
 
   const renderItem = ({item}) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('CategoryProducts', {categoryId: item.id})
+        navigation.navigate('CategoryProducts', {subcategoryId: item.id})
       }>
       <View>
         {/* <Text>{item.subcategoryName}</Text>
@@ -76,7 +76,7 @@ const CategoryProducts = ({route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={style.name}>{item.title}</Text>
+              <Text style={style.name}>{item.name}</Text>
               <TouchableOpacity style={style.addButton} onPress={() => {}}>
                 <Text
                   style={{
@@ -136,7 +136,7 @@ const CategoryProducts = ({route}) => {
   return (
     <View>
       <View style={style.textConatiner}>
-        <Text style={style.textStyle}>Category</Text>
+        <Text style={style.textStyle}>Products</Text>
       </View>
       <FlatList
         data={subcategories}

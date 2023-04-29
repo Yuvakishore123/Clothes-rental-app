@@ -50,27 +50,30 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CartGetApi} from '../../constants/Apis';
 
-export const fetchCartProducts = createAsyncThunk('fetchProducts', async () => {
-  // get the token from the state
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const response = await axios.get(
-      `https://fa68-103-146-217-155.ngrok-free.app/api/v1/cart/list`,
-      {
+export const fetchCartProducts = createAsyncThunk(
+  'fetchCartProducts',
+  async () => {
+    // get the token from the state
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log('hello token', token);
+      const response = await axios.get(CartGetApi, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      },
-    );
-    return response.data;
-  } catch (error) {
-    throw error.response.data; // throw the error to be caught by the reject handler
-  }
-});
+      });
+      console.log('john anna', response.data);
+      return response.data;
+    } catch (error) {
+      throw error.response.data; // throw the error to be caught by the reject handler
+    }
+  },
+);
 
 const CartSlice = createSlice({
-  name: 'products',
+  name: 'cartproducts',
   initialState: {
     data: null,
     isLoader: false,

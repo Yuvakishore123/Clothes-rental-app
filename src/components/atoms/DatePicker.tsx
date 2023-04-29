@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 type Props = {
@@ -35,14 +35,12 @@ const DatePicker = ({
     <View style={styles.container}>
       <TouchableOpacity onPress={showFromDatepicker}>
         <View style={styles.dateBox}>
-          <Text style={styles.dateText}>
-            From: {fromDate.toLocaleDateString()}
-          </Text>
+          <Text style={styles.dateText}>{fromDate.toLocaleDateString()}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={showToDatepicker}>
         <View style={styles.dateBox}>
-          <Text style={styles.dateText}>To: {toDate.toLocaleDateString()}</Text>
+          <Text style={styles.dateText}>{toDate.toLocaleDateString()}</Text>
         </View>
       </TouchableOpacity>
       {showFromPicker && (
@@ -74,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginVertical: 10,
+    marginVertical: 15,
   },
   datePicker: {
     position: 'absolute',
@@ -87,14 +85,18 @@ const styles = StyleSheet.create({
   dateBox: {
     // borderColor: 'green',
     borderColor: '#3E54AC',
-    borderWidth: 3,
+    marginLeft: 5,
+    borderWidth: 1,
+    width: 70,
+    height: 25,
     // backgroundColor: 'blue',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
   },
   dateText: {
-    fontSize: 18,
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });
 export default DatePicker;

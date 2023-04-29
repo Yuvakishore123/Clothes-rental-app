@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {FlatList} from 'react-native-gesture-handler';
@@ -19,7 +20,7 @@ const Wishlist = ({navigation}: Props) => {
   // const {cartData, handleRemoveFromWishlist, handleAddToCart} = useWishlist();
   const dispatch = useDispatch();
 
-  const WishlistProducts = useWishlist();
+  const {WishlistProducts, removeFromWishlist} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log('hey', allWishlistProducts);
   const isLoading = useSelector(state => state.WishlistProducts.isLoader);
@@ -66,6 +67,14 @@ const Wishlist = ({navigation}: Props) => {
                 <View style={style.imageContainer}>
                   <Image source={{uri: item.image}} style={style.image} />
                 </View>
+                <TouchableOpacity
+                  style={style.wishlistBtn}
+                  onPress={removeFromWishlist}>
+                  <Image
+                    source={require('../../../Assets/fillheart.png')}
+                    style={{width: 24, height: 24, tintColor: 'red'}}
+                  />
+                </TouchableOpacity>
               </TouchableOpacity>
 
               <View style={style.cardTextContainer}>
@@ -104,19 +113,6 @@ const Wishlist = ({navigation}: Props) => {
                   </TouchableOpacity>
                 </View>
               </View>
-
-              <TouchableOpacity
-                style={style.wishlistBtn}
-                // onPress={() => {
-                // onRemoveFromWishlist(item);
-                // handleRemoveFromWishlist(item); imp
-                // }}
-              >
-                <Image
-                  source={require('../../../Assets/fillheart.png')}
-                  style={{width: 24, height: 24, tintColor: 'red'}}
-                />
-              </TouchableOpacity>
             </View>
           );
         }}

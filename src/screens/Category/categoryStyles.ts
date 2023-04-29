@@ -1,7 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
-const screenWidth = Dimensions.get('window').width;
-import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   textStyle: {
     color: '#3E54AC',

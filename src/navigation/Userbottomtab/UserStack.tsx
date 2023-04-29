@@ -189,7 +189,7 @@ const MyStack = () => {
         },
       }}>
       <Tab.Screen
-        name="Homescreen"
+        name="UserHomescreen"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',

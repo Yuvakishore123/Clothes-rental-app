@@ -109,7 +109,7 @@ const SubcategoryList = ({route}) => {
   const renderItem = ({item}) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('CategoryProducts', {categoryId: item.id})
+        navigation.navigate('CategoryProducts', {subcategoryId: item.id})
       }>
       {/* <View style={styles.container}>
       <Text style={styles.text}>SubCategory</Text>
