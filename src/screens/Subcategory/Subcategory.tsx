@@ -80,18 +80,30 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import { url } from '../../constants/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
     const fetchSubcategories = async () => {
+      const token = await AsyncStorage.getItem('token'); // replace with your actual token
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       const response = await axios.get(
-        `https://6e07-106-51-70-135.ngrok-free.app/subcategory/listbyid/${categoryId}`,
+        `${url}/subcategory/listbyid/${categoryId}`,
+        config, // pass the config object as the second argument
       );
       const subcategoriesData = response.data;
       setSubcategories(subcategoriesData);
     };
+
     fetchSubcategories();
   }, [categoryId]);
   const renderItem = ({item}) => (

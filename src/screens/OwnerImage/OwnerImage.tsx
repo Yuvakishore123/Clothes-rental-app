@@ -228,6 +228,7 @@ import Mainbutton from '../../components/atoms/MainButton';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
 import Colors from '../../constants/Colors';
+import MultipleImages from '../../components/atoms/MultipleImages';
 export default function Owneraddimages() {
   const {
     postData,
@@ -280,11 +281,7 @@ export default function Owneraddimages() {
               <TouchableOpacity
                 onPress={onSelectImage}
                 onBlur={() => handleBlur('image')}>
-                <MaterialIcons
-                  style={OwnerImagestyles.AddIcon}
-                  name="add-to-photos"
-                />
-                <Text style={OwnerImagestyles.imagesText}>Add Image</Text>
+                <MultipleImages />
               </TouchableOpacity>
               {formik.touched.image && formik.errors.image && (
                 <Text style={Styles.errorText}>{formik.errors.image}</Text>

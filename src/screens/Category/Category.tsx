@@ -13,6 +13,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 
 import Subcategory from '../Subcategory/Subcategory';
 import axios from 'axios';
+import { url } from '../../constants/Apis';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get('https://6e07-106-51-70-135.ngrok-free.app/category/list')
+      .get(`${url}/category/list`)
       .then(response => {
         console.log('====================================');
         console.log(response.data);

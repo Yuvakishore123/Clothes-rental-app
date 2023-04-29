@@ -1,417 +1,259 @@
-// const style = {
-//   cartItemContainer: {
-//     marginTop: 20,
-//     marginRight: 10,
-//     width: '40%',
-//     height: 200,
-//     borderRadius: 10,
-//     elevation: 5,
-//     backgroundColor: '#deeaee',
-//     marginLeft: 20,
-//     marginBottom: 10,
-//   },
-//   //   image: {
-//   //     width: '100%',
-//   //     height: '50%',
-//   //     borderTopRightRadius: 10,
-//   //     borderBottomRightRadius: 10,
-//   //     borderBottomLeftRadius: 10,
-//   //   },
-//   itemName: {
-//     marginLeft: 10,
-//     marginTop: 10,
-//     fontSize: 18,
-//     fontWeight: '600',
-//     color: '#3E54AC',
-//   },
-//   itemDetailsContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     paddingLeft: 10,
-//     paddingRight: 10,
-//     marginTop: 10,
-//     alignItems: 'center',
-//   },
-//   itemPrice: {
-//     fontSize: 12,
-//     fontWeight: '600',
-//     color: '#3E54AC',
-//   },
-//   itemSize: {
-//     fontSize: 12,
-//     fontWeight: '600',
-//     color: '#3E54AC',
-//   },
-
-//   rentButtonText: {
-//     color: '#3E54AC',
-//     fontSize: 12,
-//   },
-//   removeButton: {
-//     borderWidth: 1,
-//     borderRadius: 10,
-//     paddingLeft: 10,
-//     paddingRight: 10,
-//     paddingBottom: 7,
-//     paddingTop: 7,
-//   },
-//   removeButtonText: {
-//     color: 'black',
-//   },
-//   wishlistButtonContainer: {
-//     width: 40,
-//     height: 40,
-//     backgroundColor: '#fff',
-//     borderRadius: 20,
-//     elevation: 5,
-//     position: 'absolute',
-//     top: 10,
-//     right: 10,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   wishlistButtonImage: {
-//     width: 24,
-//     height: 24,
-//   },
-//   wishlistButtonImageTint: {
-//     tintColor: 'red',
-//   },
-//   removeBtn: {
-//     borderWidth: 1,
-//     borderRadius: 10,
-//     paddingLeft: 10,
-//     paddingRight: 10,
-//     paddingBottom: 7,
-//     paddingTop: 7,
-//   },
-//   wishlistBtn: {
-   
-//       width: 35,
-//       height: 35,
-
-//       borderRadius: 20,
-//       // elevation: 5,
-//       position: 'absolute',
-//       top: 10,
-//       right: 10,
-//       justifyContent: 'center',
-//       alignItems: 'center',
-    
-//   },
-
-//   //   imageContainer: {
-//   //     backgroundColor: 'green',
-//   //     width: 145,
-//   //     height: 145,
-//   //     borderRadius: 8,
-//   //   },
-//   //   image: {
-//   //     width: '100%',
-//   //     height: 100,
-//   //     borderTopLeftRadius: 10,
-//   //     borderTopRightRadius: 10,
-//   //     borderBottomRightRadius: 10,
-//   //     borderBottomLeftRadius: 10,
-//   //   },
-
-//   image: {
-//     width: '100%',
-//     height: 147,
-//     borderTopLeftRadius: 10,
-//     borderTopRightRadius: 10,
-//     borderBottomRightRadius: 10,
-//     borderBottomLeftRadius: 10,
-//   },
-//   name: {
-//     fontSize: 10,
-//     fontWeight: '600',
-//     color: '#3E54ACCC',
-//   },
-//   addButton: {
-//     borderColor: '#3E54AC',
-//     borderWidth: 1,
-//     borderRadius: 4,
-
-//     alignItems: 'center',
-
-//     height: 18,
-//     width: 18,
-//     backgroundColor: '#fff',
-//   },
-//   price: {
-//     fontSize: 8,
-//     fontWeight: '600',
-//     color: '#3E54AC',
-//   },
-//   rentButton: {
-//     borderWidth: 1,
-//     borderRadius: 4,
-
-//     borderColor: '#3E54AC',
-
-//     width: 57,
-//     height: 18,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     marginTop: 3,
-//   },
-//   wishlistButton: {
-//     width: 35,
-//     height: 35,
-
-//     borderRadius: 20,
-//     // elevation: 5,
-//     position: 'absolute',
-//     top: 10,
-//     right: 10,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-
-//   //   cardTextContainer: {
-//   //     height: 50,
-//   //     width: 140,
-//   //     backgroundColor: '#3E54AC1A',
-//   //     marginTop: 6,
-//   //     borderRadius: 5,
-//   //     padding: 6,
-//   //   },
-
-//   //changes
-
-//   container: {
-//     width: 145,
-//     height: 200,
-//     borderRadius: 10,
-
-//     marginLeft: 20,
-//     marginRight: 20,
-//     marginBottom: 10,
-//   },
-
-//   imageContainer: {
-//     backgroundColor: 'green',
-//     width: 145,
-//     height: 145,
-//     borderRadius: 8,
-//   },
-//   cardTextContainer: {
-//     height: 50,
-//     width: 140,
-//     backgroundColor: '#3E54AC1A',
-//     marginTop: 6,
-//     borderRadius: 5,
-//     padding: 6,
-//   },
-
-//   textContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-
-//     alignItems: 'center',
-//   },
-//   rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
-// };
-// export default style;
-
-
-
-
-//----------------
-
-
-
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
-const screenWidth = Dimensions.get('window').width;
-import Colors from '../../constants/Colors';
-const style = StyleSheet.create({
-textStyle:{
-    color: '#3E54AC',
-            fontSize: 15,
-            fontFamily: 'poppins',
-            fontWeight: 'bold',
-
-},
-
-  rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
-container:{flex: 1},
-textConatiner:{marginLeft: 63, marginTop: 20},
- cartItemContainer: {
-    marginTop: 20,
-    marginRight: 10,
-    width: '40%',
-    height: 200,
-    borderRadius: 10,
-    elevation: 5,
-    backgroundColor: '#deeaee',
-    marginLeft: 20,
-    marginBottom: 10,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ECF2FF',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
   },
-
-  itemName: {
-    marginLeft: 10,
-    marginTop: 10,
+  TextTotal: {
+    fontWeight: 'semibold',
+    height: 29,
+    width: 130,
+    top: 5,
+    color: '#3E54AC',
+  },
+  TextGrand: {
+    fontWeight: 'semibold',
+    height: 29,
+    width: 130,
+    top: -20,
+    left: 20,
+    color: '#3E54AC',
     fontSize: 18,
-    fontWeight: '600',
-    color: '#3E54AC',
   },
-  itemDetailsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 10,
-    paddingRight: 10,
+  PaymentButton: {
+    height: 59,
+    width: 320,
+    backgroundColor: '#3E54AC',
+    margin: 15,
     marginTop: 10,
-    alignItems: 'center',
-  },
-  itemPrice: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#3E54AC',
-  },
-  itemSize: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#3E54AC',
-  },
- 
-  rentButtonText: {
-    color: '#3E54AC',
-    fontSize: 12,
-  },
-  removeButton: {
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 7,
-    paddingTop: 7,
-  },
-  removeButtonText: {
-    color: 'black',
-  },
-  wishlistButtonContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    elevation: 5,
-    position: 'absolute',
-    top: 10,
-    right: 10,
+    marginLeft: 25,
+    borderRadius: 8,
+    color: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  wishlistButtonImage: {
-    width: 24,
-    height: 24,
+  PaymentButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    justifyContent: 'center',
   },
-  wishlistButtonImageTint: {
-    tintColor: 'red',
+  titleContainer: {
+    marginBottom: -390,
+    width: 355,
+    height: 452,
+    top: 30,
+    backgroundColor: '#3E54AC1A',
+    borderRadius: 5,
   },
-  removeBtn: {
+  titleText: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#3E54AC',
+    width: 34,
+    height: 29,
+    left: 25,
+    top: -40,
+  },
+  cardContainer: {
     borderWidth: 1,
-    borderRadius: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 7,
-    paddingTop: 7,
-  },
-  wishlistBtn: {
-   
- 
-      position: 'absolute',
-    top: 10,
-    right: 60,
-    
-  },
-
-
-
-  image: {
-    width: '100%',
-    height: 145,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8,
-  },
-  name: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: '#3E54ACCC',
-  },
-  addButton: {
-    borderColor: '#3E54AC',
-    borderWidth: 1,
-    borderRadius: 4,
-
+    borderColor: '#3E54AC1A',
+    backgroundColor: '#3E54AC1AA',
+    borderRadius: 5,
+    padding: 10,
+    height: 160,
+    width: 330,
+    left: 30,
+    top: 0,
+    flexDirection: 'row',
     alignItems: 'center',
-
-    height: 18,
-    width: 18,
-    backgroundColor: '#fff',
   },
-  price: {
+  cardContaineramount: {
+    borderWidth: 1,
+    borderColor: '#3E54AC1A',
+    backgroundColor: '#3E54AC1A',
+    borderRadius: 5,
+    padding: 10,
+    height: 48,
+    width: 355,
+    left: 20,
+    top: -10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 120,
+    height: 120,
+    marginRight: 10,
+    backgroundColor: 'red',
+    borderRadius: 5,
+  },
+  priceText: {
     fontSize: 8,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    // marginBottom: 10,
+    top: 55,
+    left: 12,
     color: '#3E54AC',
   },
-  rentButton: {
+  priceTotalText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    left: 130,
+    color: '#3E54AC',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    left: -47,
+  },
+  button: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 60,
+    paddingVertical: 5,
+    borderRadius: 5,
+    // height: 10,
+  },
+  buttonSize: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 6,
+    paddingVertical: 5,
+    marginLeft: 5,
     borderWidth: 1,
-    borderRadius: 4,
-
+    borderRadius: 5,
+    top: 29,
+    left: -310,
     borderColor: '#3E54AC',
-
+    height: 19,
+    width: 19,
+  },
+  buttonRentTo: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    left: -75,
+    borderColor: '#3E54AC',
+    borderWidth: 1,
     width: 57,
     height: 18,
+    marginLeft: 25,
+    top: -12,
+  },
+  buttonRentFrom: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 3,
-  },
-  wishlistButton: {
-    width: 35,
-    height: 35,
-
-    borderRadius: 20,
-    // elevation: 5,
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  
-
-
-  imageContainer: {
-    backgroundColor: 'green',
-    width: 145,
-    height: 144,
-    borderRadius: 8,
-  },
-  cardTextContainer: {
-    height: 50,
-    width: 140,
-    backgroundColor: '#3E54AC1A',
-    marginTop: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 5,
-    padding: 6,
+    left: -15,
+    width: 57,
+    borderColor: '#3E54AC',
+    borderWidth: 1,
+    height: 18,
+    marginRight: 25,
+    top: -12,
+    left: -95,
   },
-
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-
-    alignItems: 'center',
+  buttonQuantity: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 2,
+    paddingVertical: 2,
+    height: 18,
+    width: 18,
+    borderRadius: 5,
+    borderColor: '#3E54AC',
+    borderWidth: 1,
+    top: 55,
+    left: -190,
   },
-
-
-
-
+  buttonText: {
+    fontSize: 9,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  TextSize: {
+    fontSize: 8,
+    fontWeight: 'bold',
+    color: '#3E54AC',
+    top: 10,
+    left: -289,
+  },
+  TextSizeTo: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#3E54AC',
+    top: -10,
+    left: -110,
+  },
+  TextItemname: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#3E54AC',
+    top: -30,
+    left: -10,
+    width: 70,
+    height: 69,
+  },
+  TextRentfrom: {
+    fontSize: 8,
+    fontWeight: 'bold',
+    color: '#3E54AC',
+    top: -10,
+    left: -75,
+    width: 70,
+    height: 69,
+  },
+  buttonTextRentfrom: {
+    fontSize: 5,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginRight: 5,
+    alignContent: 'center',
+  },
+  buttonTextRentto: {
+    fontSize: 5,
+    fontWeight: 'bold',
+    // marginLeft: 5,
+    // marginRight: 5,
+    alignContent: 'center',
+    left: 8,
+  },
+  buttonSizeText: {
+    fontSize: 6,
+    fontWeight: 'bold',
+    top: -1,
+  },
+  buttonTextIncrement: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    top: -3,
+    left: 3,
+  },
+  buttonTextDecrement: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    top: -3,
+    left: 3,
+  },
+  quantityText: {
+    fontSize: 14,
+    marginHorizontal: 10,
+    fontWeight: 'bold',
+    top: 55,
+    left: -190,
+  },
+  activeButtonText: {
+    color: '#fff',
+    backgroundColor: '#3E54AC',
+    height: 17,
+    width: 17,
+    borderRadius: 5,
+    top: -5,
+    left: -6,
+  },
 });
-export default style;
+export default styles;

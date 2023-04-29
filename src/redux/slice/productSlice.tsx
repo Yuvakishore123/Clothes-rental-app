@@ -1,39 +1,22 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {OwnerProductsUrl} from '../../constants/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchProducts = createAsyncThunk('fetchProducts', async () => {
-  const res = await axios.get(OwnerProductsUrl, {});
-  //   sds = res.data
-  return res.data;
+  // get the token from the state
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const response = await axios.get(OwnerProductsUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data; // throw the error to be caught by the reject handler
+  }
 });
-
-// export const fetchProducts = createAsyncThunk(
-//   'fetchProducts',
-//   async (_, {getState}) => {
-//     const token = getState().auth.token;
-//     console.log('uyt', token);
-//     const res = await axios.get(OwnerProductsUrl, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return res.data;
-//   },
-// );
-
-// export const fetchProducts = createAsyncThunk(
-//   'fetchProducts',
-//   async (_, {getState}) => {
-//     const token = getState().auth.token;
-//     const res = await axios.get(OwnerProductsUrl, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return res.data;
-//   },
-// );
 
 const ProductSlice = createSlice({
   name: 'products',
@@ -43,18 +26,20 @@ const ProductSlice = createSlice({
     isError: false,
   },
   extraReducers: builder => {
-    builder.addCase(fetchProducts.pending, state => {
-      state.isLoader = true;
-    });
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.isLoader = false;
-      state.data = action.payload;
-    });
-    builder.addCase(fetchProducts.rejected, state => {
-      state.isLoader = false;
-      state.isError = true;
-    });
+    builder
+      .addCase(fetchProducts.pending, state => {
+        state.isLoader = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.isLoader = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchProducts.rejected, state => {
+        state.isLoader = false;
+        state.isError = true;
+      });
   },
   reducers: undefined,
 });
+
 export default ProductSlice.reducer;

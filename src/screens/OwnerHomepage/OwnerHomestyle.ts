@@ -88,7 +88,7 @@ const Styles = StyleSheet.create({
     padding: 20,
     margin: 20,
     width: 150,
-    marginTop: 10,
+    // marginTop: 10,
   },
   row: {
     flexDirection: 'row',

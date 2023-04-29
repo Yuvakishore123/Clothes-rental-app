@@ -16,6 +16,7 @@ import {
 } from '../../redux/actions/actions';
 import axios from 'axios';
 import {OwnerCategoryUrl} from '../../constants/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import AddItemsformik from '../../components/templates/addItemsformik';
 // import {useFormik} from 'formik';
 function Useadditems() {
@@ -41,6 +42,7 @@ function Useadditems() {
   const [subOutfitCategoriesData, setSubOutfitCategoriesData] = useState([]);
   const genderData = useSelector(state => state.GenderReducer.genderData);
   console.log(genderData);
+
   //handle name & description change
   const AdditemsvalidationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -93,29 +95,46 @@ function Useadditems() {
     // };
 
     const fetchSubCategoryData = async () => {
-  try {
-    const response = await axios.get(`${url}/subcategory/listbyid/${genderData}`);
-    const subCategoriesArray = response.data.filter(category => category.subcategoryName === "Men" || category.subcategoryName === "Women")
-      // .map(category => ({ value: category.id, label: category.subcategoryName }));
-    setSubCategoriesData(subCategoriesArray);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const response = await axios.get(
+          `${url}/subcategory/listbyid/${genderData}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const subCategoriesArray = response.data.map(
+          (category: {id: any; subcategoryName: any}) => ({
+            value: category.id,
+            label: category.subcategoryName,
+          }),
+        );
+        setSubCategoriesData(subCategoriesArray);
+        console.log(subCategoriesArray);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(true);
+      } finally {
+        setIsLoading(false); // Set isLoading to false after the API call completes
+      }
+    };
 
     fetchSubCategoryData();
   }, [genderData]);
+
   useEffect(() => {
     // console.log(gender);
     const fetchEventCategoryData = async () => {
       try {
         // setIsLoading(true);
-        const response = await axios.get(
-          `${url}/subcategory/listbyid/${1}`,
-        );
+        const token = await AsyncStorage.getItem('token');
+        const response = await axios.get(`${url}/subcategory/listbyid/${1}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         // console.log(response);
         const subEventCategoriesArray = response.data.map(
           (category: {id: any; subcategoryName: any}) => ({
@@ -139,10 +158,12 @@ function Useadditems() {
     const subOutfitCategoriesData = async () => {
       try {
         // setIsLoading(true);
-        const response = await axios.get(
-          `${url}/subcategory/listbyid/${2}`,
-        );
-        // console.log(response);
+        const token = await AsyncStorage.getItem('token');
+        const response = await axios.get(`${url}/subcategory/listbyid/${2}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const subOutfitCategoriesArray = response.data.map(
           (category: {id: any; subcategoryName: any}) => ({
             value: category.id,
@@ -248,9 +269,6 @@ function Useadditems() {
   };
 }
 export default Useadditems;
-
-
-
 
 //---------------------------------
 
@@ -489,46 +507,6 @@ export default Useadditems;
 // }
 // export default Useadditems;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, {useEffect, useState} from 'react';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 // import {useDispatch, useSelector} from 'react-redux';
@@ -729,11 +707,7 @@ export default Useadditems;
 // }
 // export default Useadditems;
 
-
-
-
 //-----------------------------------
-
 
 // import React, {useEffect, useState} from 'react';
 // import {useNavigation, useRoute} from '@react-navigation/native';
@@ -966,4 +940,3 @@ export default Useadditems;
 //   };
 // }
 // export default Useadditems;
-

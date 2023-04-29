@@ -247,49 +247,6 @@
 //   };
 // };
 // export default OwnerImage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // import {useNavigation} from '@react-navigation/native';
 // // // import RNFS from 'react-native-fs';
 // // // import Imagepicker from '../../components/atoms/Imagepicker/Imagepicker';
@@ -498,25 +455,12 @@
 // //   };
 // // };
 // // export default OwnerImage;
-
-
-
-//--------------------------------------------
-
-
-
-
-
-
-
-
-
-
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 // import RNFS from 'react-native-fs';
 // import Imagepicker from '../../components/atoms/Imagepicker/Imagepicker';
 import {useDispatch, useSelector} from 'react-redux';
+import {url as baseUrl} from '../../constants/Apis';
 import axios from 'axios';
 import {addsize} from '../../redux/actions/actions';
 import {SetStateAction, useEffect, useState} from 'react';
@@ -588,35 +532,43 @@ const OwnerImage = () => {
   //   navigation.navigate(Imagepicker);
   // };
   // console.log(url); // Wrap subcategoryIds in an array
-  const postData = () => {
-    console.log('url in the post', url);
-    const data = {
-      categoryIds: categoryIds, // Wrap categoryIds in an array
-      name: name,
-      description: description,
-      id: 0,
-      imageURL: url, // Add imageURL field with selectedImage value
-      price: price,
-      quantity: quantity,
-      size: selectedsize,
-      subcategoryIds: subcategoryIds,
-    };
-    axios({
-      method: 'post',
-      url: 'http://58d1-106-51-70-135.ngrok-free.app/api/v1/product/add?token=2f93efb5-8c32-45e6-a093-7cddc02e7710',
-      data: data,
-    })
-      .then(response => {
-        console.log('added');
-      })
-      .catch(error => {
-        console.log(error);
+  const postData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log('john bhai', token);
+      console.log('url in the post', url);
+      const data = {
+        brand: 'adiddas',
+        categoryIds: categoryIds, // Wrap categoryIds in an array
+        color: 'black',
+        name: name,
+        description: description,
+        id: 0,
+        imageURL: 'url', // Add imageURL field with selectedImage value
+        material: 'fibre',
+        price: price,
+        quantity: quantity,
+        size: selectedsize,
+        subcategoryIds: subcategoryIds,
+      };
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/product/add`,
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-    dispatch(addsize(selectedsize));
-    Alert.alert('Item Successfully Added');
-    Alert.alert(data);
-    navigation.navigate(OwnerHome);
+      console.log('added', response.data);
+      dispatch(addsize(selectedsize));
+      Alert.alert('Item Successfully Added');
+      navigation.navigate(OwnerHome);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Failed to add item');
+    }
   };
+
   const [selectedImage, setSelectedImage] = useState('');
   // const navigation = useNavigation();
   const handleback = () => {

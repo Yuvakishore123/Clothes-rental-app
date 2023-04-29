@@ -179,6 +179,7 @@ const MyStack = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: false,
         tabBarStyle: {
           width: 395,
           height: 66,
@@ -198,7 +199,7 @@ const MyStack = () => {
         }}
       />
       <Tab.Screen
-        name="Category"
+        name="CategoryScreen"
         component={CategoryStack}
         options={{
           tabBarLabel: 'Category',

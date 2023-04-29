@@ -5,6 +5,8 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {addToWishlist, postProductToAPI} from '../../redux/actions/actions';
 import style from './categoryStyles';
+import { url } from '../../constants/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
@@ -14,10 +16,22 @@ const CategoryProducts = ({route}) => {
 
   useEffect(() => {
     const fetchSubcategories = async () => {
-      const response = await axios.get(`https://fakestoreapi.com/products`);
+      const token = await AsyncStorage.getItem('token'); // replace with your actual token
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${url}/subcategory/listbyid/${categoryId}`,
+        config, // pass the config object as the second argument
+      );
       const subcategoriesData = response.data;
       setSubcategories(subcategoriesData);
     };
+
     fetchSubcategories();
   }, [categoryId]);
 

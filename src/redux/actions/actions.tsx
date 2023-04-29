@@ -199,7 +199,7 @@ export const Login = (email: string, password: string) => {
         type: LOGIN_REQUEST,
       });
       const response = await axios.post(
-        'https://6e07-106-51-70-135.ngrok-free.app/api/login',
+        `${url}/login`,
         {
           email: email,
           password: password,
@@ -239,7 +239,7 @@ export const SignupAndLogin = (
 ) => {
   return async (dispatch: Dispatch) => {
     axios
-      .post('https://6e07-106-51-70-135.ngrok-free.app/user/signup', {
+      .post(`${url}/user/signup`, {
         firstName,
         lastName,
         email,
@@ -421,27 +421,59 @@ export const addProductToStore = product => {
 //changes for wishlist api done till here!
 //------------------------------------
 
-export const postProductToCartAPI = item => {
+// export const postProductToCartAPI = async (item: any) => {
+//   console.log('hello cart', item);
+//   const token = await AsyncStorage.getItem('token');
+//   // console.log(token);
+//   return (dispatch: (arg0: {type: string; payload: any}) => void) => {
+//     // make API call
+//     fetch(`https://6e07-106-51-70-135.ngrok-free.app/cart/add`, {
+//       method: 'POST',
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify(item),
+//     })
+//       .then(response => response.json())
+//       .then(data => {
+//         // update the Redux store with the response data
+//         dispatch(addProductToCartStore(data));
+//         console.log('====================================');
+//         console.log(data);
+//         console.log('====================================');
+//         console.log('succes');
+//       })
+//       .catch(error => console.log(error));
+//   };
+// };
+
+export const postProductToCartAPI = (item: any) => {
   console.log('hello cart', item);
-  // const token = await AsyncStorage.getItem('unifiedToken');
-  // console.log(token);
-  return dispatch => {
+  return async (dispatch: any) => {
+    const token = await AsyncStorage.getItem('token');
     // make API call
-    fetch(`https://6e07-106-51-70-135.ngrok-free.app/cart/add`, {
+    fetch(`${url}/cart/add`, {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(item),
     })
-      .then(response => response.json())
+      .then(response => response.text())
       .then(data => {
-        // update the Redux store with the response data
-        dispatch(addProductToCartStore(data));
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
-        console.log('succes');
+        try {
+          const parsedData = JSON.parse(data);
+          // update the Redux store with the response data
+          dispatch(addProductToCartStore(parsedData));
+          console.log('====================================');
+          console.log(parsedData);
+          console.log('====================================');
+          console.log('success');
+        } catch (error) {
+          console.log('Error parsing response:', error);
+          console.log('Raw response:', data);
+        }
       })
       .catch(error => console.log(error));
   };
