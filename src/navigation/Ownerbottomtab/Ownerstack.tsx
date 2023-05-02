@@ -16,6 +16,7 @@ import Imagepicker from '../../components/atoms/Imagepicker';
 import OproductDetails from '../../screens/OwnerProductdetailsPage/OproductDetails';
 import Owneredititems from '../../screens/Owneredititems/Owneredititems';
 import Colors from '../../constants/Colors';
+import EditAddress from '../../screens/EditAddress/EditAddress';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ const OwnerProfilestack = () => {
       initialRouteName="Profile">
       <Stack.Screen name="OwnerProfile" component={OwnerProfile} />
       <Stack.Screen name="OwnerEditProfile" component={OwnerEditProfile} />
+      <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="Owneredititems" component={Owneredititems} />
       <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
@@ -81,7 +83,7 @@ const Ownerstack = () => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: 'white',
+          backgroundColor: '#ECF2FF',
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
           height: 60,

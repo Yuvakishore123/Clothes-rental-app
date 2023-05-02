@@ -58,6 +58,7 @@ const Styles = StyleSheet.create({
   },
   rentalitemscard: {
     flexDirection: 'row',
+    marginLeft: -15,
   },
   renteditems2: {
     fontSize: 16,

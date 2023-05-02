@@ -62,8 +62,6 @@
 // }
 // export default Useformik;
 
-
-
 import {useState} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -113,8 +111,6 @@ function Useformik() {
   const handleBlur = (field: string) => {
     formik.setFieldTouched(field);
   };
-
-
 
   return {
     email,

@@ -1,16 +1,5 @@
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import {View, Image, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import {useState, useEffect} from 'react';
-
-
 
 // const {width} = Dimensions.get('window');
 const width = 360;

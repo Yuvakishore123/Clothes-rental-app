@@ -3,11 +3,12 @@ import React from 'react';
 import style from './OwnerProfilestyle';
 import SwitchAccountButton from '../../components/atoms/SwtichAccountButton';
 import AddImages from '../../components/atoms/AddImages';
-
+import ProfileData from '../../constants/ProfileData';
 type Props = {
   navigation: any;
 };
 const OwnerProfile = ({navigation}: Props) => {
+  const {name} = ProfileData();
   return (
     <View style={style.profileStyle}>
       <ScrollView>
@@ -18,7 +19,7 @@ const OwnerProfile = ({navigation}: Props) => {
           <AddImages />
         </View>
         <View>
-          <Text style={style.profileText}>Vikas</Text>
+          <Text style={style.profileText}>{name}</Text>
         </View>
         <View style={style.profileFields}>
           <TouchableOpacity
@@ -29,17 +30,17 @@ const OwnerProfile = ({navigation}: Props) => {
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Owneredititems')}>
-            <Text style={style.btnPText}>Edit Items</Text>
+            <Text style={style.btnPText}>My Products</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('MyRentals')}>
             <Text style={style.btnPText}>My Rentals</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Owneraddresspage')}>
-            <Text style={style.btnPText}>Address</Text>
+            <Text style={style.AddressbtnPText}>Address</Text>
           </TouchableOpacity>
         </View>
         <View>

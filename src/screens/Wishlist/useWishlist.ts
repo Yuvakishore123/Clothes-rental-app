@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import { useSelector, useDispatch } from 'react-redux';
 // import { addItemToCart, removeFromCart, removeFromWishlist } from '../../redux/actions/actions';
 
@@ -16,38 +17,52 @@
 //   return { cartData, handleRemoveFromWishlist, handleAddToCart };
 // };
 
-import {Dispatch, useEffect} from 'react';
+import {Dispatch, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchWishlistProducts} from '../../redux/slice/wishlistSlice';
-import {REMOVE_FROM_WISHLIST} from '../../redux/actions/actions';
+import {REMOVE_FROM_WISHLIST, removeFromWishlist} from '../../redux/actions/actions';
 import {url} from '../../constants/Apis';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 function useWishlist() {
-  const removeFromWishlist = async item => {
-    try {
-      const token = await AsyncStorage.getItem('token');
-      // Make API call to remove product from the wishlist
-      const response = await axios.delete(`${url}/wishlist/remove`, {
-        headers: {Authorization: `Bearer ${token}`},
+  const [refreshing, setRefreshing] = useState(false);
+
+  const removefromWishlist = async (productId: any) => {
+    const token = await AsyncStorage.getItem('token');
+    console.log('chiranjeevi', productId);
+    fetch(`${url}/wishlist/removebyid?productId=${productId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log('Item removed from cart:', data);
+        dispatch(removeFromWishlist(productId));
+        Alert.alert('Item Removed from Wishlist');
+      })
+      .catch(error => {
+        console.error(error);
+        const errorMessage = `Error removing item from Wishlist: ${error.message}`;
+        // Handle the error and display a more informative error message to the user
+        Alert.alert(errorMessage);
       });
-      console.log(response.data);
-
-      // Dispatch action to update wishlist state in Redux store
-      dispatch({type: REMOVE_FROM_WISHLIST, payload: response.data});
-    } catch (error) {
-      console.log('remove from wishlist error', error);
-    }
   };
-
   useEffect(() => {
     dispatch(fetchWishlistProducts());
   }, []);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await dispatch(fetchWishlistProducts());
+    setRefreshing(false);
+  };
 
   const dispatch = useDispatch();
   const WishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log(JSON.stringify(WishlistProducts));
   console.log('wishlist succes');
-  return {WishlistProducts, removeFromWishlist};
+  return {WishlistProducts, removefromWishlist, refreshing, onRefresh};
 }
 export default useWishlist;

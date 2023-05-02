@@ -1,338 +1,40 @@
-// import {
-//   Text,
-//   TextInput,
-//   View,
-//   Alert,
-//   TouchableOpacity,
-//   ScrollView,
-// } from 'react-native';
-// import React from 'react';
-// import {useNavigation} from '@react-navigation/native';
-// // import useOwnerProfile from './useOwnerProfile';
-// import OwnerEditProfileCustomHook from './Useownerprofile';
-// import style from './Ownereditprofilestyle';
-// import Colors from '../../constants/Colors';
-// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// const OwnerEditProfile = () => {
-//   const navigation = useNavigation();
-//   const {
-//     name,
-//     setName,
-//     email,
-//     setEmail,
-//     password,
-//     setPassword,
-//     telephone,
-//     setTelephone,
-//     gender,
-//     setGender,
-//     value,
-//     setValue,
-//     handleRadioPress,
-//     handleReset,
-//   } = OwnerEditProfileCustomHook();
-//   const handleUpdate = () => {
-//     // Perform update action here
-//     Alert.alert('Profile updated!');
-//   };
-//   return (
-//     <ScrollView>
-//       <View style={style.container}>
-//         <View style={style.addAddressHeader}>
-//           <TouchableOpacity
-//             style={style.backBtn}
-//             onPress={() => {
-//               navigation.goBack();
-//             }}>
-//             <MaterialCommunityIcons
-//               name="arrow-left"
-//               color={Colors.iconscolor}
-//               size={26}
-//             />
-//           </TouchableOpacity>
-//           <Text style={style.addAddressText}>Edit Profile</Text>
-//         </View>
-//         <View style={style.cardStyle}>
-//           <View>
-//             <Text style={style.text}>Name</Text>
-//             <TextInput
-//               style={style.input}
-//               placeholder="Name"
-//               value={name}
-//               onChangeText={text => setName(text)}
-//             />
-//             <Text style={style.text}>Email</Text>
-//             <TextInput
-//               style={style.input}
-//               placeholder="email"
-//               value={email}
-//               onChangeText={text => setEmail(text)}
-//             />
-//             <Text style={style.text}>Password</Text>
-//             <TextInput
-//               style={style.input}
-//               placeholder="password"
-//               value={password}
-//               onChangeText={text => setPassword(text)}
-//             />
-//             <Text style={style.text}>Telephone</Text>
-//             <TextInput
-//               style={style.input}
-//               placeholder="Telephone Number"
-//               value={telephone}
-//               onChangeText={text => setTelephone(text)}
-//             />
-//           </View>
-//           <View>
-//             <Text style={style.text}>Gender:</Text>
-//             <View style={style.radioContainer}>
-// <View style={style.containerRadio}>
-//   <TouchableOpacity onPress={() => handleRadioPress('male')}>
-//     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-//       {value === 'male' && <View style={style.radioChecked} />}
-//       {value !== 'male' && <View style={style.radioUnchecked} />}
-//       <Text style={style.radioButtonText}>Male</Text>
-//     </View>
-//   </TouchableOpacity>
-//   <TouchableOpacity onPress={() => handleRadioPress('female')}>
-//     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-//       {value === 'female' && <View style={style.radioChecked} />}
-//       {value !== 'female' && (
-//         <View style={style.radioUnchecked} />
-//       )}
-//       <Text style={style.radioText2}>Female</Text>
-//     </View>
-//   </TouchableOpacity>
-// </View>
-//             </View>
-//           </View>
-//         </View>
-//         <View style={style.buttons}>
-//           <TouchableOpacity style={style.btnfield} onPress={handleReset}>
-//             <Text style={style.btntext}>Reset </Text>
-//           </TouchableOpacity>
-//           <TouchableOpacity style={style.btnfield} onPress={handleUpdate}>
-//             <Text style={style.btntext}>Update </Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     </ScrollView>
-//   );
-// };
-// export default OwnerEditProfile;
-// import {
-//   Text,
-//   TextInput,
-//   View,
-//   Alert,
-//   TouchableOpacity,
-//   ScrollView,
-// } from 'react-native';
-// // import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-// import React, {useState} from 'react';
-// import {useNavigation} from '@react-navigation/native';
-// import style from './Ownereditprofilestyle';
-// import Colors from '../../constants/Colors';
-// import MaterialIcon from 'react-native-vector-icons/Ionicons';
-// const OwnerEditProfile = () => {
-//   const navigation = useNavigation();
-//   // State variables for profile information
-//   const [firstName, setfirstName] = useState('');
-//   const [lastName, setlastName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [phoneNumber, setphoneNumber] = useState('');
-//   const handleReset = () => {
-//     setfirstName('');
-//     setlastName('');
-//     setEmail('');
-//     setphoneNumber('');
-//   };
-//   // Function to update profile information
-//   const handleUpdate = async () => {
-//     try {
-//       // Make API call to update profile information
-//       const response = await fetch(
-//         'https://e5b5-122-172-176-124.ngrok-free.app/api/v1/user/update?token=7799a9f1-52a2-461d-9146-c91db88ea8ef',
-//         {
-//           method: 'PUT',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify({
-//             firstName: firstName,
-//             lastName: lastName,
-//             email: email,
-//             phoneNumber: phoneNumber,
-//           }),
-//         },
-//       );
-//       // Check if API call was successful
-//       if (response.ok) {
-//         Alert.alert('Profile updated!');
-//         navigation.navigate('OwnerProfile');
-//       } else {
-//         throw new Error('Failed to update profile');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       Alert.alert('Failed to update profile');
-//     }
-//   };
-//   return (
-//     // <ScrollView>
-//     <View style={style.container}>
-//       <View style={style.addAddressHeader}>
-//         <TouchableOpacity
-//           style={style.backBtn}
-//           onPress={() => {
-//             navigation.goBack();
-//           }}>
-//           <MaterialIcon
-//             name="md-chevron-back"
-//             color={Colors.iconscolor}
-//             size={26}
-//           />
-//         </TouchableOpacity>
-//         <Text style={style.addAddressText}>Edit Profile</Text>
-//       </View>
-//       <View style={style.line} />
-//       <ScrollView>
-//         <View style={style.cardStyle}>
-//           <View>
-//             <Text style={style.text}>FirstName</Text>
-//             <TextInput
-//               style={style.input}
-//               // placeholder="First Name"
-//               placeholderTextColor="#999"
-//               // fontWeight="300"
-//               value={firstName}
-//               onChangeText={text => setfirstName(text)}
-//             />
-//             <Text style={style.text}>LastName</Text>
-//             <TextInput
-//               style={style.input}
-//               // placeholder="Last Name"
-//               value={lastName}
-//               onChangeText={text => setlastName(text)}
-//             />
-//             <Text style={style.text}>Email</Text>
-//             <TextInput
-//               style={style.input}
-//               // placeholder="Email"
-//               value={email}
-//               onChangeText={text => setEmail(text)}
-//             />
-//             <Text style={style.text}>phonenumber</Text>
-//             <TextInput
-//               style={style.input}
-//               // placeholder="Telephone"
-//               value={phoneNumber}
-//               onChangeText={text => setphoneNumber(text)}
-//             />
-//           </View>
-//         </View>
-//       </ScrollView>
-//       <View style={style.buttons}>
-//         <TouchableOpacity style={style.btnfield1} onPress={handleReset}>
-//           <Text style={style.btntext1}>Reset </Text>
-//         </TouchableOpacity>
-//         <TouchableOpacity style={style.btnfield} onPress={handleUpdate}>
-//           <Text style={style.btntext}>Update </Text>
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//     // </ScrollView>
-//   );
-// };
-// export default OwnerEditProfile;
-
+/* eslint-disable react-native/no-inline-styles */
 import {
   Text,
   TextInput,
   View,
-  Alert,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-// import React, {useState, useEffect} from 'react';
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import style from './Ownereditprofilestyle';
 import Colors from '../../constants/Colors';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
-const OwnerEditProfile = () => {
+import useOwnerProfile from './Useownerprofile';
+export default function OwnerEditProfileCustomHook() {
   const navigation = useNavigation();
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setlastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setphoneNumber] = useState('');
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    phoneNumber,
+    setPhoneNumber,
+    handleReset,
+    handleUpdate,
+  } = useOwnerProfile();
+  const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        // Make API call to get user profile data
-        const response = await fetch(
-          'https://e046-106-51-70-135.ngrok-free.app/user/userdetails?userId=6',
-        );
-        // Check if API call was successful
-        if (response.ok) {
-          const profileData = await response.json();
-          // Set state variables with retrieved profile data
-          setfirstName(profileData.firstName);
-          setlastName(profileData.lastName);
-          setEmail(profileData.email);
-          setphoneNumber(profileData.phoneNumber);
-        } else {
-          throw new Error('Failed to fetch profile data');
-        }
-      } catch (error) {
-        console.error(error);
-        Alert.alert('Failed to fetch profile data');
-      }
-    };
-    fetchProfileData();
-  }, []);
-  const handleReset = () => {
-    setfirstName('');
-    setlastName('');
-    setEmail('');
-    setphoneNumber('');
-  };
-  // Function to update profile information
-  const handleUpdate = async () => {
-    const data = JSON.stringify({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phoneNumber: phoneNumber,
-    });
-    console.log(data);
-    try {
-      // Make API call to update profile information
-      const response = await fetch(
-        'https://e046-106-51-70-135.ngrok-free.app/user/update',
-        {
-          method: 'PUT',
-          headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQGdtYWlsLmNvbSIsInJvbGVzIjpbIm93bmVyIl0sImlzcyI6Imh0dHA6Ly9lMDQ2LTEwNi01MS03MC0xMzUubmdyb2stZnJlZS5hcHAvYXBpL2xvZ2luIiwiZXhwIjoxNjgyNTA5OTM0fQ.IXwV31N2R8OSJkmVmkAAOGFc-7zuCkQeXLR-ospPNko',
-            'Content-Type': 'application/json',
-          },
-          body: data,
-        },
-      );
-      console.log();
-      // Check if API call was successful
-      if (response.ok) {
-        Alert.alert('Profile updated!');
-        navigation.navigate('OwnerProfile');
-      } else {
-        throw new Error('Failed to update profile');
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Failed to update profile');
-    }
-  };
+    setIsFormValid(
+      firstName.trim().length > 0 &&
+        lastName.trim().length > 0 &&
+        email.trim().length > 0 &&
+        phoneNumber.trim().length > 0,
+    );
+  }, [firstName, lastName, email, phoneNumber]);
   return (
     <ScrollView>
       <View style={style.container}>
@@ -346,42 +48,39 @@ const OwnerEditProfile = () => {
               name="md-chevron-back"
               color={Colors.iconscolor}
               size={26}
+              left={-10}
             />
           </TouchableOpacity>
-          <Text style={style.addAddressText}>Edit Profile</Text>
         </View>
-        <View style={style.line} />
+        {/* <View style={style.line} /> */}
         <View style={style.cardStyle}>
           <View>
+            <Text style={style.addAddressText1}>Edit Profile</Text>
+            <View style={style.line} />
             <Text style={style.text}>FirstName</Text>
             <TextInput
               style={style.input}
-              // placeholder="First Name"
               placeholderTextColor="#999"
-              // fontWeight="300"
               value={firstName}
-              onChangeText={text => setfirstName(text)}
+              onChangeText={text => setFirstName(text)}
             />
             <Text style={style.text}>LastName</Text>
             <TextInput
               style={style.input}
-              // placeholder="Last Name"
               value={lastName}
-              onChangeText={text => setlastName(text)}
+              onChangeText={text => setLastName(text)}
             />
             <Text style={style.text}>Email</Text>
             <TextInput
               style={style.input}
-              // placeholder="Email"
               value={email}
               onChangeText={text => setEmail(text)}
             />
             <Text style={style.text}>phonenumber</Text>
             <TextInput
               style={style.input}
-              // placeholder="Telephone"
               value={phoneNumber}
-              onChangeText={text => setphoneNumber(text)}
+              onChangeText={text => setPhoneNumber(text)}
             />
           </View>
         </View>
@@ -389,12 +88,20 @@ const OwnerEditProfile = () => {
           <TouchableOpacity style={style.btnfield1} onPress={handleReset}>
             <Text style={style.btntext1}>Reset </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={style.btnfield} onPress={handleUpdate}>
+          <TouchableOpacity
+            style={[
+              style.btnfield,
+              {
+                opacity: isFormValid ? 1 : 0.5,
+                pointerEvents: isFormValid ? 'auto' : 'none',
+              },
+            ]}
+            onPress={() => handleUpdate(navigation)}
+            disabled={!isFormValid}>
             <Text style={style.btntext}>Update </Text>
           </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
-};
-export default OwnerEditProfile;
+}

@@ -38,6 +38,10 @@ const DropdownComponent = ({value, onChange}) => {
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
+          itemTextStyle={styles.itemTextStyle}
+          selectedItemTextStyle={styles.selectedItemTextStyle}
+          itemContainerStyle={styles.itemContainerStyle}
+          selectedItemContainerStyle={styles.selectedItemContainerStyle}
           iconStyle={styles.iconStyle}
           data={subOutfitCategoriesData}
           search
@@ -61,46 +65,31 @@ const DropdownComponent = ({value, onChange}) => {
 
 export default DropdownComponent;
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: 'white',
-    padding: 16,
-    justifyContent: 'center',
-  },
   dropdownContainer: {
-    height: '100%',
-    width: 250,
-    backgroundColor: '#fffff',
+    height: 50,
+    width: 255,
+    backgroundColor: '#fff',
     marginTop: 15,
-    borderRadius: 10,
-    // elevation: 3,
-    // justifyContent: 'center',
+    marginLeft: -3,
+    borderRadius: 15,
+    padding: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    elevation: 5,
+    shadowColor: '#3E54AC',
+    shadowOpacity: 3,
   },
   dropdown: {
     height: '50%',
-    width: 250,
-    backgroundColor: 'white',
-    marginTop: 15,
-    borderRadius: 10,
-    // elevation: 3,
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  icon: {
-    marginRight: 20,
-    backgroundColor: Colors.primary,
-  },
-  label: {
-    // position: 'absolute',
-    // backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
   placeholderStyle: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '700',
     color: Colors.iconscolor,
     marginLeft: 15,
@@ -118,12 +107,31 @@ const styles = StyleSheet.create({
     height: 25,
     marginRight: 15,
     color: Colors.iconscolor,
-    // color: Colors.iconscolor,
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 18,
     backgroundColor: Colors.white,
-    color: Colors.main,
+    color: Colors.iconscolor,
+  },
+  itemTextStyle: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: Colors.iconscolor,
+    padding: 10,
+  },
+  selectedItemTextStyle: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: Colors.iconscolor,
+    // padding: 10,
+  },
+  itemContainerStyle: {
+    backgroundColor: Colors.white,
+    borderRadius: 10, // Add this line
+  },
+  selectedItemContainerStyle: {
+    backgroundColor: '#3E54AC',
+    borderRadius: 10,
   },
 });

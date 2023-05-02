@@ -9,12 +9,11 @@ const style = StyleSheet.create({
     marginTop: 30,
 
     backgroundColor: '#3E54AC',
-    borderRadius: 8,
+    borderRadius: 13,
   },
   btntext: {
     position: 'absolute',
-
-    left: 120,
+    left: 110,
     top: 15,
     height: 29,
     width: 104,
@@ -39,8 +38,8 @@ const style = StyleSheet.create({
     marginTop: 80,
   },
   profileStyle: {
-    width: 400,
-    height: 800,
+    width: '100%',
+    height: '100%',
     backgroundColor: '#ECF2FF',
     // justifyContent: 'center',
     alignItems: 'center',
@@ -68,7 +67,7 @@ const style = StyleSheet.create({
     width: 300,
     height: 59,
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: 13,
     marginBottom: 15,
     shadowColor: 'black',
     shadowOffset: {
@@ -81,10 +80,22 @@ const style = StyleSheet.create({
   },
   btnPText: {
     position: 'absolute',
+    left: 100,
+    top: 15,
+    height: 29,
+    width: 200,
+    fontWeight: 'bold',
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    color: '#3E54AC',
+    alignItems: 'center',
+  },
+  AddressbtnPText: {
+    position: 'absolute',
     left: 110,
     top: 15,
     height: 29,
-    width: 104,
+    width: 200,
     fontWeight: 'bold',
     fontFamily: 'Poppins',
     fontSize: 20,
@@ -97,8 +108,7 @@ const style = StyleSheet.create({
     zIndex: 1,
   },
 
-
-   buttonContainer: {
+  buttonContainer: {
     // position: 'absolute',
     // top: 0,
     // right: 0,

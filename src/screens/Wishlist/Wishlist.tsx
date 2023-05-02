@@ -1,6 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 // import CartItem from '../Cart/CartItem';
 import useWishlist from './useWishlist';
@@ -12,6 +20,7 @@ import {
 } from '../../redux/actions/actions';
 
 import {useDispatch, useSelector} from 'react-redux';
+import Colors from '../../constants/Colors';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -20,7 +29,9 @@ const Wishlist = ({navigation}: Props) => {
   // const {cartData, handleRemoveFromWishlist, handleAddToCart} = useWishlist();
   const dispatch = useDispatch();
 
-  const {WishlistProducts, removeFromWishlist} = useWishlist();
+  const {WishlistProducts, removefromWishlist} = useWishlist();
+  const [wishlistList, setWishlistList] = useState([]);
+  const {refreshing, onRefresh} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log('hey', allWishlistProducts);
   const isLoading = useSelector(state => state.WishlistProducts.isLoader);
@@ -33,8 +44,9 @@ const Wishlist = ({navigation}: Props) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
+          backgroundColor: Colors.main,
         }}>
-        {/* <Image
+        <Image
           source={require('../../../Assets/LoginImage.png')}
           style={{
             height: 200,
@@ -42,81 +54,101 @@ const Wishlist = ({navigation}: Props) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-        /> */}
-        <Text>The Items are Loading...</Text>
+        />
+        <Text style={{color: Colors.iconscolor}}>The Items are Loading...</Text>
       </View>
     );
   }
 
   return (
-    <View style={style.container}>
-      <View style={style.textConatiner}>
-        <Text style={style.textStyle}>Wishlist</Text>
-      </View>
-      <FlatList
-        data={allWishlistProducts}
-        numColumns={2}
-        columnWrapperStyle={{
-          justifyContent: 'space-between',
-          marginHorizontal: 10,
-        }}
-        renderItem={({item, index}) => {
-          return (
-            <View style={style.container}>
-              <TouchableOpacity>
-                <View style={style.imageContainer}>
-                  <Image source={{uri: item.image}} style={style.image} />
-                </View>
-                <TouchableOpacity
-                  style={style.wishlistBtn}
-                  onPress={removeFromWishlist}>
-                  <Image
-                    source={require('../../../Assets/fillheart.png')}
-                    style={{width: 24, height: 24, tintColor: 'red'}}
-                  />
-                </TouchableOpacity>
-              </TouchableOpacity>
-
-              <View style={style.cardTextContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={style.name}>{item.name}</Text>
-                  <TouchableOpacity
-                    style={style.addButton}
-                    // onPress={() => {}}
-                  >
-                    <Text
-                      style={{
-                        color: '#3E54AC',
-                        fontWeight: 'bold',
-                        fontSize: 12,
-                      }}>
-                      +
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={style.textContainer}>
-                  <Text style={style.name}>{'₹' + item.price}</Text>
-
-                  <TouchableOpacity
-                    style={style.rentButton}
-                    // onPress={() => {
-                    // onAddToCart(item);
-                    // handleAddToCart(item); imp
-                    // }}
-                  >
-                    <Text style={style.rentText}>Rent</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+    <View style={style.maincontainer}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <View style={style.textConatiner}>
+          <Text style={style.textStyle}>Wishlist</Text>
+        </View>
+        <View style={style.maincontainer}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#ECF2FF',
+              flexWrap: 'wrap',
+            }}>
+            {/* Other code */}
+            <View
+              style={{
+                marginTop: 20,
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginBottom: 100,
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}>
+              {allWishlistProducts &&
+                allWishlistProducts.map((item, index) => {
+                  return (
+                    <View style={style.container} key={index}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('UProductDetails', {
+                            product: item,
+                          })
+                        }>
+                        <View style={style.imageContainer}>
+                          <Image
+                            source={{uri: item.imageURL[1]}}
+                            style={style.image}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                      <View style={style.cardTextContainer}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}>
+                          <Text style={style.name}>{item.name}</Text>
+                          <TouchableOpacity
+                            style={style.addButton}
+                            onPress={() => {}}>
+                            <Text
+                              style={{
+                                color: '#3E54AC',
+                                fontWeight: 'bold',
+                                fontSize: 12,
+                              }}>
+                              +
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                        <View style={style.textContainer}>
+                          <Text style={style.price}>{'₹' + item.price}</Text>
+                          <TouchableOpacity
+                            style={style.rentButton}
+                            onPress={() =>
+                              dispatch(postProductToCartAPI({...item}))
+                            }>
+                            <Text style={style.rentText}>Rent</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      <TouchableOpacity
+                        style={style.wishlistButton}
+                        onPress={() => removefromWishlist(item.id)}>
+                        <Image
+                          source={require('../../../Assets/fillheart.png')}
+                          style={{width: 24, height: 24}}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
             </View>
-          );
-        }}
-      />
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };

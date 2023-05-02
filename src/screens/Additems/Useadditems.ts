@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {url} from '../../constants/Apis';
 import {useFormik} from 'formik';

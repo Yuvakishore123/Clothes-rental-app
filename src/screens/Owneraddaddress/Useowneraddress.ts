@@ -1,119 +1,77 @@
-// import {useSelector, useDispatch} from 'react-redux';
-// import {useNavigation, useIsFocused} from '@react-navigation/native';
-// import {removeAddress} from '../../redux/actions/actions';
-// import axios from 'axios';
-// import {AddAddressUrl, address} from '../../constants/Apis';
-// export const OwnerAddressCustomHook = () => {
-//   const navigation = useNavigation();
-//   const isFocused = useIsFocused();
-//   const addressList = useSelector(state => state.AddressReducers);
-//   const Data = axios
-//     .get(AddAddressUrl)
-//     .then(response => {
-//       console.log(response.data);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-//   const dispatch = useDispatch();
-//   const handleOwnerAddAddress = () => {
-//     navigation.navigate('Owneraddaddress');
-//   };
-//   const handleDeleteAddress = (id: number, index: any) => {
-//     dispatch(removeAddress(id, index));
-//   };
-//   const goBackButton = () => {
-//     navigation.goBack();
-//   };
-//   return {
-//     addressList,
-//     handleOwnerAddAddress,
-//     handleDeleteAddress,
-//     isFocused,
-//     goBackButton,
-//     Data,
-//   };
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import {useSelector, useDispatch} from 'react-redux';
-// import {useNavigation, useIsFocused} from '@react-navigation/native';
-// import {removeAddress} from '../../redux/actions/actions';
-// export const OwnerAddressCustomHook = () => {
-//   const navigation = useNavigation();
-//   const isFocused = useIsFocused();
-//   const addressList = useSelector(state => state.AddressReducers);
-//   const dispatch = useDispatch();
-//   const handleOwnerAddAddress = () => {
-//     navigation.navigate('Owneraddaddress');
-//   };
-//   const handleDeleteAddress = (id: number, index: any) => {
-//     dispatch(removeAddress(id, index));
-//   };
-//   const goBackButton = () => {
-//     navigation.goBack();
-//   };
-//   return {
-//     addressList,
-//     handleOwnerAddAddress,
-//     handleDeleteAddress,
-//     isFocused,
-//     goBackButton,
-//   };
-// };
-
-
-//-----------------
-
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {removeAddress} from '../../redux/actions/actions';
 import axios from 'axios';
 import {AddAddressUrl, address} from '../../constants/Apis';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
 export const OwnerAddressCustomHook = () => {
-  const [address,setAddress]=useState([])
+  const [addressList, setAddress] = useState([]);
+  const [city, setCity] = useState('');
+  const [addressLine1, setaddressLine1] = useState('');
+  const [addressLine2, setaddressLine2] = useState('');
+  const [addressType, setaddressType] = useState('');
+  const [postalCode, setpostalCode] = useState('');
+  const [country, setCountry] = useState('india');
+  const [state, setStateName] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
-  const addressList = useSelector(state => state.AddressReducers);
-  // const Data = axios
-  //   .get('http://d38a-122-171-148-208.ngrok-free.app/api/v1/address/2f93efb5-8c32-45e6-a093-7cddc02e7710')
-  //   .then(response => {
-  //     console.log(response.data);
-  //     setAddress(response.data)
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
+  // const isFocused = useIsFocused();
+  // const addressList = useSelector(state => state.AddressReducers);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        console.log(token);
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
+        const response = await axios.get(
+          'https://b015-180-151-211-120.ngrok-free.app/api/v1/address/listaddress',
+          {headers},
+        );
+        const data = await response.data;
+        console.log(response.data);
+        setAddress(data);
+        setCity(data.city);
+        setStateName(data.state);
+        setaddressLine1(data.addressLine1);
+        setaddressLine2(data.addressLine2);
+        setpostalCode(data.postalCode);
+        console.log(
+          city,
+          state,
+          country,
+          postalCode,
+          addressLine1,
+          addressLine2,
+        );
+        console.log(address);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setIsFocused(true);
+    fetchData();
+    return () => {
+      setIsFocused(false);
+    };
+  }, []);
+
   const dispatch = useDispatch();
-  const handleOwnerAddAddress = () => {
-    navigation.navigate('Owneraddaddress',address);
+  const handleEditItems = item => {
+    navigation.navigate('EditAddress', {address: item});
   };
-  const handleDeleteAddress = (id: number, index: any) => {
-    dispatch(removeAddress(id, index));
+
+  const handleOwnerAddAddress = () => {
+    navigation.navigate('Owneraddaddress', addressList);
+    // console.log(address);
+    // console.log(city, state, postalCode, addressLine1, addressLine2);
+  };
+  const handleDeleteAddress = (id: string) => {
+    dispatch(removeAddress(id));
   };
   const goBackButton = () => {
     navigation.goBack();
@@ -124,6 +82,19 @@ export const OwnerAddressCustomHook = () => {
     handleDeleteAddress,
     isFocused,
     goBackButton,
+    address,
+    city,
+    state,
+    postalCode,
+    addressLine1,
+    addressLine2,
+    setCity,
+    setCountry,
+    setaddressLine1,
+    setaddressLine2,
+    setStateName,
+    setpostalCode,
+    handleEditItems,
     // Data,
   };
 };

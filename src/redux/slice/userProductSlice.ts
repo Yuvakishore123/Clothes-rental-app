@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {OwnerProductsUrl} from '../../constants/Apis';
+import {UserProductsUrl} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchUserProducts = createAsyncThunk(
@@ -9,7 +9,7 @@ export const fetchUserProducts = createAsyncThunk(
     // get the token from the state
     try {
       const token = await AsyncStorage.getItem('token');
-      const response = await axios.get(OwnerProductsUrl, {
+      const response = await axios.get(UserProductsUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ECF2FF',
-    width: 400,
-    height: 800,
+    // backgroundColor: 'white',
+    width: '100%',
+    height: '100%',
   },
   btnfield: {
     position: 'absolute',
@@ -42,11 +43,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   detailsContainer: {
+    height: '100%',
+    width: '100%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 40,
+    // paddingVertical: 40,
     paddingHorizontal: 20,
-    backgroundColor: '#ECF2FF',
+    backgroundColor: Colors.main,
     flex: 0.7,
   },
   iconContainer: {
@@ -78,8 +81,8 @@ const styles = StyleSheet.create({
     top: 288,
   },
   headingtext: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 20,
+    fontWeight: '900',
     color: '#3E54AC',
     // width: '80%',
   },
@@ -90,8 +93,8 @@ const styles = StyleSheet.create({
   startext: {
     marginTop: 10,
     color: '#3E54AC',
-    fontWeight: '700',
-    fontSize: 20,
+    fontWeight: '400',
+    fontSize: 15,
   },
   title: {
     fontFamily: '800',

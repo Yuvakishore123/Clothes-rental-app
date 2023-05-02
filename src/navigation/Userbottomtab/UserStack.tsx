@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 // import React from 'react';
 // import Profile from '../../screens/Profile/Profile';
 // import Home from '../../screens/Home/Homescreen';
@@ -134,17 +135,18 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import CategoryIcon from 'react-native-vector-icons/AntDesign';
 import HeartIcon from 'react-native-vector-icons/FontAwesome';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import {Route, getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Wishlist from '../../screens/Wishlist/Wishlist';
 import Cart from '../../screens/Cart/Cart';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import Category from '../../screens/Category/Category';
 import UProductDetails from '../../screens/UProductDetails/UProductDetails';
 import Subcategory from '../../screens/Subcategory/Subcategory';
 import CategoryProducts from '../../screens/CategoryProducts/CategoryProducts';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import CheckoutScreen from '../../screens/CheckoutScreen/CheckoutScreen';
+import PaymentScreen from '../../screens/PaymentScreen/PaymentScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -171,6 +173,18 @@ const CategoryStack = () => {
   );
 };
 
+const CartStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Cart">
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
+      <Stack.Screen name="Cart" component={Cart} />
+    </Stack.Navigator>
+  );
+};
+
 const MyStack = () => {
   const data = useSelector(state => state);
   console.log(data);
@@ -183,16 +197,20 @@ const MyStack = () => {
         tabBarStyle: {
           width: 395,
           height: 66,
+          marginLeft: -5,
           backgroundColor: '#ECF2FF',
-          borderTopRightRadius: 15,
-          borderTopLeftRadius: 15,
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
         },
+        tabBarInactiveTintColor: 'grey',
+        tabBarActiveTintColor: '#3E54AC',
       }}>
       <Tab.Screen
         name="UserHomescreen"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
+          headerTintColor: '#ECF2FF',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={35} />
           ),
@@ -204,7 +222,7 @@ const MyStack = () => {
         options={{
           tabBarLabel: 'Category',
           tabBarIcon: ({color}) => (
-            <CategoryIcon name="appstore-o" color={color} size={30} />
+            <CategoryIcon name="appstore1" color={color} size={30} />
           ),
         }}
       />
@@ -217,7 +235,7 @@ const MyStack = () => {
           tabBarIcon: ({color}) => (
             <View>
               {/* <MaterialCommunityIcons name="account" color={color} size={35} /> */}
-              <HeartIcon name="heart-o" color={color} size={30} />
+              <HeartIcon name="heart" color={color} size={30} />
               {/* <View style={styles.Count}>
                 <Text style={styles.CountText}>
                   {data.WishlistReducer.length}
@@ -228,13 +246,13 @@ const MyStack = () => {
         })}
       />
       <Tab.Screen
-        name="Cart"
-        component={Cart}
+        name="CartScreen"
+        component={CartStack}
         options={() => ({
           tabBarLabel: 'Cart',
           tabBarIcon: ({color}) => (
             <View>
-              <MaterialCommunityIcons name="cart" color={color} size={30} />
+              <FontAwesome5Icon name="shopping-bag" color={color} size={30} />
               {/* <View style={styles.Count}>
                 <Text style={styles.CountText}>{data.CartReducer.length}</Text>
               </View> */}
@@ -256,21 +274,3 @@ const MyStack = () => {
   );
 };
 export default MyStack;
-
-const styles = StyleSheet.create({
-  Count: {
-    position: 'absolute',
-    right: -8,
-    top: -5,
-    backgroundColor: 'red',
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  CountText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});

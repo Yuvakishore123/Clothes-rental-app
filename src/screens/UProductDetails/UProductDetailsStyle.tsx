@@ -1,17 +1,28 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
   productSizeBox: {
     marginTop: 10,
     borderWidth: 2,
     borderColor: '#3E54AC',
+    borderRadius: 10,
+    backgroundColor: Colors.iconscolor,
     width: 50, // set a width that works for your layout
     height: 30, // set a height that works for your layout
     justifyContent: 'center', // vertically center the text
     alignItems: 'center', // horizontally center the text
   },
   detailsdescription: {
-    fontSize: 18,
+    marginTop: 20,
+    fontSize: 15,
+    fontWeight: '400',
+    color: Colors.iconscolor,
+  },
+  detailsSize: {
+    // marginTop: 20,
+    fontSize: 15,
     fontWeight: 'bold',
+    color: Colors.white,
   },
   buttonQuantity: {
     backgroundColor: '#fff',
@@ -41,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginHorizontal: 10,
     fontWeight: 'bold',
+    color: Colors.black,
     // top: 55,
     // left: -190,
   },
@@ -63,7 +75,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   quantityButton: {
-    backgroundColor: 'gray',
+    backgroundColor: Colors.iconscolor,
     borderRadius: 5,
     padding: 5,
     height: 30,
@@ -77,11 +89,13 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
   container: {
-    zIndex: 0,
-    // backgroundColor: '#ECF2FF',
-    backgroundColor: 'white',
-    width: 400,
-
+    // zIndex: 0,
+    backgroundColor: '#ECF2FF',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    // backgroundColor: 'white',
+    width: '100%',
+    height: '100%',
     // height: 800,
   },
   btnfield: {
@@ -160,8 +174,8 @@ const styles = StyleSheet.create({
     top: 288,
   },
   headingtext: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '900',
     color: '#3E54AC',
     // width: '80%',
   },
@@ -173,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#3E54AC',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: 25,
   },
   title: {
     fontFamily: '800',

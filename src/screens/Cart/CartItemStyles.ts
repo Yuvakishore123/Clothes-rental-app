@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#3E54AC1A',
@@ -13,8 +14,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E54AC0D',
     borderRadius: 10,
     padding: 10,
+    marginLeft: 10,
     marginBottom: 10,
-    height: 180,
+    height: 200,
     width: 310,
     shadowColor: '#000',
     shadowOffset: {
@@ -37,11 +39,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   name: {
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: 'bold',
     color: '#3E54AC',
     fontFamily: 'poppins',
     marginTop: 5,
+    marginLeft: 2,
   },
   productname: {
     fontSize: 16,
@@ -79,6 +82,22 @@ const styles = StyleSheet.create({
     // backgroundColor: 'green',
     width: 80,
     height: 25,
+    justifyContent: 'space-between',
+  },
+  DateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#3E54AC',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    // marginBottom: 10,
+    // backgroundColor: 'green',
+    width: 80,
+    height: 20,
+    marginTop: 10,
+    marginBottom: 10,
     justifyContent: 'space-between',
   },
   quantityButton: {
@@ -162,6 +181,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  UpdateButton: {
+    height: 20,
+    width: 40,
+    backgroundColor: 'white',
+    // margin: 15,
+    // marginTop: 5,
+    marginLeft: 30,
+    borderRadius: 3,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   PaymentButton: {
     height: 60,
     width: 320,
@@ -186,6 +217,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     justifyContent: 'center',
   },
+  UpdateButtonText: {
+    color: Colors.iconscolor,
+    fontSize: 9,
+    fontWeight: '900',
+    justifyContent: 'center',
+  },
   titleContainer: {
     marginBottom: -390,
     width: 355,
@@ -207,7 +244,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderWidth: 1,
     borderRadius: 5,
+    marginLeft: 3,
     borderColor: '#3E54AC',
+    backgroundColor: Colors.iconscolor,
     width: 18, // set a width that works for your layout
     height: 18, // set a height that works for your layout
     justifyContent: 'center', // vertically center the text
@@ -215,6 +254,7 @@ const styles = StyleSheet.create({
   },
   detailsdescription: {
     fontSize: 8,
+    color: Colors.white,
     fontWeight: 'bold',
   },
   // cardContainer: {
@@ -257,7 +297,7 @@ const styles = StyleSheet.create({
     // top: 55,
     // left: 12,
     color: '#3E54AC',
-    marginRight: 20,
+    marginRight: 35,
   },
   priceTotalText: {
     fontSize: 12,
@@ -270,6 +310,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     left: -47,
+  },
+  quantityTxt: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: Colors.iconscolor,
+    fontSize: 10,
+    // marginLeft: 23,
+  },
+  DateTxt: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: Colors.iconscolor,
+    fontSize: 7,
+    fontWeight: '800',
+    // marginLeft: 23,
   },
   button: {
     backgroundColor: '#fff',

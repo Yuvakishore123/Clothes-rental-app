@@ -17,14 +17,3 @@ const WishlistReducer = (state = [], action) => {
 };
 
 export default WishlistReducer;
-
-
-
-
-
-
-
-
-
-
-

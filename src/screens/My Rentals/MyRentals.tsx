@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import styles from '../OwnerHomepage/OwnerHomestyle';
@@ -45,58 +46,39 @@ export default function OwnerHome({navigation}: Props) {
           <Text style={styles.headertxt}>My Rentals</Text>
         </View>
         <View>
-          <FlatList
-            data={products}
-            keyExtractor={item => item.id}
-            renderItem={({item, index}) => {
-              // Check if it's an even index to render 2 products side by side
-              if (index % 2 === 0) {
-                return (
-                  <View style={styles.row}>
-                    <TouchableOpacity
-                      key={item.id}
-                      style={styles.recentlyaddedcard}
-                      onPress={() =>
-                        navigation.navigate('OproductDetails', {product: item})
-                      }>
+          <View style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
+            {/* Other code */}
+            <View
+              style={{
+                marginTop: 20,
+                alignItems: 'center',
+                flexDirection: 'row',
+                marginBottom: 100,
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}>
+              {products &&
+                products.map(item => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.recentlyaddedcard}
+                    onPress={() =>
+                      navigation.navigate('OproductDetails', {product: item})
+                    }>
+                    <View style={styles.cardContainer}>
                       <Image
                         source={{uri: item.imageURL}}
                         style={styles.recentlyaddedimage}
                       />
-                      <View style={styles.cardTextContainer}>
-                        <Text style={styles.cardText}>{item.description}</Text>
-                        <Text style={styles.cardText}>₹ {item.price}</Text>
-                      </View>
-                    </TouchableOpacity>
-                    {products[index + 1] && (
-                      <TouchableOpacity
-                        key={products[index + 1].id}
-                        style={styles.recentlyaddedcard}
-                        onPress={() =>
-                          navigation.navigate('OproductDetails', {
-                            product: products[index + 1],
-                          })
-                        }>
-                        <Image
-                          source={{uri: products[index + 1].imageURL}}
-                          style={styles.recentlyaddedimage}
-                        />
-                        <View style={styles.cardTextContainer}>
-                          <Text style={styles.cardText}>
-                            {products[index + 1].description}
-                          </Text>
-                          <Text style={styles.cardText}>
-                            ₹ {products[index + 1].price}
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                );
-              }
-              return null;
-            }}
-          />
+                    </View>
+                    <View style={styles.cardTextContainer}>
+                      <Text style={styles.cardText}>{item.description}</Text>
+                      <Text style={styles.cardText}>₹ {item.price}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+            </View>
+          </View>
         </View>
       </ScrollView>
     </View>

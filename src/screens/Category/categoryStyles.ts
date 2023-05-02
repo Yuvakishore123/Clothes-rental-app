@@ -1,15 +1,25 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   textStyle: {
     color: '#3E54AC',
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: 'poppins',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    marginTop: 10,
+    marginRight: 20,
   },
-
+  maincontainer: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: Colors.main,
+  },
   rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
-  container: {flex: 1},
-  textConatiner: {marginLeft: 63, marginTop: 20},
+  container: {height: '100%', width: '100%'},
+  textConatiner: {
+    marginLeft: 63,
+    marginTop: 20,
+  },
   cartItemContainer: {
     marginTop: 20,
     marginRight: 10,

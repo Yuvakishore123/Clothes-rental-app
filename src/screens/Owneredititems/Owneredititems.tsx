@@ -144,7 +144,7 @@ const App = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={OwnerEditItemstyles.backContainer}>
             <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>Edit Items</Text>
+            <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
           </View>
         </TouchableOpacity>
 

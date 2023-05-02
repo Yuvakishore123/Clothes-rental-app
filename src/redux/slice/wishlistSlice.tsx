@@ -9,7 +9,7 @@ export const fetchWishlistProducts = createAsyncThunk(
   async () => {
     const token = await AsyncStorage.getItem('token');
     console.log('yokes', token);
-    const res = await axios.get(`${url}/wishlist/addtowishlist`, {
+    const res = await axios.get(`${url}/wishlist/getallwishlist`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

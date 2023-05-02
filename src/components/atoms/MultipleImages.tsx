@@ -8,9 +8,11 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
+  Text,
 } from 'react-native';
 import ImagePicker, {launchImageLibrary} from 'react-native-image-picker';
 import Mainbutton from './MainButton';
+import Colors from '../../constants/Colors';
 const {width} = Dimensions.get('window');
 const MultipleImages = () => {
   const [imageUris, setImageUris] = useState([]);
@@ -104,7 +106,8 @@ const MultipleImages = () => {
             </View>
           ))}
         </ScrollView>
-        <Mainbutton onPress={handleRemoveImages} text="Remove Images" />
+        <Text style={styles.Text}>Add Images</Text>
+        {/* <Mainbutton onPress={handleRemoveImages} text="Remove Images" /> */}
       </View>
     </View>
   );
@@ -120,6 +123,14 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  Text: {
+    justifyContent: 'center',
+    marginTop: 40,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    marginLeft: 10,
+    color: Colors.iconscolor,
   },
   image: {
     width,

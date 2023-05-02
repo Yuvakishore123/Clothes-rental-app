@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   StatusBar,
@@ -5,19 +6,22 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
-  SafeAreaView,
-  TextInput,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import DatePicker from '../../components/atoms/DatePicker';
+import DatePicker from '../../components/atoms/DatePicker Detail';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './UProductDetailsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {postProductToCartAPI} from '../../redux/actions/actions';
+import {useDispatch} from 'react-redux';
+import {url} from '../../constants/Apis';
 type Props = {
   route: {params: {product: any}};
   navigation: any;
 };
 export default function UDetailScreen({route, navigation}: Props) {
+  const dispatch = useDispatch();
   const {product} = route.params;
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
@@ -27,41 +31,75 @@ export default function UDetailScreen({route, navigation}: Props) {
       setQuantity(quantity - 1);
     }
   };
+  console.log('hey bhai', product);
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
   };
+
+  // const handleSubmit = async (item: {
+  //   id: any;
+  //   quantity: any;
+  //   rentalEndDate: any;
+  //   rentalStartDate: any;
+  // }) => {
+  //   const modifiedItem = {
+  //     id: 0,
+  //     productId: item.id,
+  //     quantity: item.quantity,
+  //     rentalEndDate: rentalEndDate,
+  //     rentalStartDate: rentalStartDate,
+  //   };
+  //   const token = await AsyncStorage.getItem('token');
+  //   fetch(`${url}/cart/add`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(modifiedItem),
+  //   })
+  //     // .then(response => response.json())
+  //     .then(data => {
+  //       console.log('Success:', data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // };
+
   const handleSubmit = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const data = {
-      id: 0,
+    const item = {
       productId: product.id,
       quantity: quantity,
       rentalEndDate: rentalEndDate.toISOString(),
       rentalStartDate: rentalStartDate.toISOString(),
     };
-    fetch('https://fa68-103-146-217-155.ngrok-free.app/api/v1/cart/add', {
+    const token = await AsyncStorage.getItem('token');
+    fetch(`${url}/cart/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(item),
     })
-      .then(response => response.json())
+      // .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
+        Alert.alert('Item Added Successfully');
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
+
   return (
     <ScrollView>
       <View style={styles.container}>
         <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
         <ImageBackground
           style={{height: 500, backgroundColor: 'green'}}
-          source={{uri: product.image}}>
+          source={{uri: product.imageURL[0]}}>
           <View style={styles.dheader}>
             <Icon
               name="arrow-back-ios"
@@ -78,7 +116,7 @@ export default function UDetailScreen({route, navigation}: Props) {
             <Text style={styles.headingtext}>Size</Text>
           </View>
           <View style={styles.productSizeBox}>
-            <Text style={styles.detailsdescription}>{product.size}</Text>
+            <Text style={styles.detailsSize}>{product.size}</Text>
           </View>
           <View style={{marginTop: 10, marginBottom: 3}}>
             <Text style={styles.headingtext}>Rent</Text>

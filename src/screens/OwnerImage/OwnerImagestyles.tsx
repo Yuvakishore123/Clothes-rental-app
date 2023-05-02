@@ -14,7 +14,7 @@ const OwnerImagestyles = StyleSheet.create({
     // backgroundColor: '#000',
   },
   form: {
-    marginLeft: 20,
+    marginLeft: 10,
   },
   touchableContainer: {
     height: 40,
@@ -93,18 +93,18 @@ const OwnerImagestyles = StyleSheet.create({
     // marginTop: 20,
   },
   Price: {
-    width: 252,
+    width: 255,
     height: 48,
     backgroundColor: Colors.white,
     elevation: 4,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius: 15,
   },
   Pricetext: {
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
-    marginTop: 60,
+    marginTop: 30,
   },
   Quantitytext: {
     fontSize: 18,

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import styles from './OwnerHomestyle';
@@ -12,7 +13,7 @@ type Props = {
   navigation: any;
 };
 export default function OwnerHome({navigation}: Props) {
-  const {products, handleAdditems, handleMyrentals} = Useownerhome();
+  const {products, handleAdditems, handleMyrentals, name} = Useownerhome();
   const [isLoading, setIsLoading] = useState(false);
   if (isLoading) {
     return (
@@ -38,7 +39,7 @@ export default function OwnerHome({navigation}: Props) {
   return (
     <ScrollView style={styles.mainContainer}>
       <View>
-        <Text style={styles.headertxt}>Welcome John</Text>
+        <Text style={styles.headertxt}>Welcome {name}</Text>
       </View>
       <View style={styles.card}>
         <Text style={styles.title}>Dashboard</Text>
@@ -68,7 +69,7 @@ export default function OwnerHome({navigation}: Props) {
               }>
               <View style={styles.cardContainer}>
                 <Image
-                  source={{uri: item.imageURL}}
+                  source={{uri: item.imageURL[0]}}
                   style={styles.recentlyaddedimage}
                 />
               </View>
@@ -121,42 +122,50 @@ export default function OwnerHome({navigation}: Props) {
       <View>
         <Text style={styles.headertxt}>Rental History</Text>
       </View>
-      <View style={{ width: "80%", flexDirection: 'row', flexWrap: 'wrap'}}>
-        <FlatList
-          data={products}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.recentlyaddedcard}
-              onPress={() =>
-                navigation.navigate('OproductDetails', {product: item})
-              }>
-              <View style={styles.cardContainer}>
-                <Image
-                  source={{uri: item.imageURL}}
-                  style={styles.recentlyaddedimage}
-                />
-              </View>
-              <View style={styles.cardTextContainer}>
-                <Text style={styles.cardText}>{item.description}</Text>
-                <Text style={styles.cardText}>₹ {item.price}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-        <View style={styles.touchableContainer}>
-          <TouchableOpacity
-            onPress={handleAdditems}
-            style={OwnerImagestyles.touchableContainer}>
-            <Text style={Ownerstyles.touchableText}>Add Items</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleMyrentals}
-            style={OwnerImagestyles.touchableContainer}>
-            <Text style={Ownerstyles.touchableText}>My rentals</Text>
-          </TouchableOpacity>
+      <View style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
+        {/* Other code */}
+        <View
+          style={{
+            marginTop: 20,
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginBottom: 100,
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}>
+          {products &&
+            products.map(item => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.recentlyaddedcard}
+                onPress={() =>
+                  navigation.navigate('OproductDetails', {product: item})
+                }>
+                <View style={styles.cardContainer}>
+                  <Image
+                    source={{uri: item.imageURL[0]}}
+                    style={styles.recentlyaddedimage}
+                  />
+                </View>
+                <View style={styles.cardTextContainer}>
+                  <Text style={styles.cardText}>{item.description}</Text>
+                  <Text style={styles.cardText}>₹ {item.price}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
         </View>
+      </View>
+      <View style={styles.touchableContainer}>
+        <TouchableOpacity
+          onPress={handleAdditems}
+          style={OwnerImagestyles.touchableContainer}>
+          <Text style={Ownerstyles.touchableText}>Add Items</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleMyrentals}
+          style={OwnerImagestyles.touchableContainer}>
+          <Text style={Ownerstyles.touchableText}>My rentals</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

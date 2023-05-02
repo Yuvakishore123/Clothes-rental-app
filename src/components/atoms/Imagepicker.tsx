@@ -48,6 +48,8 @@ import axios from 'axios';
 import {Button} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import OwnerImage from '../../screens/OwnerImage/Useownerimage';
+import {url as baseUrl} from '../../constants/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Imagepicker = () => {
   const navigation = useNavigation();
   const handleback = () => {
@@ -94,20 +96,21 @@ const Imagepicker = () => {
     //       console.log('error uploading image', error);
     //     });
     // };
-    const imageUpload = (imagePath: string) => {
+    const imageUpload = async (imagePath: string) => {
       const formdata = new FormData();
+      const token = await AsyncStorage.getItem('token');
       formdata.append('file', {
         uri: imagePath,
         type: 'image/png',
         name: 'image.png',
-        fileName: 'image',
-        // type: imagePath.type,
-        // name: ,
       });
       axios({
         method: 'post',
-        url: 'https://07f9-106-51-70-135.ngrok.io/file/upload', // Update the URL to the new API endpoint
+        url: `${baseUrl}/file/upload`, // Update the URL to the new API endpoint
         data: formdata,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then(function (response) {
           console.log('Image uploaded:', response);

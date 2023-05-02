@@ -6,7 +6,7 @@ const style = StyleSheet.create({
     width: 145,
     height: 200,
     borderRadius: 10,
-
+    backgroundColor: '#ECF2FF',
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10,

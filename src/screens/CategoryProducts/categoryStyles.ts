@@ -1,5 +1,6 @@
 // ProductItem.styles.js
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 
 const style = StyleSheet.create({
   container: {
@@ -10,6 +11,7 @@ const style = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10,
+    backgroundColor: Colors.main,
   },
   imageContainer: {
     backgroundColor: 'green',
@@ -100,16 +102,20 @@ const style = StyleSheet.create({
     borderRadius: 5,
     padding: 6,
   },
-   textConatiner: {marginLeft: 63, marginTop: 20},
+  textConatiner: {marginLeft: 63, marginTop: 20},
 
-    textStyle: {
+  textStyle: {
     color: '#3E54AC',
     fontSize: 15,
     fontFamily: 'poppins',
     fontWeight: 'bold',
   },
-
-   listContainer: {
+  maincontainer: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: Colors.main,
+  },
+  listContainer: {
     paddingHorizontal: 10,
     paddingTop: 10,
   },

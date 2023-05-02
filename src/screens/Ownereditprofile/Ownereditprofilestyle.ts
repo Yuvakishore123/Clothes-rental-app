@@ -4,18 +4,20 @@ const screenWidth = Dimensions.get('window').width;
 import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
-    width: 400,
-    height: 800,
+    width: 380,
+    height: 850,
+    left: 10,
     backgroundColor: '#ECF2FF',
   },
   cardStyle: {
-    marginTop: 20,
-    marginLeft: 20,
+    marginTop: 30,
+    marginLeft: 15,
     marginRight: 20,
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: '#FFFFFF',
-    borderRadius: 8,
+    // borderRadius: 8,
     shadowColor: 'black',
+    borderRadius: 20,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -31,11 +33,13 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'poppins',
     fontWeight: '900',
+    top: 10,
   },
   input: {
     textAlign: 'left',
     backgroundColor: '#ECF2FF',
-    marginTop: 20,
+    marginTop: 25,
+    top: 10,
     margin: 40,
     // textAlign: 'center',
     fontSize: 18,
@@ -56,6 +60,7 @@ const style = StyleSheet.create({
     height: 59,
     backgroundColor: '#3E54AC',
     borderRadius: 8,
+    top: 40,
   },
   btnfield1: {
     alignItems: 'center',
@@ -63,6 +68,7 @@ const style = StyleSheet.create({
     height: 59,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
+    top: 40,
   },
   btntext: {
     // position: 'absolute',
@@ -88,9 +94,9 @@ const style = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom:60 ,
-    marginLeft:20,
-    marginRight:20
+    marginBottom: 60,
+    marginLeft: 20,
+    marginRight: 20,
   },
   whiteBtn: {
     alignItems: 'center',
@@ -174,39 +180,24 @@ const style = StyleSheet.create({
     color: 'black',
   },
   btnImage: {width: 24, height: 24, marginTop: 15},
-  addAddressText: {
+  addAddressText1: {
     marginBottom: 25,
-    marginTop: 10,
-    marginLeft: 30,
+    // marginTop: -50,
+    marginLeft: 120,
     fontSize: 20,
     color: '#3E54AC',
     fontWeight: 'bold',
   },
   line: {
-    // borderColor:'red',
-    // borderBottomColor:"red",
-    // marginTop: 42,
     width: '100%',
-    height: 2,
+    height: 1.5,
+    // top: 40,
     backgroundColor: '#3E54AC',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
   },
-  //  divider: {
-  //   marginTop:10,
-  //   height: 4,
-  //   backgroundColor: '#ECF2FF',
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 1 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 1,
-  //   elevation: 1,
-  // },
 });
 export default style;

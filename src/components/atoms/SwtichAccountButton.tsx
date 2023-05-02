@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {useState, useEffect} from 'react';
 import {setRole} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
@@ -146,9 +147,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   option: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: 16,
     paddingVertical: 5,
+    color: Colors.iconscolor,
     // color: '#FFF'
   },
   optionSelected: {

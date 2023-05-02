@@ -1,12 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import Ownerstyles from './Additemsstyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import GenderDropdown from '../../components/atoms/GenderDropdown';
@@ -15,8 +9,6 @@ import TypeDropdown from '../../components/atoms/TypeDropdown';
 import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Useadditems from './Useadditems';
 import Colors from '../../constants/Colors';
-import {useRoute} from '@react-navigation/native';
-import AddItemsformik from '../../components/templates/addItemsformik';
 import Styles from '../LoginScreen/LoginStyle';
 const Additems = () => {
   const {
@@ -30,11 +22,8 @@ const Additems = () => {
     handleEventTypeChange,
     handleOutfitChange,
     handleItemTypeChange,
-    handleItems,
-    setName,
     handleNameChange,
     isLoading,
-    setDescription,
     handleDescriptionChange,
     handleBlur,
     formik,
@@ -47,8 +36,10 @@ const Additems = () => {
           <View
             style={{
               alignItems: 'center',
-              justifyContent: 'center',
+              // justifyContent: 'center',
               height: '100%',
+              width: '100%',
+              marginTop: 190,
             }}>
             <Image
               source={require('../../../Assets/LoginImage.png')}
@@ -59,7 +50,9 @@ const Additems = () => {
                 justifyContent: 'center',
               }}
             />
-            <Text>The Items are Loading...</Text>
+            <Text style={{color: Colors.iconscolor, fontWeight: '600'}}>
+              The Items are Loading...
+            </Text>
           </View>
         </>
       ) : (

@@ -95,8 +95,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   dateText: {
-    fontSize: 10,
+    fontSize: 8,
+    marginLeft: 6,
     fontWeight: 'bold',
+    color: '#3E54AC',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default DatePicker;

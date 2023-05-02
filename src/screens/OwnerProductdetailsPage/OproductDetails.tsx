@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StatusBar, Text, View, ImageBackground} from 'react-native';
 import styles from '../OwnerProductdetailsPage/OproductdetailsStyle';
@@ -14,7 +15,7 @@ export default function DetailScreen({route, navigation}: Props) {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
-      <ImageBackground style={{flex: 0.7}} source={{uri: product.imageURL}}>
+      <ImageBackground style={{flex: 0.7}} source={{uri: product.imageURL[0]}}>
         <View style={styles.dheader}>
           <Icon
             name="arrow-back-ios"
@@ -22,10 +23,9 @@ export default function DetailScreen({route, navigation}: Props) {
             color="black"
             onPress={() => navigation.goBack()}
           />
-          <Icon name="more-vert" size={28} color="black" />
         </View>
       </ImageBackground>
-      <View style={styles.detailsContainer}>
+      <View style={[styles.detailsContainer, {marginTop: -50}]}>
         <View style={{flexDirection: 'row', marginTop: 10}}>
           <Text style={styles.headingtext}>Name</Text>
         </View>
@@ -33,7 +33,7 @@ export default function DetailScreen({route, navigation}: Props) {
         <View style={{marginTop: 10}}>
           <Text style={styles.headingtext}>Price</Text>
         </View>
-        <Text style={styles.detailsdescription}>${product.price}</Text>
+        <Text style={styles.detailsdescription}>₹ {product.price}</Text>
         <View style={{marginTop: 10}}>
           <Text style={styles.headingtext}>Description</Text>
         </View>

@@ -5,6 +5,7 @@ import {addGenderData, addsize} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Useowneredititems = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -26,24 +27,33 @@ const Useowneredititems = () => {
     dispatch(addGenderData(selectedGender));
     // console.log(selectedGender);
   };
-  const handleSelectItem = (item) => {
+  const handleSelectItem = item => {
     setSelectedItem(item);
   };
   useEffect(() => {
-    axios
-      .get(EditItemsUrl)
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token'); // replace 'token' with your actual AsyncStorage key name
+        const config = {
+          headers: {Authorization: `Bearer ${token}`},
+        };
+
+        const response = await axios.get(EditItemsUrl, config);
+
         const mappedData = response.data.map((item: any) => ({
           id: item.id,
           name: item.name,
           price: item.price,
           image: item.image,
         }));
+
         setData(mappedData);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const [categoriesData, setCategoriesData] = useState([]);

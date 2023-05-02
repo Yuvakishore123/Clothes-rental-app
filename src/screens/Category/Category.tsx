@@ -45,7 +45,7 @@ const Category = () => {
   );
 
   return (
-    <View>
+    <View style={style.maincontainer}>
       <View style={style.textConatiner}>
         <Text style={style.textStyle}>Category</Text>
       </View>
@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     width: 340,
     height: 85,
     backgroundColor: '#567B89',
-    borderRadius: 8,
+    borderRadius: 10,
     // backgroundColor: 'pink',
-    marginLeft: 20,
-    marginTop: 15,
-    padding: 10,
+    marginLeft: 25,
+    marginTop: 40,
+    padding: 15,
   },
 
   categoryText: {
