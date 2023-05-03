@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Dispatch} from 'redux';
 import {AddAddressUrl, url} from '../../constants/Apis';
 import {Alert} from 'react-native';
+import {Orderreducer} from '../reducers/Orderreducer';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -26,6 +27,7 @@ export const ADD_SIZE = 'ADD_SIZE';
 export const ADD_TYPE = 'ADD_TYPE';
 export const ADD_OUTFIT = 'ADD_OUTFIT';
 export const SET_ROLE = 'SET_ROLE';
+export const ADD_ORDER = 'ADD_ORDER';
 //-------------------------------------------changes for wishlist and cart
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
@@ -75,7 +77,6 @@ export const removeAddress = (id: any) => {
     }
   };
 };
-
 
 export const addAddress = (data: {
   addressLine1: string;
@@ -578,6 +579,29 @@ export const postProductToCartAPI = (item: any, action: string) => {
           Alert.alert('item Added Successfully');
         })
         .catch(error => console.log(error));
+    }
+  };
+};
+export const ADDORDER = (razorpayId: string) => {
+  return async (dispatch: (arg0: {type: string; payload: any}) => void) => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const data = razorpayId;
+      console.log('john razarpay', data); // create an object with razorpayId property
+      const response = await fetch(
+        `${url}/order/add/?razorpayId=${razorpayId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      dispatch(Orderreducer(razorpayId));
+      console.log('success');
+    } catch (error) {
+      console.log(error);
     }
   };
 };

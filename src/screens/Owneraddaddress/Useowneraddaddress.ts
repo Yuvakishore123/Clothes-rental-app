@@ -4,6 +4,7 @@ import {addAddress} from '../../redux/actions/actions';
 import {NavigationProp} from '@react-navigation/native';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {url} from '../../constants/Apis';
 export const OwnerAddAddressCustomHook = (
   navigation: NavigationProp<ReactNavigation.RootParamList>,
 ) => {
@@ -44,17 +45,14 @@ export const OwnerAddAddressCustomHook = (
     };
     const token = await AsyncStorage.getItem('token');
     try {
-      const res = await fetch(
-        'https://b015-180-151-211-120.ngrok-free.app/api/v1/address/add',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(addressData),
+      const res = await fetch(`${url}/address/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-      );
+        body: JSON.stringify(addressData),
+      });
       const data = await res.json();
       console.log(data); // log the returned data
       if (!res.ok) {

@@ -70,10 +70,12 @@ const Profile = ({navigation}: Props) => {
         <View style={style.profileFields}>
           <TouchableOpacity
             style={style.whiteBtn}
-            onPress={() => navigation.navigate('')}>
+            onPress={() => navigation.navigate('Ownereditprofile')}>
             <Text style={style.btnPText}>Edit Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={style.whiteBtn}>
+          <TouchableOpacity
+            style={style.whiteBtn}
+            onPress={() => navigation.navigate('Owneraddresspage')}>
             <Text style={style.AddressbtnPText}>Address</Text>
           </TouchableOpacity>
           <TouchableOpacity style={style.whiteBtn}>

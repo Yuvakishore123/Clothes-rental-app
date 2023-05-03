@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCartProducts} from '../../redux/slice/cartSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {removeFromCart} from '../../redux/actions/actions';
+import {ADDORDER, removeFromCart} from '../../redux/actions/actions';
 import {cartUpdate, checkoutApi, url} from '../../constants/Apis';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -35,10 +35,9 @@ function useCart() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         };
-        const response = await axios.get(
-          'https://b015-180-151-211-120.ngrok-free.app/api/v1/address/listaddress',
-          {headers},
-        );
+        const response = await axios.get(`${url}/address/listaddress`, {
+          headers,
+        });
         const data = await response.data;
         console.log(response.data);
         setAddress(data);
@@ -164,14 +163,14 @@ function useCart() {
       });
   };
 
-  const totalPrice = cartData.totalCost;
+  const totalPrice = 1;
 
   const handlePayment = () => {
     const options = {
       description: 'Payment for food items',
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
-      key: 'rzp_live_vjRbx3MWMGxd9i',
+      key: 'rzp_test_TvqBgZuxwM7H00',
       amount: totalPrice * 100,
       name: 'indranil',
       prefill: {
@@ -182,16 +181,11 @@ function useCart() {
       theme: {color: '#F37254'},
     };
     RazorpayCheckout.open(options)
-      .then(paymentData => {
+      .then((paymentData: any) => {
         // handle success
-        navigation.navigate('OrderStatusScreen');
-        dispatch({
-          type: 'order/placeOrder',
-          payload: {
-            cartItems,
-            total_amount: totalPrice,
-          },
-        });
+        console.log(paymentData);
+        navigation.navigate('Cart');
+        dispatch(ADDORDER(paymentData.razorpay_payment_id));
       })
       .catch(error => {
         // handle failure

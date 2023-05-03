@@ -1,6 +1,6 @@
-export const url = 'https://b015-180-151-211-120.ngrok-free.app/api/v1';
+export const url = 'https://5fed-27-7-147-43.ngrok-free.app/api/v1';
 export const OwnerProductsUrl = `${url}/product/listOwnerProducts`;
-export const UserProductsUrl = `${url}/product/listInDesc`;
+export const UserProductsUrl = `${url}/product/list`;
 export const AddAddressUrl = `${url}/address/add`;
 export const EditItemsUrl = `${url}/product/list?pageNumber=0&pageSize=10`;
 export const OwnerCategoryUrl = `${url}/category/list`;

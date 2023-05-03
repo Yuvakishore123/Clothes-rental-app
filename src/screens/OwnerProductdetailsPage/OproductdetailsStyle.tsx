@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     // paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: Colors.main,
-    flex: 0.7,
+    flex: 20,
   },
   iconContainer: {
     height: 60,

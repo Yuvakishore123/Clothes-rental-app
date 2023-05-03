@@ -31,7 +31,17 @@ const Homescreen = ({navigation}: Props) => {
   const dispatch = useDispatch();
 
   const UserProducts = useHome();
-  const {refreshing, onRefresh, removefromWishlist} = useHome();
+  const {
+    refreshing,
+    onRefresh,
+    removefromWishlist,
+    searchQuery,
+    searchResults,
+    setSearchResults,
+    searchProducts,
+    setSearchQuery,
+    // recommendations,
+  } = useHome();
   const allProducts = useSelector(state => state.UserProducts.data);
   const isLoading = useSelector(state => state.UserProducts.isLoader);
   const error = useSelector(state => state.UserProducts.error);
@@ -101,6 +111,11 @@ const Homescreen = ({navigation}: Props) => {
             <TextInput
               placeholder="Search"
               style={{fontSize: 20, paddingLeft: 10, color: 'black'}}
+              onChangeText={text => {
+                setSearchQuery(text);
+                // searchProducts(text);
+              }}
+              onSubmitEditing={() => searchProducts(searchQuery)}
             />
           </View>
 

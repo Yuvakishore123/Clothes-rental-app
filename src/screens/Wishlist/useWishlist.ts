@@ -1,31 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// import { useSelector, useDispatch } from 'react-redux';
-// import { addItemToCart, removeFromCart, removeFromWishlist } from '../../redux/actions/actions';
-
-// export const useWishlist = () => {
-//   const cartData = useSelector(state => state.WishlistReducer);
-//   const dispatch = useDispatch();
-
-//   const handleRemoveFromWishlist = (index) => {
-//     dispatch(removeFromWishlist(index));
-//   };
-
-//   const handleAddToCart = (x) => {
-//     dispatch(addItemToCart(x));
-//   };
-
-//   return { cartData, handleRemoveFromWishlist, handleAddToCart };
-// };
-
-import {Dispatch, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchWishlistProducts} from '../../redux/slice/wishlistSlice';
-import {REMOVE_FROM_WISHLIST, removeFromWishlist} from '../../redux/actions/actions';
+import {removeFromWishlist} from '../../redux/actions/actions';
 import {url} from '../../constants/Apis';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 function useWishlist() {
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
 
   const removefromWishlist = async (productId: any) => {
@@ -50,6 +32,12 @@ function useWishlist() {
         Alert.alert(errorMessage);
       });
   };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchWishlistProducts());
+    });
+    return unsubscribe;
+  }, [navigation]);
   useEffect(() => {
     dispatch(fetchWishlistProducts());
   }, []);

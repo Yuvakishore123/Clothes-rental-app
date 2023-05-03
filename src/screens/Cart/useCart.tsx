@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCartProducts} from '../../redux/slice/cartSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {removeFromCart} from '../../redux/actions/actions';
+import {ADDORDER, removeFromCart} from '../../redux/actions/actions';
 import {cartUpdate, checkoutApi, url} from '../../constants/Apis';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -18,6 +18,12 @@ function useCart() {
   // const cartData = useSelector(state => state.CartProducts.data);
 
   // const productId = useSelector(state => state.CartReducer.productId);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchCartProducts());
+    });
+    return unsubscribe;
+  }, [navigation]);
   const cartData = useSelector(state => state.CartProducts.data);
   useEffect(() => {
     dispatch(fetchCartProducts());
@@ -132,14 +138,9 @@ function useCart() {
     RazorpayCheckout.open(options)
       .then(paymentData => {
         // handle success
+        console.log(paymentData);
         navigation.navigate('OrderStatusScreen');
-        dispatch({
-          type: 'order/placeOrder',
-          payload: {
-            cartItems,
-            total_amount: totalPrice,
-          },
-        });
+        dispatch(ADDORDER(razorpayId));
       })
       .catch(error => {
         // handle failure

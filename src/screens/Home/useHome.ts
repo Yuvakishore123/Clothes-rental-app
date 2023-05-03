@@ -2,13 +2,31 @@
 import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchUserProducts} from '../../redux/slice/userProductSlice';
-import { url } from '../../constants/Apis';
+import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { removeFromWishlist } from '../../redux/actions/actions';
-import { Alert } from 'react-native';
+import {removeFromWishlist} from '../../redux/actions/actions';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 function useHome() {
   const [refreshing, setRefreshing] = useState(false);
-
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [Data, setData] = useState([]);
+  const [oldData, setOldDate] = useState([]);
+  // const [recommendations, setRecommendations] = useState([]);
+  const navigation = useNavigation();
+  const searchProducts = async query => {
+    try {
+      const response = await fetch(`${url}/product/search?query=${query}`);
+      const data = await response.json();
+      navigation.navigate('SearchResultsScreen', {searchResults: data});
+      setData(data);
+      setOldDate(data);
+      setSearchQuery('');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     dispatch(fetchUserProducts());
   }, []);
@@ -43,6 +61,17 @@ function useHome() {
   const dispatch = useDispatch();
   const WishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log(JSON.stringify(WishlistProducts));
-  return {WishlistProducts, onRefresh, refreshing, removefromWishlist};
+  return {
+    WishlistProducts,
+    onRefresh,
+    refreshing,
+    removefromWishlist,
+    searchQuery,
+    searchResults,
+    setSearchResults,
+    searchProducts,
+    setSearchQuery,
+    // recommendations,
+  };
 }
 export default useHome;

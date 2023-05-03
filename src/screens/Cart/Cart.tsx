@@ -18,12 +18,10 @@ import {
   postProductToCartAPI,
 } from '../../redux/actions/actions';
 import Colors from '../../constants/Colors';
-
 type Props = {
   route: {name: string};
   navigation: any;
 };
-
 const Cart = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const {
@@ -49,11 +47,9 @@ const Cart = ({navigation}: Props) => {
       setQuantity(quantity - 1);
     }
   };
-
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
   };
-
   // const onRefresh = async () => {
   //   setRefreshing(true);
   //   await dispatch(fetchCartProducts());
@@ -83,15 +79,14 @@ const Cart = ({navigation}: Props) => {
       </View>
     );
   }
-
   return (
     <>
-      <View style={{width: 34, height: 29, left: 65, marginTop: 40}}>
+      <View style={{width: 50, height: 29, left: 65, marginTop: 40}}>
         <View style={{}}>
           <Text
             style={{
               color: '#3E54AC',
-              fontSize: 15,
+              fontSize: 20,
               fontFamily: 'poppins',
               fontWeight: 'bold',
             }}>
@@ -100,126 +95,161 @@ const Cart = ({navigation}: Props) => {
         </View>
       </View>
       <View style={{flex: 1, alignItems: 'center'}}>
+        {/* {cartData?.cartItems.length === 0 ? (
+          <View style={style.noAddressContainer1}>
+            <View style={style.titleTextContainer1}>
+              <Image
+                style={style.imageS1}
+                source={require('../../../Assets/cartImg.png')}
+              />
+            </View>
+            <View style={style.textContainer1}>
+              <Text style={style.noAddressText1}>Hey,it feels so light!</Text>
+            </View>
+          </View>
+        ) : ( */}
         <ScrollView
           style={style.mainContainer}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-          {cartData?.cartItems?.map(
-            (
-              item: {
-                rentalEndDate: ReactNode;
-                rentalStartDate: ReactNode;
-                product: {
-                  imageURL: any;
-                  name:
-                    | string
-                    | number
-                    | boolean
-                    | React.ReactElement<
-                        any,
-                        string | React.JSXElementConstructor<any>
-                      >
-                    | React.ReactFragment
-                    | React.ReactPortal
-                    | null
-                    | undefined;
-                  id: any;
-                  size:
-                    | string
-                    | number
-                    | boolean
-                    | React.ReactElement<
-                        any,
-                        string | React.JSXElementConstructor<any>
-                      >
-                    | React.ReactFragment
-                    | React.ReactPortal
-                    | null
-                    | undefined;
-                  price: string;
-                };
-              },
-              index: React.Key | null | undefined,
-            ) => (
-              <View key={index} style={style.cardContainer}>
+          {cartData?.cartItems.length === 0 ? (
+            <View style={style.noAddressContainer1}>
+              <View style={style.titleTextContainer1}>
                 <Image
-                  source={{uri: item.product.imageURL}}
-                  style={style.image}
+                  style={style.imageS1}
+                  source={require('../../../Assets/cartimage.jpg')}
                 />
-                <View style={style.cardTextContainer}>
-                  <Text style={style.productname}>{item.product.name}</Text>
-                  <Text style={style.name}>Rent From</Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={style.DateContainer}>
-                      <Text style={style.DateTxt}>{item.rentalStartDate}</Text>
-                    </View>
-                    <View style={style.DateContainer}>
-                      <Text style={style.DateTxt}>{item.rentalEndDate}</Text>
-                    </View>
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity
-                      style={style.RemoveButton}
-                      onPress={() => handleRemove(item.product.id)}>
-                      <Text style={style.RemoveButtonText}>remove</Text>
-                    </TouchableOpacity>
-                    {/* <TouchableOpacity
+              </View>
+              <View style={style.textContainer1}>
+                <Text style={style.noAddressText1}>Hey,it feels so light!</Text>
+              </View>
+            </View>
+          ) : (
+            <View>
+              {cartData?.cartItems?.map(
+                (
+                  item: {
+                    rentalEndDate: ReactNode;
+                    rentalStartDate: ReactNode;
+                    product: {
+                      imageURL: any;
+                      name:
+                        | string
+                        | number
+                        | boolean
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                        | React.ReactFragment
+                        | React.ReactPortal
+                        | null
+                        | undefined;
+                      id: any;
+                      size:
+                        | string
+                        | number
+                        | boolean
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                        | React.ReactFragment
+                        | React.ReactPortal
+                        | null
+                        | undefined;
+                      price: string;
+                    };
+                  },
+                  index: React.Key | null | undefined,
+                ) => (
+                  <View key={index} style={style.cardContainer}>
+                    <Image
+                      source={{uri: item.product.imageURL}}
+                      style={style.image}
+                    />
+                    <View style={style.cardTextContainer}>
+                      <Text style={style.productname}>{item.product.name}</Text>
+                      <Text style={style.name}>Rent From</Text>
+                      <View style={{flexDirection: 'row'}}>
+                        <View style={style.DateContainer}>
+                          <Text style={style.DateTxt}>
+                            {item.rentalStartDate}
+                          </Text>
+                        </View>
+                        <View style={style.DateContainer}>
+                          <Text style={style.DateTxt}>
+                            {item.rentalEndDate}
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <TouchableOpacity
+                          style={style.RemoveButton}
+                          onPress={() => handleRemove(item.product.id)}>
+                          <Text style={style.RemoveButtonText}>remove</Text>
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity
                       style={style.UpdateButton}
                       onPress={handleUpdate}>
                       <Text style={style.UpdateButtonText}>Update</Text>
                     </TouchableOpacity> */}
-                  </View>
-                  <Text style={style.name}>Size</Text>
-                  <View style={style.productSizeBox}>
-                    <Text style={style.detailsdescription}>
-                      {item.product.size}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={style.priceText}>
-                      {'₹' + item.product.price}
-                    </Text>
-                    <View style={style.quantityContainer}>
-                      {/* <View style={{alignItems: 'center', bottom: 2}}> */}
-                      <TouchableOpacity onPress={decrementQuantity}>
-                        <View
-                          style={{
-                            borderRightWidth: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingRight: 5,
-                            marginTop: -2,
-                          }}>
-                          <Icon name="minus" size={15} />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={{alignItems: 'center', bottom: 2}}>
-                        <Text style={style.quantityTxt}>{item.quantity}</Text>
                       </View>
-                      <TouchableOpacity onPress={incrementQuantity}>
-                        <View
-                          style={{
-                            borderLeftWidth: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingLeft: 5,
-                            marginTop: -2,
-                          }}>
-                          <Icon name="plus" size={15} />
+                      <Text style={style.name}>Size</Text>
+                      <View style={style.productSizeBox}>
+                        <Text style={style.detailsdescription}>
+                          {item.product.size}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <Text style={style.priceText}>
+                          {'₹' + item.product.price}
+                        </Text>
+                        <View style={style.quantityContainer}>
+                          {/* <View style={{alignItems: 'center', bottom: 2}}> */}
+                          <TouchableOpacity onPress={decrementQuantity}>
+                            <View
+                              style={{
+                                borderRightWidth: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingRight: 5,
+                                marginTop: -2,
+                              }}>
+                              <Icon name="minus" size={15} />
+                            </View>
+                          </TouchableOpacity>
+                          <View style={{alignItems: 'center', bottom: 2}}>
+                            <Text style={style.quantityTxt}>
+                              {item.quantity}
+                            </Text>
+                          </View>
+                          <TouchableOpacity onPress={incrementQuantity}>
+                            <View
+                              style={{
+                                borderLeftWidth: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingLeft: 5,
+                                marginTop: -2,
+                              }}>
+                              <Icon name="plus" size={15} />
+                            </View>
+                          </TouchableOpacity>
+                          {/* </View> */}
                         </View>
-                      </TouchableOpacity>
-                      {/* </View> */}
+                      </View>
                     </View>
                   </View>
-                </View>
-              </View>
-            ),
+                ),
+              )}
+            </View>
           )}
         </ScrollView>
         <View style={{marginTop: 10, padding: 20}}>
@@ -258,5 +288,4 @@ const Cart = ({navigation}: Props) => {
     </>
   );
 };
-
 export default Cart;

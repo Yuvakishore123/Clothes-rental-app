@@ -69,85 +69,117 @@ const Wishlist = ({navigation}: Props) => {
         <View style={style.textConatiner}>
           <Text style={style.textStyle}>Wishlist</Text>
         </View>
-        <View style={style.maincontainer}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: '#ECF2FF',
-              flexWrap: 'wrap',
-            }}>
-            {/* Other code */}
+        {allWishlistProducts.length === 0 ? (
+          <>
             <View
               style={{
-                marginTop: 20,
                 alignItems: 'center',
-                flexDirection: 'row',
-                marginBottom: 100,
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
+                height: '100%',
+                backgroundColor: Colors.main,
               }}>
-              {allWishlistProducts &&
-                allWishlistProducts.map((item, index) => {
-                  return (
-                    <View style={style.container} key={index}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate('UProductDetails', {
-                            product: item,
-                          })
-                        }>
-                        <View style={style.imageContainer}>
+              <Image
+                source={require('../../../Assets/wishlist.jpg')}
+                style={{
+                  height: 200,
+                  width: 200,
+                  marginTop: 150,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              />
+              <Text
+                style={{
+                  marginBottom: 20,
+                  color: Colors.iconscolor,
+                  fontSize: 15,
+                  fontWeight: '600',
+                }}>
+                Your wishlist is empty
+              </Text>
+            </View>
+          </>
+        ) : (
+          <View style={style.maincontainer}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: '#ECF2FF',
+                flexWrap: 'wrap',
+              }}>
+              {/* Other code */}
+              <View
+                style={{
+                  marginTop: 20,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  marginBottom: 100,
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                }}>
+                {allWishlistProducts &&
+                  allWishlistProducts.map((item, index) => {
+                    return (
+                      <View style={style.container} key={index}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate('UProductDetails', {
+                              product: item,
+                            })
+                          }>
+                          <View style={style.imageContainer}>
+                            <Image
+                              source={{uri: item.imageURL[0]}}
+                              style={style.image}
+                            />
+                          </View>
+                        </TouchableOpacity>
+                        <View style={style.cardTextContainer}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            }}>
+                            <Text style={style.name}>{item.name}</Text>
+                            <TouchableOpacity
+                              style={style.addButton}
+                              onPress={() => {}}>
+                              <Text
+                                style={{
+                                  color: '#3E54AC',
+                                  fontWeight: 'bold',
+                                  fontSize: 12,
+                                }}>
+                                +
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View style={style.textContainer}>
+                            <Text style={style.price}>{'₹' + item.price}</Text>
+                            <TouchableOpacity
+                              style={style.rentButton}
+                              onPress={() =>
+                                dispatch(postProductToCartAPI({...item}))
+                              }>
+                              <Text style={style.rentText}>Rent</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                        <TouchableOpacity
+                          style={style.wishlistButton}
+                          onPress={() => removefromWishlist(item.id)}>
                           <Image
-                            source={{uri: item.imageURL[1]}}
-                            style={style.image}
+                            source={require('../../../Assets/fillheart.png')}
+                            style={{width: 24, height: 24}}
                           />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={style.cardTextContainer}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <Text style={style.name}>{item.name}</Text>
-                          <TouchableOpacity
-                            style={style.addButton}
-                            onPress={() => {}}>
-                            <Text
-                              style={{
-                                color: '#3E54AC',
-                                fontWeight: 'bold',
-                                fontSize: 12,
-                              }}>
-                              +
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                        <View style={style.textContainer}>
-                          <Text style={style.price}>{'₹' + item.price}</Text>
-                          <TouchableOpacity
-                            style={style.rentButton}
-                            onPress={() =>
-                              dispatch(postProductToCartAPI({...item}))
-                            }>
-                            <Text style={style.rentText}>Rent</Text>
-                          </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity
-                        style={style.wishlistButton}
-                        onPress={() => removefromWishlist(item.id)}>
-                        <Image
-                          source={require('../../../Assets/fillheart.png')}
-                          style={{width: 24, height: 24}}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
+                    );
+                  })}
+              </View>
             </View>
           </View>
-        </View>
+        )}
       </ScrollView>
     </View>
   );

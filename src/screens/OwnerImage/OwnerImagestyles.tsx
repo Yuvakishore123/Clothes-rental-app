@@ -6,6 +6,11 @@ const OwnerImagestyles = StyleSheet.create({
   //   width: '100%',
   //   backgroundColor: Colors.main,
   // },
+  imagehorizontal: {
+    height: -10,
+    width: 300,
+    // marginTop: -100,
+  },
   TitletextContainer: {
     flexDirection: 'row',
     margin: 15,
@@ -30,7 +35,7 @@ const OwnerImagestyles = StyleSheet.create({
     alignItems: 'center',
   },
   removeContainer: {
-    padding: 20,
+    // padding: 20,
     alignItems: 'center',
   },
   Icon: {
@@ -74,7 +79,7 @@ const OwnerImagestyles = StyleSheet.create({
   ImageBox: {
     marginTop: 40,
     marginLeft: 55,
-    marginBottom: 200,
+    // marginBottom: 120,
     // backgroundColor: '#000',
     width: '60%',
     height: '90%',
@@ -113,8 +118,9 @@ const OwnerImagestyles = StyleSheet.create({
     marginTop: 20,
   },
   Scroll: {
-    width: '100%',
-    height: '100%',
+    // width: '100%',
+    // height: '100%',
+    // marginBottom: 10,
     backgroundColor: Colors.main,
   },
   Sizecontainer: {

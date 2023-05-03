@@ -147,6 +147,10 @@ import CategoryProducts from '../../screens/CategoryProducts/CategoryProducts';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import CheckoutScreen from '../../screens/CheckoutScreen/CheckoutScreen';
 import PaymentScreen from '../../screens/PaymentScreen/PaymentScreen';
+import SearchResultsScreen from '../../screens/SearchResultScreen/SearchResultScreen';
+import Owneraddresspage from '../../screens/Owneraddaddress/Owneraddresspage';
+import Owneraddaddress from '../../screens/Owneraddaddress/Owneraddaddress';
+import Ownereditprofile from '../../screens/Ownereditprofile/Ownereditprofile';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -156,6 +160,10 @@ const HomeStack = () => {
       screenOptions={{headerShown: false}}
       initialRouteName="Homescreen">
       <Stack.Screen name="Homescreen" component={Homescreen} />
+      <Stack.Screen
+        name="SearchResultsScreen"
+        component={SearchResultsScreen}
+      />
       <Stack.Screen name="UProductDetails" component={UProductDetails} />
     </Stack.Navigator>
   );
@@ -181,6 +189,19 @@ const CartStack = () => {
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Stack.Screen name="Payment" component={PaymentScreen} />
       <Stack.Screen name="Cart" component={Cart} />
+    </Stack.Navigator>
+  );
+};
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Profile">
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Ownereditprofile" component={Ownereditprofile} />
+      <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
+      <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
     </Stack.Navigator>
   );
 };
@@ -261,8 +282,8 @@ const MyStack = () => {
         })}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileScreen"
+        component={ProfileStack}
         options={() => ({
           tabBarLabel: 'Profile',
           tabBarIcon: ({color}) => (

@@ -471,5 +471,35 @@ const styles = StyleSheet.create({
     top: -5,
     left: -6,
   },
+  noAddressContainer1: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  titleTextContainer1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+    marginLeft: 60,
+  },
+  imageS1: {
+    width: 300,
+    height: 300,
+    borderRadius: 130,
+  },
+  textContainer1: {
+    alignItems: 'center',
+  },
+  noAddressText1: {
+    fontWeight: '500',
+    fontSize: 20,
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#3E54AC',
+  },
+  line21: {
+    fontSize: 16,
+    color: '#8E8E8E',
+  },
 });
 export default styles;

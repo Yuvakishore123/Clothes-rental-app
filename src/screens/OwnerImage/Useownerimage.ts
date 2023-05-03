@@ -117,124 +117,17 @@ const OwnerImage = () => {
     }
   };
 
-  // const [selectedImage, setSelectedImage] = useState('');
-  // // const navigation = useNavigation();
-  // const handleback = () => {
-  //   navigation.navigate(OwnerImage);
-  // };
-  // const handleremove = () => {
-  //   setSelectedImage('');
-  // };
-  // const onSelectImage = async () => {
-  //   const permissionStatus = await androidCameraPermission();
-  //   const onCamera = () => {
-  //     ImagePicker.openCamera({
-  //       width: 300,
-  //       height: 400,
-  //       cropping: true,
-  //       mediaType: 'photo',
-  //       includeBase64: true,
-  //     }).then(image => {
-  //       console.log(image);
-  //       setSelectedImage(image.path);
-  //       handleback();
-  //       navigation.navigate(OwnerImage, {image: image.path});
-  //     });
-  //   };
-  //   const onGallery = () => {
-  //     ImagePicker.openPicker({
-  //       width: 300,
-  //       height: 400,
-  //       mediaType: 'photo',
-  //       cropping: true,
-  //     }).then(image => {
-  //       console.log('Seleted Image', image);
-  //       setSelectedImage(image.path);
-  //       handleback();
-  //       setTimeout(() => {
-  //         imageUpload(image.path);
-  //       });
-  //     });
-  //   };
-  //   // const imageUpload = (imagePath: string) => {
-  //   //   var Myheaders = new Headers();
-  //   //   Myheaders.append('Content-Type', 'multipart/form-data');
-  //   //   const formdata = new FormData();
-  //   //   formdata.append('file', {
-  //   //     uri: imagePath,
-  //   //     type: 'image/png',
-  //   //     name: 'image.png',
-  //   //     fileName: 'image',
-  //   //     // type: imagePath.type,
-  //   //     // name: ,
-  //   //   });
-  //   //   axios({
-  //   //     method: 'post',
-  //   //     url: 'http://07f9-106-51-70-135.ngrok.io/file/upload', // Update the URL to the new API endpoint
-  //   //     data: formdata,
-  //   //     // headers: Myheaders,
-  //   //     timeout: 5000,
-  //   //   })
-  //   //     .then(function (response) {
-  //   //       console.log('Image uploaded:', response.headers);
-  //   //     })
-  //   //     .catch(function (error) {
-  //   //       console.log('Error uploading image:', error.message);
-  //   //     });
-  //   // };
-  //   const imageUpload = async (imagePath: string) => {
-  //     const formData = new FormData();
-  //     const url = await AsyncStorage.getItem('url');
-  //     formData.append('file', {
-  //       uri: imagePath,
-  //       type: 'image/png',
-  //       name: 'image.png',
-  //     });
-  //     try {
-  //       const response = await fetch(
-  //         'https://122e-106-51-70-135.ngrok-free.app/file/upload',
-  //         {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'multipart/form-data',
-  //           },
-  //           body: formData,
-  //         },
-  //       );
-  //       const result = await response.json();
-  //       const url = result.url;
-  //       await AsyncStorage.setItem('url', url);
-  //       console.log('Image uploaded:', result);
-  //       getImageUrl();
-  //       console.log('heloo', url);
-  //     } catch (error) {
-  //       console.log('Error uploading image:', error);
-  //     }
-  //   };
-  //   if (permissionStatus || Platform.OS === 'ios') {
-  //     Alert.alert('Profile Picture', 'Choose option', [
-  //       {
-  //         text: 'Camera',
-  //         onPress: onCamera,
-  //       },
-  //       {
-  //         text: 'Gallery',
-  //         onPress: onGallery,
-  //       },
-  //       {
-  //         text: 'cancel',
-  //         onPress: () => {},
-  //       },
-  //     ]);
-  //   }
-  // };
+  const [selectedImage, setSelectedImage] = useState('');
+ 
   const [imageUris, setImageUris] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
   const handleImageUris = urls => {
     setImageUrls(urls);
   };
-
+  const handleremove = () => {
+    setSelectedImage('');
+  };
   // const [removeImage, setRemove] = useState([]);
   // const removeImage = index => {
   //   const newImageUris = [...imageUris];
@@ -298,6 +191,7 @@ const OwnerImage = () => {
               const res = await result.json();
               console.log(res);
               setImageUrls(res.urls);
+              setSelectedImage(res.urls);
               console.log(imageUrls); // Update this line
             } else {
               const res = await result.json();
@@ -331,14 +225,15 @@ const OwnerImage = () => {
     postData,
     handleSelectedImage,
     handleSizeTypeChange,
-    // selectedImage,
-    // setSelectedImage,
+    imageUrls,
+    setImageUris,
     selectedsize,
     setSelectedsize,
     setPrice,
     setQuantity,
     // onSelectImage,
-    // handleremove,
+    selectedImage,
+    handleremove,
     formik,
     handlePriceChange,
     handleQuantityChange,

@@ -89,7 +89,7 @@ const CategoryProducts = ({route}) => {
                     >
                       <View style={style.imageContainer}>
                         <Image
-                          source={{uri: item.imageURL}}
+                          source={{uri: item.imageURL[0]}}
                           style={style.image}
                           //changes
                           // onPress={() =>

@@ -2,7 +2,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {removeAddress} from '../../redux/actions/actions';
 import axios from 'axios';
-import {AddAddressUrl, address} from '../../constants/Apis';
+import {AddAddressUrl, address, url} from '../../constants/Apis';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
@@ -28,10 +28,9 @@ export const OwnerAddressCustomHook = () => {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         };
-        const response = await axios.get(
-          'https://b015-180-151-211-120.ngrok-free.app/api/v1/address/listaddress',
-          {headers},
-        );
+        const response = await axios.get(`${url}/address/listaddress`, {
+          headers,
+        });
         const data = await response.data;
         console.log(response.data);
         setAddress(data);

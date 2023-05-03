@@ -5,7 +5,6 @@ import {OwnerAddressCustomHook} from './Useowneraddress';
 import style from './Owneraddressstyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-
 const Owneraddresspage = () => {
   const {
     handleOwnerAddAddress,
@@ -14,7 +13,6 @@ const Owneraddresspage = () => {
     addressList,
     handleEditItems,
   } = OwnerAddressCustomHook();
-
   const renderAddressItem = ({item, index}) => {
     return (
       <View style={style.card}>
@@ -44,7 +42,6 @@ const Owneraddresspage = () => {
       </View>
     );
   };
-
   return (
     <View style={style.maincontainer}>
       <View style={style.header}>
@@ -52,7 +49,7 @@ const Owneraddresspage = () => {
           <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
             <MaterialCommunityIcons
               name="arrow-left"
-              color={Colors.iconscolor}
+              color="#3E54AC"
               size={26}
             />
           </TouchableOpacity>
@@ -64,13 +61,30 @@ const Owneraddresspage = () => {
           <Text style={style.btnText}>Add Address</Text>
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={addressList}
-        renderItem={renderAddressItem}
-        keyExtractor={item => item.id.toString()}
-      />
+      {addressList.length === 0 ? (
+        <View style={style.noAddressContainer1}>
+          <View style={style.titleTextContainer1}>
+            <Image
+              style={style.imageS1}
+              source={require('../../../Assets/Noaddress.jpg')}
+            />
+          </View>
+          <View style={style.textContainer1}>
+            <Text style={style.noAddressText1}>SAVE YOUR ADDRESS NOW</Text>
+            <Text style={style.line21}>
+              Add your home and Office addresses and enjoy faster
+            </Text>
+            <Text style={style.line21}>checkout</Text>
+          </View>
+        </View>
+      ) : (
+        <FlatList
+          data={addressList}
+          renderItem={renderAddressItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      )}
     </View>
   );
 };
-
 export default Owneraddresspage;
