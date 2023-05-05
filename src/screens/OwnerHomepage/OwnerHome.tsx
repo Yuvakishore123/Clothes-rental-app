@@ -5,7 +5,6 @@ import styles from './OwnerHomestyle';
 import {Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Useownerhome from './Useownerhome';
-import Mainbutton from '../../components/atoms/MainButton';
 import Ownerstyles from '../Additems/Additemsstyle';
 import OwnerImagestyles from '../OwnerImage/OwnerImagestyles';
 type Props = {
@@ -48,7 +47,7 @@ export default function OwnerHome({navigation}: Props) {
           <Text style={styles.renteditems2}>Total Earnings</Text>
         </View>
         <View style={styles.rentalitemscard}>
-          <Text style={styles.cardsrentalprices}>87</Text>
+          <Text style={styles.cardsrentalprices}>4</Text>
           <Text style={styles.cardsTotalprices}>₹ 2000</Text>
         </View>
       </View>
@@ -69,7 +68,7 @@ export default function OwnerHome({navigation}: Props) {
               }>
               <View style={styles.cardContainer}>
                 <Image
-                  source={{uri: item.imageURL[0]}}
+                  source={{uri: item.imageUrl[0]}}
                   style={styles.recentlyaddedimage}
                 />
               </View>
@@ -143,7 +142,7 @@ export default function OwnerHome({navigation}: Props) {
                 }>
                 <View style={styles.cardContainer}>
                   <Image
-                    source={{uri: item.imageURL[0]}}
+                    source={{uri: item.imageUrl[0]}}
                     style={styles.recentlyaddedimage}
                   />
                 </View>
@@ -155,7 +154,7 @@ export default function OwnerHome({navigation}: Props) {
             ))}
         </View>
       </View>
-      <View style={styles.touchableContainer}>
+      {/* <View style={styles.touchableContainer}>
         <TouchableOpacity
           onPress={handleAdditems}
           style={OwnerImagestyles.touchableContainer}>
@@ -166,7 +165,7 @@ export default function OwnerHome({navigation}: Props) {
           style={OwnerImagestyles.touchableContainer}>
           <Text style={Ownerstyles.touchableText}>My rentals</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }

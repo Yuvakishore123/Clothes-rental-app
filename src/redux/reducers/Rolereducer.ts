@@ -1,7 +1,7 @@
 import {SET_ROLE} from '../actions/actions';
 
 const initialState = {
-  role: 1,
+  role: 'borrower',
 };
 
 const Rolereducer = (state = initialState, action: any) => {

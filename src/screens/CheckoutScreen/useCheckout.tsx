@@ -172,24 +172,52 @@ function useCart() {
       currency: 'INR',
       key: 'rzp_test_TvqBgZuxwM7H00',
       amount: totalPrice * 100,
-      name: 'indranil',
+      name: 'Leap',
       prefill: {
         email: 'example@example.com',
         contact: '1234567890',
-        name: 'John Doe',
+        name: 'John',
       },
-      theme: {color: '#F37254'},
+      theme: {
+        color: '#3E54AC',
+        background: '#f6f6f6',
+        'card[name]': {
+          color: '#3E54AC',
+          'font-size': '16px',
+          'font-weight': 'bold',
+          'font-family': 'Arial, sans-serif',
+        },
+        'card[number]': {
+          color: '#3E54AC',
+          'font-size': '16px',
+          'font-weight': 'bold',
+          'font-family': 'Arial, sans-serif',
+        },
+        'card[expiry]': {
+          color: '#3E54AC',
+          'font-size': '16px',
+          'font-weight': 'bold',
+          'font-family': 'Arial, sans-serif',
+        },
+        'card[cvc]': {
+          color: '#3E54AC',
+          'font-size': '16px',
+          'font-weight': 'bold',
+          'font-family': 'Arial, sans-serif',
+        },
+      },
     };
     RazorpayCheckout.open(options)
       .then((paymentData: any) => {
         // handle success
         console.log(paymentData);
-        navigation.navigate('Cart');
+        navigation.navigate('PaymentSuccessScreen');
         dispatch(ADDORDER(paymentData.razorpay_payment_id));
       })
       .catch(error => {
         // handle failure
         Alert.alert('Try Again');
+        navigation.navigate('PaymentFailScreen');
       });
   };
 

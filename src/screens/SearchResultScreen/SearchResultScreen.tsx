@@ -12,6 +12,7 @@ import style from './searchResultStyle';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../constants/Colors';
+import Lottie from 'lottie-react-native';
 const SearchResultsScreen = ({route}) => {
   const navigation = useNavigation();
   const {searchResults} = route.params;
@@ -53,7 +54,7 @@ const SearchResultsScreen = ({route}) => {
                     }>
                     <View style={style.imageContainer}>
                       <Image
-                        source={{uri: item.imageURL[0]}}
+                        source={{uri: item.imageUrl[0]}}
                         style={style.image}
                       />
                     </View>
@@ -102,9 +103,10 @@ const SearchResultsScreen = ({route}) => {
               <Text style={style.titleText}>Umm...No results found</Text>
             </View>
             <View style={style.titleTextContainer}>
-              <Image
+              <Lottie
                 style={style.imageS}
-                source={require('../../../Assets/error.jpg')}
+                source={require('../../../Assets/search.json')}
+                autoPlay
               />
             </View>
           </View>

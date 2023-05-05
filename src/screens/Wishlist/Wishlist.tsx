@@ -13,6 +13,7 @@ import {FlatList} from 'react-native-gesture-handler';
 // import CartItem from '../Cart/CartItem';
 import useWishlist from './useWishlist';
 import style from './wishlistStyles';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import {
   addItemToCart,
   addToWishlist,
@@ -29,7 +30,13 @@ const Wishlist = ({navigation}: Props) => {
   // const {cartData, handleRemoveFromWishlist, handleAddToCart} = useWishlist();
   const dispatch = useDispatch();
 
-  const {WishlistProducts, removefromWishlist} = useWishlist();
+  const {
+    WishlistProducts,
+    removefromWishlist,
+    closeModal,
+    showModal,
+    openModal,
+  } = useWishlist();
   const [wishlistList, setWishlistList] = useState([]);
   const {refreshing, onRefresh} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
@@ -129,7 +136,7 @@ const Wishlist = ({navigation}: Props) => {
                           }>
                           <View style={style.imageContainer}>
                             <Image
-                              source={{uri: item.imageURL[0]}}
+                              source={{uri: item.imageUrl[0]}}
                               style={style.image}
                             />
                           </View>
@@ -167,7 +174,8 @@ const Wishlist = ({navigation}: Props) => {
                         </View>
                         <TouchableOpacity
                           style={style.wishlistButton}
-                          onPress={() => removefromWishlist(item.id)}>
+                          onPress={() => removefromWishlist(item.id)}
+                          onPressIn={() => openModal()}>
                           <Image
                             source={require('../../../Assets/fillheart.png')}
                             style={{width: 24, height: 24}}
@@ -181,6 +189,11 @@ const Wishlist = ({navigation}: Props) => {
           </View>
         )}
       </ScrollView>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Item Removed!"
+      />
     </View>
   );
 };

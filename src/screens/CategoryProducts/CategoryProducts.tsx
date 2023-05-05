@@ -16,6 +16,7 @@ import {postProductToAPI} from '../../redux/actions/actions';
 import style from './categoryStyles';
 import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
@@ -48,6 +49,14 @@ const CategoryProducts = ({route}) => {
   return (
     <ScrollView style={style.maincontainer}>
       <View style={style.textConatiner}>
+        <View style={style.dheader}>
+          <Icon
+            name="arrow-back-ios"
+            size={18}
+            color="#3E54AC"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
         <Text style={style.textStyle}>Products</Text>
       </View>
       <View style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
@@ -65,6 +74,7 @@ const CategoryProducts = ({route}) => {
           {subcategories &&
             subcategories.map(item => (
               <TouchableOpacity
+                key={item.id} // Add a unique key prop
                 onPress={() =>
                   navigation.navigate('CategoryProducts', {
                     subcategoryId: item.id,
@@ -83,13 +93,12 @@ const CategoryProducts = ({route}) => {
                   <View style={style.container}>
                     <TouchableOpacity
                       key={item.id}
-                      // onPress={() =>
-                      //   navigation.navigate('UProductDetails', {product: item})
-                      // }
-                    >
+                      onPress={() =>
+                        navigation.navigate('UProductDetails', {product: item})
+                      }>
                       <View style={style.imageContainer}>
                         <Image
-                          source={{uri: item.imageURL[0]}}
+                          source={{uri: item.imageUrl[0]}}
                           style={style.image}
                           //changes
                           // onPress={() =>

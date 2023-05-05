@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import axios from 'axios';
 import {url} from '../../constants/Apis';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -36,7 +38,10 @@ const Category = () => {
     <TouchableOpacity
       onPress={() => navigation.navigate('Subcategory', {categoryId: item.id})}>
       <View style={styles.categoryBox}>
-        <Image source={{uri: item.imageURL}} />
+        <Image
+          source={{uri: item.imageUrl}}
+          style={{height: 107, width: 340, opacity: 0.7}}
+        />
         <View>
           <Text style={styles.categoryText}>{item.categoryName}</Text>
         </View>
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 340,
-    height: 85,
+    height: 107,
     backgroundColor: '#567B89',
     borderRadius: 10,
     // backgroundColor: 'pink',
@@ -77,8 +82,10 @@ const styles = StyleSheet.create({
 
   categoryText: {
     color: '#ECF2FF',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '800',
+    zIndex: 1,
+    marginTop: -45,
   },
 });
 

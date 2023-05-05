@@ -6,30 +6,25 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OwnerImagestyles from './OwnerImagestyles';
 import Sizeselection from '../../components/atoms/Sizeselect';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import Mainbutton from '../../components/atoms/MainButton';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
-import Colors from '../../constants/Colors';
-import MultipleImages from '../../components/atoms/MultipleImages';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 
 export default function Owneraddimages() {
   const {
-    postData,
     onHandleOwnerItems,
     // Onhandlepress,
     handleSizeTypeChange,
     setSelectedsize,
     handlePriceChange,
     handleQuantityChange,
-    handleSelectedImage,
     handleBlur,
     handleremove,
     selectedImage,
-    handleRemoveImages,
-    onSelectImage,
     imageUrls,
-    setImageUris,
     pickImages,
+    closeModal,
+    showModal,
     formik,
   } = Useownerimage();
   console.log('johnresly', imageUrls);
@@ -140,6 +135,11 @@ export default function Owneraddimages() {
           </View>
         </View>
       </View>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Product added successfully!"
+      />
     </ScrollView>
   );
 }

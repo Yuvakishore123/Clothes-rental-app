@@ -7,17 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import DatePicker from '../../components/atoms/DatePicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useCart from './useCart';
 import style from './CartItemStyles';
-import {
-  incrementCartItemQuantity,
-  postProductToCartAPI,
-} from '../../redux/actions/actions';
 import Colors from '../../constants/Colors';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import Lottie from 'lottie-react-native';
+
 type Props = {
   route: {name: string};
   navigation: any;
@@ -36,12 +35,28 @@ const Cart = ({navigation}: Props) => {
     setRentalStartDate,
     setRentalEndDate,
     handleCheckout,
+    closeModal,
+    showModal,
   } = useCart();
   const cartData = useSelector(state => state.CartProducts.data);
   const totalPrice = useSelector(state => state.CartProducts.totalPrice);
   const isLoading = useSelector(state => state.CartProducts.isLoader);
   const error = useSelector(state => state.CartProducts.error);
   console.log('cartItems:', cartData);
+  // const [animationProgress, setAnimationProgress] = useState(0);
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (animationProgress < 20006.5) {
+  //       setAnimationProgress(animationProgress + 0.01);
+  //     } else {
+  //       clearInterval(intervalId);
+  //     }
+  //   }, 25006.67);
+
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -96,18 +111,18 @@ const Cart = ({navigation}: Props) => {
       </View>
       <View style={{flex: 1, alignItems: 'center'}}>
         {/* {cartData?.cartItems.length === 0 ? (
-          <View style={style.noAddressContainer1}>
-            <View style={style.titleTextContainer1}>
-              <Image
-                style={style.imageS1}
-                source={require('../../../Assets/cartImg.png')}
-              />
+            <View style={style.noAddressContainer1}>
+              <View style={style.titleTextContainer1}>
+                <Image
+                  style={style.imageS1}
+                  source={require('../../../Assets/cartImg.png')}
+                />
+              </View>
+              <View style={style.textContainer1}>
+                <Text style={style.noAddressText1}>Hey,it feels so light!</Text>
+              </View>
             </View>
-            <View style={style.textContainer1}>
-              <Text style={style.noAddressText1}>Hey,it feels so light!</Text>
-            </View>
-          </View>
-        ) : ( */}
+          ) : ( */}
         <ScrollView
           style={style.mainContainer}
           refreshControl={
@@ -116,9 +131,10 @@ const Cart = ({navigation}: Props) => {
           {cartData?.cartItems.length === 0 ? (
             <View style={style.noAddressContainer1}>
               <View style={style.titleTextContainer1}>
-                <Image
+                <Lottie
                   style={style.imageS1}
-                  source={require('../../../Assets/cartimage.jpg')}
+                  autoPlay
+                  source={require('../../../Assets/emptycart.json')}
                 />
               </View>
               <View style={style.textContainer1}>
@@ -165,10 +181,7 @@ const Cart = ({navigation}: Props) => {
                   index: React.Key | null | undefined,
                 ) => (
                   <View key={index} style={style.cardContainer}>
-                    <Image
-                      source={{uri: item.product.imageURL}}
-                      style={style.image}
-                    />
+                    <Image source={{uri: item.imageUrl}} style={style.image} />
                     <View style={style.cardTextContainer}>
                       <Text style={style.productname}>{item.product.name}</Text>
                       <Text style={style.name}>Rent From</Text>
@@ -191,10 +204,10 @@ const Cart = ({navigation}: Props) => {
                           <Text style={style.RemoveButtonText}>remove</Text>
                         </TouchableOpacity>
                         {/* <TouchableOpacity
-                      style={style.UpdateButton}
-                      onPress={handleUpdate}>
-                      <Text style={style.UpdateButtonText}>Update</Text>
-                    </TouchableOpacity> */}
+                        style={style.UpdateButton}
+                        onPress={handleUpdate}>
+                        <Text style={style.UpdateButtonText}>Update</Text>
+                      </TouchableOpacity> */}
                       </View>
                       <Text style={style.name}>Size</Text>
                       <View style={style.productSizeBox}>
@@ -285,6 +298,11 @@ const Cart = ({navigation}: Props) => {
           </TouchableOpacity>
         </View>
       </View>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Item Remove From cart!"
+      />
     </>
   );
 };

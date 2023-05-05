@@ -12,6 +12,7 @@ import style from './Ownereditprofilestyle';
 import Colors from '../../constants/Colors';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import useOwnerProfile from './Useownerprofile';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 export default function OwnerEditProfileCustomHook() {
   const navigation = useNavigation();
   const {
@@ -25,6 +26,8 @@ export default function OwnerEditProfileCustomHook() {
     setPhoneNumber,
     handleReset,
     handleUpdate,
+    closeModal,
+    showModal,
   } = useOwnerProfile();
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
@@ -85,9 +88,6 @@ export default function OwnerEditProfileCustomHook() {
           </View>
         </View>
         <View style={style.buttons}>
-          <TouchableOpacity style={style.btnfield1} onPress={handleReset}>
-            <Text style={style.btntext1}>Reset </Text>
-          </TouchableOpacity>
           <TouchableOpacity
             style={[
               style.btnfield,
@@ -102,6 +102,11 @@ export default function OwnerEditProfileCustomHook() {
           </TouchableOpacity>
         </View>
       </View>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Item added successfully!"
+      />
     </ScrollView>
   );
 }

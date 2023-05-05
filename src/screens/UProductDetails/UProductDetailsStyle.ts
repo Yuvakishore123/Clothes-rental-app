@@ -1,13 +1,105 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
+  productSizeBox: {
+    marginTop: 10,
+    borderWidth: 2,
+    borderColor: '#3E54AC',
+    borderRadius: 10,
+    backgroundColor: Colors.iconscolor,
+    width: 50, // set a width that works for your layout
+    height: 30, // set a height that works for your layout
+    justifyContent: 'center', // vertically center the text
+    alignItems: 'center', // horizontally center the text
+  },
+  detailsdescription: {
+    marginTop: 20,
+    fontSize: 15,
+    fontWeight: '400',
+    color: Colors.iconscolor,
+  },
+  detailsSize: {
+    // marginTop: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
+  buttonQuantity: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 2,
+    paddingVertical: 2,
+    height: 28,
+    width: 28,
+    borderRadius: 5,
+    borderColor: '#3E54AC',
+    borderWidth: 1,
+    // top: 55,
+    // left: -190,
+  },
+  buttonTextDecrement: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    top: 2,
+    left: 9,
+  },
+  buttonTextIncrement: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    top: 2,
+    left: 9,
+  },
+  quantityText: {
+    fontSize: 14,
+    marginHorizontal: 10,
+    fontWeight: 'bold',
+    color: Colors.black,
+    // top: 55,
+    // left: -190,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    flex: 1,
+    marginRight: 10,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // borderWidth: 1,
+    borderRadius: 5,
+    // borderColor: 'gray',
+    paddingHorizontal: 10,
+    height: 40,
+  },
+  quantityButton: {
+    backgroundColor: Colors.iconscolor,
+    borderRadius: 5,
+    padding: 5,
+    height: 30,
+    width: 30,
+  },
+  quantityButtonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginTop: -5,
+  },
   container: {
+    // zIndex: 0,
+    backgroundColor: '#ECF2FF',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     // backgroundColor: 'white',
     width: '100%',
     height: '100%',
+    // height: 800,
   },
   btnfield: {
-    position: 'absolute',
+    position: 'relative',
     width: 330,
     height: 59,
     left: 26,
@@ -37,20 +129,25 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   dheader: {
-    marginTop: 60,
+    marginTop: -30,
+    top: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    zIndex: 1,
+    marginLeft: 15,
   },
   detailsContainer: {
-    height: '100%',
-    width: '100%',
+    zIndex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    // paddingVertical: 40,
+    paddingVertical: 20,
     paddingHorizontal: 20,
-    backgroundColor: Colors.main,
-    flex: 20,
+    backgroundColor: '#ECF2FF',
+    // marginLeft: 5,
+    // backgroundColor: '#ECF2FF',
+    flex: 1,
+    // marginBottom: 120,
   },
   iconContainer: {
     height: 60,
@@ -81,7 +178,7 @@ const styles = StyleSheet.create({
     top: 288,
   },
   headingtext: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '900',
     color: '#3E54AC',
     // width: '80%',
@@ -93,8 +190,8 @@ const styles = StyleSheet.create({
   startext: {
     marginTop: 10,
     color: '#3E54AC',
-    fontWeight: '400',
-    fontSize: 15,
+    fontWeight: '700',
+    fontSize: 25,
   },
   title: {
     fontFamily: '800',
@@ -104,12 +201,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  detailsdescription: {
-    marginLeft: 5,
-    marginTop: 10,
-    lineHeight: 22,
-    color: '#493d8a',
-  },
+
   sizelabel: {
     width: 200,
     height: 48.66,
@@ -223,5 +315,35 @@ const styles = StyleSheet.create({
     zIndex: 1,
     opacity: 0.5,
   },
+
+  touchableText: {
+    // margin:15,
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    justifyContent: 'center',
+  },
+  touchablebtn: {
+    height: 59,
+    width: 309,
+    backgroundColor: '#3E54AC',
+    margin: 15,
+    marginTop: 20,
+    borderRadius: 8,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  touchablebtnContainer: {
+    justifyContent: 'center',
+    marginBottom: 20,
+    // alignItems:"center",
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 20,
+  },
 });
+
 export default styles;

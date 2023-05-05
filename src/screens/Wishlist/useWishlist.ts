@@ -9,7 +9,13 @@ import {useNavigation} from '@react-navigation/native';
 function useWishlist() {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const removefromWishlist = async (productId: any) => {
     const token = await AsyncStorage.getItem('token');
     console.log('chiranjeevi', productId);
@@ -23,7 +29,7 @@ function useWishlist() {
       .then(data => {
         // console.log('Item removed from cart:', data);
         dispatch(removeFromWishlist(productId));
-        Alert.alert('Item Removed from Wishlist');
+        openModal();
       })
       .catch(error => {
         console.error(error);
@@ -51,6 +57,14 @@ function useWishlist() {
   const WishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log(JSON.stringify(WishlistProducts));
   console.log('wishlist succes');
-  return {WishlistProducts, removefromWishlist, refreshing, onRefresh};
+  return {
+    WishlistProducts,
+    removefromWishlist,
+    refreshing,
+    onRefresh,
+    closeModal,
+    showModal,
+    openModal,
+  };
 }
 export default useWishlist;

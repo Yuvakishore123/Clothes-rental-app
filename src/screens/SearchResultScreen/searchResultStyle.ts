@@ -133,10 +133,10 @@ const style = StyleSheet.create({
   },
   imageS: {
     borderRadius: 200,
-    marginTop: 90,
+    // marginTop: 90,
     width: 250,
     height: 250,
-    marginLeft: 50,
+    marginLeft: -15,
     // paddingRight: 30,
   },
 });

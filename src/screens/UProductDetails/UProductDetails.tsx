@@ -7,16 +7,15 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from '../../components/atoms/DatePicker Detail';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './UProductDetailsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {postProductToCartAPI} from '../../redux/actions/actions';
 import {useDispatch} from 'react-redux';
 import {url} from '../../constants/Apis';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 type Props = {
   route: {params: {product: any}};
   navigation: any;
@@ -27,6 +26,7 @@ export default function UDetailScreen({route, navigation}: Props) {
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [quantity, setQuantity] = useState(1);
+  const [showModal, setShowModal] = useState(false);
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -36,38 +36,6 @@ export default function UDetailScreen({route, navigation}: Props) {
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
   };
-
-  // const handleSubmit = async (item: {
-  //   id: any;
-  //   quantity: any;
-  //   rentalEndDate: any;
-  //   rentalStartDate: any;
-  // }) => {
-  //   const modifiedItem = {
-  //     id: 0,
-  //     productId: item.id,
-  //     quantity: item.quantity,
-  //     rentalEndDate: rentalEndDate,
-  //     rentalStartDate: rentalStartDate,
-  //   };
-  //   const token = await AsyncStorage.getItem('token');
-  //   fetch(`${url}/cart/add`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify(modifiedItem),
-  //   })
-  //     // .then(response => response.json())
-  //     .then(data => {
-  //       console.log('Success:', data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
   const handleSubmit = async () => {
     const item = {
       productId: product.id,
@@ -87,37 +55,48 @@ export default function UDetailScreen({route, navigation}: Props) {
       // .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
-        Alert.alert('Item Added Successfully');
+        openModal();
       })
       .catch(error => {
         console.error('Error:', error);
       });
+  };
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
-        <ScrollView horizontal={true}>
-          <View style={{flexDirection: 'row'}}>
-            {product.imageURL.map((item, index) => (
-              <TouchableOpacity
-                key={index.toString()}
-                // style={{marginHorizontal: 5}}
-                onPress={() => navigation.goBack()}>
-                <ImageBackground
-                  style={{
-                    height: 500,
-                    width: 405,
-                    backgroundColor: 'green',
-                    marginLeft: -5,
-                  }}
-                  source={{uri: item}}></ImageBackground>
-              </TouchableOpacity>
+        <View style={styles.dheader}>
+          <Icon
+            name="arrow-back-ios"
+            size={28}
+            color="black"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+        <View>
+          <ScrollView horizontal={true}>
+            {product.imageUrl.map((item, index) => (
+              <ImageBackground
+                key={index}
+                style={{
+                  height: 500,
+                  width: 405,
+                  // zIndex: 2,
+                  backgroundColor: 'green',
+                  marginLeft: -5,
+                  marginTop: -5,
+                }}
+                source={{uri: item}}></ImageBackground>
             ))}
-          </View>
-        </ScrollView>
-
+          </ScrollView>
+        </View>
         <View style={[styles.detailsContainer, {marginTop: -50}]}>
           <Text style={styles.startext}>{product.name}</Text>
           <Text style={styles.detailsdescription}>{product.description}</Text>
@@ -167,6 +146,11 @@ export default function UDetailScreen({route, navigation}: Props) {
           </View>
         </View>
       </View>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Item added successfully!"
+      />
     </ScrollView>
   );
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {View, TextInput, Text, TouchableOpacity, Image} from 'react-native';
 import Styles from './Signupstyle';
@@ -7,7 +9,6 @@ import {useNavigation} from '@react-navigation/native';
 // import style from '../Ownereditprofile/Ownereditprofilestyle';
 import style from '../Owneraddaddress/Owneraddressstyle';
 import {RadioButton} from 'react-native-paper';
-import {setRole} from '../../redux/actions/actions';
 export default function SignUpScreen() {
   const navigation = useNavigation();
   const {
@@ -151,18 +152,20 @@ export default function SignUpScreen() {
             {/* <CheckBox
             /> */}
           </View>
-          <View style={Styles.signText}>
-            <Text style={Styles.signuptext}>Already have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={Styles.signuptext}>Login</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={Styles.touchablebtnContainer}>
-            <TouchableOpacity
-              onPress={handleSignupfun}
-              style={Styles.touchablebtn}>
-              <Text style={Styles.touchableText}>Signup</Text>
-            </TouchableOpacity>
+          <View style={Styles.signText}></View>
+          <TouchableOpacity
+            onPress={handleSignupfun}
+            style={Styles.touchablebtn}>
+            <Text style={Styles.touchableText}>Signup</Text>
+          </TouchableOpacity>
+          <View>
+            <View
+              style={[Styles.touchablebtnContainer, {flexDirection: 'row'}]}>
+              <Text style={Styles.signuptext}>Already have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={Styles.signuptext}>Login</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           {/* <View style={Styles.signupTextCont}> */}
           {/* </View> */}

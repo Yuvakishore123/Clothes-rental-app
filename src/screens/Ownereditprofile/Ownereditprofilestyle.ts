@@ -56,10 +56,11 @@ const style = StyleSheet.create({
   },
   btnfield: {
     alignItems: 'center',
-    width: 160,
+    width: 330,
     height: 59,
     backgroundColor: '#3E54AC',
     borderRadius: 8,
+    marginLeft: 5,
     top: 40,
   },
   btnfield1: {
@@ -78,6 +79,7 @@ const style = StyleSheet.create({
     top: 14,
     fontWeight: 'bold',
     fontFamily: 'Poppins',
+    marginLeft: 5,
     fontSize: 20,
     color: 'white',
   },

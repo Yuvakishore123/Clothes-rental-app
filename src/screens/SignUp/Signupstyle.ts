@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
+  scrollContainer: {
+    backgroundColor: Colors.main,
+    height: '100%',
+    width: '100%',
+  },
   mainContainer: {
     backgroundColor: Colors.main,
     height: '100%',
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     borderColor: '#3E54AC',
+    color: '#3E54AC',
   },
   touchableText: {
     // margin:15,
@@ -83,6 +89,8 @@ const styles = StyleSheet.create({
   },
   touchablebtnContainer: {
     justifyContent: 'center',
+    // marginLeft: -20,
+    marginTop: -20,
     // alignItems:"center",
   },
   subTitileText: {

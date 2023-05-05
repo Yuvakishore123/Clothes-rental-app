@@ -7,7 +7,7 @@ export const fetchProducts = createAsyncThunk('fetchProducts', async () => {
   // get the token from the state
   try {
     const token = await AsyncStorage.getItem('token');
-    const response = await axios.get(UserProductsUrl, {
+    const response = await axios.get(OwnerProductsUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

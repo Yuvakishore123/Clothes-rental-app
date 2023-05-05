@@ -62,6 +62,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     borderColor: '#3E54AC',
+    color: '#3E54AC',
   },
   touchableText: {
     // margin:15,

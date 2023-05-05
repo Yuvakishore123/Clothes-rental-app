@@ -17,6 +17,7 @@ import OproductDetails from '../../screens/OwnerProductdetailsPage/OproductDetai
 import Owneredititems from '../../screens/Owneredititems/Owneredititems';
 import Colors from '../../constants/Colors';
 import EditAddress from '../../screens/EditAddress/EditAddress';
+import EditItemsPage from '../../screens/Owneredititems/EdititemsPage';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const OwnerProfilestack = () => {
       <Stack.Screen name="OwnerEditProfile" component={OwnerEditProfile} />
       <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="Owneredititems" component={Owneredititems} />
+      <Stack.Screen name="EditItemsPage" component={EditItemsPage} />
       <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
       <Stack.Screen name="MyRentals" component={MyRentals} />
@@ -56,7 +58,7 @@ const OwnerHomestack = () => {
       screenOptions={{headerShown: false}}
       initialRouteName="OwnerHome">
       <Stack.Screen name="OwnerHome" component={OwnerHome} />
-      <Stack.Screen name="Oproduct" component={OwnerHome} />
+      {/* <Stack.Screen name="Oproduct" component={OwnerHome} /> */}
       <Stack.Screen name="Additems" component={Additems} />
 
       <Stack.Screen name="MyRentals" component={MyRentals} />
@@ -73,6 +75,7 @@ const Owneradditemsstack = () => {
       <Stack.Screen name="Additems" component={Additems} />
       <Stack.Screen name="OwnerImage" component={OwnerImage} />
       <Stack.Screen name="Imagepicker" component={Imagepicker} />
+      <Stack.Screen name="OwnerHome" component={OwnerHome} />
     </Stack.Navigator>
   );
 };
@@ -84,8 +87,8 @@ const Ownerstack = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#ECF2FF',
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
+          // borderTopLeftRadius: 25,
+          // borderTopRightRadius: 25,
           height: 60,
           elevation: 30,
           borderColor: Colors.iconscolor,
@@ -100,8 +103,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
             height: 60,
           },
           tabBarIcon: ({color}) => (
@@ -115,8 +118,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
             height: 60,
           },
           tabBarIcon: ({color}) => (
@@ -131,8 +134,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
             height: 60,
           },
           tabBarIcon: ({color}) => (

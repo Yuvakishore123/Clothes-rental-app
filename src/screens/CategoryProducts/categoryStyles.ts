@@ -13,11 +13,20 @@ const style = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: Colors.main,
   },
+  dheader: {
+    marginTop: 3,
+    // top: 90,
+    // flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    zIndex: 1,
+    marginLeft: -50,
+  },
   imageContainer: {
     backgroundColor: 'green',
     width: 145,
     height: 145,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   image: {
     width: '100%',
@@ -102,13 +111,14 @@ const style = StyleSheet.create({
     borderRadius: 5,
     padding: 6,
   },
-  textConatiner: {marginLeft: 63, marginTop: 20},
+  textConatiner: {marginLeft: 63, marginTop: 20, flexDirection: 'row'},
 
   textStyle: {
     color: '#3E54AC',
-    fontSize: 15,
+    fontSize: 17,
     fontFamily: 'poppins',
     fontWeight: 'bold',
+    // marginTop: 10,
   },
   maincontainer: {
     height: '100%',

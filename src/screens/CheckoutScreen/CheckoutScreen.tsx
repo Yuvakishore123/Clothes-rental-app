@@ -107,10 +107,7 @@ const Cart = ({navigation}: Props) => {
                 index: React.Key | null | undefined,
               ) => (
                 <View key={index} style={style.cardContainer}>
-                  <Image
-                    source={{uri: item.product.imageURL}}
-                    style={style.image}
-                  />
+                  <Image source={{uri: item.imageUrl}} style={style.image} />
                   <View style={style.cardTextContainer}>
                     <Text style={style.productname}>{item.product.name}</Text>
                     <Text style={style.name}>Rent From</Text>

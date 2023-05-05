@@ -1,20 +1,22 @@
 // ProductItem.styles.js
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 
 const style = StyleSheet.create({
   container: {
     width: 145,
     height: 200,
     borderRadius: 10,
-    backgroundColor: '#ECF2FF',
-    marginLeft: 20,
-    marginRight: 20,
+    backgroundColor: Colors.main,
+    marginLeft: 15,
+    marginRight: 30,
     marginBottom: 10,
   },
   imageContainer: {
     backgroundColor: 'green',
-    width: 145,
+    width: 155,
     height: 145,
+    marginTop: 5,
     borderRadius: 8,
   },
   image: {
@@ -67,7 +69,7 @@ const style = StyleSheet.create({
     // elevation: 5,
     position: 'absolute',
     top: 10,
-    right: 10,
+    right: -10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -94,10 +96,11 @@ const style = StyleSheet.create({
   },
   cardTextContainer: {
     height: 50,
-    width: 140,
+    width: 155,
     backgroundColor: '#3E54AC1A',
     marginTop: 6,
     borderRadius: 5,
+    marginLeft: 3,
     padding: 6,
   },
 });

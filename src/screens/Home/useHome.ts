@@ -51,10 +51,10 @@ function useHome() {
         Alert.alert('Item Removed from Wishlist');
       })
       .catch(error => {
-        console.error(error);
-        const errorMessage = `Error removing item from Wishlist: ${error.message}`;
+        // console.error(error);
+        // const errorMessage = `Error removing item from Wishlist: ${error.message}`;
         // Handle the error and display a more informative error message to the user
-        Alert.alert(errorMessage);
+        // Alert.alert(errorMessage);
       });
   };
 

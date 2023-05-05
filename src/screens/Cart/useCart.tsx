@@ -13,11 +13,18 @@ function useCart() {
   const [refreshing, setRefreshing] = useState(false);
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
+  const [showModal, setShowModal] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const navigation = useNavigation();
   // const cartData = useSelector(state => state.CartProducts.data);
 
   // const productId = useSelector(state => state.CartReducer.productId);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       dispatch(fetchCartProducts());
@@ -64,8 +71,8 @@ function useCart() {
     } catch (error) {
       console.error('Update error:', error);
     }
- };
- 
+  };
+
   const handleCheckout = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -108,7 +115,7 @@ function useCart() {
       .then(data => {
         // console.log('Item removed from cart:', data);
         dispatch(removeFromCart(productId));
-        Alert.alert('Item Removed from cart');
+        openModal();
       })
       .catch(error => {
         console.error(error);
@@ -144,7 +151,7 @@ function useCart() {
       })
       .catch(error => {
         // handle failure
-        Alert.alert('Try Again');
+        // Alert.alert('Try Again');
       });
   };
 
@@ -165,6 +172,9 @@ function useCart() {
     rentalEndDate,
     setRentalStartDate,
     setRentalEndDate,
+    openModal,
+    closeModal,
+    showModal,
   };
 }
 export default useCart;

@@ -25,36 +25,17 @@ import OwnerEditItemstyles from './Owneredititemsstyles';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
+import useEditItems from './useEdititems';
 const App = () => {
   const [visible, setViisble] = useState(false);
-  const {
-    data,
-    handleGenderChange,
-    setGender,
-    name,
-    description,
-    setEventType,
-    setOutfitType,
-    setItemType,
-    handleEventTypeChange,
-    handleOutfitChange,
-    handleItemTypeChange,
-    setName,
-    setDescription,
-    handleedit,
-    handleSizeTypeChange,
-    setSelectedsize,
-    setPrice,
-    setQuantity,
-    setEditProductId,
-    selectedItem,
-  } = Useowneredititems();
+  const {data, setEditProductId} = Useowneredititems();
+  const {handleEditItems, itemsData, handleClick} = useEditItems();
   const [status, setStatus] = useState(1);
   const [hideId, setHideId] = useState(null);
 
-  const handleEdit = () => {
-    setViisble(true);
-  };
+  // const handleEdit = () => {
+  //   setViisble(true);
+  // };
 
   const handleVisibleModal = () => {
     setViisble(!visible);
@@ -64,82 +45,6 @@ const App = () => {
 
   return (
     <SafeAreaView>
-      <View style={styles.header_container} />
-      <Modal animationType="slide" visible={visible}>
-        <SafeAreaView>
-          <ScrollView>
-            <View style={styles.form}>
-              <TouchableOpacity onPress={handleVisibleModal}>
-                <Text style={styles.txtClose}>Close</Text>
-              </TouchableOpacity>
-              <View style={Ownerstyles.Scrollcontainer}>
-                <View style={Ownerstyles.scroll}>
-                  <Text style={Ownerstyles.Itemname}>Name</Text>
-                  <TextInput
-                    style={Ownerstyles.Namefield}
-                    onChangeText={setName}
-                    value={name}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Description</Text>
-                  <TextInput
-                    style={Ownerstyles.Descriptionfield}
-                    onChangeText={setDescription}
-                    multiline
-                    value={description}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Gender</Text>
-                  <GenderDropdown
-                    onSelectGender={setGender}
-                    onChange={handleGenderChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Type</Text>
-                  <TypeDropdown
-                    onSelectType={setItemType}
-                    onChange={handleItemTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Event</Text>
-                  <EventsDropdown
-                    onSelectEvent={setEventType}
-                    onChange={handleEventTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-                  <OutfitDropdown
-                    onSelectOutfit={setOutfitType}
-                    onChange={handleOutfitChange}
-                  />
-                  <View style={OwnerImagestyles.Sizecontainer}>
-                    <Text style={OwnerImagestyles.Sizetext}> Size</Text>
-                    <Sizeselection
-                      onSelectSize={setSelectedsize}
-                      onChange={handleSizeTypeChange}
-                    />
-                  </View>
-                  <Text style={OwnerImagestyles.Pricetext}> Price</Text>
-                  <TextInput
-                    style={OwnerImagestyles.Price}
-                    keyboardType="numeric"
-                    onChangeText={(value: any) => setPrice(value)}
-                  />
-                  <Text style={OwnerImagestyles.Pricetext}> Quantity</Text>
-                  <TextInput
-                    keyboardType="numeric"
-                    style={OwnerImagestyles.Price}
-                    onChangeText={(value: any) => setQuantity(value)}
-                  />
-                  {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
-                  <View style={Ownerstyles.mainButton}>
-                    <TouchableOpacity
-                      style={Ownerstyles.mainTouchable}
-                      onPress={handleedit}>
-                      <Text style={Ownerstyles.touchableText}>Edit Item</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </Modal>
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={OwnerEditItemstyles.backContainer}>
@@ -147,7 +52,6 @@ const App = () => {
             <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
           </View>
         </TouchableOpacity>
-
         {data.map(item => {
           return (
             <>
@@ -156,7 +60,7 @@ const App = () => {
                   <View style={OwnerEditItemstyles.cardImageContainer}>
                     <Image
                       style={OwnerEditItemstyles.cardImage}
-                      source={require('../../../Assets/shirt.png')}
+                      source={{uri: item.image}}
                     />
                   </View>
                   <View style={OwnerEditItemstyles.priceContainer}>
@@ -166,15 +70,17 @@ const App = () => {
                 </View>
                 <View style={OwnerEditItemstyles.buttonContainer}>
                   <TouchableOpacity
-                    onPress={() => handleEdit()}
+                    onPress={() => handleClick()}
                     onPressIn={() => setEditProductId(item.id)}>
                     <View style={OwnerEditItemstyles.button}>
                       <Text style={styles.txt_edit}>Edit</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={handleClick}>
                     <View style={OwnerEditItemstyles.button}>
-                      <Text style={styles.txt_del}>Delete</Text>
+                      <Text onPress={handleEditItems} style={styles.txt_del}>
+                        Delete
+                      </Text>
                     </View>
                   </TouchableOpacity>
                 </View>

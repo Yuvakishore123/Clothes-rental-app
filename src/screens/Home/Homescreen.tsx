@@ -23,6 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import useHome from './useHome';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -48,7 +49,7 @@ const Homescreen = ({navigation}: Props) => {
   // const [wishlist, setWishlist] = useState(false);
   //chnages
   // const [wishlistList, setWishlistList] = useState([]);
-
+  const [showModal, setShowModal] = useState(false);
   const [wishlistList, setWishlistList] = useState([]);
 
   // console.log(allProducts);
@@ -56,6 +57,12 @@ const Homescreen = ({navigation}: Props) => {
   //   dispatch(postProductToAPI(item));
   //   console.log('success');
   // };
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   if (!UserProducts) {
     return (
@@ -131,7 +138,7 @@ const Homescreen = ({navigation}: Props) => {
               justifyContent: 'center',
               fontFamily: 'poppins',
             }}>
-            Random Outfits
+            Products For You
           </Text>
           <View
             style={{
@@ -141,7 +148,8 @@ const Homescreen = ({navigation}: Props) => {
               marginTop: 10,
             }}
           />
-          <View style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
+          <View
+            style={{flex: 1, backgroundColor: Colors.main, flexWrap: 'wrap'}}>
             {/* Other code */}
             <View
               style={{
@@ -151,7 +159,7 @@ const Homescreen = ({navigation}: Props) => {
                 marginBottom: 100,
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
-                backgroundColor: '#ECF2FF',
+                backgroundColor: Colors.main,
               }}>
               {allProducts &&
                 allProducts.map((item, index) => {
@@ -165,7 +173,7 @@ const Homescreen = ({navigation}: Props) => {
                         }>
                         <View style={style.imageContainer}>
                           <Image
-                            source={{uri: item.imageURL[0]}}
+                            source={{uri: item.imageUrl[0]}}
                             style={style.image}
                           />
                         </View>
@@ -177,26 +185,12 @@ const Homescreen = ({navigation}: Props) => {
                             justifyContent: 'space-between',
                           }}>
                           <Text style={style.name}>{item.name}</Text>
-                          <TouchableOpacity
-                            style={style.addButton}
-                            onPress={() => {}}>
-                            <Text
-                              style={{
-                                color: '#3E54AC',
-                                fontWeight: 'bold',
-                                fontSize: 12,
-                              }}>
-                              +
-                            </Text>
-                          </TouchableOpacity>
                         </View>
                         <View style={style.textContainer}>
                           <Text style={style.price}>{'₹' + item.price}</Text>
                           <TouchableOpacity
                             style={style.rentButton}
-                            onPress={() =>
-                              Alert.alert('Need to set Rental dates')
-                            }>
+                            onPress={() => openModal()}>
                             <Text style={style.rentText}>Rent</Text>
                           </TouchableOpacity>
                         </View>
@@ -232,6 +226,11 @@ const Homescreen = ({navigation}: Props) => {
             </View>
           </View>
         </View>
+        <CustomModal
+          showModal={showModal}
+          onClose={closeModal}
+          message="Need to set Rental dates!"
+        />
       </ScrollView>
     </SafeAreaView>
   );

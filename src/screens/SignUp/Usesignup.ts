@@ -25,7 +25,6 @@ function Usesignup() {
   const [phoneNumber, setphoneNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
-  const dispatch = useDispatch();
   const handleSignupfun = async () => {
     console.log('indrill');
     console.log(role);

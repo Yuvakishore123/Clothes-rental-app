@@ -211,12 +211,16 @@ import OwnerImage from './src/screens/OwnerImage/OwnerImage';
 import MyRentals from './src/screens/My Rentals/MyRentals';
 import OproductDetailspage from './src/screens/OwnerProductdetailsPage/OproductDetails';
 import OtpScreen from './src/screens/OtpScreen/OtpScreen';
+import animation from './src/screens/animation';
 // import Init from './src/redux/actions/actions';
 import Ownerstack from './src/navigation/Ownerbottomtab/Ownerstack';
 import MultipleImages from './src/components/atoms/MultipleImages';
 import MyStack from './src/navigation/Userbottomtab/UserStack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import OwnerNavigation from './src/navigation/OwnerNavigation';
+import Animation from './src/screens/animation';
+import PaymentSuccessScreen from './src/screens/PaymentScreens/PaymentSuccessScreen';
+import PaymentFailScreen from './src/screens/PaymentScreens/PaymentFailScreen';
 // import { useSelector } from 'react-redux';
 const Stack = createSharedElementStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -282,6 +286,9 @@ const App = () => {
         <RootNavigation />
       </NavigationContainer>
     </Provider>
+    // <NavigationContainer>
+    //   <PaymentSuccessScreen />
+    // </NavigationContainer>
   );
 };
 export default App;

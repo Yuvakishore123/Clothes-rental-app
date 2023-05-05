@@ -1,5 +1,4 @@
 import {useNavigation} from '@react-navigation/native';
-import Carousel from 'react-native-snap-carousel';
 import * as Yup from 'yup';
 // import RNFS from 'react-native-fs';
 // import Imagepicker from '../../components/atoms/Imagepicker/Imagepicker';
@@ -8,13 +7,11 @@ import {url as baseUrl} from '../../constants/Apis';
 import axios from 'axios';
 import {addsize} from '../../redux/actions/actions';
 import {SetStateAction, useEffect, useState} from 'react';
-import {Alert, Platform} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
-import {androidCameraPermission} from '../../constants/Permissions';
+import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFormik} from 'formik';
-import OwnerHome from '../OwnerHomepage/OwnerHome';
 import {launchImageLibrary} from 'react-native-image-picker';
+
 // import {ItemsReducer} from '../../redux/reducers/AddItemsReducer';
 const OwnerImage = () => {
   const navigation = useNavigation();
@@ -22,6 +19,13 @@ const OwnerImage = () => {
   const name = useSelector(state => state.ItemsReducer.Name);
   const description = useSelector(state => state.ItemsReducer.Description);
   const categoryIds = useSelector(state => state.ItemsReducer.CategoryId);
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const subcategoryIds = useSelector(
     state => state.ItemsReducer.subcategoryIds,
   );
@@ -92,7 +96,7 @@ const OwnerImage = () => {
         name: name,
         description: description,
         id: 0,
-        imageURL: imageUrls, // Use the imageUrls state
+        imageUrl: imageUrls, // Use the imageUrls state
         material: 'fibre',
         price: price,
         quantity: quantity,
@@ -109,8 +113,8 @@ const OwnerImage = () => {
       });
       console.log('added', response.data);
       dispatch(addsize(selectedsize));
-      Alert.alert('Item Successfully Added');
-      navigation.navigate(OwnerHome);
+      openModal();
+      navigation.navigate('OwnerHome');
     } catch (error) {
       console.log(error);
       Alert.alert('Failed to add item');
@@ -241,6 +245,8 @@ const OwnerImage = () => {
     handleRemoveImages,
     pickImages,
     imageUris,
+    closeModal,
+    showModal,
   };
 };
 export default OwnerImage;

@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable react/no-unstable-nested-components */
 // import React from 'react';
 // import Profile from '../../screens/Profile/Profile';
@@ -151,6 +152,10 @@ import SearchResultsScreen from '../../screens/SearchResultScreen/SearchResultSc
 import Owneraddresspage from '../../screens/Owneraddaddress/Owneraddresspage';
 import Owneraddaddress from '../../screens/Owneraddaddress/Owneraddaddress';
 import Ownereditprofile from '../../screens/Ownereditprofile/Ownereditprofile';
+import PaymentSuccessScreen from '../../screens/PaymentScreens/PaymentSuccessScreen';
+import PaymentFailScreen from '../../screens/PaymentScreens/PaymentFailScreen';
+import {Route, getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import MyOrder from '../../screens/MyOrder/MyOrder';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -187,7 +192,12 @@ const CartStack = () => {
       screenOptions={{headerShown: false}}
       initialRouteName="Cart">
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-      <Stack.Screen name="Payment" component={PaymentScreen} />
+      <Stack.Screen name="Homescreen" component={Homescreen} />
+      <Stack.Screen
+        name="PaymentSuccessScreen"
+        component={PaymentSuccessScreen}
+      />
+      <Stack.Screen name="PaymentFailScreen" component={PaymentFailScreen} />
       <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
@@ -202,6 +212,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Ownereditprofile" component={Ownereditprofile} />
       <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
+      <Stack.Screen name="MyOrder" component={MyOrder} />
     </Stack.Navigator>
   );
 };
@@ -220,8 +231,8 @@ const MyStack = () => {
           height: 66,
           marginLeft: -5,
           backgroundColor: '#ECF2FF',
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
+          // borderTopLeftRadius: 25,
+          // borderTopRightRadius: 25,
         },
         tabBarInactiveTintColor: 'grey',
         tabBarActiveTintColor: '#3E54AC',
@@ -229,23 +240,41 @@ const MyStack = () => {
       <Tab.Screen
         name="UserHomescreen"
         component={HomeStack}
-        options={{
+        options={({route}) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: 395,
+            height: 66,
+            marginLeft: -5,
+            backgroundColor: '#ECF2FF',
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
+          },
           tabBarLabel: 'Home',
           headerTintColor: '#ECF2FF',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={35} />
           ),
-        }}
+        })}
       />
       <Tab.Screen
         name="CategoryScreen"
         component={CategoryStack}
-        options={{
+        options={({route}) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: 395,
+            height: 66,
+            marginLeft: -5,
+            backgroundColor: '#ECF2FF',
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
+          },
           tabBarLabel: 'Category',
           tabBarIcon: ({color}) => (
             <CategoryIcon name="appstore1" color={color} size={30} />
           ),
-        }}
+        })}
       />
 
       <Tab.Screen
@@ -269,7 +298,16 @@ const MyStack = () => {
       <Tab.Screen
         name="CartScreen"
         component={CartStack}
-        options={() => ({
+        options={({route}) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: 395,
+            height: 66,
+            marginLeft: -5,
+            backgroundColor: '#ECF2FF',
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
+          },
           tabBarLabel: 'Cart',
           tabBarIcon: ({color}) => (
             <View>
@@ -284,8 +322,17 @@ const MyStack = () => {
       <Tab.Screen
         name="ProfileScreen"
         component={ProfileStack}
-        options={() => ({
+        options={({route}) => ({
           tabBarLabel: 'Profile',
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: 395,
+            height: 66,
+            marginLeft: -5,
+            backgroundColor: '#ECF2FF',
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
+          },
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="account" color={color} size={35} />
           ),
@@ -293,5 +340,21 @@ const MyStack = () => {
       />
     </Tab.Navigator>
   );
+};
+const getRouteName = (route: Partial<Route<string>>) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  if (
+    routeName?.includes('OwnerEditProfile') ||
+    routeName?.includes('Owneraddresspage') ||
+    routeName?.includes('Owneraddaddress') ||
+    routeName?.includes('PaymentSuccessScreen') ||
+    routeName?.includes('PaymentFailScreen') ||
+    routeName?.includes('UProductDetails') ||
+    routeName?.includes('Subcategory') ||
+    routeName?.includes('CategoryProducts')
+  ) {
+    return 'none';
+  }
+  return 'flex';
 };
 export default MyStack;

@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import React from 'react';
 const style = StyleSheet.create({
   btnfield: {
     alignItems: 'center',
@@ -13,7 +12,7 @@ const style = StyleSheet.create({
   },
   btntext: {
     position: 'absolute',
-    left: 110,
+    left: 120,
     top: 15,
     height: 29,
     width: 104,

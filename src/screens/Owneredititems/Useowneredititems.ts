@@ -4,8 +4,10 @@ import {EditItemsUrl, OwnerCategoryUrl, url} from '../../constants/Apis';
 import {addGenderData, addsize} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {Alert} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useEditItems from './useEdititems';
+import Colors from '../../constants/Colors';
 const Useowneredititems = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -22,6 +24,7 @@ const Useowneredititems = () => {
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
+  const {itemsData, Name} = useEditItems();
   const handleGenderChange = (selectedGender: React.SetStateAction<string>) => {
     setGender(selectedGender);
     dispatch(addGenderData(selectedGender));
@@ -29,6 +32,11 @@ const Useowneredititems = () => {
   };
   const handleSelectItem = item => {
     setSelectedItem(item);
+  };
+  console.log('name:', name);
+  const handleName = () => {
+    // setName(Name);
+    console.log('name is :', name);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -44,12 +52,13 @@ const Useowneredititems = () => {
           id: item.id,
           name: item.name,
           price: item.price,
-          image: item.image,
+          image: item.imageUrl[0],
         }));
 
         setData(mappedData);
+        console.log('mappedData', data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
 
@@ -187,7 +196,7 @@ const Useowneredititems = () => {
   const handleSizeTypeChange = (selectedSize: SetStateAction<string>) => {
     setSelectedsize(selectedSize);
   };
-  const handleedit = () => {
+  const handleedit = async () => {
     const data = {
       categoryIds: [gender], // Wrap categoryIds in an array
       name: name,
@@ -199,21 +208,30 @@ const Useowneredititems = () => {
       size: selectedsize,
       subcategoryIds: [itemType, outfitType, eventType], // Wrap subcategoryIds in an array
     };
+    const token = await AsyncStorage.getItem('token'); // replace 'token' with your actual AsyncStorage key name
+    const config = {
+      headers: {Authorization: `Bearer ${token}`},
+    };
     axios({
       method: 'PUT',
-      url: `http://58d1-106-51-70-135.ngrok-free.app/api/v1/product/update/${editProductId}?token=7799a9f1-52a2-461d-9146-c91db88ea8ef`,
+      url: 'https://6ec0-106-51-70-135.ngrok-free.app/api/v1/product/update/1',
       data: data,
+      headers: config.headers,
     })
       .then(response => {
         console.log('added');
+        Alert.alert('Item Successfully Edited');
       })
       .catch(error => {
         console.log(error);
       });
     dispatch(addsize(selectedsize));
-    Alert.alert('Item Successfully Edited');
     navigation.navigate('OwnerProfile');
   };
+  const [visible, setViisble] = useState(false);
+  //====================================================================//
+  //get method of edit Items//
+  const [ItemsData, setItemsData] = useState([]);
 
   return {
     data,
@@ -242,6 +260,10 @@ const Useowneredititems = () => {
     handleSelectItem,
     setEditProductId,
     selectedItem,
+    handleName,
+    price,
+    // handleEditItems,
+    quantity,
   };
 };
 

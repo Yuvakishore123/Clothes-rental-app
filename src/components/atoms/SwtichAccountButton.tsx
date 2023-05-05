@@ -1,10 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {useState, useEffect} from 'react';
+import {useState, useEffect, SetStateAction} from 'react';
 import {setRole} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Colors from '../../constants/Colors';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {url} from '../../constants/Apis';
 
 const SwitchAccountButton = () => {
   const [showOptions, setShowOptions] = useState(false);
@@ -12,21 +15,44 @@ const SwitchAccountButton = () => {
   const userType = useSelector(state => state.Rolereducer.role);
 
   const [accountType, setAccountType] = useState(
-    userType === 1 ? 'Borrower' : 'Owner',
+    userType === 1 ? 'borrower' : 'owner',
   );
 
   useEffect(() => {
-    setAccountType(userType === 1 ? 'Borrower' : 'Owner');
+    setAccountType(userType === 1 ? 'borrower' : 'owner');
   }, [userType]);
 
   const handlePress = () => {
     setShowOptions(!showOptions);
   };
 
-  const handleOptionPress = option => {
-    setAccountType(option);
-    dispatch(setRole(option === 'Borrower' ? 1 : 2));
-    setShowOptions(false);
+  const handleOptionPress = async (option: SetStateAction<string>) => {
+    try {
+      setShowOptions(false);
+      const token = await AsyncStorage.getItem('token');
+      const response = await axios.post(
+        `${url}/user/switch?profile=${option}`,
+        null,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response.status === 200) {
+        const newToken = response.headers.access_token;
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.setItem('token', newToken);
+        console.log(newToken);
+        dispatch(setRole(option === 'borrower' ? 'borrower' : 'owner'));
+        setAccountType(option);
+      } else {
+        console.log(response.data.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,7 +61,7 @@ const SwitchAccountButton = () => {
         onPress={handlePress}
         style={styles.button}
         accessibilityLabel={`Switch account type to ${
-          accountType === 'Owner' ? 'Borrower' : 'Owner'
+          accountType === 'owner' ? 'borrower' : 'owner'
         }`}>
         <Text style={styles.label}>Switch</Text>
         <IonIcon name="chevron-down" color={'#FFF'} size={20} />
@@ -43,40 +69,40 @@ const SwitchAccountButton = () => {
       {showOptions && (
         <View style={styles.options}>
           <TouchableOpacity
-            onPress={() => handleOptionPress('Borrower')}
-            accessibilityLabel="Borrower">
+            onPress={() => handleOptionPress('borrower')}
+            accessibilityLabel="borrower">
             <View
               style={
-                accountType === 'Borrower'
+                accountType === 'borrower'
                   ? styles.buttonContainer
                   : styles.buttonUnselected
               }>
               <Text
                 style={
-                  accountType === 'Borrower'
+                  accountType === 'borrower'
                     ? styles.optionSelected
                     : styles.option
                 }>
-                {'Borrower'}
+                {'borrower'}
               </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => handleOptionPress('Owner')}
-            accessibilityLabel="Owner">
+            onPress={() => handleOptionPress('owner')}
+            accessibilityLabel="owner">
             <View
               style={
-                accountType === 'Owner'
+                accountType === 'owner'
                   ? styles.buttonContainer
                   : styles.buttonUnselected
               }>
               <Text
                 style={
-                  accountType === 'Owner'
+                  accountType === 'owner'
                     ? styles.optionSelected
                     : styles.option
                 }>
-                {'Owner'}
+                {'owner'}
               </Text>
             </View>
           </TouchableOpacity>
