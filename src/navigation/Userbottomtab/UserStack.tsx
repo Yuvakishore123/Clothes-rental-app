@@ -170,6 +170,8 @@ const HomeStack = () => {
         component={SearchResultsScreen}
       />
       <Stack.Screen name="UProductDetails" component={UProductDetails} />
+      <Stack.Screen name="Subcategory" component={Subcategory} />
+      <Stack.Screen name="CategoryProducts" component={CategoryProducts} />
     </Stack.Navigator>
   );
 };

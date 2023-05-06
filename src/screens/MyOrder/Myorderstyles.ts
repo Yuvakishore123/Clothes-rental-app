@@ -513,6 +513,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 130,
+    marginLeft: -20,
   },
   textContainer1: {
     alignItems: 'center',

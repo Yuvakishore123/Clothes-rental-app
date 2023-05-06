@@ -120,6 +120,13 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     // marginTop: 10,
   },
+  loadtextStyle: {
+    color: '#3E54AC9d',
+    fontSize: 17,
+    fontFamily: 'poppins',
+    fontWeight: 'bold',
+    marginLeft: 35,
+  },
   maincontainer: {
     height: '100%',
     width: '100%',

@@ -89,7 +89,7 @@ export default function UDetailScreen({route, navigation}: Props) {
                   height: 500,
                   width: 405,
                   // zIndex: 2,
-                  backgroundColor: 'green',
+                  backgroundColor: '#3E54AC1A',
                   marginLeft: -5,
                   marginTop: -5,
                 }}

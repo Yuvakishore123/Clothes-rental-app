@@ -97,7 +97,7 @@ const SearchResultsScreen = ({route}) => {
             numColumns={2}
           />
         ) : (
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, backgroundColor: Colors.main}}>
             {/* <Text>No results found</Text> */}
             <View style={{justifyContent: 'center', alignSelf: 'center'}}>
               <Text style={style.titleText}>Umm...No results found</Text>

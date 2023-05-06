@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import {
   Text,
@@ -12,7 +13,7 @@ import style from './Ownereditprofilestyle';
 import Colors from '../../constants/Colors';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import useOwnerProfile from './Useownerprofile';
-import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 export default function OwnerEditProfileCustomHook() {
   const navigation = useNavigation();
   const {
@@ -26,8 +27,7 @@ export default function OwnerEditProfileCustomHook() {
     setPhoneNumber,
     handleReset,
     handleUpdate,
-    closeModal,
-    showModal,
+    isLoading,
   } = useOwnerProfile();
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
@@ -51,41 +51,57 @@ export default function OwnerEditProfileCustomHook() {
               name="md-chevron-back"
               color={Colors.iconscolor}
               size={26}
-              left={-10}
             />
           </TouchableOpacity>
         </View>
-        {/* <View style={style.line} /> */}
         <View style={style.cardStyle}>
-          <View>
-            <Text style={style.addAddressText1}>Edit Profile</Text>
-            <View style={style.line} />
-            <Text style={style.text}>FirstName</Text>
-            <TextInput
-              style={style.input}
-              placeholderTextColor="#999"
-              value={firstName}
-              onChangeText={text => setFirstName(text)}
-            />
-            <Text style={style.text}>LastName</Text>
-            <TextInput
-              style={style.input}
-              value={lastName}
-              onChangeText={text => setLastName(text)}
-            />
-            <Text style={style.text}>Email</Text>
-            <TextInput
-              style={style.input}
-              value={email}
-              onChangeText={text => setEmail(text)}
-            />
-            <Text style={style.text}>phonenumber</Text>
-            <TextInput
-              style={style.input}
-              value={phoneNumber}
-              onChangeText={text => setPhoneNumber(text)}
-            />
-          </View>
+          {isLoading ? (
+            <SkeletonPlaceholder>
+              <View>
+                <Text style={style.addAddressText1}></Text>
+                <View style={style.line} />
+                <Text style={style.text}></Text>
+                <TextInput style={style.input} placeholderTextColor="#999" />
+                <Text style={style.text}>LastName</Text>
+                <TextInput style={style.input} />
+                <Text style={style.text}></Text>
+                <TextInput style={style.input} />
+                <Text style={style.text}></Text>
+                <TextInput style={style.input} />
+              </View>
+            </SkeletonPlaceholder>
+          ) : (
+            <View>
+              <Text style={style.addAddressText1}>Edit Profile</Text>
+              {/* <View style={style.line} /> */}
+              <Text style={style.text}>FirstName</Text>
+              <TextInput
+                style={style.input}
+                placeholderTextColor="#999"
+                value={firstName}
+                onChangeText={text => setFirstName(text)}
+              />
+              <Text style={style.text}>LastName</Text>
+              <TextInput
+                style={style.input}
+                value={lastName}
+                onChangeText={text => setLastName(text)}
+              />
+              <Text style={style.text}>Email</Text>
+              <TextInput
+                style={style.input}
+                value={email}
+                onChangeText={text => setEmail(text)}
+                selectTextOnFocus={false}
+              />
+              <Text style={style.text}>phonenumber</Text>
+              <TextInput
+                style={style.input}
+                value={phoneNumber}
+                onChangeText={text => setPhoneNumber(text)}
+              />
+            </View>
+          )}
         </View>
         <View style={style.buttons}>
           <TouchableOpacity
@@ -96,17 +112,22 @@ export default function OwnerEditProfileCustomHook() {
                 pointerEvents: isFormValid ? 'auto' : 'none',
               },
             ]}
-            onPress={() => handleUpdate(navigation)}
+            onPress={handleUpdate} // using handleUpdateWithLoading instead of handleUpdate
             disabled={!isFormValid}>
-            <Text style={style.btntext}>Update </Text>
+            {isLoading ? (
+              <SkeletonPlaceholder borderRadius={4}>
+                <SkeletonPlaceholder.Item
+                  width={100}
+                  height={20}
+                  borderRadius={5}
+                />
+              </SkeletonPlaceholder>
+            ) : (
+              <Text style={style.btntext}>Update</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
-      <CustomModal
-        showModal={showModal}
-        onClose={closeModal}
-        message="Item added successfully!"
-      />
     </ScrollView>
   );
 }

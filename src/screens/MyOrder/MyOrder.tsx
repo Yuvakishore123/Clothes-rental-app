@@ -13,7 +13,7 @@ import style from './Myorderstyles';
 import Colors from '../../constants/Colors';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import {fetchOrderProducts} from '../../redux/slice/orderSlice';
-
+import Lottie from 'lottie-react-native';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -56,13 +56,15 @@ const MyOrder = ({navigation}: Props) => {
           height: '100%',
           backgroundColor: Colors.main,
         }}>
-        <Image
-          source={require('../../../Assets/LoginImage.png')}
+        <Lottie
+          source={require('../../../Assets/order1.json')}
+          autoPlay
           style={{
             height: 200,
             width: 200,
             alignItems: 'center',
             justifyContent: 'center',
+            marginLeft: -20,
           }}
         />
         <Text style={{color: Colors.iconscolor}}>The Items are Loading...</Text>
@@ -101,9 +103,10 @@ const MyOrder = ({navigation}: Props) => {
           {OrderProducts.length === 0 ? (
             <View style={style.noAddressContainer1}>
               <View style={style.titleTextContainer1}>
-                <Image
+                <Lottie
                   style={style.imageS1}
-                  source={require('../../../Assets/cartimage.jpg')}
+                  autoPlay
+                  source={require('../../../Assets/order2.json')}
                 />
               </View>
               <View style={style.textContainer1}>

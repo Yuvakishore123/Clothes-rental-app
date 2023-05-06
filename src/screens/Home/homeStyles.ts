@@ -4,16 +4,16 @@ import Colors from '../../constants/Colors';
 
 const style = StyleSheet.create({
   container: {
-    width: 145,
-    height: 200,
+    width: '38%',
+    height: '32%',
     borderRadius: 10,
     backgroundColor: Colors.main,
-    marginLeft: 15,
-    marginRight: 30,
+    marginLeft: '6%',
+    marginRight: '3%',
     marginBottom: 10,
   },
   imageContainer: {
-    backgroundColor: 'green',
+    backgroundColor: '#3E54AC1A',
     width: 155,
     height: 145,
     marginTop: 5,
@@ -100,7 +100,7 @@ const style = StyleSheet.create({
     backgroundColor: '#3E54AC1A',
     marginTop: 6,
     borderRadius: 5,
-    marginLeft: 3,
+    // marginLeft: 2,
     padding: 6,
   },
 });

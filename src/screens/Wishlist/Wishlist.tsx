@@ -3,25 +3,18 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {FlatList} from 'react-native-gesture-handler';
 // import CartItem from '../Cart/CartItem';
 import useWishlist from './useWishlist';
 import style from './wishlistStyles';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import {
-  addItemToCart,
-  addToWishlist,
-  removeFromCart,
-} from '../../redux/actions/actions';
-
 import {useDispatch, useSelector} from 'react-redux';
 import Colors from '../../constants/Colors';
+import Lottie from 'lottie-react-native';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -53,8 +46,9 @@ const Wishlist = ({navigation}: Props) => {
           height: '100%',
           backgroundColor: Colors.main,
         }}>
-        <Image
-          source={require('../../../Assets/LoginImage.png')}
+        <Lottie
+          source={require('../../../Assets/loading.json')}
+          autoPlay
           style={{
             height: 200,
             width: 200,
@@ -85,8 +79,9 @@ const Wishlist = ({navigation}: Props) => {
                 height: '100%',
                 backgroundColor: Colors.main,
               }}>
-              <Image
-                source={require('../../../Assets/wishlist.jpg')}
+              <Lottie
+                source={require('../../../Assets/wishlistanime.json')}
+                autoPlay
                 style={{
                   height: 200,
                   width: 200,
@@ -165,9 +160,7 @@ const Wishlist = ({navigation}: Props) => {
                             <Text style={style.price}>{'₹' + item.price}</Text>
                             <TouchableOpacity
                               style={style.rentButton}
-                              onPress={() =>
-                                dispatch(postProductToCartAPI({...item}))
-                              }>
+                              onPress={() => openModel()}>
                               <Text style={style.rentText}>Rent</Text>
                             </TouchableOpacity>
                           </View>

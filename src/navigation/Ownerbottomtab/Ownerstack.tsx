@@ -86,7 +86,7 @@ const Ownerstack = () => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#ECF2FF',
+          backgroundColor: Colors.main,
           // borderTopLeftRadius: 25,
           // borderTopRightRadius: 25,
           height: 60,
@@ -103,6 +103,7 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
+            backgroundColor: Colors.main,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: 60,
@@ -118,6 +119,7 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
+            backgroundColor: Colors.main,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: 60,
@@ -134,6 +136,7 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
+            backgroundColor: Colors.main,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: 60,

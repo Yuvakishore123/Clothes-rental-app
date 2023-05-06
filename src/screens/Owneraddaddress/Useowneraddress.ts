@@ -16,6 +16,8 @@ export const OwnerAddressCustomHook = () => {
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [id, setId] = useState('');
   const navigation = useNavigation();
   // const isFocused = useIsFocused();
   // const addressList = useSelector(state => state.AddressReducers);
@@ -33,13 +35,16 @@ export const OwnerAddressCustomHook = () => {
         });
         const data = await response.data;
         console.log(response.data);
+        setIsLoading(false);
         setAddress(data);
         setCity(data.city);
+        setId(data.id);
         setStateName(data.state);
         setaddressLine1(data.addressLine1);
         setaddressLine2(data.addressLine2);
         setpostalCode(data.postalCode);
         console.log(
+          id,
           city,
           state,
           country,
@@ -50,6 +55,7 @@ export const OwnerAddressCustomHook = () => {
         console.log(address);
       } catch (error) {
         console.log(error);
+        // setIsLoading(false);
       }
     };
     setIsFocused(true);
@@ -91,6 +97,7 @@ export const OwnerAddressCustomHook = () => {
     setCountry,
     setaddressLine1,
     setaddressLine2,
+    isLoading,
     setStateName,
     setpostalCode,
     handleEditItems,

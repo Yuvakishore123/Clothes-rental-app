@@ -21,13 +21,13 @@ const style = StyleSheet.create({
   },
   addAddressHeader: {
     flexDirection: 'row',
-    // backgroundColor: 'white',
+    // backgroundColor: Colors.main,
   },
   backBtn: {
     marginTop: 15,
     marginLeft: 15,
     flexDirection: 'row',
-    backgroundColor: Colors.main,
+    // backgroundColor: Colors.main,
   },
   textConatiner: {marginLeft: 25, marginTop: 20},
   textStyle: {

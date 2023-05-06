@@ -3,14 +3,16 @@ import {Text, TouchableOpacity, View, Image} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {OwnerAddressCustomHook} from './Useowneraddress';
 import style from './Owneraddressstyle';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Lottie from 'lottie-react-native';
 const Owneraddresspage = () => {
   const {
     handleOwnerAddAddress,
     handleDeleteAddress,
     goBackButton,
     addressList,
+    isLoading,
     handleEditItems,
   } = OwnerAddressCustomHook();
   const renderAddressItem = ({item, index}) => {
@@ -47,11 +49,7 @@ const Owneraddresspage = () => {
       <View style={style.header}>
         <View style={style.addAddressHeader}>
           <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
-            <MaterialCommunityIcons
-              name="arrow-left"
-              color="#3E54AC"
-              size={26}
-            />
+            <MaterialIcons name="arrow-back-ios" color="#3E54AC" size={24} />
           </TouchableOpacity>
           <Text style={style.addAddressText}>Add Address</Text>
         </View>
@@ -64,17 +62,14 @@ const Owneraddresspage = () => {
       {addressList.length === 0 ? (
         <View style={style.noAddressContainer1}>
           <View style={style.titleTextContainer1}>
-            <Image
+            <Lottie
+              autoPlay
               style={style.imageS1}
-              source={require('../../../Assets/Noaddress.jpg')}
+              source={require('../../../Assets/address.json')}
             />
           </View>
           <View style={style.textContainer1}>
             <Text style={style.noAddressText1}>SAVE YOUR ADDRESS NOW</Text>
-            <Text style={style.line21}>
-              Add your home and Office addresses and enjoy faster
-            </Text>
-            <Text style={style.line21}>checkout</Text>
           </View>
         </View>
       ) : (

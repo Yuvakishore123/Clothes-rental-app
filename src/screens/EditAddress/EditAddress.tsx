@@ -15,24 +15,24 @@ const EditAddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
   // const {addressLine1, addressLine2, city, state, postalCode} = route.params;
-  const {
-    setaddressType,
-    // setStateName,
-    // addressType,
-    // setCity,
-    // country,
-    // setpostalCode,
-    // setCountry,
-    // addressLine2,
-    // setaddressLine1,
-    // setaddressLine2,
-    // handleSaveAddress,
-    handleCheckboxChange,
-    handleOptionChange,
-    selectedOption,
-    isChecked,
-    // handlePostalcode,
-  } = OwnerAddAddressCustomHook(navigation);
+  // const {
+  //   setaddressType,
+  //   // setStateName,
+  //   // addressType,
+  //   // setCity,
+  //   // country,
+  //   // setpostalCode,
+  //   // setCountry,
+  //   // addressLine2,
+  //   // setaddressLine1,
+  //   // setaddressLine2,
+  //   // handleSaveAddress,
+  //   handleCheckboxChange,
+  //   handleOptionChange,
+  //   selectedOption,
+  //   isChecked,
+  //   // handlePostalcode,
+  // } = OwnerAddAddressCustomHook(navigation);
   // const {
   //   addressList,
   //   city,
@@ -47,11 +47,16 @@ const EditAddress = () => {
   // } = OwnerAddressCustomHook();
   const {
     handleUpdateAddress,
+    handleOptionChange,
+    handlePostalcode,
+    selectedOption,
+    isChecked,
     // setCity,
     // setStateName,
     setAddressLine1,
     setAddressLine2,
     setPostalCode,
+    handleCheckboxChange,
     setStateName,
     city,
     addressLine1,

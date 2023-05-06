@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
@@ -6,9 +7,11 @@ import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Lottie from 'lottie-react-native';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
+  const [loading, setLoading] = useState();
   const navigation = useNavigation();
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -43,30 +46,36 @@ const SubcategoryList = ({route}) => {
         </View>
         <Text style={styles.textStyle}>Sub Category</Text>
       </View>
-      <View>
-        {subcategories &&
-          subcategories.map(item => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() =>
-                navigation.navigate('CategoryProducts', {
-                  subcategoryId: item.id,
-                })
-              }>
-              <View style={styles.SubCategoryBox}>
-                <Image
-                  style={{height: 107, width: 340, opacity: 0.7}}
-                  source={{uri: item.imageUrl}}
-                />
-                <View>
-                  <Text style={styles.SubCategoryText}>
-                    {item.subcategoryName}
-                  </Text>
+      {loading ? (
+        <View style={styles.loaderContainer}>
+          <Lottie source={require('../../../Assets/loading.json')} autoPlay />
+        </View>
+      ) : (
+        <View>
+          {subcategories &&
+            subcategories.map(item => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() =>
+                  navigation.navigate('CategoryProducts', {
+                    subcategoryId: item.id,
+                  })
+                }>
+                <View style={styles.SubCategoryBox}>
+                  <Image
+                    style={{height: 107, width: 340, opacity: 0.8}}
+                    source={{uri: item.imageUrl}}
+                  />
+                  <View>
+                    <Text style={styles.SubCategoryText}>
+                      {item.subcategoryName}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-      </View>
+              </TouchableOpacity>
+            ))}
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -94,6 +103,14 @@ const styles = StyleSheet.create({
     elevation: 5,
     // shadowOpacity: 1,
     // shadowRadius: 3,
+  },
+  loaderContainer: {
+    flex: 1,
+    height: 200,
+    width: 200,
+    marginLeft: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textStyle: {
     color: '#394887',

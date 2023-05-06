@@ -81,8 +81,9 @@ const Cart = ({navigation}: Props) => {
           height: '100%',
           backgroundColor: Colors.main,
         }}>
-        <Image
-          source={require('../../../Assets/LoginImage.png')}
+        <Lottie
+          source={require('../../../Assets/loading.json')}
+          autoPlay
           style={{
             height: 200,
             width: 200,

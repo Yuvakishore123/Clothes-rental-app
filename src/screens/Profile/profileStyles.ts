@@ -67,6 +67,7 @@ const style = StyleSheet.create({
     height: 59,
     backgroundColor: 'white',
     borderRadius: 13,
+    flexDirection: 'row',
     marginBottom: 15,
     shadowColor: 'black',
     shadowOffset: {

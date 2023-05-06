@@ -13,6 +13,7 @@ function useHome() {
   const [searchQuery, setSearchQuery] = useState('');
   const [Data, setData] = useState([]);
   const [oldData, setOldDate] = useState([]);
+  const [loading, setLoading] = useState(true);
   // const [recommendations, setRecommendations] = useState([]);
   const navigation = useNavigation();
   const searchProducts = async query => {
@@ -29,6 +30,7 @@ function useHome() {
   };
   useEffect(() => {
     dispatch(fetchUserProducts());
+    setLoading(false);
   }, []);
   const onRefresh = async () => {
     setRefreshing(true);
@@ -71,6 +73,7 @@ function useHome() {
     setSearchResults,
     searchProducts,
     setSearchQuery,
+    loading,
     // recommendations,
   };
 }

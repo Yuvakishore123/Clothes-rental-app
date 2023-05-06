@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import style from './categoryStyles';
-
+import Lottie from 'lottie-react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import axios from 'axios';
@@ -18,6 +18,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
+  const [loading,setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -28,9 +29,11 @@ const Category = () => {
         console.log(response.data);
         console.log('====================================');
         setCategories(response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
       });
   }, []);
 
@@ -54,12 +57,17 @@ const Category = () => {
       <View style={style.textConatiner}>
         <Text style={style.textStyle}>Category</Text>
       </View>
-
-      <FlatList
-        data={categories}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-      />
+      {loading ? (
+        <View style={style.loaderContainer}>
+          <Lottie source={require('../../../Assets/loading.json')} autoPlay />
+        </View>
+      ) : (
+        <FlatList
+          data={categories}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      )}
     </View>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Text, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
@@ -10,7 +11,8 @@ import {Logout} from '../../redux/actions/actions';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
-
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 type Props = {
   navigation: any;
 };
@@ -68,17 +70,47 @@ const Profile = ({navigation}: Props) => {
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Ownereditprofile')}>
+            <Icons
+              name="account"
+              size={30}
+              style={{marginLeft: 30, color: '#3E54AC'}}
+            />
             <Text style={style.btnPText}>Edit Profile</Text>
+            <Icon
+              name="arrow-forward-ios"
+              size={20}
+              style={{marginLeft: 190, color: '#3E54AC'}}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Owneraddresspage')}>
+            <Icon
+              name="location-pin"
+              size={30}
+              style={{marginLeft: 30, color: '#3E54AC'}}
+            />
             <Text style={style.AddressbtnPText}>Address</Text>
+            <Icon
+              name="arrow-forward-ios"
+              size={20}
+              style={{marginLeft: 190, color: '#3E54AC'}}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('MyOrder')}>
+            <Icons
+              name="basket-check"
+              size={30}
+              style={{marginLeft: 30, color: '#3E54AC'}}
+            />
             <Text style={style.btnPText}>My Orders</Text>
+            <Icon
+              name="arrow-forward-ios"
+              size={20}
+              style={{marginLeft: 190, color: '#3E54AC'}}
+            />
           </TouchableOpacity>
         </View>
         <View>

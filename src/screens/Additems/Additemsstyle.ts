@@ -41,6 +41,7 @@ const Ownerstyles = StyleSheet.create({
     width: 190,
     // justifyContent: 'center',
     // alignItems: 'center',
+    backgroundColor: Colors.main,
     marginLeft: 100,
     marginRight: 90,
     marginTop: 20,
@@ -70,7 +71,7 @@ const Ownerstyles = StyleSheet.create({
     color: Colors.iconscolor,
   },
   scroll: {
-    marginLeft: 54,
+    marginLeft: 84,
     width: 280,
     height: '100%',
     // alignItems : 'center',
@@ -89,7 +90,8 @@ const Ownerstyles = StyleSheet.create({
   Scrollcontainer: {
     // height: 500,
     // width: 900,
-    marginLeft: 20,
+    backgroundColor: Colors.main,
+    // marginLeft: 20,
   },
   genderText: {
     fontSize: 18,

@@ -8,24 +8,19 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
-
 const SwitchAccountButton = () => {
   const [showOptions, setShowOptions] = useState(false);
   const dispatch = useDispatch();
   const userType = useSelector(state => state.Rolereducer.role);
-
   const [accountType, setAccountType] = useState(
-    userType === 1 ? 'borrower' : 'owner',
+    userType === 'borrower' ? 'borrower' : 'owner',
   );
-
   useEffect(() => {
-    setAccountType(userType === 1 ? 'borrower' : 'owner');
+    setAccountType(userType === 'owner' ? 'owner' : 'borrower');
   }, [userType]);
-
   const handlePress = () => {
     setShowOptions(!showOptions);
   };
-
   const handleOptionPress = async (option: SetStateAction<string>) => {
     try {
       setShowOptions(false);
@@ -45,7 +40,8 @@ const SwitchAccountButton = () => {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.setItem('token', newToken);
         console.log(newToken);
-        dispatch(setRole(option === 'borrower' ? 'borrower' : 'owner'));
+        // dispatch(setRole(option === 'borrower' ? 'borrower' : 'owner'));
+        dispatch(setRole(option));
         setAccountType(option);
       } else {
         console.log(response.data.error);
@@ -54,14 +50,13 @@ const SwitchAccountButton = () => {
       console.log(error);
     }
   };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={handlePress}
         style={styles.button}
         accessibilityLabel={`Switch account type to ${
-          accountType === 'owner' ? 'borrower' : 'owner'
+          accountType === 'borrower' ? 'owner' : 'borrower'
         }`}>
         <Text style={styles.label}>Switch</Text>
         <IonIcon name="chevron-down" color={'#FFF'} size={20} />
@@ -111,12 +106,8 @@ const SwitchAccountButton = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
-    // position: 'relative',
-    // zIndex: 2,
-    // justifyContent: 'flex-end',
     alignItems: 'center',
     zIndex: 1,
   },
@@ -124,8 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#3E54AC',
-    // borderWidth: 1,
-    // borderColor: '#000',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -177,7 +166,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingVertical: 5,
     color: Colors.iconscolor,
-    // color: '#FFF'
   },
   optionSelected: {
     fontWeight: 'bold',
@@ -202,5 +190,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
 export default SwitchAccountButton;
