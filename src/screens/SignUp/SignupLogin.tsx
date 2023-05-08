@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 // import style from '../Ownereditprofile/Ownereditprofilestyle';
 import style from '../Owneraddaddress/Owneraddressstyle';
 import {RadioButton} from 'react-native-paper';
+import Colors from '../../constants/Colors';
 export default function SignUpScreen() {
   const navigation = useNavigation();
   const {
@@ -153,9 +154,19 @@ export default function SignUpScreen() {
             /> */}
           </View>
           <View style={Styles.signText}></View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleSignupfun}
             style={Styles.touchablebtn}>
+            <Text style={Styles.touchableText}>Signup</Text> */}
+          <TouchableOpacity
+            disabled={!formik.isValid}
+            style={[
+              Styles.touchablebtn,
+              {
+                backgroundColor: formik.isValid ? Colors.iconscolor : '#A5C9CA',
+              },
+            ]}
+            onPress={handleSignupfun}>
             <Text style={Styles.touchableText}>Signup</Text>
           </TouchableOpacity>
           <View>

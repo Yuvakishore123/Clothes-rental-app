@@ -4,7 +4,6 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
   Image,
   Alert,
@@ -92,14 +91,6 @@ const CategoryProducts = ({route}) => {
                     })
                   }>
                   <View>
-                    {/* <Text>{item.subcategoryName}</Text>
-        <Text>{item.title}</Text>
-        <Image
-          source={{uri: item.image}}
-          // style={style.image}
-        />
-
-        <Text>{item.description}</Text> */}
 
                     <View style={style.container}>
                       <TouchableOpacity
@@ -113,12 +104,6 @@ const CategoryProducts = ({route}) => {
                           <Image
                             source={{uri: item.imageUrl[0]}}
                             style={style.image}
-                            //changes
-                            // onPress={() =>
-                            //   navigation.navigate('OproductDetails', {
-                            //     product: products[index + 1],
-                            //   })
-                            // }
                           />
                         </View>
                       </TouchableOpacity>

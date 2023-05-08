@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import styles from '../OwnerHomepage/OwnerHomestyle';
 import {Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';

@@ -11,7 +11,6 @@ import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Useadditems from './Useadditems';
 import Colors from '../../constants/Colors';
 import Styles from '../LoginScreen/LoginStyle';
-import Lottie from 'lottie-react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 const Additems = () => {
   const {
@@ -33,15 +32,15 @@ const Additems = () => {
   } = Useadditems();
   // const {formik} = AddItemsformik();
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: Colors.main}}>
       {isLoading ? (
         <>
           <SkeletonPlaceholder>
             <View
               style={{
                 backgroundColor: Colors.main,
-                height: '100%',
-                width: '100%',
+                // height: '100%',
+                // width: '100%',
               }}>
               <Text style={Ownerstyles.Imageitem}></Text>
             </View>

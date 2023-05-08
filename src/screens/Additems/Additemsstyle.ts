@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const Ownerstyles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: Colors.iconscolor,
+    backgroundColor: Colors.black,
     height: '100%',
     width: 400,
   },
@@ -16,7 +16,7 @@ const Ownerstyles = StyleSheet.create({
   mainButton: {
     alignItems: 'center',
     height: '50%',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   mainTouchable: {
     height: 48,
@@ -41,7 +41,7 @@ const Ownerstyles = StyleSheet.create({
     width: 190,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: Colors.main,
+    // backgroundColor: Colors.black,
     marginLeft: 100,
     marginRight: 90,
     marginTop: 20,

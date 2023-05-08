@@ -58,6 +58,7 @@ const Carousal = () => {
                   categoryId: subcategory.id,
                 })
               }>
+              <Text style={styles.subname}>{subcategory.categoryName}</Text>
               <Image
                 source={{uri: subcategory.imageUrl}}
                 style={styles.image}
@@ -83,20 +84,33 @@ const Carousal = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 38,
+    marginTop: 30,
     width,
     height,
     borderRadius: 20,
     alignSelf: 'center',
   },
-
+  subname: {
+    color: '#ffff',
+    fontSize: 20,
+    fontWeight: '800',
+    zIndex: 1,
+    position: 'absolute',
+    top: '75%',
+    left: '42%',
+    fontFamily: 'normal',
+  },
   scroll: {width, height},
-  image: {width, height, resizeMode: 'cover', borderRadius: 10},
+  image: {width, height, resizeMode: 'cover', borderRadius: 10, opacity: 0.85},
   pagination: {
     flexDirection: 'row',
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
+  },
+  card: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   pagingText: {color: '#fff', margin: 3},
   pagingActiveText: {fontSize: width / 30, color: '#3E54AC', margin: 3},

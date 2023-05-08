@@ -115,6 +115,11 @@ const Profile = ({navigation}: Props) => {
         </View>
         <View>
           <TouchableOpacity style={style.btnfield} onPress={handleLogout}>
+            <Icon
+              name="logout"
+              size={20}
+              style={{marginLeft: 100, color: 'white'}}
+            />
             <Text style={style.btntext}>Logout </Text>
           </TouchableOpacity>
         </View>

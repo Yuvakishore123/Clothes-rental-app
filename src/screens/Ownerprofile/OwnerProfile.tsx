@@ -7,11 +7,17 @@ import AddImages from '../../components/atoms/AddImages';
 import ProfileData from '../../constants/ProfileData';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch} from 'react-redux';
+import {Logout} from '../../redux/actions/actions';
 type Props = {
   navigation: any;
 };
 const OwnerProfile = ({navigation}: Props) => {
   const {name} = ProfileData();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(Logout());
+  };
   return (
     <View style={style.profileStyle}>
       <ScrollView>
@@ -72,7 +78,12 @@ const OwnerProfile = ({navigation}: Props) => {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity style={style.btnfield}>
+          <TouchableOpacity style={style.btnfield} onPress={handleLogout}>
+            <Icon
+              name="logout"
+              size={20}
+              style={{marginLeft: 100, color: 'white'}}
+            />
             <Text style={style.btntext}>Logout </Text>
           </TouchableOpacity>
         </View>

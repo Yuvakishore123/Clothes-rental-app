@@ -8,16 +8,17 @@ import axios from 'axios';
 import {url} from '../../constants/Apis';
 function Usesignup() {
   const SignUpSchema = Yup.object().shape({
-    firstName: Yup.string().required('Required'),
-    lastName: Yup.string().required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
+    firstName: Yup.string().required('Enter First Name'),
+    lastName: Yup.string().required('Enter LastName'),
+    email: Yup.string().email('Invalid email').required('Enter valid Email'),
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits')
+      .required('Phone number is required'),
     password: Yup.string()
       .min(8, 'Must be at least 8 characters')
-      .required('Required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required'),
+      .required('Password is required'),
   });
+
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');

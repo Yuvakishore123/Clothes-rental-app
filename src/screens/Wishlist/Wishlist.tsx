@@ -20,9 +20,6 @@ type Props = {
   navigation: any;
 };
 const Wishlist = ({navigation}: Props) => {
-  // const {cartData, handleRemoveFromWishlist, handleAddToCart} = useWishlist();
-  const dispatch = useDispatch();
-
   const {
     WishlistProducts,
     removefromWishlist,
@@ -34,8 +31,6 @@ const Wishlist = ({navigation}: Props) => {
   const {refreshing, onRefresh} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log('hey', allWishlistProducts);
-  const isLoading = useSelector(state => state.WishlistProducts.isLoader);
-  const error = useSelector(state => state.WishlistProducts.error);
 
   if (!WishlistProducts) {
     return (
@@ -143,26 +138,9 @@ const Wishlist = ({navigation}: Props) => {
                               justifyContent: 'space-between',
                             }}>
                             <Text style={style.name}>{item.name}</Text>
-                            <TouchableOpacity
-                              style={style.addButton}
-                              onPress={() => {}}>
-                              <Text
-                                style={{
-                                  color: '#3E54AC',
-                                  fontWeight: 'bold',
-                                  fontSize: 12,
-                                }}>
-                                +
-                              </Text>
-                            </TouchableOpacity>
                           </View>
                           <View style={style.textContainer}>
                             <Text style={style.price}>{'₹' + item.price}</Text>
-                            <TouchableOpacity
-                              style={style.rentButton}
-                              onPress={() => openModel()}>
-                              <Text style={style.rentText}>Rent</Text>
-                            </TouchableOpacity>
                           </View>
                         </View>
                         <TouchableOpacity

@@ -31,6 +31,7 @@ export const ADD_ORDER = 'ADD_ORDER';
 //-------------------------------------------changes for wishlist and cart
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
 export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
 
@@ -121,56 +122,15 @@ export const Init = () => {
     }
   };
 };
-// export const getOTP = (phoneNo: string) => {
-//   return async (dispatch: Dispatch) => {
-//     dispatch({type: VERIFY_OTP_REQUEST});
-//     try {
-//       const response = await axios.post(
-//         'https://338a-106-51-70-135.ngrok-free.app/api/phoneNo',
-//         {
-//           phoneNo,
-//         },
-//       );
-//       console.log('otp send');
-//       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
-//     } catch (error) {
-//       dispatch({type: VERIFY_OTP_FAILURE, payload: error.message});
-//     }
-//   };
-// };
-
-// export const submitOTP = (phoneNo: string, otp: number) => {
-//   return async (dispatch: Dispatch) => {
-//     dispatch({type: LOGIN_REQUEST});
-//     try {
-//       const response = await axios.post(
-//         'https://338a-106-51-70-135.ngrok-free.app/api/otp',
-//         {
-//           phoneNo: phoneNo,
-//           otp: otp,
-//         },
-//       );
-//       const token = response.headers.access_token;
-//       await AsyncStorage.setItem('token', token);
-//       dispatch({type: LOGIN_SUCCESS, payload: token});
-//     } catch (error) {
-//       dispatch({type: LOGIN_FAILURE, payload: error.message});
-//     }
-//   };
-// };
 
 export const getOTP = (phoneNo: string) => {
   return async (dispatch: Dispatch) => {
     dispatch({type: VERIFY_OTP_REQUEST});
     try {
-      const response = await axios.post(
-        'https://338a-106-51-70-135.ngrok-free.app/api/phoneNo',
-        {
-          phoneNo,
-        },
-        Alert.alert('button Pressed'),
-      );
-      console.log('otp send');
+      const response = await axios.post(`${url}/phoneNo`, {
+        phoneNo,
+      });
+      Alert.alert('OTP'), console.log('otp send');
       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
     } catch (error) {
       dispatch({type: VERIFY_OTP_FAILURE, payload: error});
@@ -182,7 +142,7 @@ export const submitOTP = (phoneNo: string, otp: number) => {
     dispatch({type: LOGIN_REQUEST});
     try {
       const response = await axios.post(
-        'https://338a-106-51-70-135.ngrok-free.app/api/otp',
+        `${url}/otp`,
         {
           phoneNo: phoneNo,
           otp: otp,
@@ -266,78 +226,6 @@ export const SignupAndLogin = (
   };
 };
 
-// export const Login = (email: string, password: string) => {
-//   return async (dispatch: Dispatch) => {
-//     try {
-//       dispatch({
-//         type: LOGIN_REQUEST,
-//       });
-//       const response = await axios.post(
-//         `https://d38a-122-171-148-208.ngrok-free.app/api/v1/user/login`,
-//         {
-//           email: email,
-//           password: password,
-//         },
-//         {
-//           headers: {
-//             // Authorization: `Bearer ${await AsyncStorage.getItem(
-//             //   'access_token',
-//             // )}`,
-//           },
-//         },
-//       );
-
-//       const token = response.headers.access_token;
-
-//       await AsyncStorage.setItem('token', token);
-//       // if (response && response.data && response.data.access_token) {
-//       //   await AsyncStorage.setItem('userToken', response.data.access_token);
-//       // }
-//       console.log(token);
-//       console.log('token stored');
-//       console.log(token);
-//       dispatch({
-//         type: LOGIN_SUCCESS,
-//         payload: token,
-//       });
-//     } catch (error) {
-//       console.log('login error', error);
-//       dispatch({
-//         type: LOGIN_FAILURE,
-//         payload: error.message,
-//       });
-//     }
-//   };
-// };
-// export const SignupAndLogin = (
-//   firstName: string,
-//   lastName: string,
-//   email: string,
-//   phoneNumber: string,
-//   password: string,
-// ) => {
-//   return async (dispatch: Dispatch) => {
-//     axios
-//       .post(`https://d38a-122-171-148-208.ngrok-free.app/v1/user/signup`, {
-//         firstName,
-//         lastName,
-//         email,
-//         phoneNumber,
-//         password,
-//       })
-//       .then((response: {data: any}) => {
-//         console.log('signup success');
-//         payload: response.data;
-//       })
-//       .catch(error => {
-//         console.log('signup error', error);
-//         dispatch({
-//           type: LOGIN_FAILURE,
-//           payload: error.message,
-//         });
-//       });
-//   };
-// };
 export const Logout = () => {
   return async (dispatch: Dispatch) => {
     await AsyncStorage.clear();
@@ -370,6 +258,10 @@ export const addItemToCart = data => ({
 
 export const removeFromCart = (productId: any) => ({
   type: REMOVE_FROM_CART,
+  payload: productId,
+});
+export const removeproducts = (productId: any) => ({
+  type: REMOVE_PRODUCT,
   payload: productId,
 });
 
@@ -426,66 +318,6 @@ export const addProductToStore = product => {
     payload: product,
   };
 };
-//changes for wishlist api done till here!
-//------------------------------------
-
-// export const postProductToCartAPI = async (item: any) => {
-//   console.log('hello cart', item);
-//   const token = await AsyncStorage.getItem('token');
-//   // console.log(token);
-//   return (dispatch: (arg0: {type: string; payload: any}) => void) => {
-//     // make API call
-//     fetch(`https://6e07-106-51-70-135.ngrok-free.app/cart/add`, {
-//       method: 'POST',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(item),
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         // update the Redux store with the response data
-//         dispatch(addProductToCartStore(data));
-//         console.log('====================================');
-//         console.log(data);
-//         console.log('====================================');
-//         console.log('succes');
-//       })
-//       .catch(error => console.log(error));
-//   };
-// };
-
-// export const postProductToCartAPI = (item: any) => {
-//   const modifiedItem = {
-//     productId: item.id,
-//     quantity: item.quantity,
-//     rentalEndDate: item.rentalEndDate,
-//     rentalStartDate: item.rentalStartDate,
-//   };
-//   console.log('hello cart', item);
-//   return async (dispatch: any) => {
-//     const token = await AsyncStorage.getItem('token');
-
-//     fetch(`${url}/cart/add`, {
-//       method: 'POST',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(modifiedItem),
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         // update the Redux store with the response data
-//         dispatch({
-//           type: ADD_TO_CART,
-//           payload: {...modifiedItem, quantity: data.quantity},
-//         });
-//         Alert.alert('item Added Successfully');
-//       })
-//       .catch(error => console.log(error));
-//   };
-// };
 
 export const incrementCartItemQuantity = (item: any) => {
   return async (dispatch: any) => {

@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
     paddingVertical: 5,
-    color: Colors.iconscolor,
+    color: Colors.white,
   },
   optionSelected: {
     fontWeight: 'bold',
@@ -182,7 +182,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonUnselected: {
-    backgroundColor: Colors.white,
+    backgroundColor: '#a9a9f9',
+    marginTop: 3,
+    marginBottom: 3,
     width: 270,
     borderRadius: 15,
     height: 50,

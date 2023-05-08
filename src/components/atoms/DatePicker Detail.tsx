@@ -19,12 +19,12 @@ const DatePicker = ({
   const showToDatepicker = () => {
     setShowToPicker(true);
   };
-  const onChangeFrom = (event, selectedDate) => {
+  const onChangeFrom = (event: any, selectedDate: Date) => {
     const currentDate = selectedDate || fromDate;
     setShowFromPicker(Platform.OS === 'ios');
     onFromDateChange(currentDate);
   };
-  const onChangeTo = (event, selectedDate) => {
+  const onChangeTo = (event: any, selectedDate: Date) => {
     const currentDate = selectedDate || toDate;
     setShowToPicker(Platform.OS === 'ios');
     onToDateChange(currentDate);

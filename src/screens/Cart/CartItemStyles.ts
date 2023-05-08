@@ -502,5 +502,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#8E8E8E',
   },
+  Disabled: {
+    backgroundColor: 'grey',
+  },
 });
 export default styles;

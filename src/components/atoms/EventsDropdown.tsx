@@ -1,36 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
-import axios from 'axios';
 import Useadditems from '../../screens/Additems/Useadditems';
 
 const DropdownComponent = ({value, onChange, genderId}) => {
   // const [categoriesData, setCategoriesData] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
   const {subEventCategoriesData} = Useadditems();
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://4a59-106-51-70-135.ngrok-free.app/subcategory/listbyid/${1}`,
-  //     );
-  //     console.log(response);
-  //     const categoriesArray = response.data.map(
-  //       (category: {id: any; subcategoryName: any}) => ({
-  //         value: category.id,
-  //         label: category.subcategoryName,
-  //       }),
-  //     );
-  //     setCategoriesData(categoriesArray);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <View style={Ownerstyles.scrollView}>

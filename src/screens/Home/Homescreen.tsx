@@ -8,7 +8,6 @@ import {
   View,
   TextInput,
   RefreshControl,
-  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import Carousal from './Carousal';
@@ -39,19 +38,12 @@ const Homescreen = ({navigation}: Props) => {
     onRefresh,
     removefromWishlist,
     searchQuery,
-    searchResults,
-    setSearchResults,
     searchProducts,
     setSearchQuery,
     loading,
     // recommendations,
   } = useHome();
   const allProducts = useSelector(state => state.UserProducts.data);
-  const isLoading = useSelector(state => state.UserProducts.isLoader);
-  const error = useSelector(state => state.UserProducts.error);
-  // const [wishlist, setWishlist] = useState(false);
-  //chnages
-  // const [wishlistList, setWishlistList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [wishlistList, setWishlistList] = useState([]);
 
@@ -290,6 +282,31 @@ const Homescreen = ({navigation}: Props) => {
                               source={{uri: item.imageUrl[0]}}
                               style={style.image}
                             />
+                            <TouchableOpacity
+                              style={style.wishlistButton}
+                              onPress={() => {
+                                if (wishlistList.includes(item.id)) {
+                                  setWishlistList(
+                                    wishlistList.filter(id => id !== item.id),
+                                  );
+                                  removefromWishlist(item.id);
+                                } else {
+                                  setWishlistList([...wishlistList, item.id]);
+                                  dispatch(postProductToAPI({...item}));
+                                }
+                              }}>
+                              {wishlistList.includes(item.id) ? (
+                                <Image
+                                  source={require('../../../Assets/fillheart.png')}
+                                  style={{width: 24, height: 24}}
+                                />
+                              ) : (
+                                <Image
+                                  source={require('../../../Assets/heart.png')}
+                                  style={{width: 24, height: 24}}
+                                />
+                              )}
+                            </TouchableOpacity>
                           </View>
                         </TouchableOpacity>
                         <View style={style.cardTextContainer}>
@@ -302,38 +319,8 @@ const Homescreen = ({navigation}: Props) => {
                           </View>
                           <View style={style.textContainer}>
                             <Text style={style.price}>{'₹' + item.price}</Text>
-                            <TouchableOpacity
-                              style={style.rentButton}
-                              onPress={() => openModal()}>
-                              <Text style={style.rentText}>Rent</Text>
-                            </TouchableOpacity>
                           </View>
                         </View>
-                        <TouchableOpacity
-                          style={style.wishlistButton}
-                          onPress={() => {
-                            if (wishlistList.includes(item.id)) {
-                              setWishlistList(
-                                wishlistList.filter(id => id !== item.id),
-                              );
-                              removefromWishlist(item.id);
-                            } else {
-                              setWishlistList([...wishlistList, item.id]);
-                              dispatch(postProductToAPI({...item}));
-                            }
-                          }}>
-                          {wishlistList.includes(item.id) ? (
-                            <Image
-                              source={require('../../../Assets/fillheart.png')}
-                              style={{width: 24, height: 24}}
-                            />
-                          ) : (
-                            <Image
-                              source={require('../../../Assets/heart.png')}
-                              style={{width: 24, height: 24}}
-                            />
-                          )}
-                        </TouchableOpacity>
                       </View>
                     );
                   })}

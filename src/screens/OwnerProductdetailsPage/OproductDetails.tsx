@@ -10,7 +10,7 @@ type Props = {
   navigation: any;
 };
 
-export default function DetailScreen({route, navigation}: Props) {
+export default function OproductDetails({route, navigation}: Props) {
   const {product} = route.params;
 
   return (

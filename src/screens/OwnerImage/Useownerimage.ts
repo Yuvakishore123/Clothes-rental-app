@@ -1,7 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
-// import RNFS from 'react-native-fs';
-// import Imagepicker from '../../components/atoms/Imagepicker/Imagepicker';
 import {useDispatch, useSelector} from 'react-redux';
 import {url as baseUrl} from '../../constants/Apis';
 import axios from 'axios';
@@ -11,8 +9,6 @@ import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFormik} from 'formik';
 import {launchImageLibrary} from 'react-native-image-picker';
-
-// import {ItemsReducer} from '../../redux/reducers/AddItemsReducer';
 const OwnerImage = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -77,11 +73,6 @@ const OwnerImage = () => {
   const onHandleOwnerItems = () => {
     navigation.goBack();
   };
-  const [urls, setUrls] = useState();
-  // const Onhandlepress = () => {
-  //   navigation.navigate(Imagepicker);
-  // };
-  // console.log(url); // Wrap subcategoryIds in an array
   const postData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -126,20 +117,9 @@ const OwnerImage = () => {
   const [imageUris, setImageUris] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
-  const handleImageUris = urls => {
-    setImageUrls(urls);
-  };
   const handleremove = () => {
     setSelectedImage('');
   };
-  // const [removeImage, setRemove] = useState([]);
-  // const removeImage = index => {
-  //   const newImageUris = [...imageUris];
-  //   newImageUris.splice(index, 1);
-  //   setImageUris(newImageUris);
-  //   const newRemove = [...remove, index];
-  //   setRemove(newRemove);
-  // };
   const handleRemoveImages = () => {
     setImageUris([]);
   };
@@ -224,8 +204,6 @@ const OwnerImage = () => {
   });
   return {
     onHandleOwnerItems,
-    // Onhandlepress,
-    // data,
     postData,
     handleSelectedImage,
     handleSizeTypeChange,
@@ -235,7 +213,6 @@ const OwnerImage = () => {
     setSelectedsize,
     setPrice,
     setQuantity,
-    // onSelectImage,
     selectedImage,
     handleremove,
     formik,

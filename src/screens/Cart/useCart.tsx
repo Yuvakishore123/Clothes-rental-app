@@ -14,11 +14,7 @@ function useCart() {
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
-  const [quantity, setQuantity] = useState(1);
   const navigation = useNavigation();
-  // const cartData = useSelector(state => state.CartProducts.data);
-
-  // const productId = useSelector(state => state.CartReducer.productId);
   const openModal = () => {
     setShowModal(true);
   };
@@ -41,6 +37,11 @@ function useCart() {
     await dispatch(fetchCartProducts());
     setRefreshing(false);
   };
+  useEffect(() => {
+    if (!showModal) {
+      dispatch(fetchCartProducts());
+    }
+  }, [showModal]);
   const handleUpdate = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -178,3 +179,4 @@ function useCart() {
   };
 }
 export default useCart;
+

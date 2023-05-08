@@ -11,7 +11,7 @@ import Lottie from 'lottie-react-native';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -29,10 +29,37 @@ const SubcategoryList = ({route}) => {
       );
       const subcategoriesData = response.data;
       setSubcategories(subcategoriesData);
+      setLoading(false);
     };
 
     fetchSubcategories();
   }, [categoryId]);
+  if (loading) {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          // backgroundColor: '#3E54AC',
+        }}>
+        <Lottie
+          source={require('../../../Assets/loading.json')}
+          autoPlay
+          style={{
+            height: 200,
+            width: 200,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 40,
+          }}
+        />
+        <Text style={{color: '#3E54AC', fontSize: 15, fontWeight: '600'}}>
+          The Items are Loading...
+        </Text>
+      </View>
+    );
+  }
   return (
     <ScrollView>
       <View style={styles.textContainers}>
@@ -90,7 +117,7 @@ const styles = StyleSheet.create({
     opacity: 50,
     borderRadius: 8,
     // backgroundColor: 'pink',
-    marginLeft: 20,
+    marginLeft: 25,
     marginTop: 30,
     padding: 10,
     shadowColor: '#000',

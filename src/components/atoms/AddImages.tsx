@@ -1,11 +1,12 @@
-import {View, Text, ToastAndroid, StyleSheet, Alert} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {View, ToastAndroid, StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
 import {Avatar, Button} from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const AddImages = () => {
   const [Pic, setPic] = React.useState('');
-  const setToastMsg = msg => {
+  const setToastMsg = (msg: string) => {
     ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
   };
   useEffect(() => {

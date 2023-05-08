@@ -11,13 +11,6 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     //flex: 1,
     width: '100%',
-    //margin: 26,
-    //backgroundColor: '#000',
-    // shadowColor: '#3E54AC',
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity:15,
-    // shadowRadius: 10,
-    // elevation:0.1,
   },
   titleText: {
     marginTop: '30%',
@@ -128,7 +121,7 @@ const Styles = StyleSheet.create({
     height: 165,
     // paddingRight: 30,
     marginTop: 50,
-    marginLeft: 90,
+    marginLeft: 70,
   },
   errorText: {
     color: 'red',

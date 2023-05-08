@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
-
 export const useEditaddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -16,6 +15,14 @@ export const useEditaddress = () => {
   const [postalCode, setPostalCode] = useState(address.postalCode);
   const [country, setCountry] = useState(address.country);
   const [selectedOption, setSelectedOption] = useState('home');
+  const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const handleOptionChange = value => {
     setSelectedOption(value);
   };
@@ -29,6 +36,7 @@ export const useEditaddress = () => {
   };
   const handleUpdateAddress = async () => {
     try {
+      openModal();
       const token = await AsyncStorage.getItem('token');
       const updateaddress = {
         addressLine1: addressLine1,
@@ -49,16 +57,15 @@ export const useEditaddress = () => {
         body: JSON.stringify(updateaddress),
       });
       if (response.ok) {
-        Alert.alert('Address updated successfully');
+        setIsLoading(false);
         navigation.goBack();
-      } else {
-        Alert.alert('Failed to update address');
       }
     } catch (error) {
       Alert.alert('Failed to update address');
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    // Alert.alert('button pressed');
   };
   return {
     handleUpdateAddress,
@@ -69,6 +76,10 @@ export const useEditaddress = () => {
     city,
     addressLine1,
     setStateName,
+    closeModal,
+    openModal,
+    setShowModal,
+    showModal,
     postalCode,
     setPostalCode,
     addressLine2,
@@ -77,5 +88,6 @@ export const useEditaddress = () => {
     state,
     setAddressLine1,
     setAddressLine2,
+    isLoading,
   };
 };

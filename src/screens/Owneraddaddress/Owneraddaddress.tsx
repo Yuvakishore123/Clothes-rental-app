@@ -12,15 +12,11 @@ import {OwnerAddressCustomHook} from './Useowneraddress';
 const Owneraddaddress = () => {
   const navigation = useNavigation();
   const {
-    setaddressType,
     setStateName,
-    addressType,
     setCity,
     setaddressLine1,
     setaddressLine2,
-    country,
     setpostalCode,
-    setCountry,
     addressLine2,
     addressLine1,
     handleSaveAddress,
@@ -31,7 +27,6 @@ const Owneraddaddress = () => {
     // handlePostalcode,
   } = OwnerAddAddressCustomHook(navigation);
   const {
-    addressList,
     city,
     state,
     // addressLine1,

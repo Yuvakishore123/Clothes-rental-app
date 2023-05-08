@@ -1,7 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
-const screenWidth = Dimensions.get('window').width;
-import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
     // width: 380,
@@ -57,6 +54,25 @@ const style = StyleSheet.create({
   input: {
     textAlign: 'left',
     backgroundColor: '#ECF2FF',
+    marginTop: 25,
+    top: 10,
+    margin: 40,
+    // textAlign: 'center',
+    fontSize: 18,
+    color: '#3E54AC',
+    fontWeight: '500',
+    borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  emailinput: {
+    textAlign: 'left',
+    backgroundColor: '#c9c9d9',
     marginTop: 25,
     top: 10,
     margin: 40,

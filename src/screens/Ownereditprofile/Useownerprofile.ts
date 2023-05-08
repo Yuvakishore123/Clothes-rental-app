@@ -1,10 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {url} from '../../constants/Apis';
 function OwnerEditProfileCustomHook() {
-  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   // Initialize isLoading to true
   const [firstName, setFirstName] = useState('');
@@ -68,7 +66,7 @@ function OwnerEditProfileCustomHook() {
       console.log();
       if (response.ok) {
         Alert.alert('Profile updated!');
-        navigation.navigate('OwnerProfile');
+        // navigation.navigate('OwnerProfile');
       } else {
         throw new Error('Failed to update profile');
       }

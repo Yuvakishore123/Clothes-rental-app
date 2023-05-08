@@ -10,48 +10,199 @@ import {
   Modal,
   Image,
 } from 'react-native';
-import axios from 'axios';
-import {EditItemsUrl} from '../../constants/Apis';
 import Useowneredititems from './Useowneredititems';
 import GenderDropdown from '../../components/atoms/GenderDropdown';
 import Ownerstyles from '../Additems/Additemsstyle';
 import TypeDropdown from '../../components/atoms/TypeDropdown';
 import EventsDropdown from '../../components/atoms/EventsDropdown';
 import OutfitDropdown from '../../components/atoms/OutfitDropdown';
-import OwnerImagestyles from '../OwnerImage/OwnerImagestyles';
 import Sizeselection from '../../components/atoms/Sizeselect';
-import Useownerimage from '../OwnerImage/Useownerimage';
 import OwnerEditItemstyles from './Owneredititemsstyles';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
-import useEditItems from './useEdititems';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import { managePanProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
 const App = () => {
-  const [visible, setViisble] = useState(false);
-  const {data, setEditProductId} = Useowneredititems();
-  const {handleEditItems, itemsData, handleClick} = useEditItems();
-  const [status, setStatus] = useState(1);
+  const {
+    data,
+    setGender,
+    visible,
+    setViisble,
+    name,
+    handleedit,
+    description,
+    setEventType,
+    setOutfitType,
+    setItemType,
+    imageUrls,
+    selectedImage,
+    RemoveProducts,
+    handleremove,
+    pickImg,
+    pref,
+    closeModal,
+    handleGenderChange,
+    handleEventTypeChange,
+    handleOutfitChange,
+    handleItemTypeChange,
+    setName,
+    setDescription,
+    handleSizeTypeChange,
+    setSelectedsize,
+    setPrice,
+    setQuantity,
+    setEditProductId,
+    getOwnerProducts,
+    FetchData,
+    Mapdata,
+    price,
+    quantity,
+  } = Useowneredititems();
   const [hideId, setHideId] = useState(null);
-
-  // const handleEdit = () => {
-  //   setViisble(true);
-  // };
+  console.log(data);
+  console.log('Mapped Data is :', Mapdata);
 
   const handleVisibleModal = () => {
     setViisble(!visible);
     setHideId(null);
   };
   const navigation = useNavigation();
-
+  console.log('data :', data);
   return (
     <SafeAreaView>
+      <View style={styles.header_container} />
+      <Modal animationType="slide" visible={visible}>
+        <SafeAreaView>
+          <ScrollView>
+            <View style={styles.form}>
+              <TouchableOpacity onPress={handleVisibleModal}>
+                <Text style={styles.txtClose}>Close</Text>
+              </TouchableOpacity>
+              <View style={Ownerstyles.Scrollcontainer}>
+                <View style={Ownerstyles.scroll}>
+                  <Text style={Ownerstyles.Itemname}>Name</Text>
+                  <TextInput
+                    style={Ownerstyles.Namefield}
+                    onChangeText={setName}
+                    defaultValue={Mapdata.name}
+                  />
+                  <Text style={Ownerstyles.Itemname}>Description</Text>
+                  <TextInput
+                    style={Ownerstyles.Descriptionfield}
+                    onChangeText={setDescription}
+                    multiline
+                    defaultValue={Mapdata.description}
+                  />
+                  <Text style={Ownerstyles.Itemname}>Select Gender</Text>
+                  <GenderDropdown
+                    onSelectGender={setGender}
+                    onChange={handleGenderChange}
+                  />
+                  <Text style={Ownerstyles.Itemname}>Select Type</Text>
+                  <TypeDropdown
+                    onSelectType={setItemType}
+                    onChange={handleItemTypeChange}
+                  />
+                  <Text style={Ownerstyles.Itemname}>Select Event</Text>
+                  <EventsDropdown
+                    onSelectEvent={setEventType}
+                    onChange={handleEventTypeChange}
+                  />
+                  <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
+                  <OutfitDropdown
+                    onSelectOutfit={setOutfitType}
+                    onChange={handleOutfitChange}
+                  />
+                  <View style={OwnerEditItemstyles.Sizecontainer}>
+                    <Text style={OwnerEditItemstyles.Sizetext}> Size</Text>
+                    <Sizeselection
+                      onSelectSize={setSelectedsize}
+                      onChange={handleSizeTypeChange}
+                    />
+                  </View>
+                  <View style={OwnerEditItemstyles.ImageBox}>
+                    <Text style={OwnerEditItemstyles.addImagesText}>
+                      Add Images *
+                    </Text>
+                    {selectedImage ? (
+                      <>
+                        <ScrollView
+                          horizontal
+                          style={OwnerEditItemstyles.imagehorizontal}>
+                          {imageUrls.map((image, index) => (
+                            <Image
+                              style={OwnerEditItemstyles.image}
+                              source={{uri: image}}
+                              key={index}
+                            />
+                          ))}
+                        </ScrollView>
+                        <View style={OwnerEditItemstyles.removeContainer}>
+                          <TouchableOpacity
+                            onPress={handleremove}
+                            style={OwnerEditItemstyles.touchableContainer}>
+                            <Text style={OwnerEditItemstyles.removeText}>
+                              Remove
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </>
+                    ) : (
+                      // <Mainbutton onPress={undefined} text="remove" />
+                      <View style={OwnerEditItemstyles.Addimage}>
+                        <MaterialIcons
+                          style={OwnerEditItemstyles.AddIcon}
+                          name="add-to-photos"
+                        />
+                        <Text
+                          onPress={pickImg}
+                          style={OwnerEditItemstyles.imagesText}>
+                          Add Image
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <View>
+                    <Text style={OwnerEditItemstyles.Pricetext}> Price</Text>
+                    {console.log('Price is ', price)}
+                    <TextInput
+                      style={OwnerEditItemstyles.Price}
+                      keyboardType="numeric"
+                      value={price.toString()}
+                      onChangeText={(value: any) => setPrice(value)}
+                    />
+                    <Text style={OwnerEditItemstyles.Pricetext}> Quantity</Text>
+                    <TextInput
+                      keyboardType="numeric"
+                      style={OwnerEditItemstyles.Price}
+                      value={quantity.toString()}
+                      onChangeText={(value: any) => setQuantity(value)}
+                    />
+                    {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
+                  </View>
+                  <View style={Ownerstyles.mainButton}>
+                    <TouchableOpacity
+                      style={Ownerstyles.mainTouchable}
+                      onPress={handleedit}>
+                      <Text style={Ownerstyles.touchableText}>Edit Item</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={OwnerEditItemstyles.backContainer}>
             <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
+            <Text style={OwnerEditItemstyles.backButtonText}>Edit Items</Text>
           </View>
         </TouchableOpacity>
+
         {data.map(item => {
           return (
             <>
@@ -70,21 +221,24 @@ const App = () => {
                 </View>
                 <View style={OwnerEditItemstyles.buttonContainer}>
                   <TouchableOpacity
-                    onPress={() => handleClick()}
+                    onPress={() => FetchData()}
                     onPressIn={() => setEditProductId(item.id)}>
                     <View style={OwnerEditItemstyles.button}>
                       <Text style={styles.txt_edit}>Edit</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={handleClick}>
+                  <TouchableOpacity onPress={() => RemoveProducts(item.id)}>
                     <View style={OwnerEditItemstyles.button}>
-                      <Text onPress={handleEditItems} style={styles.txt_del}>
-                        Delete
-                      </Text>
+                      <Text style={styles.txt_del}>Delete</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
               </View>
+              {/* <CustomModal
+                showModal={showModal}
+                onClose={closeModal}
+                message="Need to set Rental dates!"
+              /> */}
             </>
           );
         })}
@@ -101,6 +255,7 @@ const styles = StyleSheet.create({
     // backgroundColor : "#e3e3e3",
     marginTop: 10,
     backgroundColor: Colors.main,
+    marginLeft: -10,
   },
 
   txtClose: {

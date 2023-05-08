@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addAddress} from '../../redux/actions/actions';
 import {NavigationProp} from '@react-navigation/native';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,7 +14,6 @@ export const OwnerAddAddressCustomHook = (
   const [postalCode, setpostalCode] = useState('');
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
-  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState('home');
   const handleOptionChange = value => {
     setSelectedOption(value);
@@ -28,9 +26,6 @@ export const OwnerAddAddressCustomHook = (
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-  };
-  const handleCountry = () => {
-    setCountry('india');
   };
   const handleSaveAddress = async () => {
     const addressData = {

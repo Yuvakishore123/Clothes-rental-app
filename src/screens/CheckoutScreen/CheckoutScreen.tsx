@@ -8,22 +8,32 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {CheckBox} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
 import useCheckout from './useCheckout';
 import style from './CheckoutScreenStyle';
 import Colors from '../../constants/Colors';
-
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 type Props = {
   route: {name: string};
   navigation: any;
 };
-
 const Cart = ({navigation}: Props) => {
-  const {CartProducts, handlePayment, refreshing, onRefresh, addressList} =
-    useCheckout();
+  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
+  const {
+    setIsCheckedArray,
+    selectedAddressIndex,
+    CartProducts,
+    handlePayment,
+    handleCheckboxChange,
+    refreshing,
+    onRefresh,
+    addressList,
+    isCheckedArray,
+    isChecked,
+  } = useCheckout();
   const cartData = useSelector(state => state.CartProducts.data);
-  // console.log('cartItems:', cartData);
   console.log('johnwesly', addressList);
   if (!CartProducts) {
     return (
@@ -49,14 +59,26 @@ const Cart = ({navigation}: Props) => {
   }
   return (
     <>
-      <View style={{width: 70, height: 29, left: 65, marginTop: 40}}>
-        <View style={{}}>
+      <View style={{width: 90, height: 29, left: 65, marginTop: 40}}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={style.backBtn}
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <MaterialIcon
+              name="arrow-back-ios"
+              color={Colors.iconscolor}
+              size={20}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               color: '#3E54AC',
               fontSize: 15,
               fontFamily: 'poppins',
               fontWeight: 'bold',
+              marginLeft: 14,
             }}>
             CheckOut
           </Text>
@@ -126,6 +148,17 @@ const Cart = ({navigation}: Props) => {
               ),
             )}
           </ScrollView>
+          <View style={style.addresscard}>
+            <Text style={style.addressText}>Select Address</Text>
+            <Text
+              style={style.addresschangeText}
+              onPress={() => {
+                navigation.navigate('Owneraddresspage');
+              }}>
+              Add Address
+            </Text>
+          </View>
+          {/* <Text style={{margin: 5, width: '100%'}}>{selectedAddress}</Text> */}
           {addressList &&
             addressList.map((item, index) => (
               <View key={index} style={style.card}>
@@ -142,9 +175,18 @@ const Cart = ({navigation}: Props) => {
                     {'Country: ' + item.country}
                   </Text>
                 </View>
+                <View style={style.containerCheckbox}>
+                  <Text style={style.textCheckbox}>Delivery Address</Text>
+                  <CheckBox
+                    checked={selectedAddressIndex === index}
+                    onPress={() => handleCheckboxChange(index)}
+                    checkedColor="#3E54AC"
+                    containerStyle={style.checkboxContainer}
+                    size={24}
+                  />
+                </View>
               </View>
             ))}
-
           <View style={{marginTop: 10, padding: 20}}>
             <Text style={{color: '#3E54AC', fontWeight: '600', fontSize: 18}}>
               Grand Total
@@ -184,5 +226,4 @@ const Cart = ({navigation}: Props) => {
     </>
   );
 };
-
 export default Cart;

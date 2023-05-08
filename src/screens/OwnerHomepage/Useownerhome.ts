@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchProducts} from '../../redux/slice/productSlice';
 import {useNavigation} from '@react-navigation/native';
-import OwnerHome from '../My Rentals/MyRentals';
 import Additems from '../Additems/Additems';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
@@ -10,8 +9,37 @@ function Useownerhome() {
   const [name, setName] = useState('');
   const [refresh, setRefresh] = useState(false);
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(true);
+  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [rentedItems, setRentedItems] = useState(0);
   useEffect(() => {
     dispatch(fetchProducts());
+  }, []);
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      const token = await AsyncStorage.getItem('token');
+      try {
+        const response = await fetch(`${url}/order/dashboard`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const dashboardData = await response.json();
+          setTotalEarnings(dashboardData.totalEarnings);
+          setRentedItems(dashboardData.totalNumberOfItems);
+        } else {
+          throw new Error('Failed to fetch Dashboard Data');
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDashboardData();
   }, []);
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -24,6 +52,7 @@ function Useownerhome() {
             'Content-Type': 'application/json',
           },
         });
+        setIsLoading(false);
         if (response.ok) {
           const profileData = await response.json();
           setName(profileData.firstName);
@@ -32,6 +61,7 @@ function Useownerhome() {
         }
       } catch (error) {
         console.error(error);
+        setIsLoading(true);
       }
     };
     fetchProfileData();
@@ -44,28 +74,21 @@ function Useownerhome() {
   }, [navigation, refresh]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.data);
-  console.log(JSON.stringify(products));
+  // console.log(JSON.stringify(products));
   const handleAdditems = () => {
     navigation.navigate(Additems);
   };
   const handleMyrentals = () => {
     navigation.navigate('MyRentals');
   };
-  return {products, handleAdditems, handleMyrentals, name};
+  return {
+    products,
+    handleAdditems,
+    handleMyrentals,
+    name,
+    isLoading,
+    totalEarnings,
+    rentedItems,
+  };
 }
 export default Useownerhome;
-
-// import {useEffect} from 'react';
-// import {useSelector, useDispatch} from 'react-redux';
-// import {fetchProducts} from '../../redux/slice/productSlice';
-// function Useownerhome() {
-//   useEffect(() => {
-//     dispatch(fetchProducts());
-//   }, []);
-
-//   const dispatch = useDispatch();
-//   const products = useSelector(state => state.products.data);
-//   console.log(JSON.stringify(products));
-//   return {products};
-// }
-// export default Useownerhome;

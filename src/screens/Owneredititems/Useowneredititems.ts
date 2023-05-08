@@ -1,13 +1,18 @@
 import {SetStateAction, useEffect, useState} from 'react';
 import axios from 'axios';
-import {EditItemsUrl, OwnerCategoryUrl, url} from '../../constants/Apis';
-import {addGenderData, addsize} from '../../redux/actions/actions';
+import {EditItemsUrl, OwnerCategoryUrl, OwnerProductsById} from '../../constants/Apis';
+import {url as baseUrl} from '../../constants/Apis';
+import {
+  addGenderData,
+  addsize,
+  removeproducts,
+} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {Alert, StyleSheet} from 'react-native';
+import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useEditItems from './useEdititems';
-import Colors from '../../constants/Colors';
+import {launchImageLibrary} from 'react-native-image-picker';
+import ApiService from '../../network/network';
 const Useowneredititems = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -18,13 +23,25 @@ const Useowneredititems = () => {
   const [eventType, setEventType] = useState('');
   const [outfitType, setOutfitType] = useState('');
   const [itemType, setItemType] = useState('');
-  const size = useSelector(state => state.SizeReducer.selected);
   const [selectedsize, setSelectedsize] = useState('');
   const [editProductId, setEditProductId] = useState(null);
+  const [pref, setPrefill] = useState([]);
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
-  const {itemsData, Name} = useEditItems();
+  const [visible, setViisble] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  console.log('snj xkcvn', editProductId);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const [Mapdata, setMapdata] = useState('');
+  const handleName = () => {
+    setName(data.name);
+  };
   const handleGenderChange = (selectedGender: React.SetStateAction<string>) => {
     setGender(selectedGender);
     dispatch(addGenderData(selectedGender));
@@ -33,38 +50,43 @@ const Useowneredititems = () => {
   const handleSelectItem = item => {
     setSelectedItem(item);
   };
-  console.log('name:', name);
-  const handleName = () => {
-    // setName(Name);
-    console.log('name is :', name);
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = await AsyncStorage.getItem('token'); // replace 'token' with your actual AsyncStorage key name
-        const config = {
-          headers: {Authorization: `Bearer ${token}`},
-        };
-
-        const response = await axios.get(EditItemsUrl, config);
-
+        const token = await AsyncStorage.getItem('token');
+        const response = await axios.get(EditItemsUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const mappedData = response.data.map((item: any) => ({
           id: item.id,
           name: item.name,
           price: item.price,
           image: item.imageUrl[0],
         }));
-
         setData(mappedData);
-        console.log('mappedData', data);
       } catch (error) {
-        // console.error(error);
+        console.error(error);
       }
     };
-
     fetchData();
   }, []);
-
+  const FetchData = async () => {
+    try {
+      setViisble(true);
+      const ProductData = await ApiService.get(
+        `https://8d69-106-51-70-135.ngrok-free.app/api/v1/product/listByProductId/${editProductId}`,
+      );
+      console.log('ProductData', ProductData);
+      setMapdata(ProductData);
+      setPrice(ProductData.price);
+      setQuantity(ProductData.quantity);
+      return ProductData;
+    } catch (error) {
+      console.log('error is :', error);
+    }
+  };
   const [categoriesData, setCategoriesData] = useState([]);
   const [subCategoriesData, setSubCategoriesData] = useState([]);
   const [subEventCategoriesData, setSubEventCategoriesData] = useState([]);
@@ -80,7 +102,7 @@ const Useowneredititems = () => {
       try {
         // setIsLoading(true);
         const response = await axios.get(
-          `${url}/api/v1/subcategory/listbyid/${genderData}`,
+          `${baseUrl}/api/v1/subcategory/listbyid/${genderData}`,
         );
         // console.log(response);
         const subCategoriesArray = response.data.map(
@@ -107,7 +129,7 @@ const Useowneredititems = () => {
       try {
         // setIsLoading(true);
         const response = await axios.get(
-          `${url}/api/v1/subcategory/listbyid/${1}`,
+          `${baseUrl}/api/v1/subcategory/listbyid/${1}`,
         );
         // console.log(response);
         const subEventCategoriesArray = response.data.map(
@@ -134,7 +156,7 @@ const Useowneredititems = () => {
       try {
         // setIsLoading(true);
         const response = await axios.get(
-          `${url}/api/v1/subcategory/listbyid/${2}`,
+          `${baseUrl}/api/v1/subcategory/listbyid/${2}`,
         );
         // console.log(response);
         const subOutfitCategoriesArray = response.data.map(
@@ -175,8 +197,96 @@ const Useowneredititems = () => {
     };
     fetchCategoryData();
   }, []);
+  const getImageUrl = async () => {
+    const url = await AsyncStorage.getItem('url');
+    setUrl(url);
+    console.log('Retrieved URL:', url);
+  };
+  useEffect(() => {
+    getImageUrl();
+  }, []);
 
-  // console.log("helo" + gender);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [imageUris, setImageUris] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const handleImageUris = urls => {
+    setImageUrls(urls);
+  };
+  const handleremove = () => {
+    setSelectedImage('');
+  };
+  const handleRemoveImages = () => {
+    setImageUris([]);
+  };
+  useEffect(() => {
+    const getImageUrls = async () => {
+      const url = await AsyncStorage.getItem('url');
+      if (url) {
+        const imageUrls = Array.from({length: 10}, (_, index) => {
+          return `${url}/file${index + 1}`;
+        });
+        imageUrls(imageUris);
+      }
+    };
+    getImageUrls();
+  }, [imageUris]);
+  const pickImg = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        selectionLimit: 10,
+      },
+      async response => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        } else {
+          const images = response.assets.map(imagePath => ({
+            uri: imagePath.uri,
+            type: 'image/png',
+            name: 'image.png',
+          }));
+          const formData = new FormData();
+          images.forEach((file, index) => {
+            formData.append('file', {
+              uri: file.uri,
+              type: 'image/png',
+              name: 'image.png',
+            });
+          });
+          try {
+            const token = await AsyncStorage.getItem('token');
+            console.log(token);
+            const result = await fetch(`${baseUrl}/file/upload`, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            if (result.ok) {
+              const res = await result.json();
+              console.log(res);
+              setImageUrls(res.urls);
+              setSelectedImage(res.urls);
+              console.log(imageUrls); // Update this line
+            } else {
+              const res = await result.json();
+              console.log('Upload failed');
+              console.log(res);
+              console.log(token);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      },
+    );
+  };
+
 
   const handleEventTypeChange = (
     selectedEventType: React.SetStateAction<string>,
@@ -197,41 +307,95 @@ const Useowneredititems = () => {
     setSelectedsize(selectedSize);
   };
   const handleedit = async () => {
-    const data = {
-      categoryIds: [gender], // Wrap categoryIds in an array
-      name: name,
-      description: description,
-      id: 0,
-      imageURL: 'URL', // Add imageURL field with selectedImage value
-      price: price,
-      quantity: quantity,
-      size: selectedsize,
-      subcategoryIds: [itemType, outfitType, eventType], // Wrap subcategoryIds in an array
-    };
-    const token = await AsyncStorage.getItem('token'); // replace 'token' with your actual AsyncStorage key name
-    const config = {
-      headers: {Authorization: `Bearer ${token}`},
-    };
-    axios({
-      method: 'PUT',
-      url: 'https://6ec0-106-51-70-135.ngrok-free.app/api/v1/product/update/1',
-      data: data,
-      headers: config.headers,
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const data = {
+        brand: 'addidas',
+        categoryIds: [gender],
+        color: 'black',
+        description: description,
+        id: 0,
+        imageUrl: imageUrls,
+        material: 'fibre',
+        name: name,
+        price: price,
+        quantity: quantity,
+        size: selectedsize,
+        subcategoryIds: [itemType, outfitType, eventType],
+      };
+      console.log(data);
+
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await fetch(
+        `${baseUrl}/product/update/${editProductId}`,
+        {
+          method: 'PUT',
+          headers: headers,
+          body: JSON.stringify(data),
+        },
+      );
+
+      if (!response.ok) {
+        console.log(response);
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      console.log('added');
+      console.log(responseData);
+      console.log(data);
+
+      dispatch(addsize(selectedsize));
+      Alert.alert('Item Successfully Edited');
+      navigation.navigate('OwnerProfile');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Failed to Edit Item');
+    }
+  };
+  const RemoveProducts = async (productId: any) => {
+    const token = await AsyncStorage.getItem('token');
+    console.log('chiranjeevi', productId);
+    fetch(`${baseUrl}/product/deleteProduct/${productId}`, {
+      method: 'DELETE',
+      // openModal();
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-      .then(response => {
-        console.log('added');
-        Alert.alert('Item Successfully Edited');
+      .then(data => {
+        dispatch(removeproducts(productId));
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
+        const errorMessage = `Error removing item from ProductsList: ${error.message}`;
+        Alert.alert(errorMessage);
       });
-    dispatch(addsize(selectedsize));
-    navigation.navigate('OwnerProfile');
   };
-  const [visible, setViisble] = useState(false);
-  //====================================================================//
-  //get method of edit Items//
-  const [ItemsData, setItemsData] = useState([]);
+
+  const getOwnerProducts = async () => {
+    try {
+      setViisble(true);
+      const token = await AsyncStorage.getItem('token');
+      const response = await axios.get(
+        `${baseUrl}/product/listByProductId/${editProductId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log('prefill data', response.data);
+      setPrefill(response.data);
+      return response.data;
+    } catch (error) {
+      throw error.response.data; // throw the error to be caught by the reject handler
+    }
+  };
 
   return {
     data,
@@ -242,6 +406,17 @@ const Useowneredititems = () => {
     setEventType,
     setOutfitType,
     setItemType,
+    imageUrls,
+    setImageUris,
+    selectedImage,
+    RemoveProducts,
+    closeModal,
+    setShowModal,
+    showModal,
+    handleremove,
+    handleRemoveImages,
+    pickImg,
+    imageUris,
     handleGenderChange,
     handleEventTypeChange,
     handleOutfitChange,
@@ -255,14 +430,19 @@ const Useowneredititems = () => {
     subOutfitCategoriesData,
     handleSizeTypeChange,
     setSelectedsize,
+    handleName,
     setPrice,
+    price,
+    visible,
+    pref,
+    setViisble,
     setQuantity,
     handleSelectItem,
     setEditProductId,
     selectedItem,
-    handleName,
-    price,
-    // handleEditItems,
+    getOwnerProducts,
+    FetchData,
+    Mapdata,
     quantity,
   };
 };

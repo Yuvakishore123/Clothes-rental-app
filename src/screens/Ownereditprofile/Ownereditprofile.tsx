@@ -25,7 +25,6 @@ export default function OwnerEditProfileCustomHook() {
     setEmail,
     phoneNumber,
     setPhoneNumber,
-    handleReset,
     handleUpdate,
     isLoading,
   } = useOwnerProfile();
@@ -89,10 +88,11 @@ export default function OwnerEditProfileCustomHook() {
               />
               <Text style={style.text}>Email</Text>
               <TextInput
-                style={style.input}
+                style={style.emailinput}
                 value={email}
                 onChangeText={text => setEmail(text)}
                 selectTextOnFocus={false}
+                editable={false}
               />
               <Text style={style.text}>phonenumber</Text>
               <TextInput

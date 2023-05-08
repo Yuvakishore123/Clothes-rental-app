@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCartProducts} from '../../redux/slice/cartSlice';
@@ -24,6 +23,11 @@ function useCart() {
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState(-1);
+  const [chechedArray, setIsCheckedArray] = useState([]);
+  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
+  // const [isCheckedArray, setIsCheckedArray] = useState(addressList.map(() => false));
   // const isFocused = useIsFocused();
   // const addressList = useSelector(state => state.AddressReducers);
   useEffect(() => {
@@ -51,8 +55,12 @@ function useCart() {
           state,
           country,
           postalCode,
+          // isCheckedArray,
+          isChecked,
           addressLine1,
           addressLine2,
+          // selectedAddress,
+          // setSelectedAddress,
         );
         console.log(address);
       } catch (error) {
@@ -65,15 +73,20 @@ function useCart() {
       setIsFocused(false);
     };
   }, []);
-
-  // const cartData = useSelector(state => state.CartProducts.data);
-
-  // const productId = useSelector(state => state.CartReducer.productId);
+  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
   const cartData = useSelector(state => state.CartProducts.data);
   useEffect(() => {
     dispatch(fetchCartProducts());
   }, []);
-
+  // const handleCheckboxChange = (index: number) => {
+  //   const newIsCheckedArray = isCheckedArray.map((isChecked, i) => i === index);
+  //   setIsCheckedArray(newIsCheckedArray);
+  // };
+  function handleCheckboxChange(index) {
+    setSelectedAddressIndex(index);
+    const newIsCheckedArray = addressList.map((_, i) => i === index);
+    setIsCheckedArray(newIsCheckedArray);
+  }
   const onRefresh = async () => {
     setRefreshing(true);
     await dispatch(fetchCartProducts());
@@ -110,7 +123,6 @@ function useCart() {
       console.error('Update error:', error);
     }
   };
-
   const handleCheckout = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -121,7 +133,6 @@ function useCart() {
         productName: item.product.name,
         quantity: item.product.quantity,
       }));
-
       // Make the API call to create the checkout session
       const response = await fetch(checkoutApi, {
         method: 'POST',
@@ -131,7 +142,6 @@ function useCart() {
         },
         body: JSON.stringify(items),
       });
-
       // Handle the response
       const data = await response.json();
       navigation.navigate('CheckoutScreen');
@@ -162,9 +172,7 @@ function useCart() {
         Alert.alert(errorMessage);
       });
   };
-
   const totalPrice = 1;
-
   const handlePayment = () => {
     const options = {
       description: 'Payment for food items',
@@ -180,7 +188,7 @@ function useCart() {
       },
       theme: {
         color: '#3E54AC',
-        background: '#f6f6f6',
+        background: '#F6F6F6',
         'card[name]': {
           color: '#3E54AC',
           'font-size': '16px',
@@ -220,7 +228,6 @@ function useCart() {
         navigation.navigate('PaymentFailScreen');
       });
   };
-
   const dispatch = useDispatch();
   const CartProducts = useSelector(state => state.CartProducts.data);
   console.log(JSON.stringify(CartProducts));
@@ -236,9 +243,17 @@ function useCart() {
     handleUpdate,
     rentalStartDate,
     rentalEndDate,
+    // selectedAddress,
+    // setSelectedAddress,
     setRentalStartDate,
     setRentalEndDate,
+    handleCheckboxChange,
+    // setIsCheckedArray,
     addressList,
+    selectedAddressIndex,
+    // isCheckedArray,
+    isChecked,
+    setIsCheckedArray,
   };
 }
 export default useCart;

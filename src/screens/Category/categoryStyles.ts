@@ -109,16 +109,6 @@ const style = StyleSheet.create({
     paddingTop: 7,
   },
   wishlistBtn: {
-    // width: 35,
-    // height: 35,
-
-    // borderRadius: 20,
-    // // elevation: 5,
-    // // position: 'relative',
-    // top: 10,
-    // right: 10,
-    // // justifyContent: 'center',
-    // alignItems: 'center',
     position: 'absolute',
     top: 10,
     right: 60,

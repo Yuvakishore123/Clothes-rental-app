@@ -69,7 +69,7 @@ const style = StyleSheet.create({
     // elevation: 5,
     position: 'absolute',
     top: 10,
-    right: -10,
+    marginLeft: 110,
     justifyContent: 'center',
     alignItems: 'center',
   },
