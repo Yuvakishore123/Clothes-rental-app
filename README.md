@@ -1,4 +1,4 @@
-# LEAP : One – Stop Solution For All Your Fashion Needs.
+# LEAPS : One – Stop Solution For All Your Fashion Needs.
 
 The Cloth Rental App is a Mobile Application-based platform that allows users to rent designer clothes for special occasions, photoshoots, or everyday wear. This app makes it easy for users to access high-quality designer clothes without the need to purchase them outright.  
 
@@ -80,6 +80,7 @@ The Cloth Rental App is a Mobile Application-based platform that allows users to
 
 ### Technologies Used :
     • React-Native : React Native is an open-source JavaScript framework, designed for building apps on multiple platforms like iOS, Android, and also web application
+    
 
 ### Generic App Information:-
 https://docs.google.com/document/d/1S1W6aAPLp6Ae6uArF1SG3nHbjJMpN3en6cIjrUC1XPM/edit?usp=sharing
