@@ -99,26 +99,11 @@ const Additems = () => {
             />
           </View>
           <View style={Ownerstyles.Scrollcontainer}>
-            {/* <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleItems}>
-              {({
-                handleChange,
-                handleBlur,
-                isValid,
-                dirty,
-                handleSubmit,
-                values,
-                errors,
-              }) => ( */}
             <View style={Ownerstyles.scroll}>
               <Text style={Ownerstyles.Itemname}>Name *</Text>
               <TextInput
                 style={Ownerstyles.Namefield}
-                // onChangeText={setName}
                 value={name}
-                // value={values.name}
                 onChangeText={handleNameChange}
                 onBlur={() => handleBlur('name')}
               />
@@ -128,9 +113,7 @@ const Additems = () => {
               <Text style={Ownerstyles.Itemname}>Description *</Text>
               <TextInput
                 style={Ownerstyles.Descriptionfield}
-                // onChangeText={setDescription}
                 multiline
-                // value={description}
                 onChangeText={handleDescriptionChange}
                 onBlur={() => handleBlur('description')}
                 value={description}
@@ -145,9 +128,6 @@ const Additems = () => {
                 onSelectGender={setGender}
                 onChange={handleGenderChange}
               />
-              {/* {errors.gender && (
-                <Text style={{color: 'red'}}>{errors.gender}</Text>
-              )} */}
               {formik.touched.gender && formik.errors.gender && (
                 <Text style={Styles.errorText}>{formik.errors.gender}</Text>
               )}
@@ -156,9 +136,6 @@ const Additems = () => {
                 onSelectType={setItemType}
                 onChange={handleItemTypeChange}
               />
-              {/* {errors.eventType && (
-                <Text style={{color: 'red'}}>{errors.eventType}</Text>
-              )} */}
               <Text style={Ownerstyles.Itemname}>Select Event *</Text>
               <EventsDropdown
                 onSelectEvent={setEventType}
@@ -172,10 +149,6 @@ const Additems = () => {
                 onSelectOutfit={setOutfitType}
                 onChange={handleOutfitChange}
               />
-              {/* {formik.touched.outfitType && formik.errors.outfitType && (
-                <Text style={Styles.errorText}>{formik.errors.outfitType}</Text>
-              )} */}
-              {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
               <View style={Ownerstyles.mainButton}>
                 <TouchableOpacity
                   disabled={!formik.isValid}

@@ -6,7 +6,7 @@ import {TouchableOpacity} from 'react-native';
 import {url} from '../../constants/Apis';
 
 const width = 360;
-const height = width * 0.6; //60%
+const height = width * 0.45; //60%
 
 const Carousal = () => {
   const [active, setActive] = useState(0);
@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     zIndex: 1,
     position: 'absolute',
-    top: '75%',
+    top: '70%',
     left: '42%',
     fontFamily: 'normal',
   },
   scroll: {width, height},
-  image: {width, height, resizeMode: 'cover', borderRadius: 10, opacity: 0.85},
+  image: {width, height, resizeMode: 'cover', borderRadius: 10, opacity: 0.7},
   pagination: {
     flexDirection: 'row',
     position: 'absolute',

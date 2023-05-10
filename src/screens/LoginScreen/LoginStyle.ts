@@ -22,25 +22,15 @@ const Styles = StyleSheet.create({
     // marginLeft: 20,
   },
   titleTextContainer: {
-    // backgroundColor: 'green',
-    //height: 150,
-    //justifyContent: 'space-around',
-    // flex: 1,
     flexDirection: 'row',
-    //display: 'flex',
-    // gap: 100,
-    //alignItems: 'center',
   },
   card: {
     backgroundColor: '#3E54AC26',
-    // height: 300,
     width: '75%',
     padding: 30,
     borderRadius: 10,
-    //margin: 15,
     justifyContent: 'center',
     shadowColor: '#52006A',
-    // elevation: 1,
     marginTop: 40,
   },
   cardText: {
@@ -77,7 +67,6 @@ const Styles = StyleSheet.create({
   },
   touchablebtnContainer: {
     justifyContent: 'center',
-    // alignItems:"center",
   },
   subTitileText: {
     color: '#FFFFFF',
@@ -87,9 +76,6 @@ const Styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
     color: '#3E54AC',
-    //marginRight: 20,
-    //margin: 15,
-    //paddingLeft: 25,
   },
   sign: {
     color: '#3E54AC',
@@ -105,8 +91,6 @@ const Styles = StyleSheet.create({
     margin: 15,
   },
   orText: {
-    // alignItems:"center",
-    // justifyContent:"center"
     marginLeft: 1,
     fontSize: 14,
   },
@@ -119,7 +103,6 @@ const Styles = StyleSheet.create({
   image: {
     width: 155,
     height: 165,
-    // paddingRight: 30,
     marginTop: 50,
     marginLeft: 70,
   },
@@ -133,14 +116,14 @@ const Styles = StyleSheet.create({
   },
   mainTouchable: {
     height: 48,
-    width: 133,
+    width: 250,
     backgroundColor: '#3E54AC',
     marginTop: 30,
-    borderRadius: 8,
+    borderRadius: 14,
     color: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 70,
+    marginLeft: 40,
   },
 });
 export default Styles;

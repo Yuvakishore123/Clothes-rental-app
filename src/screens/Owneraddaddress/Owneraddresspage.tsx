@@ -1,11 +1,10 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, Image} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {OwnerAddressCustomHook} from './Useowneraddress';
 import style from './Owneraddressstyle';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Lottie from 'lottie-react-native';
 const Owneraddresspage = () => {
   const {

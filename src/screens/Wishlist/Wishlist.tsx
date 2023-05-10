@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 // import CartItem from '../Cart/CartItem';
 import useWishlist from './useWishlist';
 import style from './wishlistStyles';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Colors from '../../constants/Colors';
 import Lottie from 'lottie-react-native';
 type Props = {
@@ -27,7 +27,7 @@ const Wishlist = ({navigation}: Props) => {
     showModal,
     openModal,
   } = useWishlist();
-  const [wishlistList, setWishlistList] = useState([]);
+
   const {refreshing, onRefresh} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log('hey', allWishlistProducts);
@@ -115,46 +115,69 @@ const Wishlist = ({navigation}: Props) => {
                   justifyContent: 'space-between',
                 }}>
                 {allWishlistProducts &&
-                  allWishlistProducts.map((item, index) => {
-                    return (
-                      <View style={style.container} key={index}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate('UProductDetails', {
-                              product: item,
-                            })
-                          }>
-                          <View style={style.imageContainer}>
+                  allWishlistProducts.map(
+                    (
+                      item: {
+                        imageUrl: any[];
+                        name:
+                          | string
+                          | number
+                          | boolean
+                          | React.ReactElement<
+                              any,
+                              string | React.JSXElementConstructor<any>
+                            >
+                          | React.ReactFragment
+                          | React.ReactPortal
+                          | null
+                          | undefined;
+                        price: string;
+                        id: any;
+                      },
+                      index: React.Key | null | undefined,
+                    ) => {
+                      return (
+                        <View style={style.container} key={index}>
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate('UProductDetails', {
+                                product: item,
+                              })
+                            }>
+                            <View style={style.imageContainer}>
+                              <Image
+                                source={{uri: item.imageUrl[0]}}
+                                style={style.image}
+                              />
+                            </View>
+                          </TouchableOpacity>
+                          <View style={style.cardTextContainer}>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                              }}>
+                              <Text style={style.name}>{item.name}</Text>
+                            </View>
+                            <View style={style.textContainer}>
+                              <Text style={style.price}>
+                                {'₹' + item.price}
+                              </Text>
+                            </View>
+                          </View>
+                          <TouchableOpacity
+                            style={style.wishlistButton}
+                            onPress={() => removefromWishlist(item.id)}
+                            onPressIn={() => openModal()}>
                             <Image
-                              source={{uri: item.imageUrl[0]}}
-                              style={style.image}
+                              source={require('../../../Assets/fillheart.png')}
+                              style={{width: 24, height: 24}}
                             />
-                          </View>
-                        </TouchableOpacity>
-                        <View style={style.cardTextContainer}>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                            }}>
-                            <Text style={style.name}>{item.name}</Text>
-                          </View>
-                          <View style={style.textContainer}>
-                            <Text style={style.price}>{'₹' + item.price}</Text>
-                          </View>
+                          </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          style={style.wishlistButton}
-                          onPress={() => removefromWishlist(item.id)}
-                          onPressIn={() => openModal()}>
-                          <Image
-                            source={require('../../../Assets/fillheart.png')}
-                            style={{width: 24, height: 24}}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })}
+                      );
+                    },
+                  )}
               </View>
             </View>
           </View>

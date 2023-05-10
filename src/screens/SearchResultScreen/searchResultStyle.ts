@@ -1,17 +1,18 @@
 import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
     marginTop: 15,
     width: 145,
     height: 200,
     borderRadius: 10,
-    marginLeft: 20,
+    marginLeft: 25,
     marginRight: 20,
     marginBottom: 10,
   },
   addAddressText: {
     marginTop: 15,
-    marginLeft: 90,
+    marginLeft: 80,
     fontSize: 20,
     color: '#3E54AC',
     fontWeight: 'bold',
@@ -20,13 +21,12 @@ const style = StyleSheet.create({
   },
   addAddressHeader: {
     flexDirection: 'row',
-    // backgroundColor: Colors.main,
   },
   backBtn: {
     marginTop: 15,
     marginLeft: 15,
     flexDirection: 'row',
-    // backgroundColor: Colors.main,
+    backgroundColor: Colors.main,
   },
   textConatiner: {marginLeft: 25, marginTop: 20},
   textStyle: {
@@ -83,7 +83,6 @@ const style = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 20,
-    // elevation: 5,
     position: 'absolute',
     top: 10,
     right: 10,
@@ -110,7 +109,7 @@ const style = StyleSheet.create({
   },
   cardTextContainer: {
     height: 50,
-    width: 140,
+    width: 145,
     backgroundColor: '#3E54AC1A',
     marginTop: 6,
     borderRadius: 5,
@@ -127,16 +126,12 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     color: '#3E54AC',
-    // margin: 25,
-    // marginLeft: 55,
   },
   imageS: {
     borderRadius: 200,
-    // marginTop: 90,
     width: 250,
     height: 250,
     marginLeft: -15,
-    // paddingRight: 30,
   },
 });
 export default style;

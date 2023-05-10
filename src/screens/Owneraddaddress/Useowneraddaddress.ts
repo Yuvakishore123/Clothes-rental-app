@@ -1,7 +1,5 @@
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {SetStateAction, useState} from 'react';
 import {NavigationProp} from '@react-navigation/native';
-import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
 export const OwnerAddAddressCustomHook = (
@@ -15,11 +13,11 @@ export const OwnerAddAddressCustomHook = (
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
   const [selectedOption, setSelectedOption] = useState('home');
-  const handleOptionChange = value => {
+  const handleOptionChange = (value: SetStateAction<string>) => {
     setSelectedOption(value);
     console.log(addressType);
   };
-  const handlePostalcode = value => {
+  const handlePostalcode = (value: SetStateAction<string>) => {
     setpostalCode(value);
     console.log(value);
   };
@@ -56,7 +54,6 @@ export const OwnerAddAddressCustomHook = (
       navigation.goBack();
     } catch (error) {
       console.log(error);
-      Alert.alert('Error', error.message);
     }
   };
 

@@ -41,7 +41,6 @@ const SubcategoryList = ({route}) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
-          // backgroundColor: '#3E54AC',
         }}>
         <Lottie
           source={require('../../../Assets/loading.json')}

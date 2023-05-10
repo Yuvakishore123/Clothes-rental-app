@@ -13,23 +13,18 @@ function useCart() {
   const [refreshing, setRefreshing] = useState(false);
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
-  const [quantity, setQuantity] = useState(1);
   const navigation = useNavigation();
   const [addressList, setAddress] = useState([]);
   const [city, setCity] = useState('');
   const [addressLine1, setaddressLine1] = useState('');
   const [addressLine2, setaddressLine2] = useState('');
   const [postalCode, setpostalCode] = useState('');
-  const [country, setCountry] = useState('india');
+  const [country] = useState('india');
   const [state, setStateName] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked] = useState(false);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(-1);
-  const [chechedArray, setIsCheckedArray] = useState([]);
-  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
-  // const [isCheckedArray, setIsCheckedArray] = useState(addressList.map(() => false));
-  // const isFocused = useIsFocused();
-  // const addressList = useSelector(state => state.AddressReducers);
+  const [setIsCheckedArray] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,8 +67,16 @@ function useCart() {
     return () => {
       setIsFocused(false);
     };
-  }, []);
-  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
+  }, [
+    addressLine1,
+    addressLine2,
+    city,
+    country,
+    isChecked,
+    postalCode,
+    setIsFocused,
+    state,
+  ]);
   const cartData = useSelector(state => state.CartProducts.data);
   useEffect(() => {
     dispatch(fetchCartProducts());
@@ -172,7 +175,7 @@ function useCart() {
         Alert.alert(errorMessage);
       });
   };
-  const totalPrice = 1;
+  const totalPrice = cartData.totalCost;
   const handlePayment = () => {
     const options = {
       description: 'Payment for food items',

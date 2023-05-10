@@ -14,9 +14,8 @@ function useHome() {
   const [Data, setData] = useState([]);
   const [oldData, setOldDate] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [recommendations, setRecommendations] = useState([]);
   const navigation = useNavigation();
-  const searchProducts = async query => {
+  const searchProducts = async (query: any) => {
     try {
       const response = await fetch(`${url}/product/search?query=${query}`);
       const data = await response.json();
@@ -53,10 +52,7 @@ function useHome() {
         Alert.alert('Item Removed from Wishlist');
       })
       .catch(error => {
-        // console.error(error);
-        // const errorMessage = `Error removing item from Wishlist: ${error.message}`;
-        // Handle the error and display a more informative error message to the user
-        // Alert.alert(errorMessage);
+        console.log(error);
       });
   };
 
@@ -74,7 +70,6 @@ function useHome() {
     searchProducts,
     setSearchQuery,
     loading,
-    // recommendations,
   };
 }
 export default useHome;

@@ -8,13 +8,20 @@ import {url} from '../../constants/Apis';
 function Useownerhome() {
   const [name, setName] = useState('');
   const [refresh, setRefresh] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [rentedItems, setRentedItems] = useState(0);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    dispatch(fetchProducts());
+    setRefreshing(false);
+  };
   useEffect(() => {
     const fetchDashboardData = async () => {
       const token = await AsyncStorage.getItem('token');
@@ -72,7 +79,6 @@ function Useownerhome() {
     });
     return unsubscribe;
   }, [navigation, refresh]);
-  const dispatch = useDispatch();
   const products = useSelector(state => state.products.data);
   // console.log(JSON.stringify(products));
   const handleAdditems = () => {
@@ -89,6 +95,8 @@ function Useownerhome() {
     isLoading,
     totalEarnings,
     rentedItems,
+    refreshing,
+    onRefresh,
   };
 }
 export default Useownerhome;

@@ -89,6 +89,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Ownereditprofile" component={Ownereditprofile} />
       <Stack.Screen name="Owneraddresspage" component={Owneraddresspage} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
+      <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="MyOrder" component={MyOrder} />
     </Stack.Navigator>
   );

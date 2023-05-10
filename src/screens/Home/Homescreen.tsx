@@ -8,6 +8,7 @@ import {
   View,
   TextInput,
   RefreshControl,
+  FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
 import Carousal from './Carousal';
@@ -85,122 +86,16 @@ const Homescreen = ({navigation}: Props) => {
   console.log('indranil', allProducts);
 
   return (
-    <SafeAreaView>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        {loading ? (
-          <SkeletonPlaceholder>
-            <View
-              style={{
-                backgroundColor: Colors.main,
-                height: 900,
-                width: 400,
-              }}>
-              <Text
-                style={{
-                  marginLeft: 26,
-                  marginTop: 10,
-                  fontWeight: '900',
-                  fontFamily: 'poppins',
-                  fontSize: 15,
-                  color: '#3E54AC',
-                }}></Text>
-
-              <View style={style.searchInputContainer}>
-                <TextInput
-                  style={{fontSize: 20, paddingLeft: 10, color: 'black'}}
-                />
-              </View>
-              <View
-                style={{
-                  marginTop: 20,
-                  height: 200,
-                  width: 400,
-                  borderRadius: 40,
-                }}></View>
-              <Text
-                style={{
-                  marginTop: 20,
-                  fontSize: 18,
-                  color: '#3E54AC',
-                  fontWeight: 'bold',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  fontFamily: 'poppins',
-                }}></Text>
-              <View
-                style={{
-                  borderBottomColor: '#3E54AC',
-                  borderBottomWidth: 1,
-                  marginHorizontal: 154,
-                  marginTop: 10,
-                }}
-              />
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: Colors.main,
-                  flexWrap: 'wrap',
-                }}>
-                {/* Other code */}
-                <View style={{flexDirection: 'row'}}>
-                  <View
-                    style={{
-                      marginTop: 20,
-                      // marginLeft: 5,
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      marginBottom: 50,
-                      flexWrap: 'wrap',
-                      // justifyContent: 'space-between',
-                      backgroundColor: Colors.main,
-                    }}>
-                    <View style={style.container}>
-                      <TouchableOpacity>
-                        <View style={style.imageContainer}>
-                          <Text style={style.image}></Text>
-                        </View>
-                      </TouchableOpacity>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'flex-end',
-                        }}>
-                        <View style={style.cardTextContainer}>
-                          <Text style={style.name}></Text>
-                        </View>
-                        <View style={style.textContainer}>
-                          <Text style={style.price}></Text>
-                          <TouchableOpacity style={style.rentButton}>
-                            <Text style={style.rentText}></Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                      <TouchableOpacity
-                        style={style.wishlistButton}></TouchableOpacity>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      marginTop: 50,
-                      // marginLeft: 5,
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      marginBottom: 50,
-                      flexWrap: 'wrap',
-                      // justifyContent: 'space-between',
-                      backgroundColor: Colors.main,
-                    }}></View>
-                </View>
-              </View>
-            </View>
-          </SkeletonPlaceholder>
-        ) : (
-          <View style={{flex: 1, backgroundColor: '#ECF2FF'}}>
-            {/* <Header title={'Leap'} /> */}
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: '#ECF2FF', overflow: 'scroll'}}>
+      {loading ? (
+        <SkeletonPlaceholder>
+          <View
+            style={{
+              backgroundColor: Colors.main,
+              height: 900,
+              width: 400,
+            }}>
             <Text
               style={{
                 marginLeft: 26,
@@ -209,29 +104,20 @@ const Homescreen = ({navigation}: Props) => {
                 fontFamily: 'poppins',
                 fontSize: 15,
                 color: '#3E54AC',
-              }}>
-              Leap
-            </Text>
+              }}></Text>
 
             <View style={style.searchInputContainer}>
-              <Icon
-                name="search-sharp"
-                size={30}
-                style={{marginLeft: 20, color: Colors.iconscolor}}
-              />
-
               <TextInput
-                placeholder="Search"
                 style={{fontSize: 20, paddingLeft: 10, color: 'black'}}
-                onChangeText={text => {
-                  setSearchQuery(text);
-                  // searchProducts(text);
-                }}
-                onSubmitEditing={() => searchProducts(searchQuery)}
               />
             </View>
-
-            <Carousal />
+            <View
+              style={{
+                marginTop: 20,
+                height: 200,
+                width: 400,
+                borderRadius: 40,
+              }}></View>
             <Text
               style={{
                 marginTop: 20,
@@ -242,9 +128,7 @@ const Homescreen = ({navigation}: Props) => {
                 textAlign: 'center',
                 justifyContent: 'center',
                 fontFamily: 'poppins',
-              }}>
-              Products For You
-            </Text>
+              }}></Text>
             <View
               style={{
                 borderBottomColor: '#3E54AC',
@@ -254,86 +138,210 @@ const Homescreen = ({navigation}: Props) => {
               }}
             />
             <View
-              style={{flex: 1, backgroundColor: Colors.main, flexWrap: 'wrap'}}>
+              style={{
+                flex: 1,
+                backgroundColor: Colors.main,
+                flexWrap: 'wrap',
+              }}>
               {/* Other code */}
-              <View
-                style={{
-                  marginTop: 20,
-                  // marginLeft: 5,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  marginBottom: 50,
-                  flexWrap: 'wrap',
-                  // justifyContent: 'space-between',
-                  backgroundColor: Colors.main,
-                }}>
-                {allProducts &&
-                  allProducts.map((item, index) => {
-                    return (
-                      <View style={style.container} key={index}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate('UProductDetails', {
-                              product: item,
-                            })
-                          }>
-                          <View style={style.imageContainer}>
-                            <Image
-                              source={{uri: item.imageUrl[0]}}
-                              style={style.image}
-                            />
-                            <TouchableOpacity
-                              style={style.wishlistButton}
-                              onPress={() => {
-                                if (wishlistList.includes(item.id)) {
-                                  setWishlistList(
-                                    wishlistList.filter(id => id !== item.id),
-                                  );
-                                  removefromWishlist(item.id);
-                                } else {
-                                  setWishlistList([...wishlistList, item.id]);
-                                  dispatch(postProductToAPI({...item}));
-                                }
-                              }}>
-                              {wishlistList.includes(item.id) ? (
-                                <Image
-                                  source={require('../../../Assets/fillheart.png')}
-                                  style={{width: 24, height: 24}}
-                                />
-                              ) : (
-                                <Image
-                                  source={require('../../../Assets/heart.png')}
-                                  style={{width: 24, height: 24}}
-                                />
-                              )}
-                            </TouchableOpacity>
-                          </View>
-                        </TouchableOpacity>
-                        <View style={style.cardTextContainer}>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                            }}>
-                            <Text style={style.name}>{item.name}</Text>
-                          </View>
-                          <View style={style.textContainer}>
-                            <Text style={style.price}>{'₹' + item.price}</Text>
-                          </View>
-                        </View>
+              <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    marginTop: 20,
+                    // marginLeft: 5,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    marginBottom: 50,
+                    flexWrap: 'wrap',
+                    // justifyContent: 'space-between',
+                    backgroundColor: Colors.main,
+                  }}>
+                  <View style={style.container}>
+                    <TouchableOpacity>
+                      <View style={style.imageContainer}>
+                        <Text style={style.image}></Text>
                       </View>
-                    );
-                  })}
+                    </TouchableOpacity>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                      }}>
+                      <View style={style.cardTextContainer}>
+                        <Text style={style.name}></Text>
+                      </View>
+                      <View style={style.textContainer}>
+                        <Text style={style.price}></Text>
+                        <TouchableOpacity style={style.rentButton}>
+                          <Text style={style.rentText}></Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <TouchableOpacity
+                      style={style.wishlistButton}></TouchableOpacity>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    marginTop: 50,
+                    // marginLeft: 5,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    marginBottom: 50,
+                    flexWrap: 'wrap',
+                    // justifyContent: 'space-between',
+                    backgroundColor: Colors.main,
+                  }}></View>
               </View>
             </View>
           </View>
-        )}
-        <CustomModal
-          showModal={showModal}
-          onClose={closeModal}
-          message="Need to set Rental dates!"
-        />
-      </ScrollView>
+        </SkeletonPlaceholder>
+      ) : (
+        <View style={{flex: 1, backgroundColor: '#ECF2FF'}}>
+          {/* <Header title={'Leap'} /> */}
+          <Text
+            style={{
+              marginLeft: 26,
+              marginTop: 10,
+              fontWeight: '900',
+              fontFamily: 'poppins',
+              fontSize: 15,
+              color: '#3E54AC',
+            }}>
+            Leap
+          </Text>
+
+          <View style={style.searchInputContainer}>
+            <Icon
+              name="search-sharp"
+              size={30}
+              style={{marginLeft: 20, color: Colors.iconscolor}}
+            />
+
+            <TextInput
+              placeholder="Search"
+              placeholderTextColor={'#3E54AC'}
+              style={{fontSize: 20, paddingLeft: 10, color: 'black'}}
+              onChangeText={text => {
+                setSearchQuery(text);
+                // searchProducts(text);
+              }}
+              onSubmitEditing={() => searchProducts(searchQuery)}
+            />
+          </View>
+
+          <Carousal />
+          <Text
+            style={{
+              marginTop: 20,
+              fontSize: 18,
+              color: '#3E54AC',
+              fontWeight: 'bold',
+              alignItems: 'center',
+              textAlign: 'center',
+              justifyContent: 'center',
+              fontFamily: 'poppins',
+            }}>
+            Products For You
+          </Text>
+          <View
+            style={{
+              borderBottomColor: '#3E54AC',
+              borderBottomWidth: 1,
+              marginHorizontal: 154,
+              marginTop: 10,
+            }}
+          />
+          <SafeAreaView style={{flex: 1}}>
+            <View style={{alignItems: 'center'}}>
+              <FlatList
+                data={allProducts}
+                nestedScrollEnabled={true} //changes
+                // data={searchResults.length > 0 ? searchResults : allProducts}
+                keyExtractor={item => item.id}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />
+                }
+                numColumns={2}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, id}) => {
+                  return (
+                    <View style={style.container}>
+                      <TouchableOpacity
+                        key={item.id}
+                        onPress={() =>
+                          navigation.navigate('UProductDetails', {
+                            product: item,
+                          })
+                        }>
+                        <View style={style.imageContainer}>
+                          <Image
+                            source={{uri: item.imageUrl[0]}}
+                            style={style.image}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                      <View style={style.cardTextContainer}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}>
+                          <Text style={style.name}>{item.name}</Text>
+                        </View>
+                        <View style={style.textContainer}>
+                          <Text style={style.price}>{'₹' + item.price}</Text>
+                          {/* <TouchableOpacity
+                            style={style.rentButton}
+                            onPress={() => {
+                              // dispatch(addItemToCart(item));
+                              // dispatch(postProductToCartAPI({...item}));
+                            }}>
+                            <Text style={style.rentText}>Rent</Text>
+                          </TouchableOpacity> */}
+                        </View>
+                      </View>
+                      <TouchableOpacity
+                        style={style.wishlistButton}
+                        onPress={() => {
+                          if (wishlistList.includes(item.id)) {
+                            setWishlistList(
+                              wishlistList.filter(id => id !== item.id),
+                            );
+                            removefromWishlist(item.id);
+                          } else {
+                            setWishlistList([...wishlistList, item.id]);
+                            dispatch(postProductToAPI({...item}));
+                          }
+                        }}>
+                        {wishlistList.includes(item.id) ? (
+                          <Image
+                            source={require('../../../Assets/fillheart.png')}
+                            style={{width: 20, height: 20}}
+                          />
+                        ) : (
+                          <Image
+                            source={require('../../../Assets/heart.png')}
+                            style={{width: 20, height: 20}}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          </SafeAreaView>
+        </View>
+      )}
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Need to set Rental dates!"
+      />
     </SafeAreaView>
   );
 };

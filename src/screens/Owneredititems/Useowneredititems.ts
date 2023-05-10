@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import {SetStateAction, useEffect, useState} from 'react';
 import axios from 'axios';
-import {EditItemsUrl, OwnerCategoryUrl, OwnerProductsById} from '../../constants/Apis';
+import {EditItemsUrl, OwnerCategoryUrl} from '../../constants/Apis';
 import {url as baseUrl} from '../../constants/Apis';
 import {
   addGenderData,
@@ -76,7 +77,7 @@ const Useowneredititems = () => {
     try {
       setViisble(true);
       const ProductData = await ApiService.get(
-        `https://8d69-106-51-70-135.ngrok-free.app/api/v1/product/listByProductId/${editProductId}`,
+        `https://479d-180-151-211-116.ngrok-free.app/api/v1/product/listByProductId/${editProductId}`,
       );
       console.log('ProductData', ProductData);
       setMapdata(ProductData);
@@ -287,7 +288,6 @@ const Useowneredititems = () => {
     );
   };
 
-
   const handleEventTypeChange = (
     selectedEventType: React.SetStateAction<string>,
   ) => {
@@ -393,7 +393,7 @@ const Useowneredititems = () => {
       setPrefill(response.data);
       return response.data;
     } catch (error) {
-      throw error.response.data; // throw the error to be caught by the reject handler
+      throw error; // throw the error to be caught by the reject handler
     }
   };
 

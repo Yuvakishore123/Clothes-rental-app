@@ -3,14 +3,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ECF2FF',
-    // paddingHorizontal: 20,
     paddingVertical: 30,
+  },
+  failcontainer: {
+    flex: 1,
+    backgroundColor: '#ECF2FF',
+    paddingVertical: 30,
+    flexDirection: 'row',
   },
   headerText: {
     color: '#3E54AC',
     fontWeight: 'bold',
     left: 45,
     top: 15,
+    fontSize: 16,
+  },
+  failheaderText: {
+    color: '#3E54AC',
+    fontWeight: 'bold',
+    left: 45,
+    // top: 15,
     fontSize: 16,
   },
   btnfield: {

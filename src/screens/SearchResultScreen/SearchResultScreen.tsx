@@ -1,13 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  Alert,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import style from './searchResultStyle';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -20,13 +13,7 @@ const SearchResultsScreen = ({route}) => {
     navigation.goBack();
   };
   return (
-    <View style={{flex: 1}}>
-      {/* <View style={style.textConatiner}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>go back</Text>
-        </TouchableOpacity>
-        <Text style={style.textStyle}>Search results</Text>
-      </View> */}
+    <View style={{flex: 1, backgroundColor: Colors.main}}>
       <View style={style.addAddressHeader}>
         <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
           <MaterialIcons
@@ -38,7 +25,7 @@ const SearchResultsScreen = ({route}) => {
         <Text style={style.addAddressText}>Search results</Text>
       </View>
       <View style={{flex: 1}}>
-        {searchResults.length > 0 ? (
+        {searchResults && searchResults.length > 0 ? (
           <FlatList
             data={searchResults}
             keyExtractor={item => item.id.toString()}
@@ -66,7 +53,7 @@ const SearchResultsScreen = ({route}) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={style.name}>{item.name}</Text>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         style={style.addButton}
                         onPress={() => {}}>
                         <Text
@@ -77,18 +64,17 @@ const SearchResultsScreen = ({route}) => {
                           }}>
                           +
                         </Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                     <View style={style.textContainer}>
                       <Text style={style.price}>{'₹' + item.price}</Text>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         style={style.rentButton}
                         onPress={() => {
-                          // dispatch(addItemToCart(item));
                           Alert.alert('Need to set Rental Dates');
                         }}>
                         <Text style={style.rentText}>Rent</Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </View>
                 </View>
@@ -98,7 +84,6 @@ const SearchResultsScreen = ({route}) => {
           />
         ) : (
           <View style={{flex: 1, backgroundColor: Colors.main}}>
-            {/* <Text>No results found</Text> */}
             <View style={{justifyContent: 'center', alignSelf: 'center'}}>
               <Text style={style.titleText}>Umm...No results found</Text>
             </View>

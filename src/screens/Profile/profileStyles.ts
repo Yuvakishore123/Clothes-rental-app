@@ -104,15 +104,10 @@ const style = StyleSheet.create({
   },
 
   imageContainer: {
-    // marginTop: 50,
     zIndex: 1,
   },
 
   buttonContainer: {
-    // position: 'absolute',
-    // top: 0,
-    // right: 0,
-    // margin: 20,
     marginTop: 15,
     zIndex: 2,
   },

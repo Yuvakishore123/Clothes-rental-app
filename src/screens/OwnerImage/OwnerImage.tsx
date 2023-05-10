@@ -9,6 +9,8 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import Colors from '../../constants/Colors';
+import Ownerstyles from '../Additems/Additemsstyle';
 
 export default function Owneraddimages() {
   const {
@@ -27,7 +29,7 @@ export default function Owneraddimages() {
     showModal,
     formik,
   } = Useownerimage();
-  console.log('johnresly', imageUrls);
+  // console.log('johnresly', imageUrls);
   return (
     <ScrollView>
       <View style={OwnerImagestyles.Scroll}>
@@ -89,6 +91,7 @@ export default function Owneraddimages() {
             <Text style={OwnerImagestyles.Pricetext}> Price *</Text>
             <TextInput
               style={OwnerImagestyles.Price}
+              placeholderTextColor={'#3E54AC'}
               keyboardType="numeric"
               // onChangeText={(value: any) => setPrice(value)}
               onChangeText={handlePriceChange}
@@ -101,6 +104,7 @@ export default function Owneraddimages() {
             <TextInput
               keyboardType="numeric"
               style={OwnerImagestyles.Price}
+              placeholderTextColor={'#3E54AC'}
               // onChangeText={(value: any) => setQuantity(value)}
               onChangeText={handleQuantityChange}
               onBlur={() => handleBlur('quantity')}
@@ -114,19 +118,11 @@ export default function Owneraddimages() {
                 disabled={!formik.isValid}
                 onPress={formik.handleSubmit}
                 style={[
-                  Styles.buttonColor,
+                  Styles.mainTouchable,
                   {
-                    height: 59,
-                    width: 240,
-                    backgroundColor: '#3E54AC',
-                    // margin: 15,
-                    marginTop: 10,
-                    borderRadius: 13,
-                    color: '#FFFFFF',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginLeft: 38,
-                    marginBottom: 20,
+                    backgroundColor: formik.isValid
+                      ? Colors.iconscolor
+                      : '#A5C9CA',
                   },
                 ]}>
                 <Text style={Styles.touchableText}>Add Items</Text>

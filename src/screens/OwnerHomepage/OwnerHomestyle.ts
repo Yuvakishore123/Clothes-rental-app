@@ -86,8 +86,10 @@ const Styles = StyleSheet.create({
   recentlyaddedcard: {
     // backgroundColor: Colors.black,
     borderRadius: 10,
-    padding: 20,
-    margin: 20,
+    // padding: 20,
+    margin: 15,
+    marginLeft: 20,
+    // marginRight: 24,
     width: 150,
     // marginTop: 10,
   },

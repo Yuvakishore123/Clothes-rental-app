@@ -1,7 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, RefreshControl, TouchableOpacity, View} from 'react-native';
 import styles from './OwnerHomestyle';
 import {Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -12,31 +12,42 @@ type Props = {
   navigation: any;
 };
 export default function OwnerHome({navigation}: Props) {
-  const {products, name, isLoading, totalEarnings, rentedItems} =
-    Useownerhome();
-  // if (isLoading) {
-  //   return (
-  //     <View
-  //       style={{
-  //         alignItems: 'center',
-  //         justifyContent: 'center',
-  //         height: '100%',
-  //       }}>
-  //       <Image
-  //         source={require('../../../Assets/LoginImage.png')}
-  //         style={{
-  //           height: 200,
-  //           width: 200,
-  //           alignItems: 'center',
-  //           justifyContent: 'center',
-  //         }}
-  //       />
-  //       <Text>The Items are Loading...</Text>
-  //     </View>
-  //   );
-  // }
+  const {
+    products,
+    name,
+    isLoading,
+    totalEarnings,
+    rentedItems,
+    refreshing,
+    onRefresh,
+  } = Useownerhome();
+  if (products && products.length === 0) {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+        }}>
+        <Image
+          source={require('../../../Assets/LoginImage.png')}
+          style={{
+            height: 200,
+            width: 200,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+        <Text>No items!</Text>
+      </View>
+    );
+  }
   return (
-    <ScrollView style={styles.mainContainer}>
+    <ScrollView
+      style={styles.mainContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <View>
         <Text style={styles.headertxt}>Welcome {name}</Text>
       </View>
@@ -116,7 +127,7 @@ export default function OwnerHome({navigation}: Props) {
                     />
                   </View>
                   <View style={styles.cardTextContainer}>
-                    <Text style={styles.cardText}>{item.description}</Text>
+                    <Text style={styles.cardText}>{item.name}</Text>
                     <Text style={styles.cardText}>₹ {item.price}</Text>
                   </View>
                 </TouchableOpacity>
@@ -152,7 +163,7 @@ export default function OwnerHome({navigation}: Props) {
                       />
                     </View>
                     <View style={styles.cardTextContainer}>
-                      <Text style={styles.cardText}>{item.description}</Text>
+                      <Text style={styles.cardText}>{item.name}</Text>
                       <Text style={styles.cardText}>₹ {item.price}</Text>
                     </View>
                   </TouchableOpacity>

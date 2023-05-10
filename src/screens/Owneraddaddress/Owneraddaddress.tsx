@@ -45,11 +45,6 @@ const Owneraddaddress = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          {/* <MaterialCommunityIcons
-            name="arrow-left"
-            color={Colors.iconscolor}
-            size={26}
-          /> */}
           <MaterialIcons
             color={Colors.iconscolor}
             size={26}
@@ -79,12 +74,7 @@ const Owneraddaddress = () => {
           <Text style={style.textField}> State</Text>
           <TextInput
             value={state}
-            // placeholder={'enter City name'}
             style={style.inputAddress}
-            // onChangeText={text => {
-            //   setCity(text);
-            // onChangeText={setStateName}
-            // value={firstName}
             onChangeText={text => setStateName(text)}
           />
           <View style={style.textContainer}>
@@ -101,8 +91,6 @@ const Owneraddaddress = () => {
               }}
             />
             <TextInput
-              // value={postalCode}
-              // placeholder={'enter  AddressType'}
               style={style.smalltextInputs}
               value={postalCode}
               onChangeText={setpostalCode}

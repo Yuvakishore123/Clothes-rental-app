@@ -57,15 +57,6 @@ const style = StyleSheet.create({
     fontWeight: '600',
     color: '#3E54AC',
   },
-  //   rentButton: {
-  //     borderColor: '#3E54AC',
-  //     borderWidth: 1,
-  //     borderRadius: 3,
-  //     paddingLeft: 7,
-  //     paddingRight: 7,
-  //     paddingBottom: 5,
-  //     paddingTop: 5,
-  //   },
   rentButtonText: {
     color: '#3E54AC',
     fontSize: 12,

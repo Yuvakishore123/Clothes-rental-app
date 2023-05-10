@@ -17,7 +17,7 @@ import {url} from '../../constants/Apis';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {

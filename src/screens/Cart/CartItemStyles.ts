@@ -3,7 +3,6 @@ import Colors from '../../constants/Colors';
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#3E54AC1A',
-    // alignItems: 'center',
     width: 340,
     padding: 7,
     borderRadius: 10,
@@ -25,7 +24,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    // elevation: 1,
   },
   image: {
     width: 80,
@@ -35,7 +33,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   cardTextContainer: {
-    // flex: 1,
     justifyContent: 'space-between',
   },
   name: {
@@ -78,8 +75,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    // marginBottom: 10,
-    // backgroundColor: 'green',
     width: 80,
     height: 25,
     justifyContent: 'space-between',
@@ -92,8 +87,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    // marginBottom: 10,
-    // backgroundColor: 'green',
     width: 80,
     height: 20,
     marginTop: 10,
@@ -101,16 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   quantityButton: {
-    // backgroundColor: '#3E54AC',
     borderRadius: 5,
-    // padding: 5,
-    // marginHorizontal: 5,
   },
   quantityText: {
     fontSize: 16,
     color: '#3E54AC',
     fontWeight: 'bold',
-    // marginHorizontal: 5,
   },
   sizeContainer: {
     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -22,17 +22,13 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import { managePanProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
 const App = () => {
   const {
     data,
     setGender,
     visible,
     setViisble,
-    name,
     handleedit,
-    description,
     setEventType,
     setOutfitType,
     setItemType,
@@ -41,8 +37,6 @@ const App = () => {
     RemoveProducts,
     handleremove,
     pickImg,
-    pref,
-    closeModal,
     handleGenderChange,
     handleEventTypeChange,
     handleOutfitChange,
@@ -54,13 +48,12 @@ const App = () => {
     setPrice,
     setQuantity,
     setEditProductId,
-    getOwnerProducts,
     FetchData,
     Mapdata,
     price,
     quantity,
   } = Useowneredititems();
-  const [hideId, setHideId] = useState(null);
+  const [, setHideId] = useState(null);
   console.log(data);
   console.log('Mapped Data is :', Mapdata);
 
@@ -166,7 +159,6 @@ const App = () => {
                   </View>
                   <View>
                     <Text style={OwnerEditItemstyles.Pricetext}> Price</Text>
-                    {console.log('Price is ', price)}
                     <TextInput
                       style={OwnerEditItemstyles.Price}
                       keyboardType="numeric"
@@ -199,7 +191,7 @@ const App = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={OwnerEditItemstyles.backContainer}>
             <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>Edit Items</Text>
+            <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
           </View>
         </TouchableOpacity>
 
@@ -234,11 +226,6 @@ const App = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              {/* <CustomModal
-                showModal={showModal}
-                onClose={closeModal}
-                message="Need to set Rental dates!"
-              /> */}
             </>
           );
         })}
@@ -251,8 +238,6 @@ export default App;
 
 const styles = StyleSheet.create({
   form: {
-    // padding: 15,
-    // backgroundColor : "#e3e3e3",
     marginTop: 10,
     backgroundColor: Colors.main,
     marginLeft: -10,

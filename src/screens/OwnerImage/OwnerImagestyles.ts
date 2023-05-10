@@ -1,22 +1,14 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const OwnerImagestyles = StyleSheet.create({
-  // mainContainer: {
-  //   height: '50%',
-  //   width: '100%',
-  //   backgroundColor: Colors.main,
-  // },
   imagehorizontal: {
     height: -10,
     width: 300,
-    // marginTop: -100,
   },
   TitletextContainer: {
     flexDirection: 'row',
     margin: 15,
     marginLeft: 30,
-    // padding: 10,
-    // backgroundColor: '#000',
   },
   form: {
     marginLeft: 10,
@@ -28,20 +20,18 @@ const OwnerImagestyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.iconscolor,
-    // padding: 20,
   },
   removeText: {
     color: Colors.white,
     alignItems: 'center',
   },
   removeContainer: {
-    // padding: 20,
     alignItems: 'center',
   },
   Icon: {
     color: Colors.iconscolor,
     fontSize: 20,
-    marginTop: 20,
+    marginTop: 23,
   },
   TitleText: {
     fontSize: 18,
@@ -51,14 +41,10 @@ const OwnerImagestyles = StyleSheet.create({
   },
   ImageContainer: {
     height: '15%',
-    // width: '100%',
     marginTop: 5,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 20,
-    // backgroundColor: '#000',
-    // marginLeft: 30,
-    // justifyContent: 'center',
   },
   image: {
     height: 200,
@@ -66,7 +52,6 @@ const OwnerImagestyles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
     marginLeft: 25,
-    // backgroundColor: '#000',
   },
   Addimage: {
     height: 109,
@@ -79,8 +64,6 @@ const OwnerImagestyles = StyleSheet.create({
   ImageBox: {
     marginTop: 40,
     marginLeft: 55,
-    // marginBottom: 120,
-    // backgroundColor: '#000',
     width: '60%',
     height: '90%',
   },
@@ -95,7 +78,6 @@ const OwnerImagestyles = StyleSheet.create({
     fontSize: 18,
     color: Colors.iconscolor,
     fontWeight: '700',
-    // marginTop: 20,
   },
   Price: {
     width: 255,
@@ -144,6 +126,17 @@ const OwnerImagestyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+  },
+  mainTouchable: {
+    height: 48,
+    width: 250,
+    backgroundColor: '#3E54AC',
+    marginTop: 30,
+    borderRadius: 13,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginLeft: -30,
   },
 });
 export default OwnerImagestyles;

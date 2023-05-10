@@ -33,7 +33,6 @@ function Useadditems() {
     setGender(selectedGender);
     formik.setFieldValue('gender', selectedGender);
     dispatch(addGenderData(selectedGender));
-    // console.log(selectedGender);
   };
   const [categoriesData, setCategoriesData] = useState([]);
   const [subCategoriesData, setSubCategoriesData] = useState([]);
@@ -41,8 +40,6 @@ function Useadditems() {
   const [subOutfitCategoriesData, setSubOutfitCategoriesData] = useState([]);
   const genderData = useSelector(state => state.GenderReducer.genderData);
   console.log(genderData);
-
-  //handle name & description change
   const AdditemsvalidationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required'),
@@ -62,7 +59,6 @@ function Useadditems() {
   };
   const handleOutfitChange = (selectedOutfit: React.SetStateAction<string>) => {
     setOutfitType(selectedOutfit);
-    // formik.setFieldValue('outfitType', selectedOutfit);
   };
   // 1st api endpoint code starts
   useEffect(() => {
@@ -96,7 +92,7 @@ function Useadditems() {
     };
 
     fetchSubCategoryData();
-  }, [genderData]);
+  }, [gender, genderData]);
 
   useEffect(() => {
     // console.log(gender);
@@ -177,7 +173,6 @@ function Useadditems() {
     };
     fetchCategoryData();
   }, []);
-  // console.log("helo" + gender);
   const handleEventTypeChange = (
     selectedEventType: React.SetStateAction<string>,
   ) => {
@@ -243,4 +238,3 @@ function Useadditems() {
   };
 }
 export default Useadditems;
-

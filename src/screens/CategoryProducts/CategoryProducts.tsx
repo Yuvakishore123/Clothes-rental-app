@@ -114,7 +114,7 @@ const CategoryProducts = ({route}) => {
                             justifyContent: 'space-between',
                           }}>
                           <Text style={style.name}>{item.name}</Text>
-                          <TouchableOpacity
+                          {/* <TouchableOpacity
                             style={style.addButton}
                             onPress={() => {}}>
                             <Text
@@ -125,18 +125,18 @@ const CategoryProducts = ({route}) => {
                               }}>
                               +
                             </Text>
-                          </TouchableOpacity>
+                          </TouchableOpacity> */}
                         </View>
 
                         <View style={style.textContainer}>
                           <Text style={style.price}>{'₹' + item.price}</Text>
-                          <TouchableOpacity
+                          {/* <TouchableOpacity
                             style={style.rentButton}
                             onPress={() => {
                               Alert.alert('Need to select Rental dates');
                             }}>
                             <Text style={style.rentText}>Rent</Text>
-                          </TouchableOpacity>
+                          </TouchableOpacity> */}
                         </View>
                       </View>
 

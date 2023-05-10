@@ -32,7 +32,7 @@ const OwnerImage = () => {
   const [selectedsize, setSelectedsize] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [url, setUrl] = useState('');
+  const [, setUrl] = useState('');
   const getImageUrl = async () => {
     const url = await AsyncStorage.getItem('url');
     setUrl(url);
@@ -46,7 +46,6 @@ const OwnerImage = () => {
     price: Yup.number()
       .required('Price is required')
       .min(100, 'Price must be greater than 100'),
-    // image: Yup.string().required('image is required'),
     quantity: Yup.number()
       .required('Quantity is required')
       .min(1, 'Quantity must be greater than zero'),
@@ -113,7 +112,7 @@ const OwnerImage = () => {
   };
 
   const [selectedImage, setSelectedImage] = useState('');
- 
+
   const [imageUris, setImageUris] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
@@ -127,6 +126,7 @@ const OwnerImage = () => {
     const getImageUrls = async () => {
       const url = await AsyncStorage.getItem('url');
       if (url) {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         const imageUrls = Array.from({length: 10}, (_, index) => {
           return `${url}/file${index + 1}`;
         });
@@ -153,7 +153,7 @@ const OwnerImage = () => {
             name: 'image.png',
           }));
           const formData = new FormData();
-          images.forEach((file, index) => {
+          images.forEach((file, _index) => {
             formData.append('file', {
               uri: file.uri,
               type: 'image/png',

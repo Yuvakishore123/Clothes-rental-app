@@ -5,9 +5,9 @@ import {View, Text} from 'react-native';
 import Lottie from 'lottie-react-native';
 const PaymentFailScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.failcontainer}>
       <View>
-        <Text style={styles.headerText}>Payment</Text>
+        <Text style={styles.failheaderText}>Payment</Text>
       </View>
       <View style={styles.successContainer}>
         <Lottie

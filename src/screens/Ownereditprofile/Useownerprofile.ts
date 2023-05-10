@@ -45,7 +45,7 @@ function OwnerEditProfileCustomHook() {
     setEmail('');
     setPhoneNumber('');
   };
-  const handleUpdate = async navigation => {
+  const handleUpdate = async (_navigation: any) => {
     const token = await AsyncStorage.getItem('token');
     const data = JSON.stringify({
       firstName: firstName,

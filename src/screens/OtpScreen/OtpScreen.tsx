@@ -15,10 +15,10 @@ export default function LoginScreen() {
     otp,
     handlephoneNumberChange,
     handlePasswordChange,
-    // handleBlur,
+
     GETOTP,
     handleLogin,
-    // formik,
+
     passwordError,
   } = Useotp();
   return (
@@ -44,11 +44,7 @@ export default function LoginScreen() {
               autoCapitalize="none"
               keyboardType="numeric"
               onChangeText={handlephoneNumberChange}
-              // onBlur={() => handleBlur('phoneNo')}
             />
-            {/* {formik.touched.phoneNo && formik.errors.phoneNo && (
-              <Text style={Styles.errorText}>{formik.errors.phoneNo} </Text>
-            )} */}
           </View>
           <View>
             <Text style={Styles.cardText}>OTP</Text>
@@ -59,11 +55,7 @@ export default function LoginScreen() {
               value={otp}
               secureTextEntry={true}
               onChangeText={handlePasswordChange}
-              // onBlur={() => handleBlur('otp')}
             />
-            {/* {formik.touched.otp && formik.errors.otp && (
-              <Text style={Styles.errorText}>{formik.errors.otp} </Text>
-            )} */}
           </View>
           {passwordError.length > 0 && <Text>{passwordError}</Text>}
         </View>

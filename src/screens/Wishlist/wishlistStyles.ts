@@ -105,7 +105,7 @@ const style = StyleSheet.create({
   },
   cardTextContainer: {
     height: 50,
-    width: 140,
+    width: 145,
     backgroundColor: '#3E54AC1A',
     marginTop: 6,
     borderRadius: 5,

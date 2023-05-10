@@ -6,7 +6,6 @@ import Styles from './Signupstyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import Usesignup from './Usesignup';
 import {useNavigation} from '@react-navigation/native';
-// import style from '../Ownereditprofile/Ownereditprofilestyle';
 import style from '../Owneraddaddress/Owneraddressstyle';
 import {RadioButton} from 'react-native-paper';
 import Colors from '../../constants/Colors';
@@ -115,7 +114,6 @@ export default function SignUpScreen() {
             <View>
               <TextInput
                 style={Styles.textinput}
-                // placeholder="Enter password"
                 placeholderTextColor={'#3E54AC'}
                 value={password}
                 secureTextEntry={true}
@@ -145,19 +143,8 @@ export default function SignUpScreen() {
                 />
               </View>
             </View>
-            {/* <Text style={Styles.switchText}>Owner Signup</Text> */}
-            {/* <Switch
-              /> */}
-            {/* <View>
-            </View> */}
-            {/* <CheckBox
-            /> */}
           </View>
           <View style={Styles.signText}></View>
-          {/* <TouchableOpacity
-            onPress={handleSignupfun}
-            style={Styles.touchablebtn}>
-            <Text style={Styles.touchableText}>Signup</Text> */}
           <TouchableOpacity
             disabled={!formik.isValid}
             style={[
@@ -178,8 +165,6 @@ export default function SignUpScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          {/* <View style={Styles.signupTextCont}> */}
-          {/* </View> */}
         </View>
       </View>
     </ScrollView>

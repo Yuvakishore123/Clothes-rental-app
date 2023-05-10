@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 
 import {
   View,
@@ -69,11 +70,11 @@ export default function LoginScreen() {
           {passwordError.length > 0 && <Text>{passwordError}</Text>}
         </View>
         <View style={Styles.touchablebtnContainer}>
-          {/* <TouchableOpacity style={Styles.touchablebtn} onPress={handleLogin}> */}
           <TouchableOpacity
             disabled={!formik.isValid}
             style={[
               Styles.touchablebtn,
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 backgroundColor: formik.isValid ? Colors.iconscolor : '#A5C9CA',
               },

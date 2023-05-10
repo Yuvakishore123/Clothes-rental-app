@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    // margin: 26,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -28,26 +27,18 @@ const styles = StyleSheet.create({
     // marginLeft: 55,
   },
   titleTextContainer: {
-    // height: 150,
     justifyContent: 'center',
-    // flex: 1,
     flexDirection: 'row',
-    // display: 'flex',
-    // gap: 80,
-    // marginLeft: 15,
-    // backgroundColor: 'green',
     width: '90%',
   },
   card: {
     backgroundColor: '#3E54AC26',
-    // height: 500,
     width: 320,
     padding: 35,
     borderRadius: 15,
     margin: 15,
     justifyContent: 'center',
     shadowColor: '#52006A',
-    // elevation: 1,
   },
   cardText: {
     color: '#3E54AC',
@@ -70,7 +61,6 @@ const styles = StyleSheet.create({
     color: '#3E54AC',
   },
   touchableText: {
-    // margin:15,
     color: 'white',
     fontSize: 18,
     fontWeight: '700',
@@ -89,9 +79,7 @@ const styles = StyleSheet.create({
   },
   touchablebtnContainer: {
     justifyContent: 'center',
-    // marginLeft: -20,
     marginTop: -20,
-    // alignItems:"center",
   },
   subTitileText: {
     color: '#FFFFFF',
@@ -119,14 +107,11 @@ const styles = StyleSheet.create({
     width: 115,
     backgroundColor: 'white',
     borderRadius: 10,
-    // marginBottom: 20,
-    // flexDirection: 'row',
   },
   image: {
     width: 139,
     height: 165,
     marginLeft: 50,
-    // paddingRight: 30,
   },
   emailText: {
     backgroundColor: 'white',
@@ -139,10 +124,6 @@ const styles = StyleSheet.create({
   errorTxt: {
     fontSize: 12,
     color: 'red',
-    // position: 'absolute',
-    // bottom: -18, // Adjust this value to position the error text as desired
-    // width: '100%', // Make sure the error text spans the full width of the card container
-    // textAlign: 'center', // Center the error text horizontally within the card container
   },
   buttonContainer: {
     justifyContent: 'center',
@@ -159,9 +140,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
     color: '#3E54AC',
-    //marginRight: 20,
-    //margin: 15,
-    //paddingLeft: 25,
   },
 });
 export default styles;
