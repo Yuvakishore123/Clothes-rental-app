@@ -31,6 +31,7 @@ const Cart = ({navigation}: Props) => {
     onRefresh,
     addressList,
     isCheckedArray,
+    handleDisable,
     isChecked,
   } = useCheckout();
   const cartData = useSelector(state => state.CartProducts.data);
@@ -189,6 +190,7 @@ const Cart = ({navigation}: Props) => {
             ))}
           <View style={{marginTop: 10, padding: 20}}>
             <Text style={{color: '#3E54AC', fontWeight: '600', fontSize: 18}}>
+            {console.log(selectedAddressIndex)}
               Grand Total
             </Text>
             <View style={{alignItems: 'center'}}>
@@ -215,7 +217,9 @@ const Cart = ({navigation}: Props) => {
                 </Text>
               </View>
             </View>
+            {console.log(isChecked)}
             <TouchableOpacity
+              disabled={isChecked}
               style={style.PaymentButton}
               onPress={handlePayment}>
               <Text style={style.PaymentButtonText}>Proceed to Payment</Text>

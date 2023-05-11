@@ -5,7 +5,7 @@ import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
     width: '38%',
-    height: '32%',
+    // height: '38%',
     borderRadius: 10,
     backgroundColor: Colors.main,
     marginLeft: '6%',
@@ -48,25 +48,11 @@ const style = StyleSheet.create({
     fontWeight: '600',
     color: '#3E54AC',
   },
-  rentButton: {
-    borderWidth: 1,
-    borderRadius: 4,
-
-    borderColor: '#3E54AC',
-
-    width: 57,
-    height: 18,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 3,
-  },
   wishlistButton: {
     width: 35,
     height: 35,
 
     borderRadius: 20,
-    // elevation: 5,
     position: 'absolute',
     top: 10,
     marginLeft: 110,
@@ -85,7 +71,7 @@ const style = StyleSheet.create({
     height: 50,
     width: 350,
     backgroundColor: 'white',
-    marginTop: 15,
+    marginTop: 20,
     marginLeft: 20,
     borderColor: '#3E54AC',
     borderWidth: 2,

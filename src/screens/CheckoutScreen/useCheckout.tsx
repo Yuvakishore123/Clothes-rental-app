@@ -23,7 +23,7 @@ function useCart() {
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(-1);
   const [chechedArray, setIsCheckedArray] = useState([]);
   // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
@@ -62,7 +62,6 @@ function useCart() {
           // selectedAddress,
           // setSelectedAddress,
         );
-        console.log(address);
       } catch (error) {
         console.log(error);
       }
@@ -86,11 +85,19 @@ function useCart() {
     setSelectedAddressIndex(index);
     const newIsCheckedArray = addressList.map((_, i) => i === index);
     setIsCheckedArray(newIsCheckedArray);
+    handleDisable();
   }
   const onRefresh = async () => {
     setRefreshing(true);
     await dispatch(fetchCartProducts());
     setRefreshing(false);
+  };
+  const handleDisable = () => {
+    if (selectedAddressIndex === -1) {
+      setIsChecked(true);
+    } else {
+      setIsChecked(false);
+    }
   };
   const handleUpdate = async () => {
     try {
@@ -247,12 +254,13 @@ function useCart() {
     // setSelectedAddress,
     setRentalStartDate,
     setRentalEndDate,
+    handleDisable,
+    isChecked,
     handleCheckboxChange,
     // setIsCheckedArray,
     addressList,
     selectedAddressIndex,
     // isCheckedArray,
-    isChecked,
     setIsCheckedArray,
   };
 }

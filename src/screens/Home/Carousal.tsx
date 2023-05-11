@@ -85,10 +85,12 @@ const Carousal = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
-    width,
-    height,
+    width: '100%',
+    height: '25%',
     borderRadius: 20,
+    marginLeft: 30,
     alignSelf: 'center',
+    // backgroundColor: 'black',
   },
   subname: {
     color: '#ffff',
@@ -101,12 +103,19 @@ const styles = StyleSheet.create({
     fontFamily: 'normal',
   },
   scroll: {width, height},
-  image: {width, height, resizeMode: 'cover', borderRadius: 10, opacity: 0.85},
+  image: {
+    width,
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 10,
+    opacity: 0.85,
+  },
   pagination: {
     flexDirection: 'row',
     position: 'absolute',
     bottom: 0,
-    alignSelf: 'center',
+    marginLeft: 140,
+    // alignSelf: 'center',
   },
   card: {
     flex: 1,

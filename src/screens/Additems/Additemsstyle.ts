@@ -131,5 +131,16 @@ const Ownerstyles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
   },
+  MainButton: {
+    height: 48,
+    width: 250,
+    backgroundColor: '#3E54AC',
+    marginTop: 30,
+    borderRadius: 13,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+  },
 });
 export default Ownerstyles;

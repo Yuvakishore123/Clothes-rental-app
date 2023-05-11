@@ -9,6 +9,8 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import Ownerstyles from '../Additems/Additemsstyle';
+import Colors from '../../constants/Colors';
 
 export default function Owneraddimages() {
   const {
@@ -29,7 +31,7 @@ export default function Owneraddimages() {
   } = Useownerimage();
   console.log('johnresly', imageUrls);
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: Colors.main}}>
       <View style={OwnerImagestyles.Scroll}>
         <View style={OwnerImagestyles.TitletextContainer}>
           <MaterialIcons
@@ -114,19 +116,11 @@ export default function Owneraddimages() {
                 disabled={!formik.isValid}
                 onPress={formik.handleSubmit}
                 style={[
-                  Styles.buttonColor,
+                  Ownerstyles.MainButton,
                   {
-                    height: 59,
-                    width: 240,
-                    backgroundColor: '#3E54AC',
-                    // margin: 15,
-                    marginTop: 10,
-                    borderRadius: 13,
-                    color: '#FFFFFF',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginLeft: 38,
-                    marginBottom: 20,
+                    backgroundColor: formik.isValid
+                      ? Colors.iconscolor
+                      : '#A5C9CA',
                   },
                 ]}>
                 <Text style={Styles.touchableText}>Add Items</Text>

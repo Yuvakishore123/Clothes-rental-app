@@ -7,23 +7,13 @@ import {
   Button,
   StyleSheet,
   Dimensions,
-  Alert,
   Text,
 } from 'react-native';
-import ImagePicker, {launchImageLibrary} from 'react-native-image-picker';
-import Mainbutton from './MainButton';
+import {launchImageLibrary} from 'react-native-image-picker';
 import Colors from '../../constants/Colors';
 const {width} = Dimensions.get('window');
 const MultipleImages = () => {
   const [imageUris, setImageUris] = useState([]);
-  // const [removeImage, setRemove] = useState([]);
-  // const removeImage = index => {
-  //   const newImageUris = [...imageUris];
-  //   newImageUris.splice(index, 1);
-  //   setImageUris(newImageUris);
-  //   const newRemove = [...remove, index];
-  //   setRemove(newRemove);
-  // };
   const handleRemoveImages = () => {
     setImageUris([]);
   };

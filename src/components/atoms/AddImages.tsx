@@ -22,7 +22,7 @@ const AddImages = () => {
       console.log(error);
     }
   };
-  const saveImageToStorage = async value => {
+  const saveImageToStorage = async (value: any) => {
     try {
       await AsyncStorage.setItem('@selected_image', value);
     } catch (error) {
@@ -38,9 +38,9 @@ const AddImages = () => {
     launchImageLibrary(options, response => {
       if (response.didCancel) {
         setToastMsg('Canceled image Selection');
-      } else if (response.errorCode == 'permission') {
+      } else if (response.errorCode === 'permission') {
         setToastMsg('permission not satisfied');
-      } else if (response.errorMessage == 'others') {
+      } else if (response.errorMessage === 'others') {
         setToastMsg(response.errorMessage);
       } else {
         setPic(response.assets[0].base64);

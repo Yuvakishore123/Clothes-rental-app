@@ -1,6 +1,11 @@
 import {SetStateAction, useEffect, useState} from 'react';
 import axios from 'axios';
-import {EditItemsUrl, OwnerCategoryUrl, OwnerProductsById} from '../../constants/Apis';
+import {
+  EditItemsUrl,
+  OwnerCategoryUrl,
+  OwnerProductsById,
+  url,
+} from '../../constants/Apis';
 import {url as baseUrl} from '../../constants/Apis';
 import {
   addGenderData,
@@ -287,7 +292,6 @@ const Useowneredititems = () => {
     );
   };
 
-
   const handleEventTypeChange = (
     selectedEventType: React.SetStateAction<string>,
   ) => {
@@ -330,14 +334,11 @@ const Useowneredititems = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await fetch(
-        `${baseUrl}/product/update/${editProductId}`,
-        {
-          method: 'PUT',
-          headers: headers,
-          body: JSON.stringify(data),
-        },
-      );
+      const response = await fetch(`${url}${editProductId}`, {
+        method: 'PUT',
+        headers: headers,
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         console.log(response);

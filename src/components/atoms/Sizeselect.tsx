@@ -3,9 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/OwnerHomepage/OwnerHomestyle';
 import Colors from '../../constants/Colors';
-import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-import axios from 'axios';
-import {object} from 'yup';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 
 const data = [
