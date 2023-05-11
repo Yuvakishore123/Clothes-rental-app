@@ -1,6 +1,9 @@
 export default {
-  main: '#ECF2FF',
+  main: 'black',
   primary: '#f54',
+  Inputtext: 'rgba(255, 255, 255, 0.5)',
+  Textinput: 'rgba(255, 255, 255, 0.2)',
+  buttonColor: '#9747FF',
   primaryDark: '#f54',
   accent: '#7fc',
   blue: '#5555ff',
