@@ -1,5 +1,5 @@
 export default {
-  main: '#ECF2FF',
+  main: '#040404',
   primary: '#f54',
   primaryDark: '#f54',
   accent: '#7fc',
@@ -11,4 +11,6 @@ export default {
   darkGray: '#999',
   green: '#4BB543',
   red: 'red',
+  Inputtext: 'rgba(255, 255, 255, 0.5)',
+  Textinput: 'rgba(255, 255, 255, 0.2)',
 };
