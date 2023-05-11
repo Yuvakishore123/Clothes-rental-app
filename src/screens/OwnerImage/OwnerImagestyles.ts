@@ -1,0 +1,142 @@
+import {StyleSheet} from 'react-native';
+import Colors from '../../constants/Colors';
+const OwnerImagestyles = StyleSheet.create({
+  imagehorizontal: {
+    height: -10,
+    width: 300,
+  },
+  TitletextContainer: {
+    flexDirection: 'row',
+    margin: 15,
+    marginLeft: 30,
+  },
+  form: {
+    marginLeft: 10,
+  },
+  touchableContainer: {
+    height: 40,
+    width: 100,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.iconscolor,
+  },
+  removeText: {
+    color: Colors.white,
+    alignItems: 'center',
+  },
+  removeContainer: {
+    alignItems: 'center',
+  },
+  Icon: {
+    color: Colors.iconscolor,
+    fontSize: 20,
+    marginTop: 23,
+  },
+  TitleText: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 20,
+  },
+  ImageContainer: {
+    height: '15%',
+    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 20,
+  },
+  image: {
+    height: 200,
+    width: 200,
+    justifyContent: 'center',
+    marginTop: 20,
+    marginLeft: 25,
+  },
+  Addimage: {
+    height: 109,
+    width: 252,
+    backgroundColor: Colors.white,
+    marginTop: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  ImageBox: {
+    marginTop: 40,
+    marginLeft: 55,
+    width: '60%',
+    height: '90%',
+  },
+  AddIcon: {
+    alignItems: 'center',
+    color: Colors.iconscolor,
+    fontSize: 20,
+    marginTop: 40,
+    justifyContent: 'center',
+  },
+  imagesText: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+  },
+  Price: {
+    width: 255,
+    height: 48,
+    backgroundColor: Colors.white,
+    elevation: 4,
+    marginTop: 10,
+    borderRadius: 15,
+  },
+  Pricetext: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 30,
+  },
+  Quantitytext: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 20,
+  },
+  Scroll: {
+    // width: '100%',
+    // height: '100%',
+    // marginBottom: 10,
+    backgroundColor: Colors.main,
+  },
+  Sizecontainer: {
+    marginTop: 20,
+    height: '7%',
+    width: '30%',
+  },
+  Sizetext: {
+    // width: '40%',
+    // height: '40%',
+    // padding: 1,
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+  },
+  addImagesText: {
+    fontSize: 18,
+    color: Colors.iconscolor,
+    fontWeight: '700',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  mainTouchable: {
+    height: 48,
+    width: 250,
+    backgroundColor: '#3E54AC',
+    marginTop: 30,
+    borderRadius: 13,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginLeft: -30,
+  },
+});
+export default OwnerImagestyles;

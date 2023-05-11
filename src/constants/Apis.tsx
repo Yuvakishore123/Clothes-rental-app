@@ -1,0 +1,12 @@
+export const url = 'https://479d-180-151-211-116.ngrok-free.app/api/v1';
+export const OwnerProductsUrl = `${url}/product/listOwnerProducts`;
+export const UserProductsUrl = `${url}/product/list`;
+export const AddAddressUrl = `${url}/address/add`;
+export const EditItemsUrl = `${url}/product/listOwnerProducts`;
+export const OwnerCategoryUrl = `${url}/category/list`;
+export const checkoutApi = `${url}/order/create-checkout-session`;
+export const CartGetApi = `${url}/cart/list`;
+export const OrderGetApi = `${url}/order/list`;
+export const cartUpdate = `${url}/cart/update`;
+export const OwnerProductsUrlv2 = '/product/listOwnerProducts';
+export const OwnerProductsById = `${url}/product/listByProductId`;
