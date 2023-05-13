@@ -13,78 +13,60 @@ type Props = {
   navigation: any;
 };
 const OwnerProfile = ({navigation}: Props) => {
-  const {name} = ProfileData();
+  const {name, email, phonenumber} = ProfileData();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(Logout());
   };
   return (
     <View style={style.profileStyle}>
-      <ScrollView>
+      <ScrollView style={{width: '100%', height: '100%'}}>
         <View style={style.buttonContainer}>
           <SwitchAccountButton />
         </View>
         <View style={style.imageContainer}>
           <AddImages />
         </View>
-        <View>
+        <View style={style.card}>
           <Text style={style.profileText}>{name}</Text>
+          <Text style={style.profileText1}>{email}</Text>
+          <Text style={style.profileText1}>{phonenumber}</Text>
         </View>
+        {/* </View> */}
         <View style={style.profileFields}>
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('OwnerEditProfile')}>
-            <Icons
-              name="account"
-              size={30}
-              style={{marginLeft: 30, color: '#3E54AC'}}
-            />
+            <Icons name="account" size={30} style={style.editprofileicon} />
             <Text style={style.btnPText}>Edit Profile</Text>
-            <Icon
-              name="arrow-forward-ios"
-              size={20}
-              style={{marginLeft: 190, color: '#3E54AC'}}
-            />
+            <Icon name="arrow-forward-ios" size={20} style={style.forwardios} />
           </TouchableOpacity>
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Owneraddresspage')}>
-            <Icon
-              name="location-pin"
-              size={30}
-              style={{marginLeft: 30, color: '#3E54AC'}}
-            />
+            <Icon name="location-pin" size={30} style={style.addressicon} />
             <Text style={style.AddressbtnPText}>Address</Text>
             <Icon
               name="arrow-forward-ios"
               size={20}
-              style={{marginLeft: 190, color: '#3E54AC'}}
+              style={style.addressforwardios}
             />
           </TouchableOpacity>
           <TouchableOpacity
             style={style.whiteBtn}
             onPress={() => navigation.navigate('Owneredititems')}>
-            <Icons
-              name="basket-check"
-              size={30}
-              style={{marginLeft: 30, color: '#3E54AC'}}
-            />
+            <Icons name="basket-check" size={30} style={style.producticon} />
             <Text style={style.btnPText}>My Products</Text>
             <Icon
               name="arrow-forward-ios"
               size={20}
-              style={{marginLeft: 190, color: '#3E54AC'}}
+              style={style.productforwardios}
             />
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity style={style.btnfield} onPress={handleLogout}>
-            <Icon
-              name="logout"
-              size={20}
-              style={{marginLeft: 100, color: 'white'}}
-            />
-            <Text style={style.btntext}>Logout </Text>
+          <TouchableOpacity onPress={handleLogout}>
+            <Text style={style.btntext}>Sign out </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -90,7 +90,7 @@ const SearchResultsScreen = ({route}) => {
             <View style={style.titleTextContainer}>
               <Lottie
                 style={style.imageS}
-                source={require('../../../Assets/search.json')}
+                source={require('../../../assets/search.json')}
                 autoPlay
               />
             </View>

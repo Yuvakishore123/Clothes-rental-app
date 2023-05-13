@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Colors from '../../constants/Colors';
 type Props = {
   fromDate: Date;
   toDate: Date;
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'space-around',
-    marginLeft: 10,
+    marginLeft: '15%',
+    // backgroundColor: Colors.Inputtext,
     // marginVertical: 15,
   },
   datePicker: {
@@ -80,27 +82,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'red',
-    borderRadius: 30,
+    // backgroundColor: 'red',
+    borderRadius: 80,
   },
   dateBox: {
     // borderColor: 'green',
-    borderColor: '#3E54AC',
+    // borderColor: '#3E54AC',
     marginLeft: 20,
     borderWidth: 1,
     width: 100,
     height: 40,
-    // backgroundColor: 'blue',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 10,
+    borderRadius: 80,
   },
   dateText: {
     fontSize: 10,
     marginTop: 7,
-    marginLeft: 6,
+    marginLeft: 10,
     fontWeight: 'bold',
-    color: '#3E54AC',
+    color: Colors.white,
+    // backgroundColor: Colors.Inputtext,
     alignItems: 'center',
     justifyContent: 'center',
   },

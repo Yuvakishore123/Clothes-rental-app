@@ -14,7 +14,6 @@ const Owneraddresspage = () => {
     closeModal,
     showModal,
     addressList,
-    isLoading,
     handleEditItems,
   } = OwnerAddressCustomHook();
   const renderAddressItem = ({item, index}) => {
@@ -24,23 +23,23 @@ const Owneraddresspage = () => {
           <Text style={style.city}>{'Address: ' + item.addressLine1}</Text>
           <Text style={style.input}>{'State: ' + item.state}</Text>
           <Text style={style.input}>{'Postal Code: ' + item.postalCode}</Text>
-          <Text style={style.input}>{'Postal Code: ' + item.city}</Text>
+          <Text style={style.input}>{'City : ' + item.city}</Text>
           <Text style={style.stateName}>{'Country: ' + item.country}</Text>
         </View>
         <View>
           <TouchableOpacity
-            style={style.deleteBtn}
+            // style={style.deleteBtn}
             onPress={() => {
               handleEditItems(item);
             }}>
-            <Text style={style.deleteBtnText}>Edit Address</Text>
+            <Text style={style.editBtnText}>Edit</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={style.deleteBtn}
+            // style={style.deleteBtn}
             onPress={() => {
               handleDeleteAddress(item.id);
             }}>
-            <Text style={style.deleteBtnText}>Delete Address</Text>
+            <Text style={style.deleteBtnText}>Delete</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -51,12 +50,17 @@ const Owneraddresspage = () => {
       <View style={style.header}>
         <View style={style.addAddressHeader}>
           <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
-            <MaterialIcons name="arrow-back-ios" color="#3E54AC" size={24} />
+            <MaterialIcons
+              name="arrow-back-ios"
+              color="#FFFFFF"
+              size={15}
+              marginLeft={3}
+            />
           </TouchableOpacity>
-          <Text style={style.addAddressText}>Add Address</Text>
+          <Text style={style.addAddressText}>Address</Text>
         </View>
         <TouchableOpacity
-          style={style.btnContainer}
+          // style={style.btnContainer}
           onPress={handleOwnerAddAddress}>
           <Text style={style.btnText}>Add Address</Text>
         </TouchableOpacity>
@@ -67,7 +71,7 @@ const Owneraddresspage = () => {
             <Lottie
               autoPlay
               style={style.imageS1}
-              source={require('../../../Assets/address.json')}
+              source={require('../../../assets/address.json')}
             />
           </View>
           <View style={style.textContainer1}>

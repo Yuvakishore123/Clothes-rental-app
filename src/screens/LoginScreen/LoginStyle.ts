@@ -8,12 +8,13 @@ const Styles = StyleSheet.create({
     backgroundColor: Colors.main,
   },
   image: {
-    height: 100,
+    height: 200,
     width: '100%',
     marginTop: 40,
   },
   textinput: {
     backgroundColor: Colors.Textinput,
+    fontFamily: 'Poppins-Regular',
     marginTop: 20,
     marginLeft: 20,
     borderRadius: 6,
@@ -39,8 +40,9 @@ const Styles = StyleSheet.create({
   },
   touchableText: {
     color: 'white',
+    fontFamily: 'Poppins-Bold',
     fontSize: 18,
-    fontWeight: '700',
+    // fontWeight: '700',
     justifyContent: 'center',
   },
   errorText: {
@@ -59,16 +61,18 @@ const Styles = StyleSheet.create({
     // marginTop: 20,
     alignSelf: 'center',
     color: Colors.white,
+    fontFamily: 'Poppins-Regular',
   },
   Otptext: {
     marginTop: 15,
     alignItems: 'center',
     color: Colors.buttonColor,
-    fontWeight: '700',
+    // fontWeight: '700',
+    fontFamily: 'Poppins-Bold',
   },
   sign: {
     marginLeft: '45%',
-    marginTop: '70%',
+    marginTop: '45%',
     height: 50,
     width: '100%',
     flexDirection: 'row',
@@ -79,11 +83,13 @@ const Styles = StyleSheet.create({
     // marginLeft: '22%',
     alignItems: 'center',
     color: Colors.white,
+    fontFamily: 'Poppins-Regular',
   },
   Signuptext: {
     // marginTop: 230,
     alignItems: 'center',
     color: Colors.buttonColor,
+    fontFamily: 'Poppins-Regular',
   },
 });
 

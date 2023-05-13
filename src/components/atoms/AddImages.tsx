@@ -61,7 +61,7 @@ const AddImages = () => {
     <View>
       <View style={styles.centerContent}>
         <Avatar.Image
-          size={150}
+          size={100}
           source={{uri: 'data:image/png;base64,' + Pic}}
         />
       </View>

@@ -28,10 +28,10 @@ export default function LoginScreen() {
   } = Useformik();
 
   return (
-    <ScrollView style={Styles.mainContainer}>
+    <View style={Styles.mainContainer}>
       <Image
         style={Styles.image}
-        source={require('../../../Assets/LeapsLogo.png')}
+        source={require('../../../assets/LeapsLogo.png')}
       />
       <View>
         <TextInput
@@ -87,6 +87,6 @@ export default function LoginScreen() {
           <Text style={Styles.Signuptext}>Sign up</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 }

@@ -57,7 +57,7 @@ const MyOrder = ({navigation}: Props) => {
           backgroundColor: Colors.main,
         }}>
         <Lottie
-          source={require('../../../Assets/order1.json')}
+          source={require('../../../assets/order1.json')}
           autoPlay
           style={{
             height: 200,
@@ -107,7 +107,7 @@ const MyOrder = ({navigation}: Props) => {
                   <Lottie
                     style={style.imageS1}
                     autoPlay
-                    source={require('../../../Assets/order2.json')}
+                    source={require('../../../assets/order2.json')}
                   />
                 </View>
                 <View style={style.textContainer1}>

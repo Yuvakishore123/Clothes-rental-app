@@ -45,7 +45,7 @@ const Cart = ({navigation}: Props) => {
           backgroundColor: Colors.main,
         }}>
         <Image
-          source={require('../../../Assets/LoginImage.png')}
+          source={require('../../../assets/LoginImage.png')}
           style={{
             height: 200,
             width: 200,

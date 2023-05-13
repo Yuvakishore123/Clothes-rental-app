@@ -126,59 +126,61 @@ export default function UDetailScreen({route, navigation}: Props) {
             )}
           </ScrollView>
         </View>
-        <View style={[styles.detailsContainer, {marginTop: -50}]}>
+        <View style={[styles.detailsContainer]}>
           <Text style={styles.startext}>{product.name}</Text>
+          <Text style={styles.detailsPrice}>₹{product.price}</Text>
           <Text style={styles.detailsdescription}>{product.description}</Text>
-          <View style={{marginTop: 10}}>
+          {/* <View style={{marginTop: 10}}>
             <Text style={styles.headingtext}>Size</Text>
           </View>
           <View style={styles.productSizeBox}>
             <Text style={styles.detailsSize}>{product.size}</Text>
-          </View>
-          <View style={{marginTop: 10, marginBottom: 3}}>
-            <Text style={styles.headingtext}>Rent</Text>
-          </View>
-          <View style={{marginBottom: 20}}>
+          </View> */}
+          <View style={{marginTop: 10, marginBottom: 20, flexDirection: 'row'}}>
+            <Text style={[styles.headingtext, {marginTop: 10}]}>Rent</Text>
             <DatePicker
               fromDate={rentalStartDate}
               toDate={rentalEndDate}
               onFromDateChange={setRentalStartDate}
               onToDateChange={setRentalEndDate}
             />
-            <View style={{marginTop: 10}}>
-              <Text style={styles.headingtext}>Quantity</Text>
-            </View>
-            <View style={styles.quantityContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.quantityButton,
-                  isMinusDisabled && styles.disabledButton,
-                ]}
-                onPress={handleDecrement}
-                disabled={quantity === 1 || isMinusDisabled}>
-                <Text style={styles.quantityButtonText}>-</Text>
-              </TouchableOpacity>
-              <Text style={styles.quantityText}>{quantity}</Text>
-              <TouchableOpacity
-                style={[
-                  styles.quantityButton,
-                  isPlusDisabled && styles.disabledButton,
-                ]}
-                onPress={handleIncrement}
-                disabled={quantity === Quantity || isPlusDisabled}>
-                <Text style={styles.quantityButtonText}>+</Text>
-              </TouchableOpacity>
-            </View>
           </View>
-          <View style={{marginTop: 10}}>
-            <Text style={styles.headingtext}>Price</Text>
+          <View style={styles.size}>
+            <Text style={styles.sizelabel}>Size</Text>
+            <Text style={styles.detailsSize}>{product.size}</Text>
           </View>
-          <Text style={styles.detailsdescription}>₹{product.price}</Text>
+          <View style={styles.quantityContainer}>
+            <View>
+              <Text style={styles.Quatitytext}>Quantity</Text>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.quantityButton,
+                isMinusDisabled && styles.disabledButton,
+              ]}
+              onPress={handleDecrement}
+              disabled={quantity === 1 || isMinusDisabled}>
+              <Text style={styles.quantityButtonText}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity
+              style={[
+                styles.plusquantityButton,
+                isPlusDisabled && styles.disabledButton,
+              ]}
+              onPress={handleIncrement}
+              disabled={quantity === Quantity || isPlusDisabled}>
+              <Text style={styles.quantityButtonText}>+</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.touchablebtnContainer}>
             <TouchableOpacity
               style={styles.touchablebtn}
               onPress={handleSubmit}>
-              <Text style={styles.touchableText}>Add to cart</Text>
+              <Text style={styles.detailsaddPrice}>
+                ₹{product.price * quantity}
+              </Text>
+              <Text style={styles.touchableText}>Add to Bag</Text>
             </TouchableOpacity>
           </View>
         </View>

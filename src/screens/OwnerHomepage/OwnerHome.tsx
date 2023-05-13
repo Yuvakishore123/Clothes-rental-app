@@ -30,7 +30,7 @@ export default function OwnerHome({navigation}: Props) {
           height: '100%',
         }}>
         <Image
-          source={require('../../../Assets/LoginImage.png')}
+          source={require('../../../assets/LoginImage.png')}
           style={{
             height: 200,
             width: 200,
@@ -61,6 +61,17 @@ export default function OwnerHome({navigation}: Props) {
           <Text style={styles.cardsrentalprices}>{rentedItems}</Text>
           <Text style={styles.cardsTotalprices}>₹{totalEarnings}</Text>
         </View>
+        <TouchableOpacity>
+          <Text
+            style={{
+              color: 'white',
+              fontFamily: 'Poppins-Regular',
+              fontSize: 10,
+              marginLeft: 115,
+            }}>
+            View More Details
+          </Text>
+        </TouchableOpacity>
       </View>
       <View>
         <Text style={styles.headertxt}>Recently Added</Text>

@@ -42,7 +42,7 @@ const Wishlist = ({navigation}: Props) => {
           backgroundColor: Colors.main,
         }}>
         <Lottie
-          source={require('../../../Assets/loading.json')}
+          source={require('../../../assets/loading.json')}
           autoPlay
           style={{
             height: 200,
@@ -75,7 +75,7 @@ const Wishlist = ({navigation}: Props) => {
                 backgroundColor: Colors.main,
               }}>
               <Lottie
-                source={require('../../../Assets/wishlistanime.json')}
+                source={require('../../../assets/wishlistanime.json')}
                 autoPlay
                 style={{
                   height: 200,
@@ -170,7 +170,7 @@ const Wishlist = ({navigation}: Props) => {
                             onPress={() => removefromWishlist(item.id)}
                             onPressIn={() => openModal()}>
                             <Image
-                              source={require('../../../Assets/fillheart.png')}
+                              source={require('../../../assets/fillheart.png')}
                               style={{width: 24, height: 24}}
                             />
                           </TouchableOpacity>

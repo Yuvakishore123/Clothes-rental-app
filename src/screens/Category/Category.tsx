@@ -1,20 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  FlatList,
-} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import style from './categoryStyles';
+import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import Lottie from 'lottie-react-native';
+import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-
+import style from './categoryStyles';
 import axios from 'axios';
 import {url} from '../../constants/Apis';
-
+import Colors from '../../constants/Colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,27 +32,52 @@ const Category = () => {
 
   const renderItem = ({item}) => (
     <TouchableOpacity
+      style={style.MainView}
       onPress={() => navigation.navigate('Subcategory', {categoryId: item.id})}>
-      <View style={styles.categoryBox}>
-        <Image
-          source={{uri: item.imageUrl}}
-          style={{height: 107, width: 340, opacity: 0.7}}
-        />
+      <View style={style.categoryBox}>
+        <View style={style.imageContainer}>
+          <Image source={{uri: item.imageUrl}} style={style.categoryImage} />
+        </View>
         <View>
-          <Text style={styles.categoryText}>{item.categoryName}</Text>
+          <Text style={style.categoryText}>{item.categoryName}</Text>
+        </View>
+        <View
+          style={{
+            width: '90%',
+            position: 'absolute',
+            marginLeft: '50%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Icon
+            name="arrow-forward-ios"
+            size={20}
+            style={style.productforwardios}
+          />
         </View>
       </View>
+      {/* </View> */}
     </TouchableOpacity>
   );
 
   return (
     <View style={style.maincontainer}>
-      <View style={style.textConatiner}>
-        <Text style={style.textStyle}>Category</Text>
-      </View>
+      <TouchableOpacity
+        style={style.backBtn}
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <MaterialIcon
+          name="md-chevron-back"
+          color={Colors.white}
+          size={26}
+          style={{alignSelf: 'center'}}
+        />
+      </TouchableOpacity>
+      <Text style={style.textStyle}>Shop by categories</Text>
       {loading ? (
         <View style={style.loaderContainer}>
-          <Lottie source={require('../../../Assets/loading.json')} autoPlay />
+          <Lottie source={require('../../../assets/loading.json')} autoPlay />
         </View>
       ) : (
         <FlatList
@@ -72,26 +91,3 @@ const Category = () => {
 };
 
 export default Category;
-
-const styles = StyleSheet.create({
-  categoryBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 340,
-    height: 107,
-    backgroundColor: '#567B89',
-    borderRadius: 10,
-    // backgroundColor: 'pink',
-    marginLeft: 25,
-    marginTop: 40,
-    padding: 15,
-  },
-
-  categoryText: {
-    color: '#ECF2FF',
-    fontSize: 20,
-    fontWeight: '800',
-    zIndex: 1,
-    marginTop: -45,
-  },
-});

@@ -69,7 +69,7 @@ const Cart = ({navigation}: Props) => {
           backgroundColor: Colors.main,
         }}>
         <Lottie
-          source={require('../../../Assets/loading.json')}
+          source={require('../../../assets/loading.json')}
           autoPlay
           style={{
             height: 200,
@@ -119,7 +119,7 @@ const Cart = ({navigation}: Props) => {
                   <Lottie
                     style={style.imageS1}
                     autoPlay
-                    source={require('../../../Assets/emptycart.json')}
+                    source={require('../../../assets/emptycart.json')}
                   />
                 </View>
                 <View style={style.textContainer1}>

@@ -15,7 +15,7 @@ const PaymentSuccessScreen = () => {
       <View style={styles.successContainer}>
         <Lottie
           style={{marginTop: -70, height: 200}}
-          source={require('../../../Assets/paysuccess1.json')}
+          source={require('../../../assets/paysuccess1.json')}
           autoPlay
         />
         <Text style={styles.successText}>Payment successful! </Text>

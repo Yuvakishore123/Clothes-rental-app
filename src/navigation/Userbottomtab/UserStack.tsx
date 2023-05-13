@@ -1,3 +1,5 @@
+/* eslint-disable curly */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import Profile from '../../screens/Profile/Profile';
@@ -16,7 +18,7 @@ import Category from '../../screens/Category/Category';
 import UProductDetails from '../../screens/UProductDetails/UProductDetails';
 import Subcategory from '../../screens/Subcategory/Subcategory';
 import CategoryProducts from '../../screens/CategoryProducts/CategoryProducts';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import CheckoutScreen from '../../screens/CheckoutScreen/CheckoutScreen';
 import SearchResultsScreen from '../../screens/SearchResultScreen/SearchResultScreen';
 import Owneraddresspage from '../../screens/Owneraddaddress/Owneraddresspage';
@@ -27,6 +29,9 @@ import PaymentFailScreen from '../../screens/PaymentScreens/PaymentFailScreen';
 import {Route, getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import MyOrder from '../../screens/MyOrder/MyOrder';
 import EditAddress from '../../screens/EditAddress/EditAddress';
+import {useIsFocused} from '@react-navigation/native';
+import Colors from '../../constants/Colors';
+import {View} from 'react-native';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -97,23 +102,24 @@ const ProfileStack = () => {
 
 const MyStack = () => {
   const data = useSelector(state => state);
+  const isFocused = useIsFocused();
   console.log(data);
-
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
+          display: isFocused ? 'flex' : 'none',
           width: '100%',
           height: '8%',
           // marginLeft: -5,
-          backgroundColor: '#ECF2FF',
+          // backgroundColor: '#ECF2FF',
           // borderTopLeftRadius: 25,
           // borderTopRightRadius: 25,
         },
-        tabBarInactiveTintColor: 'grey',
-        tabBarActiveTintColor: '#3E54AC',
+        tabBarInactiveTintColor: Colors.white,
+        tabBarActiveTintColor: Colors.black,
       }}>
       <Tab.Screen
         name="UserHomescreen"
@@ -123,16 +129,53 @@ const MyStack = () => {
             display: getRouteName(route),
             width: '100%',
             height: '8%',
-            // marginLeft: -5,
-            backgroundColor: '#ECF2FF',
-            // borderTopLeftRadius: 25,
-            // borderTopRightRadius: 25,
+            backgroundColor: Colors.main,
           },
           tabBarLabel: 'Home',
-          headerTintColor: '#ECF2FF',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={35} />
-          ),
+          // headerTintColor: '#ECF2FF',
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'UserHomescreen') {
+              iconComponent = (
+                <View
+                  style={{
+                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    borderRadius: 20,
+                    height: 40,
+                    width: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <MaterialCommunityIcons name="home" color={color} size={30} />
+                </View>
+              );
+            } else if (route.name === 'CategoryScreen') {
+              iconComponent = (
+                <CategoryIcon name="appstore1" color={color} size={25} />
+              );
+            } else if (route.name === 'Wishlist') {
+              iconComponent = (
+                <HeartIcon name="heart" color={color} size={25} />
+              );
+            } else if (route.name === 'CartScreen') {
+              iconComponent = (
+                <MaterialIcon name="shopping-cart" color={color} size={25} />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={25}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
       <Tab.Screen
@@ -144,25 +187,114 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: '#ECF2FF',
+            backgroundColor: Colors.black,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
           tabBarLabel: 'Category',
-          tabBarIcon: ({color}) => (
-            <CategoryIcon name="appstore1" color={color} size={30} />
-          ),
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'CategoryScreen') {
+              iconComponent = (
+                <View
+                  style={{
+                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    borderRadius: 20,
+                    height: 40,
+                    width: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <CategoryIcon name="appstore1" color={color} size={30} />
+                </View>
+              );
+            } else if (route.name === 'UserHomescreen') {
+              iconComponent = (
+                <MaterialCommunityIcons name="home" color={color} size={25} />
+              );
+            } else if (route.name === 'Wishlist') {
+              iconComponent = (
+                <HeartIcon name="heart" color={color} size={25} />
+              );
+            } else if (route.name === 'CartScreen') {
+              iconComponent = (
+                <MaterialIcon name="shopping-cart" color={color} size={25} />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={25}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
 
       <Tab.Screen
         name="Wishlist"
         component={Wishlist}
-        options={() => ({
+        options={({route}) => ({
           tabBarLabel: 'Wishlist',
-          tabBarIcon: ({color}) => (
-            <HeartIcon name="heart" color={color} size={30} />
-          ),
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: '100%',
+            height: '8%',
+            // marginLeft: -5,
+            backgroundColor: Colors.black,
+            // borderTopLeftRadius: 25,
+            // borderTopRightRadius: 25,
+          },
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'Wishlist') {
+              iconComponent = (
+                <View
+                  style={{
+                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    borderRadius: 20,
+                    height: 40,
+                    width: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <HeartIcon name="heart" color={color} size={25} />
+                </View>
+              );
+            } else if (route.name === 'UserHomescreen') {
+              iconComponent = (
+                <MaterialCommunityIcons name="home" color={color} size={25} />
+              );
+            } else if (route.name === 'CartScreen') {
+              iconComponent = (
+                <MaterialIcon name="shopping-cart" color={color} size={25} />
+              );
+            } else if (route.name === 'CategoryScreen') {
+              iconComponent = (
+                <CategoryIcon name="appstore1" color={color} size={25} />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={25}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
       <Tab.Screen
@@ -174,14 +306,54 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: '#ECF2FF',
+            backgroundColor: Colors.main,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
           tabBarLabel: 'Cart',
-          tabBarIcon: ({color}) => (
-            <FontAwesome5Icon name="shopping-bag" color={color} size={30} />
-          ),
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'CartScreen') {
+              iconComponent = (
+                <View
+                  style={{
+                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    borderRadius: 20,
+                    height: 40,
+                    width: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <MaterialIcon name="shopping-cart" color={color} size={30} />
+                </View>
+              );
+            } else if (route.name === 'UserHomescreen') {
+              iconComponent = (
+                <MaterialCommunityIcons name="home" color={color} size={25} />
+              );
+            } else if (route.name === 'Wishlist') {
+              iconComponent = (
+                <HeartIcon name="heart" color={color} size={25} />
+              );
+            } else if (route.name === 'CategoryScreen') {
+              iconComponent = (
+                <CategoryIcon name="appstore1" color={color} size={25} />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={25}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
       <Tab.Screen
@@ -194,13 +366,53 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: '#ECF2FF',
+            backgroundColor: Colors.main,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={35} />
-          ),
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <View
+                  style={{
+                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    borderRadius: 20,
+                    height: 40,
+                    width: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <MaterialCommunityIcons
+                    name="account"
+                    color={color}
+                    size={30}
+                  />
+                </View>
+              );
+            } else if (route.name === 'UserHomescreen') {
+              iconComponent = (
+                <MaterialCommunityIcons name="home" color={color} size={25} />
+              );
+            } else if (route.name === 'Wishlist') {
+              iconComponent = (
+                <HeartIcon name="heart" color={color} size={25} />
+              );
+            } else if (route.name === 'CategoryScreen') {
+              iconComponent = (
+                <CategoryIcon name="appstore1" color={color} size={25} />
+              );
+            } else if (route.name === 'CartScreen') {
+              iconComponent = (
+                <MaterialIcon name="shopping-cart" color={color} size={25} />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
     </Tab.Navigator>

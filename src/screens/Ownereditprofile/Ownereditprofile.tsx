@@ -48,17 +48,18 @@ export default function OwnerEditProfileCustomHook() {
             }}>
             <MaterialIcon
               name="md-chevron-back"
-              color={Colors.iconscolor}
+              color={Colors.white}
               size={26}
+              marginLeft={3}
+              marginTop={3}
             />
           </TouchableOpacity>
         </View>
-        <View style={style.cardStyle}>
+        <View>
           {isLoading ? (
             <SkeletonPlaceholder>
               <View>
                 <Text style={style.addAddressText1}></Text>
-                <View style={style.line} />
                 <Text style={style.text}></Text>
                 <TextInput style={style.input} placeholderTextColor="#999" />
                 <Text style={style.text}>LastName</Text>
@@ -71,16 +72,16 @@ export default function OwnerEditProfileCustomHook() {
             </SkeletonPlaceholder>
           ) : (
             <View>
-              <Text style={style.addAddressText1}>Edit Profile</Text>
+              <Text style={style.addAddressText1}>Edit profile</Text>
               {/* <View style={style.line} /> */}
-              <Text style={style.text}>FirstName</Text>
+              <Text style={style.text}>First name</Text>
               <TextInput
                 style={style.input}
-                placeholderTextColor="#999"
+                placeholderTextColor="#FFFFFF"
                 value={firstName}
                 onChangeText={text => setFirstName(text)}
               />
-              <Text style={style.text}>LastName</Text>
+              <Text style={style.text}>Last name</Text>
               <TextInput
                 style={style.input}
                 value={lastName}
@@ -94,7 +95,7 @@ export default function OwnerEditProfileCustomHook() {
                 selectTextOnFocus={false}
                 editable={false}
               />
-              <Text style={style.text}>phonenumber</Text>
+              <Text style={style.text}>Phone number</Text>
               <TextInput
                 style={style.input}
                 value={phoneNumber}

@@ -63,7 +63,7 @@ const CategoryProducts = ({route}) => {
           <View>
             <Lottie
               style={{flex: 1, width: 400}}
-              source={require('../../../Assets/productpage.json')}
+              source={require('../../../assets/productpage.json')}
               autoPlay
             />
             <Text style={style.loadtextStyle}>
@@ -158,12 +158,12 @@ const CategoryProducts = ({route}) => {
                         }}>
                         {wishlistList.includes(item.id) ? (
                           <Image
-                            source={require('../../../Assets/fillheart.png')}
+                            source={require('../../../assets/fillheart.png')}
                             style={{width: 24, height: 24}}
                           />
                         ) : (
                           <Image
-                            source={require('../../../Assets/heart.png')}
+                            source={require('../../../assets/heart.png')}
                             style={{width: 24, height: 24}}
                           />
                         )}

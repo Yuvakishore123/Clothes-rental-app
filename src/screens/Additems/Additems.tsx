@@ -95,7 +95,7 @@ const Additems = () => {
           <View>
             <Image
               style={Ownerstyles.Imageitem}
-              source={require('../../../Assets/additems1.png')}
+              source={require('../../../assets/additems1.png')}
             />
           </View>
           <View style={Ownerstyles.Scrollcontainer}>
