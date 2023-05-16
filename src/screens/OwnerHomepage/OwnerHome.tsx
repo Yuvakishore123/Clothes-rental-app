@@ -1,12 +1,19 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {FlatList, Image, RefreshControl, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styles from './OwnerHomestyle';
 import {Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Useownerhome from './Useownerhome';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import Colors from '../../constants/Colors';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -30,7 +37,7 @@ export default function OwnerHome({navigation}: Props) {
           height: '100%',
         }}>
         <Image
-          source={require('../../../assets/LoginImage.png')}
+          // source={require('../../../Assets/LoginImage.png')}
           style={{
             height: 200,
             width: 200,
@@ -61,17 +68,6 @@ export default function OwnerHome({navigation}: Props) {
           <Text style={styles.cardsrentalprices}>{rentedItems}</Text>
           <Text style={styles.cardsTotalprices}>₹{totalEarnings}</Text>
         </View>
-        <TouchableOpacity>
-          <Text
-            style={{
-              color: 'white',
-              fontFamily: 'Poppins-Regular',
-              fontSize: 10,
-              marginLeft: 115,
-            }}>
-            View More Details
-          </Text>
-        </TouchableOpacity>
       </View>
       <View>
         <Text style={styles.headertxt}>Recently Added</Text>
@@ -88,11 +84,10 @@ export default function OwnerHome({navigation}: Props) {
                 </View>
                 <View style={styles.cardTextContainer}>
                   <Text style={styles.cardText}></Text>
-                  <Text style={styles.cardText}></Text>
+                  <Text style={styles.cardTextPrice}></Text>
                 </View>
               </TouchableOpacity>
-              <View
-                style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
+              <View>
                 {/* Other code */}
                 <View
                   style={{
@@ -100,7 +95,9 @@ export default function OwnerHome({navigation}: Props) {
                     alignItems: 'center',
                     flexDirection: 'row',
                     marginBottom: 100,
+                    width: '100%',
                     flexWrap: 'wrap',
+                    backgroundColor: Colors.Inputtext,
                     justifyContent: 'space-between',
                   }}>
                   <TouchableOpacity style={styles.recentlyaddedcard}>
@@ -109,7 +106,7 @@ export default function OwnerHome({navigation}: Props) {
                     </View>
                     <View style={styles.cardTextContainer}>
                       <Text style={styles.cardText}></Text>
-                      <Text style={styles.cardText}></Text>
+                      <Text style={styles.cardTextPrice}></Text>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -139,7 +136,7 @@ export default function OwnerHome({navigation}: Props) {
                   </View>
                   <View style={styles.cardTextContainer}>
                     <Text style={styles.cardText}>{item.name}</Text>
-                    <Text style={styles.cardText}>₹ {item.price}</Text>
+                    <Text style={styles.cardTextPrice}>₹ {item.price}</Text>
                   </View>
                 </TouchableOpacity>
               )}
@@ -148,7 +145,7 @@ export default function OwnerHome({navigation}: Props) {
           <View>
             <Text style={styles.headertxt}>Rental History</Text>
           </View>
-          <View style={{flex: 1, backgroundColor: '#ECF2FF', flexWrap: 'wrap'}}>
+          <View style={{flex: 1, backgroundColor: '#000000', flexWrap: 'wrap'}}>
             {/* Other code */}
             <View
               style={{
@@ -175,7 +172,7 @@ export default function OwnerHome({navigation}: Props) {
                     </View>
                     <View style={styles.cardTextContainer}>
                       <Text style={styles.cardText}>{item.name}</Text>
-                      <Text style={styles.cardText}>₹ {item.price}</Text>
+                      <Text style={styles.cardTextPrice}>₹ {item.price}</Text>
                     </View>
                   </TouchableOpacity>
                 ))}

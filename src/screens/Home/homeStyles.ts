@@ -150,7 +150,8 @@ const style = StyleSheet.create({
   },
   Productstext: {
     color: Colors.white,
-    fontWeight: '700',
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 24,
     marginLeft: 20,
     // marginTop: 10,
@@ -228,9 +229,9 @@ const style = StyleSheet.create({
 
   searchInputContainer: {
     height: 45,
-    width: '75%',
+    width: '90%',
     backgroundColor: Colors.Inputtext,
-    marginTop: 15,
+    // marginTop: 5,
     marginLeft: 20,
     // borderColor: '#3E54AC',
     borderWidth: 2,

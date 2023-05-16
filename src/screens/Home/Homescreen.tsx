@@ -381,13 +381,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import ProfileData from '../../constants/ProfileData';
 type Props = {
   route: {name: string};
   navigation: any;
 };
 const Homescreen = ({navigation}: Props) => {
   const dispatch = useDispatch();
-
+  const {name} = ProfileData();
   const UserProducts = useHome();
   const {
     refreshing,
@@ -559,17 +560,24 @@ const Homescreen = ({navigation}: Props) => {
       ) : (
         <View style={style.mainContainer}>
           {/* <Header title={'Leap'} /> */}
-          {/* <Text
-            style={{
-              marginLeft: 26,
-              marginTop: 10,
-              fontWeight: '900',
-              fontFamily: 'poppins',
-              fontSize: 15,
-              color: Colors.white,
-            }}>
-            Leap
-          </Text> */}
+          <View style={{flexDirection: 'row'}}>
+            <Text
+              style={{
+                marginLeft: 26,
+                marginTop: 10,
+                // fontWeight: '900',
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: 15,
+                color: Colors.white,
+              }}>
+              Welcome {name}
+            </Text>
+            <Lottie
+              source={require('../../../assets/celebration.json')}
+              autoPlay
+              style={{height: 45, width: 50}}
+            />
+          </View>
           <View style={style.searchInputContainer}>
             <Icon
               name="search1"

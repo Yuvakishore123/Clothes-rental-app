@@ -117,7 +117,6 @@
 // });
 
 // export default Carousal;
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -132,7 +131,6 @@ import {TouchableOpacity} from 'react-native';
 import {url} from '../../constants/Apis';
 import ApiService from '../../network/network';
 import Colors from '../../constants/Colors';
-import {black} from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
 const Carousal = () => {
   const [active, setActive] = useState(0);
@@ -163,25 +161,26 @@ const Carousal = () => {
         // onScroll={change}
         showsHorizontalScrollIndicator={false}
         style={styles.scroll}>
-        {subcategories.map(subcategory => (
-          <View key={subcategory.id}>
-            <View>
-              <TouchableOpacity
-                style={styles.corosal}
-                onPress={() =>
-                  navigation.navigate('Subcategory', {
-                    categoryId: subcategory.id,
-                  })
-                }>
-                <Image
-                  source={{uri: subcategory.imageUrl}}
-                  style={styles.image}
-                />
-                <Text style={styles.subname}>{subcategory.categoryName}</Text>
-              </TouchableOpacity>
+        {subcategories &&
+          subcategories.map(subcategory => (
+            <View key={subcategory.id}>
+              <View>
+                <TouchableOpacity
+                  style={styles.corosal}
+                  onPress={() =>
+                    navigation.navigate('Subcategory', {
+                      categoryId: subcategory.id,
+                    })
+                  }>
+                  <Image
+                    source={{uri: subcategory.imageUrl}}
+                    style={styles.image}
+                  />
+                  <Text style={styles.subname}>{subcategory.categoryName}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </ScrollView>
     </View>
   );
@@ -197,14 +196,14 @@ const styles = StyleSheet.create({
   subname: {
     color: Colors.white,
     fontSize: 12,
-    fontWeight: '400',
+    // fontWeight: '400',
     // zIndex: 1,
     height: 100,
     marginLeft: 30,
     alignItems: 'center',
     marginTop: 10,
     // backgroundColor: Colors.black,
-    fontFamily: 'normal',
+    fontFamily: 'Poppins-Regular',
   },
   scroll: {
     width: '100%',
@@ -222,6 +221,8 @@ const styles = StyleSheet.create({
     width: 72,
     // resizeMode: 'cover',
     borderRadius: 100,
+    // borderWidth: 1,
+    // borderColor: Colors.white,
     padding: 30,
     marginLeft: 15,
     opacity: 1,

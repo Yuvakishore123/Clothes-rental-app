@@ -285,15 +285,16 @@ export const postProductToAPI = item => {
   return async dispatch => {
     try {
       const token = await AsyncStorage.getItem('token');
+      const id = item.id;
       console.log(token);
       // make API call
-      const response = await fetch(`${url}/wishlist/addtowishlist`, {
+      const response = await fetch(`${url}/wishlist/add?productId=${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(item),
+        body: JSON.stringify(item.id),
       });
       const data = await response.json();
       // update the Redux store with the response data

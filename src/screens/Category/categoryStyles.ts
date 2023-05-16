@@ -9,7 +9,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.Textinput,
     borderRadius: 8,
-    marginLeft: 25,
+    marginLeft: 20,
     marginTop: 10,
   },
   imageContainer: {

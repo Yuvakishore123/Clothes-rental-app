@@ -36,7 +36,7 @@ const Profile = ({navigation}: Props) => {
         <View style={style.profileFields}>
           <TouchableOpacity
             style={style.whiteBtn}
-            onPress={() => navigation.navigate('OwnerEditProfile')}>
+            onPress={() => navigation.navigate('Ownereditprofile')}>
             <Icons name="account" size={30} style={style.editprofileicon} />
             <Text style={style.btnPText}>Edit Profile</Text>
             <Icon name="arrow-forward-ios" size={20} style={style.forwardios} />

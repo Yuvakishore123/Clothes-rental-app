@@ -229,16 +229,37 @@ const styles = StyleSheet.create({
     color: Colors.white,
     // width: '80%',
   },
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   image: {
     flex: 0.7,
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the opacity and color as desired
+    padding: 10,
   },
   startext: {
-    marginTop: 10,
+    marginTop: -125,
     color: Colors.white,
+    fontFamily: 'Poppins-Bold',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // shadowRadius: 90,
+    // shadowOpacity: 0.9,
     marginLeft: 10,
-    fontWeight: '700',
-    fontSize: 25,
+    // fontWeight: '700',
+    zIndex: 1,
+    fontSize: 35,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)', // Shadow color
+    textShadowOffset: {width: -1, height: 1}, // Shadow offset
+    textShadowRadius: 5, // Shadow blur radius
   },
   title: {
     fontFamily: '800',

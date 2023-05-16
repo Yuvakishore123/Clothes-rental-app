@@ -7,6 +7,22 @@ const Styles = StyleSheet.create({
     width: '100%',
     backgroundColor: Colors.main,
   },
+  mainButton: {
+    justifyContent: 'center',
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  mainTouchable: {
+    height: 48,
+    width: '145%',
+    backgroundColor: '#3E54AC',
+    marginTop: 30,
+    borderRadius: 14,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: '50%',
+  },
   image: {
     height: 200,
     width: '100%',
@@ -72,7 +88,7 @@ const Styles = StyleSheet.create({
   },
   sign: {
     marginLeft: '45%',
-    marginTop: '45%',
+    marginTop: '40%',
     height: 50,
     width: '100%',
     flexDirection: 'row',

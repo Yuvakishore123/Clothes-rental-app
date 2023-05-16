@@ -138,7 +138,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   label: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    marginTop: 3,
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
     marginLeft: 100,
     color: 'white',

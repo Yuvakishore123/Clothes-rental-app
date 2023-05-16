@@ -4,14 +4,16 @@ import Colors from '../../constants/Colors';
 
 const style = StyleSheet.create({
   container: {
-    width: 145,
+    width: '83%',
     height: 200,
-    borderRadius: 10,
-
+    borderRadius: 8,
+    // flexDirection: 'row',
+    // backgroundColor: '#000',
+    backgroundColor: Colors.Textinput,
     marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
-    backgroundColor: Colors.main,
+    // marginRight: 20,
+    // marginBottom: 10,
+    margin: 10,
   },
   dheader: {
     marginTop: 3,
@@ -23,23 +25,23 @@ const style = StyleSheet.create({
     marginLeft: -50,
   },
   imageContainer: {
-    backgroundColor: 'green',
-    width: 145,
-    height: 145,
-    borderRadius: 10,
+    // backgroundColor: 'green',
+    width: '100%',
+    height: '30%',
+    // borderRadius: 8,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   image: {
     width: '100%',
     height: 145,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   name: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#3E54ACCC',
+    color: Colors.white,
   },
   addButton: {
     borderColor: '#3E54AC',
@@ -55,7 +57,7 @@ const style = StyleSheet.create({
   price: {
     fontSize: 8,
     fontWeight: '600',
-    color: '#3E54AC',
+    color: Colors.white,
   },
   rentButton: {
     borderWidth: 1,
@@ -71,23 +73,18 @@ const style = StyleSheet.create({
     marginTop: 3,
   },
   wishlistButton: {
-    width: 35,
-    height: 35,
-
+    width: 30,
+    height: 30,
     borderRadius: 20,
     // elevation: 5,
     position: 'absolute',
-    top: 10,
-    right: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    top: 5,
+    marginLeft: 110,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-
-    alignItems: 'center',
-  },
+  textContainer: {},
   rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
 
   searchInputContainer: {
@@ -103,22 +100,39 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  backBtn: {
+    marginTop: 10,
+    marginLeft: 25,
+    color: 'black',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 100,
+    width: '9%',
+    height: 35,
+    flexDirection: 'row',
+  },
+  Cartcontents: {
+    marginTop: 25,
+    // flexDirection: 'row',
+    // backgroundColor: Colors.white,
+  },
   cardTextContainer: {
-    height: 50,
-    width: 145,
-    backgroundColor: '#3E54AC1A',
-    marginTop: 6,
-    borderRadius: 5,
+    // height: 40,
+    width: '100%',
+    // backgroundColor: Colors.white,
+    marginTop: 60,
+    // borderRadius: 5,
     padding: 6,
+    marginLeft: 5,
   },
   textConatiner: {marginLeft: 63, marginTop: 20, flexDirection: 'row'},
 
   textStyle: {
-    color: '#3E54AC',
-    fontSize: 17,
-    fontFamily: 'poppins',
-    fontWeight: 'bold',
-    // marginTop: 10,
+    color: Colors.white,
+    fontSize: 20,
+    fontFamily: 'Poppins-Bold',
+    // fontWeight: '700',
+    marginTop: 20,
+    marginLeft: 30,
   },
   loadtextStyle: {
     color: '#3E54AC9d',
@@ -130,6 +144,7 @@ const style = StyleSheet.create({
   maincontainer: {
     height: '100%',
     width: '100%',
+    // flexDirection: 'row',
     backgroundColor: Colors.main,
   },
   listContainer: {

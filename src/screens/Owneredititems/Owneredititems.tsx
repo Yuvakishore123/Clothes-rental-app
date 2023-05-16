@@ -21,7 +21,8 @@ import OwnerEditItemstyles from './Owneredititemsstyles';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const App = () => {
   const {
     data,
@@ -56,7 +57,6 @@ const App = () => {
   const [, setHideId] = useState(null);
   console.log(data);
   console.log('Mapped Data is :', Mapdata);
-
   const handleVisibleModal = () => {
     setViisble(!visible);
     setHideId(null);
@@ -65,120 +65,119 @@ const App = () => {
   console.log('data :', data);
   return (
     <SafeAreaView>
-      <View style={styles.header_container} />
       <Modal animationType="slide" visible={visible}>
         <SafeAreaView>
           <ScrollView>
             <View style={styles.form}>
-              <TouchableOpacity onPress={handleVisibleModal}>
-                <Text style={styles.txtClose}>Close</Text>
-              </TouchableOpacity>
+              <BackButton />
+              <HeadingText message="Edit product" />
               <View style={Ownerstyles.Scrollcontainer}>
-                <View style={Ownerstyles.scroll}>
-                  <Text style={Ownerstyles.Itemname}>Name</Text>
+                <View style={Ownerstyles.scrolledit}>
                   <TextInput
-                    style={Ownerstyles.Namefield}
+                    placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                    placeholder="Name"
+                    style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                     onChangeText={setName}
                     defaultValue={Mapdata.name}
                   />
-                  <Text style={Ownerstyles.Itemname}>Description</Text>
                   <TextInput
-                    style={Ownerstyles.Descriptionfield}
+                    placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                    placeholder="Description"
+                    multiline
+                    style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                     onChangeText={setDescription}
                     multiline
                     defaultValue={Mapdata.description}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Gender</Text>
                   <GenderDropdown
                     onSelectGender={setGender}
                     onChange={handleGenderChange}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Type</Text>
-                  <TypeDropdown
-                    onSelectType={setItemType}
-                    onChange={handleItemTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Event</Text>
-                  <EventsDropdown
-                    onSelectEvent={setEventType}
-                    onChange={handleEventTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-                  <OutfitDropdown
-                    onSelectOutfit={setOutfitType}
-                    onChange={handleOutfitChange}
-                  />
-                  <View style={OwnerEditItemstyles.Sizecontainer}>
-                    <Text style={OwnerEditItemstyles.Sizetext}> Size</Text>
-                    <Sizeselection
-                      onSelectSize={setSelectedsize}
-                      onChange={handleSizeTypeChange}
+                  <View style={{marginTop: -18}}>
+                    <TypeDropdown
+                      onSelectType={setItemType}
+                      onChange={handleItemTypeChange}
                     />
                   </View>
+                  <View style={{marginTop: -26}}>
+                    <EventsDropdown
+                      onSelectEvent={setEventType}
+                      onChange={handleEventTypeChange}
+                    />
+                  </View>
+                  <View style={{marginTop: -12}}>
+                    <OutfitDropdown
+                      onSelectOutfit={setOutfitType}
+                      onChange={handleOutfitChange}
+                    />
+                  </View>
+                  <View style={OwnerEditItemstyles.Sizecontainer}>
+                    <View style={{marginTop: -16}}>
+                      <Sizeselection
+                        onSelectSize={setSelectedsize}
+                        onChange={handleSizeTypeChange}
+                      />
+                    </View>
+                  </View>
                   <View style={OwnerEditItemstyles.ImageBox}>
-                    <Text style={OwnerEditItemstyles.addImagesText}>
-                      Add Images *
-                    </Text>
-                    {selectedImage ? (
-                      <>
-                        <ScrollView
-                          horizontal
-                          style={OwnerEditItemstyles.imagehorizontal}>
-                          {imageUrls.map((image, index) => (
-                            <Image
-                              style={OwnerEditItemstyles.image}
-                              source={{uri: image}}
-                              key={index}
-                            />
-                          ))}
-                        </ScrollView>
-                        <View style={OwnerEditItemstyles.removeContainer}>
-                          <TouchableOpacity
-                            onPress={handleremove}
-                            style={OwnerEditItemstyles.touchableContainer}>
-                            <Text style={OwnerEditItemstyles.removeText}>
-                              Remove
-                            </Text>
-                          </TouchableOpacity>
+                    <View style={{marginTop: -20}}>
+                      {selectedImage ? (
+                        <>
+                          <ScrollView
+                            horizontal
+                            style={OwnerEditItemstyles.imagehorizontal}>
+                            {imageUrls.map((image, index) => (
+                              <Image
+                                style={OwnerEditItemstyles.image}
+                                source={{uri: image}}
+                                key={index}
+                              />
+                            ))}
+                          </ScrollView>
+                          <View style={OwnerEditItemstyles.removeContainer}>
+                            <TouchableOpacity
+                              onPress={handleremove}
+                              style={OwnerEditItemstyles.touchableContainer}>
+                              <Text style={OwnerEditItemstyles.removeText}>
+                                Remove
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </>
+                      ) : (
+                        <View style={OwnerEditItemstyles.Addimage}>
+                          <Text
+                            onPress={pickImg}
+                            style={OwnerEditItemstyles.imagesText}>
+                            Add Image
+                          </Text>
                         </View>
-                      </>
-                    ) : (
-                      // <Mainbutton onPress={undefined} text="remove" />
-                      <View style={OwnerEditItemstyles.Addimage}>
-                        <MaterialIcons
-                          style={OwnerEditItemstyles.AddIcon}
-                          name="add-to-photos"
-                        />
-                        <Text
-                          onPress={pickImg}
-                          style={OwnerEditItemstyles.imagesText}>
-                          Add Image
-                        </Text>
-                      </View>
-                    )}
+                      )}
+                    </View>
                   </View>
                   <View>
-                    <Text style={OwnerEditItemstyles.Pricetext}> Price</Text>
                     <TextInput
-                      style={OwnerEditItemstyles.Price}
+                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
+                      placeholder="Select price"
+                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
                       keyboardType="numeric"
                       value={price.toString()}
                       onChangeText={(value: any) => setPrice(value)}
                     />
-                    <Text style={OwnerEditItemstyles.Pricetext}> Quantity</Text>
                     <TextInput
                       keyboardType="numeric"
-                      style={OwnerEditItemstyles.Price}
+                      placeholder="Select quantity"
+                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
                       value={quantity.toString()}
                       onChangeText={(value: any) => setQuantity(value)}
                     />
-                    {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
                   </View>
                   <View style={Ownerstyles.mainButton}>
                     <TouchableOpacity
                       style={Ownerstyles.mainTouchable}
                       onPress={handleedit}>
-                      <Text style={Ownerstyles.touchableText}>Edit Item</Text>
+                      <Text style={Ownerstyles.touchableText}>Save</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -188,16 +187,24 @@ const App = () => {
         </SafeAreaView>
       </Modal>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={OwnerEditItemstyles.backContainer}>
-            <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={OwnerEditItemstyles.backContainer}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={OwnerEditItemstyles.backButtonCircle}>
+              <Icons
+                name="chevron-back"
+                color={'#FFFFFF'}
+                size={25}
+                marginTop={5}
+                marginLeft={6}
+              />
+            </View>
+          </TouchableOpacity>
+          <Text style={OwnerEditItemstyles.backButtonText}>Edit products</Text>
+        </View>
 
         {data.map(item => {
           return (
-            <>
+            <View style={styles.mainContainer}>
               <View style={styles.item_course} key={item}>
                 <View style={OwnerEditItemstyles.imagePriceContainer}>
                   <View style={OwnerEditItemstyles.cardImageContainer}>
@@ -226,7 +233,7 @@ const App = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </>
+            </View>
           );
         })}
       </ScrollView>
@@ -238,7 +245,6 @@ export default App;
 
 const styles = StyleSheet.create({
   form: {
-    marginTop: 10,
     backgroundColor: Colors.main,
     marginLeft: -10,
   },
@@ -250,6 +256,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 15,
     color: Colors.iconscolor,
+  },
+  mainContainer: {
+    backgroundColor: '#000000',
+    height: 250,
   },
   text_input: {
     padding: 10,
@@ -269,26 +279,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item_course: {
-    // padding: 15,
     marginLeft: 30,
     marginTop: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#e2e2e2',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // backgroundColor: 'green',
   },
   txt_name: {
     fontSize: 12,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54ACCC',
+    fontWeight: '400',
+    fontFamily: 'Poppins',
+    color: '#FFFFFF',
   },
   txt_item: {
-    fontSize: 10,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54AC99',
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#9747FF',
   },
   txt_enabled: {
     fontSize: 14,
@@ -304,13 +308,11 @@ const styles = StyleSheet.create({
   },
   txt_del: {
     fontSize: 15,
-    // marginTop: 5,
     color: 'white',
     fontWeight: '500',
   },
   txt_edit: {
     fontSize: 15,
-    // marginTop: 5,
     color: 'white',
     fontWeight: '500',
   },

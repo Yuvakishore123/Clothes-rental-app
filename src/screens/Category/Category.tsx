@@ -77,7 +77,7 @@ const Category = () => {
       <Text style={style.textStyle}>Shop by categories</Text>
       {loading ? (
         <View style={style.loaderContainer}>
-          <Lottie source={require('../../../assets/loading.json')} autoPlay />
+          <Lottie source={require('../../../assets/loading2.json')} autoPlay />
         </View>
       ) : (
         <FlatList

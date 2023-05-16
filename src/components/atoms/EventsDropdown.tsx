@@ -46,38 +46,34 @@ const DropdownComponent = ({value, onChange, genderId}) => {
 export default DropdownComponent;
 const styles = StyleSheet.create({
   dropdownContainer: {
-    height: 50,
-    width: 255,
-    backgroundColor: '#fff',
+    height: 56,
+    width: '110%',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     marginTop: 15,
-    marginLeft: -3,
-    borderRadius: 15,
+    // marginLeft: -3,
+    borderRadius: 8,
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 5,
-    shadowColor: '#3E54AC',
-    shadowOpacity: 3,
   },
   dropdown: {
     height: '50%',
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 20,
+
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   placeholderStyle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: Colors.iconscolor,
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'rgba(255, 255, 255, 0.5)',
     marginLeft: 15,
   },
   selectedTextStyle: {
     fontSize: 18,
-    fontWeight: '700',
-    color: Colors.iconscolor,
+    fontWeight: '400',
+    color: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
@@ -91,27 +87,29 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 18,
-    backgroundColor: Colors.white,
-    color: Colors.iconscolor,
+    // backgroundColor: Colors.white,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+
+    color: 'black',
   },
   itemTextStyle: {
     fontSize: 16,
-    fontWeight: '900',
-    color: Colors.iconscolor,
+    fontWeight: '500',
+    color: 'black',
     padding: 10,
   },
   selectedItemTextStyle: {
     fontSize: 16,
     fontWeight: '500',
     color: Colors.iconscolor,
-    // padding: 10,
   },
   itemContainerStyle: {
     backgroundColor: Colors.white,
+
     borderRadius: 10, // Add this line
   },
   selectedItemContainerStyle: {
     backgroundColor: '#3E54AC',
-    borderRadius: 10,
+    borderRadius: 8,
   },
 });

@@ -6,6 +6,7 @@ import style from './Owneraddressstyle';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import Lottie from 'lottie-react-native';
+import Colors from '../../constants/Colors';
 const Owneraddresspage = () => {
   const {
     handleOwnerAddAddress,
@@ -32,14 +33,19 @@ const Owneraddresspage = () => {
             onPress={() => {
               handleEditItems(item);
             }}>
-            <Text style={style.editBtnText}>Edit</Text>
+            <MaterialIcons name="edit" size={25} color={Colors.white} />
           </TouchableOpacity>
           <TouchableOpacity
             // style={style.deleteBtn}
             onPress={() => {
               handleDeleteAddress(item.id);
             }}>
-            <Text style={style.deleteBtnText}>Delete</Text>
+            <MaterialIcons
+              name="delete"
+              size={25}
+              color={Colors.red}
+              style={style.deleteBtnText}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -71,7 +77,7 @@ const Owneraddresspage = () => {
             <Lottie
               autoPlay
               style={style.imageS1}
-              source={require('../../../assets/address.json')}
+              source={require('../../../assets/location.json')}
             />
           </View>
           <View style={style.textContainer1}>

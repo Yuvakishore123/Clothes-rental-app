@@ -12,6 +12,8 @@ import Useadditems from './Useadditems';
 import Colors from '../../constants/Colors';
 import Styles from '../LoginScreen/LoginStyle';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const Additems = () => {
   const {
     name,
@@ -39,8 +41,6 @@ const Additems = () => {
             <View
               style={{
                 backgroundColor: Colors.main,
-                // height: '100%',
-                // width: '100%',
               }}>
               <Text style={Ownerstyles.Imageitem}></Text>
             </View>
@@ -91,18 +91,14 @@ const Additems = () => {
         </>
       ) : (
         <>
-          <Text style={Ownerstyles.Titletext}> Add Items </Text>
-          <View>
-            <Image
-              style={Ownerstyles.Imageitem}
-              source={require('../../../assets/additems1.png')}
-            />
-          </View>
+          <HeadingText message="Add Products" />
+
           <View style={Ownerstyles.Scrollcontainer}>
             <View style={Ownerstyles.scroll}>
-              <Text style={Ownerstyles.Itemname}>Name *</Text>
               <TextInput
-                style={Ownerstyles.Namefield}
+                placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                placeholder="Name"
+                style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                 value={name}
                 onChangeText={handleNameChange}
                 onBlur={() => handleBlur('name')}
@@ -110,9 +106,11 @@ const Additems = () => {
               {formik.touched.name && formik.errors.name && (
                 <Text style={Styles.errorText}>{formik.errors.name}</Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Description *</Text>
+
               <TextInput
-                style={Ownerstyles.Descriptionfield}
+                placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                placeholder="Description"
+                style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                 multiline
                 onChangeText={handleDescriptionChange}
                 onBlur={() => handleBlur('description')}
@@ -123,7 +121,6 @@ const Additems = () => {
                   {formik.errors.description}
                 </Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Select Gender *</Text>
               <GenderDropdown
                 onSelectGender={setGender}
                 onChange={handleGenderChange}
@@ -131,33 +128,38 @@ const Additems = () => {
               {formik.touched.gender && formik.errors.gender && (
                 <Text style={Styles.errorText}>{formik.errors.gender}</Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Select Type </Text>
-              <TypeDropdown
-                onSelectType={setItemType}
-                onChange={handleItemTypeChange}
-              />
-              <Text style={Ownerstyles.Itemname}>Select Event *</Text>
-              <EventsDropdown
-                onSelectEvent={setEventType}
-                onChange={handleEventTypeChange}
-              />
-              {formik.touched.eventType && formik.errors.eventType && (
-                <Text style={Styles.errorText}>{formik.errors.eventType}</Text>
-              )}
-              <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-              <OutfitDropdown
-                onSelectOutfit={setOutfitType}
-                onChange={handleOutfitChange}
-              />
+
+              <View style={{flexDirection: 'column', marginTop: -20}}>
+                <TypeDropdown
+                  onSelectType={setItemType}
+                  onChange={handleItemTypeChange}
+                />
+              </View>
+              <View style={{flexDirection: 'column', marginTop: -29}}>
+                <EventsDropdown
+                  onSelectEvent={setEventType}
+                  onChange={handleEventTypeChange}
+                />
+                {formik.touched.eventType && formik.errors.eventType && (
+                  <Text style={Styles.errorText}>
+                    {formik.errors.eventType}
+                  </Text>
+                )}
+              </View>
+              <View style={{flexDirection: 'column', marginTop: -17}}>
+                <OutfitDropdown
+                  onSelectOutfit={setOutfitType}
+                  onChange={handleOutfitChange}
+                />
+              </View>
+
               <View style={Ownerstyles.mainButton}>
                 <TouchableOpacity
                   disabled={!formik.isValid}
                   style={[
                     Ownerstyles.mainTouchable,
                     {
-                      backgroundColor: formik.isValid
-                        ? Colors.iconscolor
-                        : '#A5C9CA',
+                      backgroundColor: formik.isValid ? '#9747FF' : '#A5C9CA',
                     },
                   ]}
                   onPress={formik.handleSubmit}>

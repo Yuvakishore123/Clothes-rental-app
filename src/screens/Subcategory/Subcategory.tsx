@@ -44,9 +44,10 @@ const SubcategoryList = ({route}) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
+          backgroundColor: Colors.main,
         }}>
         <Lottie
-          source={require('../../../assets/loading.json')}
+          source={require('../../../assets/loading2.json')}
           autoPlay
           style={{
             height: 200,
@@ -56,7 +57,7 @@ const SubcategoryList = ({route}) => {
             borderRadius: 40,
           }}
         />
-        <Text style={{color: '#3E54AC', fontSize: 15, fontWeight: '600'}}>
+        <Text style={{color: Colors.white, fontSize: 15, fontWeight: '600'}}>
           The Items are Loading...
         </Text>
       </View>
@@ -79,7 +80,7 @@ const SubcategoryList = ({route}) => {
       <Text style={styles.textStyle}>Shop by Subcategories</Text>
       {loading ? (
         <View style={styles.loaderContainer}>
-          <Lottie source={require('../../../assets/loading.json')} autoPlay />
+          <Lottie source={require('../../../assets/loading2.json')} autoPlay />
         </View>
       ) : (
         <View>

@@ -13,7 +13,6 @@ import DatePicker from '../../components/atoms/DatePicker Detail';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './UProductDetailsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import {url} from '../../constants/Apis';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 type Props = {
@@ -125,9 +124,9 @@ export default function UDetailScreen({route, navigation}: Props) {
               ),
             )}
           </ScrollView>
+          <Text style={styles.startext}>{product.name}</Text>
         </View>
         <View style={[styles.detailsContainer]}>
-          <Text style={styles.startext}>{product.name}</Text>
           <Text style={styles.detailsPrice}>₹{product.price}</Text>
           <Text style={styles.detailsdescription}>{product.description}</Text>
           {/* <View style={{marginTop: 10}}>

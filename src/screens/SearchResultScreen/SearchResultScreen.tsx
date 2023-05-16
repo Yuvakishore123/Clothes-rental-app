@@ -13,90 +13,81 @@ const SearchResultsScreen = ({route}) => {
     navigation.goBack();
   };
   return (
-    <View style={{flex: 1, backgroundColor: Colors.main}}>
+    <View style={{backgroundColor: Colors.main}}>
       <View style={style.addAddressHeader}>
         <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
-          <MaterialIcons
-            color={Colors.iconscolor}
-            size={26}
-            name="arrow-back-ios"
-          />
+          <MaterialIcons color={Colors.white} size={26} name="arrow-back-ios" />
         </TouchableOpacity>
         <Text style={style.addAddressText}>Search results</Text>
       </View>
-      <View style={{flex: 1}}>
-        {searchResults && searchResults.length > 0 ? (
-          <FlatList
-            data={searchResults}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => {
-              return (
-                <View style={style.container}>
-                  <TouchableOpacity
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate('UProductDetails', {
-                        product: item,
-                      })
-                    }>
-                    <View style={style.imageContainer}>
-                      <Image
-                        source={{uri: item.imageUrl[0]}}
-                        style={style.image}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  <View style={style.cardTextContainer}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={style.name}>{item.name}</Text>
-                      {/* <TouchableOpacity
-                        style={style.addButton}
-                        onPress={() => {}}>
-                        <Text
-                          style={{
-                            color: '#3E54AC',
-                            fontWeight: 'bold',
-                            fontSize: 12,
-                          }}>
-                          +
-                        </Text>
-                      </TouchableOpacity> */}
-                    </View>
-                    <View style={style.textContainer}>
-                      <Text style={style.price}>{'₹' + item.price}</Text>
-                      {/* <TouchableOpacity
-                        style={style.rentButton}
-                        onPress={() => {
-                          Alert.alert('Need to set Rental Dates');
-                        }}>
-                        <Text style={style.rentText}>Rent</Text>
-                      </TouchableOpacity> */}
+      {searchResults && searchResults.length > 0 ? (
+        <FlatList
+          data={searchResults}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => {
+            return (
+              <View
+                style={{
+                  width: '50%',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  // backgroundColor:'white',
+                }}>
+                <View
+                  style={{
+                    // alignItems: 'center',
+                    width: '100%',
+                  }}>
+                  <View style={style.container}>
+                    <TouchableOpacity
+                      key={item.id}
+                      style={{width: '100%'}}
+                      onPress={() =>
+                        navigation.navigate('UProductDetails', {
+                          product: item,
+                        })
+                      }>
+                      <View style={style.imageContainer}>
+                        <Image
+                          source={{uri: item.imageUrl[0]}}
+                          style={style.image}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                    <View style={style.cardTextContainer}>
+                      <View style={{marginTop: 20}}>
+                        <Text style={style.name}>{item.name}</Text>
+                      </View>
+                      <View style={style.textContainer}>
+                        <Text style={style.price}>{'₹' + item.price}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              );
-            }}
-            numColumns={2}
-          />
-        ) : (
-          <View style={{flex: 1, backgroundColor: Colors.main}}>
-            <View style={{justifyContent: 'center', alignSelf: 'center'}}>
-              <Text style={style.titleText}>Umm...No results found</Text>
-            </View>
-            <View style={style.titleTextContainer}>
-              <Lottie
-                style={style.imageS}
-                source={require('../../../assets/search.json')}
-                autoPlay
-              />
-            </View>
+              </View>
+            );
+          }}
+          numColumns={2}
+        />
+      ) : (
+        <View style={{backgroundColor: 'black', width: '100%', height: '100%'}}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              backgroundColor: Colors.main,
+            }}>
+            <Text style={style.titleText}>Umm...No results found</Text>
           </View>
-        )}
-      </View>
+          <View style={style.titleTextContainer}>
+            <Lottie
+              style={style.imageS}
+              source={require('../../../assets/search.json')}
+              autoPlay
+            />
+          </View>
+        </View>
+      )}
     </View>
   );
 };

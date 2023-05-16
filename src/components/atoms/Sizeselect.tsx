@@ -7,7 +7,6 @@ import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import axios from 'axios';
 import {object} from 'yup';
 // import AntDesign from '@expo/vector-icons/AntDesign';
-
 const data = [
   {label: 'XS', value: '1'},
   {label: 'S', value: '2'},
@@ -15,35 +14,10 @@ const data = [
   {label: 'XL', value: '4'},
   {label: 'XXL', value: '5'},
 ];
-
 const Sizeselection = ({onChange}) => {
   //   const [CategoriesData, setCategoriesData] = useState([]);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-  //   useEffect(() => {
-  //     var config = {
-  //       method: 'get',
-  //       url: 'https://fakestoreapi.com/products/categories',
-  //     };
-  //     axios(config)
-  //       .then(response => {
-  //         console.log(JSON.stringify(response.data));
-  //         var count = Object.keys(response.data).length;
-  //         let CategoriesArray = [];
-  //         for (var i = 0; i < count; i++) {
-  //           CategoriesArray.push({
-  //             value: response.data[i],
-  //             label: response.data[i],
-  //           });
-  //         }
-  //         setCategoriesData(CategoriesArray);
-  //       })
-
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   }, []);
-
   return (
     <View style={Ownerstyles.scrollView}>
       <View style={styles.dropdownContainer}>
@@ -62,7 +36,7 @@ const Sizeselection = ({onChange}) => {
           maxHeight={400}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select Size' : '...'}
+          placeholder={!isFocus ? 'Select size' : '...'}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}
@@ -76,43 +50,36 @@ const Sizeselection = ({onChange}) => {
     </View>
   );
 };
-
 export default Sizeselection;
-
 const styles = StyleSheet.create({
   dropdownContainer: {
-    height: 50,
-    width: 255,
-    backgroundColor: '#fff',
-    marginTop: 15,
-    marginLeft: -3,
-    borderRadius: 15,
+    height: 56,
+    width: '493%',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    marginTop: 3,
+    // marginLeft: -3,
+    borderRadius: 8,
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 5,
-    shadowColor: '#3E54AC',
-    shadowOpacity: 3,
   },
   dropdown: {
     height: '50%',
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   placeholderStyle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: Colors.iconscolor,
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'rgba(255, 255, 255, 0.5)',
     marginLeft: 15,
   },
   selectedTextStyle: {
     fontSize: 18,
-    fontWeight: '700',
-    color: Colors.iconscolor,
+    fontWeight: '600',
+    color: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
@@ -121,25 +88,28 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 15,
-    color: Colors.iconscolor,
+    color: '#FFFFFF',
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 18,
-    backgroundColor: Colors.white,
-    color: Colors.iconscolor,
+    // backgroundColor: Colors.white,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    color: 'black',
   },
   itemTextStyle: {
     fontSize: 16,
-    fontWeight: '900',
-    color: Colors.iconscolor,
+    fontWeight: '500',
+    color: 'black',
     padding: 10,
   },
   selectedItemTextStyle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: Colors.iconscolor,
-    // padding: 10,
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
   },
   itemContainerStyle: {
     backgroundColor: Colors.white,

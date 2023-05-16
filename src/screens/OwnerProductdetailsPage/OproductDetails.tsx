@@ -40,15 +40,12 @@ export default function OproductDetails({route, navigation}: Props) {
         </View>
       </ScrollView>
       <View style={[styles.detailsContainer, {marginTop: -50}]}>
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-          <Text style={styles.headingtext}>Name</Text>
-        </View>
         <Text style={styles.startext}>{product.name}</Text>
-        <View style={{marginTop: 10}}>
+        <View style={{marginTop: 20}}>
           <Text style={styles.headingtext}>Price</Text>
         </View>
         <Text style={styles.detailsdescription}>₹ {product.price}</Text>
-        <View style={{marginTop: 10}}>
+        <View style={{marginTop: 20}}>
           <Text style={styles.headingtext}>Description</Text>
         </View>
         <Text style={styles.detailsdescription}>{product.description}</Text>
