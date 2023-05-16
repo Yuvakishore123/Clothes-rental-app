@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: 'row',
-    backgroundColor: Colors.Inputtext,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     borderRadius: 10,
     marginLeft: 10,
     marginBottom: 10,
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     // fontWeight: 'bold',
     color: 'black',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-SemiBold',
     // marginTop: 5,
     // marginLeft: 2,
     marginRight: 10,
@@ -568,7 +568,7 @@ const styles = StyleSheet.create({
     // height: '30%',
     // fontWeight: '400',
     color: Colors.main,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-SemiBold',
   },
   textContainer: {
     flexDirection: 'row',
@@ -662,9 +662,9 @@ const styles = StyleSheet.create({
   },
   sizeText: {
     fontSize: 12,
-    color: 'rgba(5, 5, 5, 0.5)',
+    color: 'black',
     // fontWeight: 'bold',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-SemiBold',
     marginHorizontal: 5,
   },
   errorContainer: {

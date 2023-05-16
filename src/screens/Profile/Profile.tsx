@@ -20,7 +20,7 @@ const Profile = ({navigation}: Props) => {
   };
   return (
     <View style={style.profileStyle}>
-      <ScrollView style={{width: '100%', height: '100%'}}>
+      <View style={{width: '100%', height: '100%'}}>
         <View style={style.buttonContainer}>
           <SwitchAccountButton />
         </View>
@@ -69,7 +69,7 @@ const Profile = ({navigation}: Props) => {
             <Text style={style.btntext}>Sign out </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
       <View style={{marginTop: 10}} />
     </View>
   );

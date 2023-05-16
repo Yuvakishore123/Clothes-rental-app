@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonUnselected: {
-    backgroundColor: '#000000',
+    backgroundColor: '#917FB3',
     marginTop: 3,
     marginBottom: 3,
     width: 270,

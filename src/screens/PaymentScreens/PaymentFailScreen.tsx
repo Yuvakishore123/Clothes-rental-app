@@ -11,9 +11,9 @@ const PaymentFailScreen = () => {
       </View>
       <View style={styles.successContainer}>
         <Lottie
-          source={require('../../../assets/payfail1.json')}
+          source={require('../../../assets/payfailed.json')}
           autoPlay
-          style={{height: 200}}
+          style={{height: 200, marginRight: '35%'}}
         />
         <Text style={styles.successText}>Payment Failed! </Text>
         <Text style={styles.successText1}>

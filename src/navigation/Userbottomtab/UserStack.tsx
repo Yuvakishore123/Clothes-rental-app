@@ -79,8 +79,8 @@ const CartStack = () => {
       <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
       <Stack.Screen name="PaymentFailScreen" component={PaymentFailScreen} />
-      <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="MyOrder" component={MyOrder} />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 };

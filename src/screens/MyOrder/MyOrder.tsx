@@ -77,18 +77,18 @@ const MyOrder = ({navigation}: Props) => {
       <View style={{flex: 1, backgroundColor: Colors.main}}>
         <View
           style={{
-            width: 120,
+            width: '100%',
             height: 29,
-            left: 65,
+            marginLeft: 20,
             marginTop: 40,
           }}>
           <View style={{}}>
             <Text
               style={{
-                color: '#3E54AC',
+                color: Colors.white,
                 fontSize: 20,
-                fontFamily: 'poppins',
-                fontWeight: 'bold',
+                fontFamily: 'Poppins-Bold',
+                // fontWeight: 'bold',
               }}>
               Your Orders
             </Text>
@@ -125,7 +125,11 @@ const MyOrder = ({navigation}: Props) => {
                         key={i}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
-                        style={{flexDirection: 'row', width: 290}}>
+                        style={{
+                          flexDirection: 'row',
+                          width: '100%',
+                          marginLeft: 10,
+                        }}>
                         <View
                           style={{
                             flexDirection: 'row',
@@ -161,10 +165,17 @@ const MyOrder = ({navigation}: Props) => {
                                   flexDirection: 'row',
                                   justifyContent: 'center',
                                   alignItems: 'center',
-                                  marginLeft: -50,
+                                  marginLeft: -15,
                                 }}>
                                 <Text style={style.priceText}>
                                   {'₹' + item.product.price}
+                                </Text>
+                                <Text
+                                  style={{
+                                    fontFamily: 'Poppins-SemiBold',
+                                    color: 'white',
+                                  }}>
+                                  Qty:{' '}
                                 </Text>
                                 <View style={style.quantityContainer}>
                                   {/* <View style={{alignItems: 'center', bottom: 2}}> */}

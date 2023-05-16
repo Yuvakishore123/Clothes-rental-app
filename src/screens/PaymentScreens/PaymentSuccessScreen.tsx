@@ -5,6 +5,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Lottie from 'lottie-react-native';
+import Colors from '../../constants/Colors';
 const PaymentSuccessScreen = () => {
   const navigation = useNavigation();
   return (
@@ -15,11 +16,11 @@ const PaymentSuccessScreen = () => {
       <View style={styles.successContainer}>
         <Lottie
           style={{marginTop: -70, height: 200}}
-          source={require('../../../assets/paysuccess1.json')}
+          source={require('../../../assets/paysuccess2.json')}
           autoPlay
         />
-        <Text style={styles.successText}>Payment successful! </Text>
-        <Text style={styles.successText1}>Your Order Has Been Placed. </Text>
+        <Text style={styles.successText2}>Payment successful! </Text>
+        <Text style={styles.successText3}>Your Order Has Been Placed. </Text>
         <TouchableOpacity
           style={styles.btnfield}
           onPress={() => navigation.navigate('Homescreen')}>
@@ -61,7 +62,7 @@ const PaymentSuccessScreen = () => {
                 fontWeight: 'bold',
                 fontFamily: 'Poppins',
                 fontSize: 20,
-                color: '#3E54AC',
+                color: Colors.buttonColor,
               }}
             />
           </View>

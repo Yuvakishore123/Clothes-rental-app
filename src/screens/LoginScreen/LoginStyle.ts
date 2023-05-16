@@ -31,6 +31,7 @@ const Styles = StyleSheet.create({
   textinput: {
     backgroundColor: Colors.Textinput,
     fontFamily: 'Poppins-Regular',
+    color:Colors.white,
     marginTop: 20,
     marginLeft: 20,
     borderRadius: 6,

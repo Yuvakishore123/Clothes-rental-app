@@ -67,8 +67,8 @@ const CategoryProducts = ({route}) => {
         {subcategories.length === 0 ? (
           <View>
             <Lottie
-              style={{flex: 1, width: 400}}
-              source={require('../../../assets/productpage.json')}
+              style={{height: 400, width: '100%', marginLeft: 15}}
+              source={require('../../../assets/productsEmpty.json')}
               autoPlay
             />
             <Text style={style.loadtextStyle}>

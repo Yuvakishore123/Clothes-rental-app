@@ -135,11 +135,11 @@ const style = StyleSheet.create({
     marginLeft: 30,
   },
   loadtextStyle: {
-    color: '#3E54AC9d',
+    color: Colors.white,
     fontSize: 17,
     fontFamily: 'poppins',
     fontWeight: 'bold',
-    marginLeft: 35,
+    marginLeft: 45,
   },
   maincontainer: {
     height: '100%',
