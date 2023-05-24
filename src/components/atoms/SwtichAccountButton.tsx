@@ -51,15 +51,20 @@ const SwitchAccountButton = () => {
     }
   };
   return (
-    <View style={styles.container}>
+    <View>
       <TouchableOpacity
         onPress={handlePress}
         style={styles.button}
         accessibilityLabel={`Switch account type to ${
           accountType === 'borrower' ? 'owner' : 'borrower'
         }`}>
-        <Text style={styles.label}>Switch</Text>
-        <IonIcon name="chevron-down" color={'#FFF'} size={20} />
+        <Text style={styles.label}>{accountType}</Text>
+        <IonIcon
+          name="chevron-down"
+          color={'#FFF'}
+          size={20}
+          marginRight={90}
+        />
       </TouchableOpacity>
       {showOptions && (
         <View style={styles.options}>
@@ -107,24 +112,20 @@ const SwitchAccountButton = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    zIndex: 1,
-  },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#3E54AC',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#000000',
+    borderRadius: 100,
     height: 50,
-    width: 100,
-    marginLeft: 250,
+    width: '50%',
+    marginLeft: 100,
+    marginTop: 10,
     justifyContent: 'center',
   },
   icon: {
-    backgroundColor: '#3E54AC',
+    backgroundColor: 'white',
     borderRadius: 10,
     width: 30,
     height: 30,
@@ -138,14 +139,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   label: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    marginTop: 3,
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
+    marginLeft: 100,
     color: 'white',
   },
   options: {
     position: 'absolute',
     top: '100%',
-    backgroundColor: '#fff',
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(5, 5, 5, 0.5)',
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -159,7 +164,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    // elevation: 5,
   },
   option: {
     fontWeight: '700',
@@ -171,10 +176,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     paddingVertical: 5,
-    color: '#FFF',
+    color: '#000000',
   },
   buttonContainer: {
-    backgroundColor: Colors.iconscolor,
+    backgroundColor: Colors.buttonColor,
     width: 270,
     borderRadius: 15,
     height: 50,
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonUnselected: {
-    backgroundColor: '#a9a9f9',
+    backgroundColor: '#000000',
     marginTop: 3,
     marginBottom: 3,
     width: 270,

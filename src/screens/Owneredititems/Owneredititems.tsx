@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -18,31 +18,33 @@ import EventsDropdown from '../../components/atoms/EventsDropdown';
 import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Sizeselection from '../../components/atoms/Sizeselect';
 import OwnerEditItemstyles from './Owneredititemsstyles';
-import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Lottie from 'lottie-react-native';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import { managePanProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
+
 const App = () => {
   const {
     data,
     setGender,
     visible,
     setViisble,
-    name,
     handleedit,
-    description,
     setEventType,
     setOutfitType,
     setItemType,
     imageUrls,
     selectedImage,
     RemoveProducts,
-    handleremove,
-    pickImg,
-    pref,
     closeModal,
+    showModal,
+    setShowModal,
+    handleRemoveImage,
+    handleremove,
+    name,
+    pickImg,
     handleGenderChange,
     handleEventTypeChange,
     handleOutfitChange,
@@ -54,139 +56,137 @@ const App = () => {
     setPrice,
     setQuantity,
     setEditProductId,
-    getOwnerProducts,
     FetchData,
     Mapdata,
+    description,
     price,
     quantity,
+    isLoading,
   } = Useowneredititems();
+
   const [hideId, setHideId] = useState(null);
-  console.log(data);
-  console.log('Mapped Data is :', Mapdata);
 
   const handleVisibleModal = () => {
     setViisble(!visible);
     setHideId(null);
   };
+
   const navigation = useNavigation();
-  console.log('data :', data);
+
   return (
     <SafeAreaView>
-      <View style={styles.header_container} />
       <Modal animationType="slide" visible={visible}>
         <SafeAreaView>
           <ScrollView>
             <View style={styles.form}>
-              <TouchableOpacity onPress={handleVisibleModal}>
-                <Text style={styles.txtClose}>Close</Text>
-              </TouchableOpacity>
+              <HeadingText message="Edit product" />
               <View style={Ownerstyles.Scrollcontainer}>
-                <View style={Ownerstyles.scroll}>
-                  <Text style={Ownerstyles.Itemname}>Name</Text>
+                <View style={Ownerstyles.scrolledit}>
                   <TextInput
-                    style={Ownerstyles.Namefield}
+                    placeholderTextColor={Colors.black}
+                    placeholder="Name"
+                    style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                     onChangeText={setName}
-                    defaultValue={Mapdata.name}
+                    value={name}
                   />
-                  <Text style={Ownerstyles.Itemname}>Description</Text>
                   <TextInput
-                    style={Ownerstyles.Descriptionfield}
+                    placeholderTextColor={Colors.black}
+                    placeholder="Description"
+                    multiline
+                    style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                     onChangeText={setDescription}
                     multiline
-                    defaultValue={Mapdata.description}
+                    value={description}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Gender</Text>
                   <GenderDropdown
                     onSelectGender={setGender}
                     onChange={handleGenderChange}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Type</Text>
-                  <TypeDropdown
-                    onSelectType={setItemType}
-                    onChange={handleItemTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Event</Text>
-                  <EventsDropdown
-                    onSelectEvent={setEventType}
-                    onChange={handleEventTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-                  <OutfitDropdown
-                    onSelectOutfit={setOutfitType}
-                    onChange={handleOutfitChange}
-                  />
-                  <View style={OwnerEditItemstyles.Sizecontainer}>
-                    <Text style={OwnerEditItemstyles.Sizetext}> Size</Text>
-                    <Sizeselection
-                      onSelectSize={setSelectedsize}
-                      onChange={handleSizeTypeChange}
+                  <View style={{marginTop: -18}}>
+                    <TypeDropdown
+                      onSelectType={setItemType}
+                      onChange={handleItemTypeChange}
                     />
+                  </View>
+                  <View style={{marginTop: -26}}>
+                    <EventsDropdown
+                      onSelectEvent={setEventType}
+                      onChange={handleEventTypeChange}
+                    />
+                  </View>
+                  <View style={{marginTop: -12}}>
+                    <OutfitDropdown
+                      onSelectOutfit={setOutfitType}
+                      onChange={handleOutfitChange}
+                    />
+                  </View>
+                  <View style={OwnerEditItemstyles.Sizecontainer}>
+                    <View style={{marginTop: -16}}>
+                      <Sizeselection
+                        onSelectSize={setSelectedsize}
+                        onChange={handleSizeTypeChange}
+                      />
+                    </View>
                   </View>
                   <View style={OwnerEditItemstyles.ImageBox}>
-                    <Text style={OwnerEditItemstyles.addImagesText}>
-                      Add Images *
-                    </Text>
-                    {selectedImage ? (
-                      <>
-                        <ScrollView
-                          horizontal
-                          style={OwnerEditItemstyles.imagehorizontal}>
-                          {imageUrls.map((image, index) => (
-                            <Image
-                              style={OwnerEditItemstyles.image}
-                              source={{uri: image}}
-                              key={index}
-                            />
-                          ))}
-                        </ScrollView>
-                        <View style={OwnerEditItemstyles.removeContainer}>
-                          <TouchableOpacity
-                            onPress={handleremove}
-                            style={OwnerEditItemstyles.touchableContainer}>
-                            <Text style={OwnerEditItemstyles.removeText}>
-                              Remove
-                            </Text>
-                          </TouchableOpacity>
+                    <View style={{marginTop: -20}}>
+                      {selectedImage ? (
+                        <>
+                          <ScrollView
+                            horizontal
+                            style={OwnerEditItemstyles.imagehorizontal}>
+                            {imageUrls.map((image, index) => (
+                              <Image
+                                style={OwnerEditItemstyles.image}
+                                source={{uri: image}}
+                                key={index}
+                              />
+                            ))}
+                          </ScrollView>
+                          <View style={OwnerEditItemstyles.removeContainer}>
+                            <TouchableOpacity
+                              onPress={handleremove}
+                              style={OwnerEditItemstyles.touchableContainer}>
+                              <Text style={OwnerEditItemstyles.removeText}>
+                                Remove
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </>
+                      ) : (
+                        <View style={OwnerEditItemstyles.Addimage}>
+                          <Text
+                            onPress={pickImg}
+                            style={OwnerEditItemstyles.imagesText}>
+                            Add Image
+                          </Text>
                         </View>
-                      </>
-                    ) : (
-                      // <Mainbutton onPress={undefined} text="remove" />
-                      <View style={OwnerEditItemstyles.Addimage}>
-                        <MaterialIcons
-                          style={OwnerEditItemstyles.AddIcon}
-                          name="add-to-photos"
-                        />
-                        <Text
-                          onPress={pickImg}
-                          style={OwnerEditItemstyles.imagesText}>
-                          Add Image
-                        </Text>
-                      </View>
-                    )}
+                      )}
+                    </View>
                   </View>
                   <View>
-                    <Text style={OwnerEditItemstyles.Pricetext}> Price</Text>
-                    {console.log('Price is ', price)}
                     <TextInput
-                      style={OwnerEditItemstyles.Price}
+                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
+                      placeholder="Set price"
+                      placeholderTextColor={Colors.black}
                       keyboardType="numeric"
                       value={price.toString()}
-                      onChangeText={(value: any) => setPrice(value)}
+                      onChangeText={setPrice}
                     />
-                    <Text style={OwnerEditItemstyles.Pricetext}> Quantity</Text>
                     <TextInput
                       keyboardType="numeric"
-                      style={OwnerEditItemstyles.Price}
+                      placeholder="Set quantity"
+                      placeholderTextColor={Colors.black}
+                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
                       value={quantity.toString()}
-                      onChangeText={(value: any) => setQuantity(value)}
+                      onChangeText={setQuantity}
                     />
-                    {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
                   </View>
                   <View style={Ownerstyles.mainButton}>
                     <TouchableOpacity
                       style={Ownerstyles.mainTouchable}
                       onPress={handleedit}>
-                      <Text style={Ownerstyles.touchableText}>Edit Item</Text>
+                      <Text style={Ownerstyles.touchableText}>Save</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -196,17 +196,20 @@ const App = () => {
         </SafeAreaView>
       </Modal>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={OwnerEditItemstyles.backContainer}>
-            <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>Edit Items</Text>
+        <View>
+          <HeadingText message="Edit Product" />
+        </View>
+        {isLoading ? (
+          <View style={{height: 200, width: 400}}>
+            <Lottie
+              source={require('../../../assets/EditProducts.json')}
+              autoPlay
+            />
           </View>
-        </TouchableOpacity>
-
-        {data.map(item => {
-          return (
-            <>
-              <View style={styles.item_course} key={item}>
+        ) : (
+          data.map(item => (
+            <View style={styles.mainContainer} key={item.id}>
+              <View style={styles.item_course}>
                 <View style={OwnerEditItemstyles.imagePriceContainer}>
                   <View style={OwnerEditItemstyles.cardImageContainer}>
                     <Image
@@ -221,8 +224,10 @@ const App = () => {
                 </View>
                 <View style={OwnerEditItemstyles.buttonContainer}>
                   <TouchableOpacity
-                    onPress={() => FetchData()}
-                    onPressIn={() => setEditProductId(item.id)}>
+                    onPress={() => {
+                      FetchData(item.id);
+                      setEditProductId(item.id);
+                    }}>
                     <View style={OwnerEditItemstyles.button}>
                       <Text style={styles.txt_edit}>Edit</Text>
                     </View>
@@ -234,14 +239,14 @@ const App = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              {/* <CustomModal
+              <CustomModal
                 showModal={showModal}
                 onClose={closeModal}
-                message="Need to set Rental dates!"
-              /> */}
-            </>
-          );
-        })}
+                message="Item Remove From cart!"
+              />
+            </View>
+          ))
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -251,9 +256,6 @@ export default App;
 
 const styles = StyleSheet.create({
   form: {
-    // padding: 15,
-    // backgroundColor : "#e3e3e3",
-    marginTop: 10,
     backgroundColor: Colors.main,
     marginLeft: -10,
   },
@@ -265,6 +267,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 15,
     color: Colors.iconscolor,
+  },
+  mainContainer: {
+    backgroundColor: Colors.main,
+    height: 300,
   },
   text_input: {
     padding: 10,
@@ -284,26 +290,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item_course: {
-    // padding: 15,
     marginLeft: 30,
     marginTop: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#e2e2e2',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // backgroundColor: 'green',
   },
   txt_name: {
     fontSize: 12,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54ACCC',
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
   },
   txt_item: {
-    fontSize: 10,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54AC99',
+    fontSize: 13,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.buttonColor,
   },
   txt_enabled: {
     fontSize: 14,
@@ -319,15 +320,15 @@ const styles = StyleSheet.create({
   },
   txt_del: {
     fontSize: 15,
-    // marginTop: 5,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   txt_edit: {
     fontSize: 15,
-    // marginTop: 5,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   btnContainer: {
     display: 'flex',

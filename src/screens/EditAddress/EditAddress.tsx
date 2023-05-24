@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 import {Text, TouchableOpacity, View, TextInput} from 'react-native';
 import React from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -11,6 +12,9 @@ import {OwnerAddressCustomHook} from '../Owneraddaddress/Useowneraddress';
 import {useEditaddress} from './UseEditAddress';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingText';
+import {ScrollView} from 'react-native-gesture-handler';
 const EditAddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -37,7 +41,7 @@ const EditAddress = () => {
   } = useEditaddress();
   const {isLoading} = OwnerAddressCustomHook();
   return (
-    <View>
+    <ScrollView style={style.headercontainer}>
       {isLoading ? (
         <>
           <SkeletonPlaceholder>
@@ -83,27 +87,12 @@ const EditAddress = () => {
         </>
       ) : (
         <>
-          <View style={style.addAddressHeader}>
-            <TouchableOpacity
-              style={style.backBtn}
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <MaterialIcons
-                color={Colors.iconscolor}
-                size={26}
-                name="arrow-back-ios"
-              />
-            </TouchableOpacity>
-            <View style={style.addAddressContainer}>
-              <Text style={style.addAddressText}> Address</Text>
-            </View>
-          </View>
+          <BackButton />
+
+          {/* <HeadingText message='Edit address'/> */}
+
           <View style={style.subContainer}>
-            <Text style={style.Titletext}>Add Address</Text>
-            <Text style={style.titleContainer}>
-              ____________________________
-            </Text>
+            <Text style={style.Titletext}>Edit address</Text>
             <Text style={style.textField}>Flat no / Building </Text>
             <View>
               <TextInput
@@ -125,7 +114,7 @@ const EditAddress = () => {
               />
               <View style={style.textContainer}>
                 <Text style={style.textField}> City </Text>
-                <Text style={style.textField}> Pincode </Text>
+                <Text style={style.textFieldpincode}> Pincode </Text>
               </View>
               <View style={style.cityContainer}>
                 <TextInput
@@ -141,25 +130,27 @@ const EditAddress = () => {
                   onChangeText={setPostalCode}
                 />
               </View>
-              <Text style={style.textField}> Type Of Address</Text>
+              <Text style={style.texttypeField}> Type Of Address</Text>
               <View style={style.containerRadio}>
                 <View style={style.optionRadio}>
-                  <Text style={style.textRadio}>Home</Text>
                   <RadioButton
                     value="Home"
                     status={selectedOption === 'Home' ? 'checked' : 'unchecked'}
                     onPress={() => handleOptionChange('Home')}
+                    color="black"
                   />
+                  <Text style={style.textRadio}>Home</Text>
                 </View>
                 <View style={style.optionRadio}>
-                  <Text style={style.textRadio}>Office</Text>
                   <RadioButton
                     value="Office"
                     status={
                       selectedOption === 'Office' ? 'checked' : 'unchecked'
                     }
                     onPress={() => handleOptionChange('Office')}
+                    color="black"
                   />
+                  <Text style={style.textRadio}>Office</Text>
                 </View>
               </View>
               <View style={style.containerCheckbox}>
@@ -174,7 +165,7 @@ const EditAddress = () => {
               </View>
             </View>
             <TouchableOpacity
-              style={style.btnfieldAddress}
+              style={style.btnfieldupdateAddress}
               onPress={handleUpdateAddress}>
               <Text style={style.btntextAddress}>Update Address </Text>
             </TouchableOpacity>
@@ -186,7 +177,7 @@ const EditAddress = () => {
           </View>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 export default EditAddress;

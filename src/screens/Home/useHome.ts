@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {removeFromWishlist} from '../../redux/actions/actions';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import ApiService from '../../network/network';
 function useHome() {
   const [refreshing, setRefreshing] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -14,12 +15,11 @@ function useHome() {
   const [Data, setData] = useState([]);
   const [oldData, setOldDate] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [recommendations, setRecommendations] = useState([]);
   const navigation = useNavigation();
-  const searchProducts = async query => {
+  const searchProducts = async (query: any) => {
     try {
-      const response = await fetch(`${url}/product/search?query=${query}`);
-      const data = await response.json();
+      const data = await ApiService.get(`${url}/product/search?query=${query}`);
+      // const data = await response.json();
       navigation.navigate('SearchResultsScreen', {searchResults: data});
       setData(data);
       setOldDate(data);
@@ -53,10 +53,7 @@ function useHome() {
         Alert.alert('Item Removed from Wishlist');
       })
       .catch(error => {
-        // console.error(error);
-        // const errorMessage = `Error removing item from Wishlist: ${error.message}`;
-        // Handle the error and display a more informative error message to the user
-        // Alert.alert(errorMessage);
+        console.log(error);
       });
   };
 
@@ -74,7 +71,6 @@ function useHome() {
     searchProducts,
     setSearchQuery,
     loading,
-    // recommendations,
   };
 }
 export default useHome;

@@ -25,10 +25,8 @@ function Useotp() {
     otp,
     handlephoneNumberChange,
     handlePasswordChange,
-    // handleBlur,
     GETOTP,
     handleLogin,
-    // formik,
     passwordError,
     setPasswordError,
   };

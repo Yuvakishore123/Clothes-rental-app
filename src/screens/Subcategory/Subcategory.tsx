@@ -1,16 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ScrollView} from 'react-native-gesture-handler';
+// import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import Lottie from 'lottie-react-native';
+import styles from './subcategoryStyles';
+import Colors from '../../constants/Colors';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
+  const {colorScheme} = useCart();
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(() => {
@@ -41,10 +48,10 @@ const SubcategoryList = ({route}) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
-          // backgroundColor: '#3E54AC',
+          backgroundColor: Colors.main,
         }}>
         <Lottie
-          source={require('../../../Assets/loading.json')}
+          source={require('../../../assets/loading2.json')}
           autoPlay
           style={{
             height: 200,
@@ -54,28 +61,38 @@ const SubcategoryList = ({route}) => {
             borderRadius: 40,
           }}
         />
-        <Text style={{color: '#3E54AC', fontSize: 15, fontWeight: '600'}}>
+        <Text style={{color: Colors.white, fontSize: 15, fontWeight: '600'}}>
           The Items are Loading...
         </Text>
       </View>
     );
   }
   return (
-    <ScrollView>
-      <View style={styles.textContainers}>
-        <View style={styles.dheader}>
-          <Icon
-            name="arrow-back-ios"
-            size={24}
-            color="#3E54AC"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-        <Text style={styles.textStyle}>Sub Category</Text>
-      </View>
+    <ScrollView
+      style={colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme}>
+      <HeadingText message="Subcategories" />
+      {/* <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <MaterialIcon
+          name="md-chevron-back"
+          color={Colors.black}
+          size={26}
+          style={{alignSelf: 'center'}}
+        />
+      </TouchableOpacity>
+      <Text
+        style={[
+          styles.textStyle,
+          colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+        ]}>
+        Shop by Subcategories
+      </Text> */}
       {loading ? (
         <View style={styles.loaderContainer}>
-          <Lottie source={require('../../../Assets/loading.json')} autoPlay />
+          <Lottie source={require('../../../assets/loading2.json')} autoPlay />
         </View>
       ) : (
         <View>
@@ -88,15 +105,41 @@ const SubcategoryList = ({route}) => {
                     subcategoryId: item.id,
                   })
                 }>
-                <View style={styles.SubCategoryBox}>
-                  <Image
-                    style={{height: 107, width: 340, opacity: 0.8}}
-                    source={{uri: item.imageUrl}}
-                  />
+                <View
+                  style={[
+                    styles.categoryBox,
+                    colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  ]}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={{uri: item.imageUrl}}
+                      style={styles.categoryImage}
+                    />
+                  </View>
                   <View>
-                    <Text style={styles.SubCategoryText}>
+                    <Text
+                      style={[
+                        styles.categoryText,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}>
                       {item.subcategoryName}
                     </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: '90%',
+                      position: 'absolute',
+                      marginLeft: '50%',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Icon
+                      name="arrow-forward-ios"
+                      size={20}
+                      style={styles.productforwardios}
+                    />
                   </View>
                 </View>
               </TouchableOpacity>
@@ -107,64 +150,3 @@ const SubcategoryList = ({route}) => {
   );
 };
 export default SubcategoryList;
-const styles = StyleSheet.create({
-  SubCategoryBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 340,
-    height: 90,
-    backgroundColor: '#DBE2F7',
-    opacity: 50,
-    borderRadius: 8,
-    // backgroundColor: 'pink',
-    marginLeft: 25,
-    marginTop: 30,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    // shadowOpacity: 1,
-    // shadowRadius: 3,
-  },
-  loaderContainer: {
-    flex: 1,
-    height: 200,
-    width: 200,
-    marginLeft: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textStyle: {
-    color: '#394887',
-    fontSize: 20,
-    // marginLeft: 10,
-    marginBottom: 20,
-    marginTop: 20,
-    fontWeight: 'bold',
-  },
-  SubCategoryText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '900',
-    zIndex: 1,
-    marginTop: -60,
-  },
-  textContainers: {
-    color: '#394887',
-    flexDirection: 'row',
-  },
-  dheader: {
-    marginTop: 23,
-    // top: 90,
-    // flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    zIndex: 1,
-    marginLeft: 10,
-  },
-});

@@ -12,6 +12,8 @@ import Useadditems from './Useadditems';
 import Colors from '../../constants/Colors';
 import Styles from '../LoginScreen/LoginStyle';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const Additems = () => {
   const {
     name,
@@ -39,8 +41,6 @@ const Additems = () => {
             <View
               style={{
                 backgroundColor: Colors.main,
-                // height: '100%',
-                // width: '100%',
               }}>
               <Text style={Ownerstyles.Imageitem}></Text>
             </View>
@@ -91,46 +91,27 @@ const Additems = () => {
         </>
       ) : (
         <>
-          <Text style={Ownerstyles.Titletext}> Add Items </Text>
-          <View>
-            <Image
-              style={Ownerstyles.Imageitem}
-              source={require('../../../Assets/additems1.png')}
-            />
-          </View>
+          {/* <HeadingText message="Add Products" /> */}
+
           <View style={Ownerstyles.Scrollcontainer}>
-            {/* <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleItems}>
-              {({
-                handleChange,
-                handleBlur,
-                isValid,
-                dirty,
-                handleSubmit,
-                values,
-                errors,
-              }) => ( */}
             <View style={Ownerstyles.scroll}>
-              <Text style={Ownerstyles.Itemname}>Name *</Text>
+              <Text style={Ownerstyles.EditText}>Add products</Text>
               <TextInput
-                style={Ownerstyles.Namefield}
-                // onChangeText={setName}
+                placeholderTextColor={Colors.gray}
+                placeholder="Name"
+                style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                 value={name}
-                // value={values.name}
                 onChangeText={handleNameChange}
                 onBlur={() => handleBlur('name')}
               />
               {formik.touched.name && formik.errors.name && (
                 <Text style={Styles.errorText}>{formik.errors.name}</Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Description *</Text>
               <TextInput
-                style={Ownerstyles.Descriptionfield}
-                // onChangeText={setDescription}
+                placeholderTextColor={Colors.gray}
+                placeholder="Description"
+                style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                 multiline
-                // value={description}
                 onChangeText={handleDescriptionChange}
                 onBlur={() => handleBlur('description')}
                 value={description}
@@ -140,51 +121,45 @@ const Additems = () => {
                   {formik.errors.description}
                 </Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Select Gender *</Text>
               <GenderDropdown
                 onSelectGender={setGender}
                 onChange={handleGenderChange}
               />
-              {/* {errors.gender && (
-                <Text style={{color: 'red'}}>{errors.gender}</Text>
-              )} */}
               {formik.touched.gender && formik.errors.gender && (
                 <Text style={Styles.errorText}>{formik.errors.gender}</Text>
               )}
-              <Text style={Ownerstyles.Itemname}>Select Type </Text>
-              <TypeDropdown
-                onSelectType={setItemType}
-                onChange={handleItemTypeChange}
-              />
-              {/* {errors.eventType && (
-                <Text style={{color: 'red'}}>{errors.eventType}</Text>
-              )} */}
-              <Text style={Ownerstyles.Itemname}>Select Event *</Text>
-              <EventsDropdown
-                onSelectEvent={setEventType}
-                onChange={handleEventTypeChange}
-              />
-              {formik.touched.eventType && formik.errors.eventType && (
-                <Text style={Styles.errorText}>{formik.errors.eventType}</Text>
-              )}
-              <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-              <OutfitDropdown
-                onSelectOutfit={setOutfitType}
-                onChange={handleOutfitChange}
-              />
-              {/* {formik.touched.outfitType && formik.errors.outfitType && (
-                <Text style={Styles.errorText}>{formik.errors.outfitType}</Text>
-              )} */}
-              {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
+
+              <View style={{flexDirection: 'column', marginTop: -20}}>
+                <TypeDropdown
+                  onSelectType={setItemType}
+                  onChange={handleItemTypeChange}
+                />
+              </View>
+              <View style={{flexDirection: 'column', marginTop: -29}}>
+                <EventsDropdown
+                  onSelectEvent={setEventType}
+                  onChange={handleEventTypeChange}
+                />
+                {formik.touched.eventType && formik.errors.eventType && (
+                  <Text style={Styles.errorText}>
+                    {formik.errors.eventType}
+                  </Text>
+                )}
+              </View>
+              <View style={{flexDirection: 'column', marginTop: -17}}>
+                <OutfitDropdown
+                  onSelectOutfit={setOutfitType}
+                  onChange={handleOutfitChange}
+                />
+              </View>
+
               <View style={Ownerstyles.mainButton}>
                 <TouchableOpacity
                   disabled={!formik.isValid}
                   style={[
                     Ownerstyles.mainTouchable,
                     {
-                      backgroundColor: formik.isValid
-                        ? Colors.iconscolor
-                        : '#A5C9CA',
+                      backgroundColor: formik.isValid ? '#9747FF' : '#A5C9CA',
                     },
                   ]}
                   onPress={formik.handleSubmit}>

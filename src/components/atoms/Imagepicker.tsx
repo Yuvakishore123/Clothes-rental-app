@@ -1,4 +1,45 @@
-/* eslint-disable react-native/no-inline-styles */
+// import {launchImageLibrary} from 'react-native-image-picker';
+// import {View, Text, Button, Image} from 'react-native';
+// import React, {useState} from 'react';
+
+// export default function Imagepicker() {
+//   const [selectedImage, setSelectedImage] = useState(null);
+
+//   const OpenPicker = () => {
+//     launchImageLibrary(
+//       {
+//         mediaType: 'photo', // only pick images, not videos or others
+//         includeBase64: false, // set to true if you want to include the image data as base64-encoded string
+//       },
+//       response => {
+//         console.log('Response = ', response);
+
+//         if (response.didCancel) {
+//           console.log('User cancelled image picker');
+//         } else if (response.error) {
+//           console.log('ImagePicker Error: ', response.error);
+//         } else if (response.customButton) {
+//           console.log('User tapped custom button: ', response.customButton);
+//         } else {
+//           // Selected image
+//           const source = {uri: response.uri};
+
+//           setSelectedImage(source);
+//         }
+//       },
+//     );
+//   };
+
+//   return (
+//     <View>
+//       {selectedImage ? (
+//         <Image source={selectedImage} style={{width: 200, height: 200}} />
+//       ) : (
+//         <Button onPress={OpenPicker} title="Choose image" />
+//       )}
+//     </View>
+//   );
+// }
 import ImagePicker from 'react-native-image-crop-picker';
 import {View, Text, TouchableOpacity, Platform, Alert} from 'react-native';
 import React from 'react';
@@ -37,6 +78,24 @@ const Imagepicker = () => {
         imageUpload(image.path);
       });
     };
+    // const imageUpload = imagePath => {
+    //   const imageData = new FormData();
+    //   imageData.append('file', {
+    //     uri: imagePath,
+    //     name: 'file',
+    //   });
+    //   axios({
+    //     method: 'post',
+    //     url: 'http://e5f3-180-151-211-33.ngrok.io/file/upload',
+    //     data: imageData,
+    //   })
+    //     .then(function (response) {
+    //       console.log('image uploaded', response);
+    //     })
+    //     .catch(function (error) {
+    //       console.log('error uploading image', error);
+    //     });
+    // };
     const imageUpload = async (imagePath: string) => {
       const formdata = new FormData();
       const token = await AsyncStorage.getItem('token');

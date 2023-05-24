@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import {Alert} from 'react-native';
+// import {Alert} from 'react-native';
 import axios from 'axios';
 import {url} from '../../constants/Apis';
 function Usesignup() {
@@ -20,12 +20,20 @@ function Usesignup() {
   });
 
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phoneNumber, setphoneNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const handleSignupfun = async () => {
     console.log('indrill');
     console.log(role);
@@ -38,11 +46,12 @@ function Usesignup() {
         password,
         role,
       });
-      Alert.alert('Signup Successful!');
+      // Alert.alert('Signup Successful!');
       console.log(response.data);
       navigation.navigate('Login');
     } catch (error) {
-      Alert.alert('Signup Error!', error.message);
+      openModal();
+      // Alert.alert('Signup Error!', error.message);
       console.log(error);
     }
   };
@@ -91,6 +100,9 @@ function Usesignup() {
     password,
     formik,
     role,
+    openModal,
+    closeModal,
+    showModal,
     handleFirstNameChange,
     handlephoneNumber,
     handleLastNameChange,

@@ -6,7 +6,7 @@ import ApiService from '../../network/network';
 export const fetchProducts = createAsyncThunk('fetchProducts', async () => {
   // get the token from the state
   try {
-    const token = await AsyncStorage.getItem('token');
+    // const token = await AsyncStorage.getItem('token');
     const products = await ApiService.get(OwnerProductsUrlv2);
     return products;
     // const response = await axios.get(OwnerProductsUrl, {

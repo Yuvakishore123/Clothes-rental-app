@@ -5,6 +5,8 @@ import {url} from './Apis';
 const ProfileData = () => {
   const navigation = useNavigation();
   const [name, setFirstName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhone] = useState('');
   const fetchProfileData = async () => {
     const token = await AsyncStorage.getItem('token');
     try {
@@ -18,6 +20,8 @@ const ProfileData = () => {
       if (response.ok) {
         const profileData = await response.json();
         setFirstName(profileData.firstName);
+        setEmail(profileData.email);
+        setPhone(profileData.phoneNumber);
       } else {
         throw new Error('Failed to fetch profile name');
       }
@@ -32,6 +36,6 @@ const ProfileData = () => {
     });
     return unsubscribe;
   }, [navigation]);
-  return {name};
+  return {name, email, phonenumber};
 };
 export default ProfileData;

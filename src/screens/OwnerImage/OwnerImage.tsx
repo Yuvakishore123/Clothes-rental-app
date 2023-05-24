@@ -1,6 +1,12 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OwnerImagestyles from './OwnerImagestyles';
@@ -9,13 +15,17 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-import Ownerstyles from '../Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
-
+import Ownerstyles from '../Additems/Additemsstyle';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import Lottie from 'lottie-react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 export default function Owneraddimages() {
   const {
     onHandleOwnerItems,
     // Onhandlepress,
+    handleRemoveImage,
     handleSizeTypeChange,
     setSelectedsize,
     handlePriceChange,
@@ -28,55 +38,81 @@ export default function Owneraddimages() {
     closeModal,
     showModal,
     formik,
+    isLoading,
   } = Useownerimage();
-  console.log('johnresly', imageUrls);
+  const areImagesUploaded = imageUrls && imageUrls.length > 0;
+  // console.log('johnresly', imageUrls);
   return (
-    <ScrollView style={{backgroundColor: Colors.main}}>
+    <ScrollView style={{height: '100%', backgroundColor: Colors.black}}>
       <View style={OwnerImagestyles.Scroll}>
-        <View style={OwnerImagestyles.TitletextContainer}>
-          <MaterialIcons
-            style={OwnerImagestyles.Icon}
-            onPress={onHandleOwnerItems}
-            name="arrow-back-ios"
-          />
-          <Text style={OwnerImagestyles.TitleText}>Add Items</Text>
-        </View>
+        <HeadingText message="Add products" />
         <View style={OwnerImagestyles.form}>
+          {/* <Spinner
+            visible={isLoading}
+            textContent={'Loading...'}
+            textStyle={{color: Colors.white}}
+          /> */}
           <View style={OwnerImagestyles.ImageBox}>
-            <Text style={OwnerImagestyles.addImagesText}>Add Images *</Text>
-            {selectedImage ? (
+            {imageUrls && areImagesUploaded ? (
               <>
                 <ScrollView horizontal style={OwnerImagestyles.imagehorizontal}>
                   {imageUrls.map((image, index) => (
-                    <Image
-                      style={OwnerImagestyles.image}
-                      source={{uri: image}}
-                      key={index}
-                    />
+                    <View key={index} style={OwnerImagestyles.ImageContainer}>
+                      <Image
+                        style={OwnerImagestyles.image}
+                        source={{uri: image}}
+                      />
+                      <TouchableOpacity
+                        onPress={() => handleRemoveImage(index)}
+                        style={OwnerImagestyles.removeIconContainer}>
+                        <MaterialIcons
+                          name="cancel"
+                          size={25}
+                          color={Colors.red}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   ))}
                 </ScrollView>
-                <View style={OwnerImagestyles.removeContainer}>
-                  <TouchableOpacity
-                    onPress={handleremove}
-                    style={OwnerImagestyles.touchableContainer}>
-                    <Text style={OwnerImagestyles.removeText}>Remove</Text>
-                  </TouchableOpacity>
-                </View>
+                {areImagesUploaded && (
+                  <View style={OwnerImagestyles.removeContainer}>
+                    <TouchableOpacity
+                      onPress={pickImages}
+                      style={OwnerImagestyles.touchableContainer}>
+                      <Text style={OwnerImagestyles.removeText}>Add More</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </>
             ) : (
-              // <Mainbutton onPress={undefined} text="remove" />
-              <View style={OwnerImagestyles.Addimage}>
-                <MaterialIcons
-                  style={OwnerImagestyles.AddIcon}
-                  name="add-to-photos"
-                />
-                <Text onPress={pickImages} style={OwnerImagestyles.imagesText}>
-                  Add Image
-                </Text>
-              </View>
+              <>
+                <TouchableOpacity
+                  style={OwnerImagestyles.Addimage}
+                  onPress={pickImages}>
+                  <Lottie
+                    source={require('../../../assets/addimageol.json')}
+                    style={OwnerImagestyles.imagesText}
+                    autoPlay
+                  />
+                  {isLoading && (
+                    <View style={OwnerImagestyles.overlay}>
+                      <ActivityIndicator size="large" color="black" />
+                    </View>
+                  )}
+                  {!isLoading && (
+                    <Text style={OwnerImagestyles.imagetxt}></Text>
+                  )}
+                </TouchableOpacity>
+
+                {/* <Spinner
+                  visible={isLoading}
+                  textContent={'Loading...'}
+                  textStyle={{color: Colors.white}}
+                  style={{width: 200, height: 200}} // Add this line
+                /> */}
+              </>
             )}
             <View style={OwnerImagestyles.Sizecontainer}>
-              <Text style={OwnerImagestyles.Sizetext}> Size *</Text>
               <Sizeselection
                 onSelectSize={setSelectedsize}
                 onChange={handleSizeTypeChange}
@@ -88,42 +124,39 @@ export default function Owneraddimages() {
                 <Text style={Styles.errorText}>{formik.errors.size}</Text>
               )}
             </View>
-            <Text style={OwnerImagestyles.Pricetext}> Price *</Text>
             <TextInput
-              style={OwnerImagestyles.Price}
+              style={[OwnerImagestyles.Price, {paddingLeft: 25}]}
+              placeholder="Select price"
+              placeholderTextColor="black"
               keyboardType="numeric"
-              // onChangeText={(value: any) => setPrice(value)}
               onChangeText={handlePriceChange}
               onBlur={() => handleBlur('price')}
             />
             {formik.touched.price && formik.errors.price && (
               <Text style={Styles.errorText}>{formik.errors.price}</Text>
             )}
-            <Text style={OwnerImagestyles.Quantitytext}> Quantity *</Text>
             <TextInput
               keyboardType="numeric"
-              style={OwnerImagestyles.Price}
-              // onChangeText={(value: any) => setQuantity(value)}
+              placeholder="Select quantity"
+              placeholderTextColor="black"
+              style={[OwnerImagestyles.quantity, {paddingLeft: 25}]}
               onChangeText={handleQuantityChange}
               onBlur={() => handleBlur('quantity')}
             />
             {formik.touched.quantity && formik.errors.quantity && (
               <Text style={Styles.errorText}>{formik.errors.quantity}</Text>
             )}
-            {/* <Mainbutton onPress={postData} text="Add Items" /> */}
             <View style={Styles.mainButton}>
               <TouchableOpacity
                 disabled={!formik.isValid}
                 onPress={formik.handleSubmit}
                 style={[
-                  Ownerstyles.MainButton,
+                  Styles.mainTouchable,
                   {
-                    backgroundColor: formik.isValid
-                      ? Colors.iconscolor
-                      : '#A5C9CA',
+                    backgroundColor: formik.isValid ? '#9747FF' : '#A5C9CA',
                   },
                 ]}>
-                <Text style={Styles.touchableText}>Add Items</Text>
+                <Text style={Styles.touchableText}>Add product</Text>
               </TouchableOpacity>
             </View>
           </View>

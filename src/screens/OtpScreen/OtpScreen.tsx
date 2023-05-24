@@ -7,72 +7,97 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import Styles from '../LoginScreen/LoginStyle';
+import Lottie from 'lottie-react-native';
+import Styles from '../../screens/OtpScreen/Otpstyles';
+import style from '../../constants/themeColors';
 import Useotp from './Useotp';
+import useCart from '../Cart/useCart';
 export default function LoginScreen() {
   const {
     phoneNo,
     otp,
     handlephoneNumberChange,
     handlePasswordChange,
-    // handleBlur,
     GETOTP,
     handleLogin,
-    // formik,
     passwordError,
   } = Useotp();
+  const {colorScheme} = useCart();
   return (
-    <ScrollView style={Styles.mainContainer}>
+    <ScrollView
+      style={[
+        Styles.mainContainer,
+        colorScheme === 'dark' ? style.blacktheme : style.whiteTheme,
+      ]}>
       <View style={Styles.container}>
-        <View style={Styles.titleTextContainer}>
-          <Text style={Styles.titleText}>OTP Login</Text>
-          <Image
+        <View style={[Styles.titleTextContainer]}>
+          <Lottie
             style={Styles.image}
-            source={require('../../../Assets/LoginImage.png')}
+            source={require('../../../assets/Otp.json')}
+            autoPlay
+          />
+          {/* <Image
+            style={Styles.image}
+            source={require('../../../assets/LeapsLogo.png')}
+          /> */}
+        </View>
+        <View>
+          <Text
+            style={[
+              Styles.Textphonenumber,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
+            ]}>
+            Phone number{' '}
+          </Text>
+        </View>
+        <View>
+          <TextInput
+            style={[
+              Styles.textinputphone,
+              colorScheme === 'dark' ? style.cardColor : style.main,
+            ]}
+            placeholder="Enter phone number"
+            placeholderTextColor={'black'}
+            value={phoneNo}
+            autoCapitalize="none"
+            keyboardType="numeric"
+            onChangeText={handlephoneNumberChange}
           />
         </View>
-        <View style={Styles.card}>
-          <View>
-            <Text style={Styles.cardText}> PhoneNumber </Text>
-          </View>
-          <View>
-            <TextInput
-              style={Styles.textinput}
-              placeholder="Enter PhoneNumber"
-              placeholderTextColor={'#3E54AC'}
-              value={phoneNo}
-              autoCapitalize="none"
-              keyboardType="numeric"
-              onChangeText={handlephoneNumberChange}
-              // onBlur={() => handleBlur('phoneNo')}
-            />
-            {/* {formik.touched.phoneNo && formik.errors.phoneNo && (
-              <Text style={Styles.errorText}>{formik.errors.phoneNo} </Text>
-            )} */}
-          </View>
-          <View>
-            <Text style={Styles.cardText}>OTP</Text>
-            <TextInput
-              style={Styles.textinput}
-              placeholder="Enter Otp"
-              placeholderTextColor={'#3E54AC'}
-              value={otp}
-              secureTextEntry={true}
-              onChangeText={handlePasswordChange}
-              // onBlur={() => handleBlur('otp')}
-            />
-            {/* {formik.touched.otp && formik.errors.otp && (
-              <Text style={Styles.errorText}>{formik.errors.otp} </Text>
-            )} */}
-          </View>
-          {passwordError.length > 0 && <Text>{passwordError}</Text>}
+        <View>
+          <Text
+            style={[
+              Styles.TextOTP,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
+            ]}>
+            Otp
+          </Text>
+          <TextInput
+            style={[
+              Styles.textinputOTP,
+              colorScheme === 'dark' ? style.cardColor : style.main,
+            ]}
+            placeholder="Enter Otp"
+            placeholderTextColor={'black'}
+            value={otp}
+            secureTextEntry={true}
+            onChangeText={handlePasswordChange}
+          />
         </View>
+        {passwordError.length > 0 && <Text>{passwordError}</Text>}
         <View style={Styles.touchablebtnContainer}>
-          <TouchableOpacity style={Styles.touchablebtn} onPress={GETOTP}>
-            <Text style={Styles.touchableText}>Get OTP</Text>
+          <TouchableOpacity onPress={GETOTP}>
+            <Text
+              style={[
+                Styles.Text,
+                colorScheme === 'dark' ? style.whitetext : style.blackText,
+              ]}>
+              Get
+            </Text>
+            <Text style={Styles.touchableTextOTP}>Otp</Text>
           </TouchableOpacity>
           <TouchableOpacity style={Styles.touchablebtn} onPress={handleLogin}>
-            <Text style={Styles.touchableText}>Login</Text>
+            <Text style={Styles.touchableTextcontinue}>Continue</Text>
           </TouchableOpacity>
         </View>
       </View>

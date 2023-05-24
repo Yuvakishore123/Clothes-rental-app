@@ -9,7 +9,7 @@ export const useEditaddress = () => {
   const {address} = route.params;
   const [city, setCity] = useState(address.city);
   const [state, setStateName] = useState(address.state);
-  const [addressid, setId] = useState(address.id);
+  const [addressid] = useState(address.id);
   const [addressLine1, setAddressLine1] = useState(address.addressLine1);
   const [addressLine2, setAddressLine2] = useState(address.addressLine2);
   const [postalCode, setPostalCode] = useState(address.postalCode);

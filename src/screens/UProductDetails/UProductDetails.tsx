@@ -1,200 +1,54 @@
-// /* eslint-disable react/self-closing-comp */
-// /* eslint-disable react-native/no-inline-styles */
-// import React, {useState} from 'react';
-// import {
-//   StatusBar,
-//   Text,
-//   View,
-//   ImageBackground,
-//   TouchableOpacity,
-// } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-// import DatePicker from '../../components/atoms/DatePicker Detail';
-// import {ScrollView} from 'react-native-gesture-handler';
-// import styles from './UProductDetailsStyle';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {useDispatch} from 'react-redux';
-// import {url} from '../../constants/Apis';
-// import CustomModal from '../../components/atoms/CustomModel/CustomModel';
-// type Props = {
-//   route: {params: {product: any}};
-//   navigation: any;
-// };
-// export default function UDetailScreen({route, navigation}: Props) {
-//   const {product} = route.params;
-//   const [rentalStartDate, setRentalStartDate] = useState(new Date());
-//   const [rentalEndDate, setRentalEndDate] = useState(new Date());
-//   const [quantity, setQuantity] = useState(1);
-//   const [showModal, setShowModal] = useState(false);
-//   const decrementQuantity = () => {
-//     if (quantity > 1) {
-//       setQuantity(quantity - 1);
-//     }
-//   };
-//   console.log('hey bhai', product);
-//   const incrementQuantity = () => {
-//     setQuantity(quantity + 1);
-//   };
-//   const handleSubmit = async () => {
-//     const item = {
-//       productId: product.id,
-//       quantity: quantity,
-//       rentalEndDate: rentalEndDate.toISOString(),
-//       rentalStartDate: rentalStartDate.toISOString(),
-//     };
-//     const token = await AsyncStorage.getItem('token');
-//     fetch(`${url}/cart/add`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(item),
-//     })
-//       // .then(response => response.json())
-//       .then(data => {
-//         console.log('Success:', data);
-//         openModal();
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-//   };
-//   const openModal = () => {
-//     setShowModal(true);
-//   };
-//   const closeModal = () => {
-//     setShowModal(false);
-//   };
-
-//   return (
-//     <ScrollView>
-//       <View style={styles.container}>
-//         <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
-//         <View style={styles.dheader}>
-//           <Icon
-//             name="arrow-back-ios"
-//             size={28}
-//             color="black"
-//             onPress={() => navigation.goBack()}
-//           />
-//         </View>
-//         <View>
-//           <ScrollView horizontal={true}>
-//             {product.imageUrl.map((item, index) => (
-//               <ImageBackground
-//                 key={index}
-//                 style={{
-//                   height: 500,
-//                   width: 405,
-//                   // zIndex: 2,
-//                   backgroundColor: '#3E54AC1A',
-//                   marginLeft: -5,
-//                   marginTop: -5,
-//                 }}
-//                 source={{uri: item}}></ImageBackground>
-//             ))}
-//           </ScrollView>
-//         </View>
-//         <View style={[styles.detailsContainer, {marginTop: -50}]}>
-//           <Text style={styles.startext}>{product.name}</Text>
-//           <Text style={styles.detailsdescription}>{product.description}</Text>
-//           <View style={{marginTop: 10}}>
-//             <Text style={styles.headingtext}>Size</Text>
-//           </View>
-//           <View style={styles.productSizeBox}>
-//             <Text style={styles.detailsSize}>{product.size}</Text>
-//           </View>
-//           <View style={{marginTop: 10, marginBottom: 3}}>
-//             <Text style={styles.headingtext}>Rent</Text>
-//           </View>
-//           <View style={{marginBottom: 20}}>
-//             <DatePicker
-//               fromDate={rentalStartDate}
-//               toDate={rentalEndDate}
-//               onFromDateChange={setRentalStartDate}
-//               onToDateChange={setRentalEndDate}
-//             />
-//             <View style={{marginTop: 10}}>
-//               <Text style={styles.headingtext}>Quantity</Text>
-//             </View>
-//             <View style={styles.quantityContainer}>
-//               <TouchableOpacity
-//                 style={styles.quantityButton}
-//                 onPress={decrementQuantity}>
-//                 <Text style={styles.quantityButtonText}>-</Text>
-//               </TouchableOpacity>
-//               <Text style={styles.quantityText}>{quantity}</Text>
-//               <TouchableOpacity
-//                 style={styles.quantityButton}
-//                 onPress={incrementQuantity}>
-//                 <Text style={styles.quantityButtonText}>+</Text>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//           <View style={{marginTop: 10}}>
-//             <Text style={styles.headingtext}>Price</Text>
-//           </View>
-//           <Text style={styles.detailsdescription}>₹{product.price}</Text>
-//           <View style={styles.touchablebtnContainer}>
-//             <TouchableOpacity
-//               style={styles.touchablebtn}
-//               onPress={handleSubmit}>
-//               <Text style={styles.touchableText}>Add to cart</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </View>
-//       <CustomModal
-//         showModal={showModal}
-//         onClose={closeModal}
-//         message="Item added successfully!"
-//       />
-//     </ScrollView>
-//   );
-// }
-
-
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/self-closing-comp */
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   StatusBar,
   Text,
   View,
   ImageBackground,
   TouchableOpacity,
+  useColorScheme,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from '../../components/atoms/DatePicker Detail';
-import {ScrollView} from 'react-native-gesture-handler';
+// import {ScrollView} from 'react-native-gesture-handler';
 import styles from './UProductDetailsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import {url} from '../../constants/Apis';
+import {OwnerProductsById, ProductsById, url} from '../../constants/Apis';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import Styles from '../../constants/themeColors';
+import Colors from '../../constants/Colors';
+import DateRangePicker from '../../components/atoms/CalanderPicker';
+import CalendarPicker from 'react-native-calendar-picker';
+import {useNavigation} from '@react-navigation/native';
+import ApiService from '../../network/network';
+import useCart from '../Cart/useCart';
+import {Pagination} from 'react-native-snap-carousel';
 type Props = {
   route: {params: {product: any}};
   navigation: any;
 };
 export default function UDetailScreen({route, navigation}: Props) {
-  const dispatch = useDispatch();
   const {product} = route.params;
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showwModal, settShowModal] = useState(false);
-  const [isQuantity, setIsQuantity] = useState(true);
+  const [, setIsQuantity] = useState(true);
   const [isMinusDisabled, setIsMinusDisabled] = useState(true);
   const [isPlusDisabled, setIsPlusDisabled] = useState(false);
-  // const Quantity = product.quantity;
+  const [productData, setProductData] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
   const Quantity = product.quantity;
+  const colorScheme = useColorScheme();
+  // const {fetchQuantityData} = useCart();
+  // const navigation = useNavigation();
+  useEffect(() => {
+    console.log(colorScheme);
+  });
   console.log('Product Quantity is :', Quantity);
-  // const handleQuantity = () => {
-  //   if (Quantity === 1) {
-  //     setIsQuantity(false);
-  //   }
-  // };
-
   const handleDecrement = () => {
     setQuantity(quantity - 1);
     setIsQuantity(true);
@@ -211,6 +65,13 @@ export default function UDetailScreen({route, navigation}: Props) {
     }
     setIsMinusDisabled(false);
   };
+  console.log(product.id);
+  const ProductId = product.id;
+  const productsData = async () => {
+    const result = await ApiService.get(`${ProductsById}/${ProductId}`);
+    console.log('result is :', result);
+    setProductData(result);
+  };
 
   const handleSubmit = async () => {
     const item = {
@@ -219,7 +80,6 @@ export default function UDetailScreen({route, navigation}: Props) {
       rentalEndDate: rentalEndDate.toISOString(),
       rentalStartDate: rentalStartDate.toISOString(),
     };
-    console.log('quantity is:', quantity);
     const token = await AsyncStorage.getItem('token');
     fetch(`${url}/cart/add`, {
       method: 'POST',
@@ -229,11 +89,9 @@ export default function UDetailScreen({route, navigation}: Props) {
       },
       body: JSON.stringify(item),
     })
-      // .then(response => response.json())
       .then(response => {
         console.log('Success:', response);
         if (response.status === 400) {
-          // console.log('john bhaiyaa error');
           opennModal();
         }
         console.log(response);
@@ -256,14 +114,55 @@ export default function UDetailScreen({route, navigation}: Props) {
   };
   const closeModal = () => {
     setShowModal(false);
+    // navigation.navigate('CartScreen');
+    productsData();
+    // fetchQuantityData();
   };
   const closeeModal = () => {
     settShowModal(false);
   };
+  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollTimerRef = useRef<number | null>(null);
+  useEffect(() => {
+    startScrollTimer();
+    return () => {
+      stopScrollTimer();
+    };
+  }, [activeIndex]);
+  const startScrollTimer = () => {
+    stopScrollTimer(); // Stop the timer if it's already running
+    scrollTimerRef.current = setInterval(scrollToNextImage, 2000); // Adjust the duration as needed (in milliseconds)
+  };
+  const stopScrollTimer = () => {
+    if (scrollTimerRef.current) {
+      clearInterval(scrollTimerRef.current);
+      scrollTimerRef.current = null;
+    }
+  };
+  const scrollToNextImage = () => {
+    if (scrollViewRef.current) {
+      const nextIndex =
+        activeIndex === product.imageUrl.length - 1 ? 0 : activeIndex + 1;
+      scrollViewRef.current.scrollTo({x: nextIndex * 405, animated: true});
+      // Adjust the width of the images as needed
+      setActiveIndex(nextIndex);
+    }
+  };
+  const handleScroll = () => {
+    startScrollTimer();
+  };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView
+      style={{
+        width: '100%',
+        backgroundColor: colorScheme === 'dark' ? Colors.black : Colors.white,
+      }}>
+      <View
+        style={[
+          styles.container,
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
         <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
         <View style={styles.dheader}>
           <Icon
@@ -274,76 +173,163 @@ export default function UDetailScreen({route, navigation}: Props) {
           />
         </View>
         <View>
-          <ScrollView horizontal={true}>
+          <ScrollView
+            nestedScrollEnabled
+            ref={scrollViewRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={16}
+            onMomentumScrollEnd={event => {
+              const contentOffset = event.nativeEvent.contentOffset;
+              const nextIndex = Math.round(contentOffset.x / 405);
+              setActiveIndex(nextIndex);
+              startScrollTimer();
+            }}
+            onScroll={handleScroll}>
             {product.imageUrl.map((item, index) => (
               <ImageBackground
                 key={index}
                 style={{
                   height: 500,
                   width: 405,
-                  // zIndex: 2,
                   backgroundColor: '#3E54AC1A',
-                  marginLeft: -5,
-                  marginTop: -5,
                 }}
-                source={{uri: item}}></ImageBackground>
+                source={{uri: item}}
+              />
             ))}
           </ScrollView>
-        </View>
-        <View style={[styles.detailsContainer, {marginTop: -50}]}>
           <Text style={styles.startext}>{product.name}</Text>
-          <Text style={styles.detailsdescription}>{product.description}</Text>
-          <View style={{marginTop: 10}}>
+          <Pagination
+            dotsLength={product.imageUrl.length}
+            activeDotIndex={activeIndex}
+            containerStyle={styles.paginationContainer}
+            dotStyle={styles.pagingActiveText}
+            inactiveDotStyle={styles.pagingText}
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+          />
+        </View>
+        <View
+          style={[
+            styles.detailsContainer,
+            colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+          ]}>
+          <Text
+            style={[
+              styles.detailsPrice,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            ₹{product.price}
+          </Text>
+          <Text
+            style={[
+              styles.detailsdescription,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            {product.description}
+          </Text>
+          {/* <View style={{marginTop: 10}}>
             <Text style={styles.headingtext}>Size</Text>
           </View>
           <View style={styles.productSizeBox}>
             <Text style={styles.detailsSize}>{product.size}</Text>
-          </View>
-          <View style={{marginTop: 10, marginBottom: 3}}>
-            <Text style={styles.headingtext}>Rent</Text>
-          </View>
-          <View style={{marginBottom: 20}}>
-            <DatePicker
-              fromDate={rentalStartDate}
-              toDate={rentalEndDate}
-              onFromDateChange={setRentalStartDate}
-              onToDateChange={setRentalEndDate}
+          </View> */}
+          <View style={{marginTop: 10, marginBottom: 20, flexDirection: 'row'}}>
+            <Text
+              style={[
+                styles.headingtext,
+                {marginTop: 10},
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Rent
+            </Text>
+            <DateRangePicker
+              startDate={rentalStartDate}
+              endDate={rentalEndDate}
+              onStartDateChange={setRentalStartDate}
+              onEndDateChange={setRentalEndDate}
             />
-            <View style={{marginTop: 10}}>
-              <Text style={styles.headingtext}>Quantity</Text>
-            </View>
-            <View style={styles.quantityContainer}>
-              {console.log(isMinusDisabled)}
-              <TouchableOpacity
+          </View>
+          <View
+            style={[
+              styles.size,
+              colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+            ]}>
+            <Text
+              style={[
+                styles.sizelabel,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Size
+            </Text>
+            <View
+              style={{
+                marginTop: 3,
+                // backgroundColor: Colors.buttonColor,
+                width: 40,
+                // height: 25,
+                borderRadius: 5,
+                marginLeft: '60%',
+                justifyContent: 'center',
+              }}>
+              <Text
                 style={[
-                  styles.quantityButton,
-                  isMinusDisabled && styles.disabledButton,
-                ]}
-                onPress={handleDecrement}
-                disabled={quantity === 1 || isMinusDisabled}>
-                <Text style={styles.quantityButtonText}>-</Text>
-              </TouchableOpacity>
-              <Text style={styles.quantityText}>{quantity}</Text>
-              <TouchableOpacity
-                style={[
-                  styles.quantityButton,
-                  isPlusDisabled && styles.disabledButton,
-                ]}
-                onPress={handleIncrement}
-                disabled={quantity === Quantity || isPlusDisabled}>
-                <Text style={styles.quantityButtonText}>+</Text>
-              </TouchableOpacity>
+                  styles.detailsSize,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                {product.size}
+              </Text>
             </View>
           </View>
-          <View style={{marginTop: 10}}>
-            <Text style={styles.headingtext}>Price</Text>
+          <View
+            style={[
+              styles.quantityContainer,
+              colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+            ]}>
+            <View>
+              <Text
+                style={[
+                  styles.Quatitytext,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                Quantity
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.quantityButton,
+                isMinusDisabled && styles.disabledButton,
+              ]}
+              onPress={handleDecrement}
+              disabled={quantity === 1 || isMinusDisabled}>
+              <Text style={styles.quantityButtonText}>-</Text>
+            </TouchableOpacity>
+            <Text
+              style={[
+                styles.quantityText,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              {quantity}
+            </Text>
+            <TouchableOpacity
+              style={[
+                styles.plusquantityButton,
+                isPlusDisabled && styles.disabledButton,
+              ]}
+              onPress={handleIncrement}
+              disabled={quantity === Quantity || isPlusDisabled}>
+              <Text style={styles.quantityButtonText}>+</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.detailsdescription}>₹{product.price}</Text>
           <View style={styles.touchablebtnContainer}>
             <TouchableOpacity
               style={styles.touchablebtn}
               onPress={handleSubmit}>
-              <Text style={styles.touchableText}>Add to cart</Text>
+              <Text style={styles.detailsaddPrice}>
+                ₹{product.price * quantity}
+              </Text>
+              <Text style={styles.touchableText}>Add to Bag</Text>
             </TouchableOpacity>
           </View>
         </View>

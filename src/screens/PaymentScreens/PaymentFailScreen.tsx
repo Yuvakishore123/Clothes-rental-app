@@ -5,15 +5,15 @@ import {View, Text} from 'react-native';
 import Lottie from 'lottie-react-native';
 const PaymentFailScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.failcontainer}>
       <View>
-        <Text style={styles.headerText}>Payment</Text>
+        <Text style={styles.failheaderText}>Payment</Text>
       </View>
       <View style={styles.successContainer}>
         <Lottie
-          source={require('../../../Assets/payfail1.json')}
+          source={require('../../../assets/payfailed.json')}
           autoPlay
-          style={{height: 200}}
+          style={{height: 200, marginRight: '35%'}}
         />
         <Text style={styles.successText}>Payment Failed! </Text>
         <Text style={styles.successText1}>

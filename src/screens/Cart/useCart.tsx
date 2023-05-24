@@ -1,20 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCartProducts} from '../../redux/slice/cartSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ADDORDER, removeFromCart} from '../../redux/actions/actions';
-import {cartUpdate, checkoutApi, url} from '../../constants/Apis';
-import {Alert} from 'react-native';
+import {
+  OwnerProductsById,
+  ProductsById,
+  QuantityApi,
+  cartUpdate,
+  checkoutApi,
+  url,
+} from '../../constants/Apis';
+import {Alert, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import RazorpayCheckout from 'react-native-razorpay';
+import ApiService from '../../network/network';
 function useCart() {
   // const {product} = route.params;
   const [refreshing, setRefreshing] = useState(false);
   const [rentalStartDate, setRentalStartDate] = useState(new Date());
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
+  // const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isplusDisable, setisButtondisable] = useState(false); // Added loading state
   const navigation = useNavigation();
+  const colorScheme = useColorScheme();
+
+  // const CartData = useSelector(state => state.CartProducts.data) || {
+  //   cartItems: [],
+  // };
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -31,46 +48,119 @@ function useCart() {
   useEffect(() => {
     dispatch(fetchCartProducts());
   }, []);
+  // const itemQuantity = cartData;
+  // console.log('itemQuantity is :', itemQuantity?.cartItems);
 
-  const onRefresh = async () => {
+  // if (Array.isArray(itemQuantity?.cartItems)) {
+  //   const quantities = itemQuantity.cartItems.map(item => item.quantity);
+  //   console.log('Quantities:', quantities);
+  // }
+  // const [quantity, setQuantity] = useState(1);
+
+  const [quantity, setQuantity] = useState(1);
+  const [Productquantity, setProductQuantity] = useState<number[]>([]);
+
+  // useEffect(() => {
+  //   // Get the quantity from the cart data
+  //   const quantities =
+  //     cartData?.cartItems.map(item => parseInt(item.quantity, 10)) || [];
+  //   const joinedQuantity = quantities.join(', ');
+  //   console.log('Quantity:', quantities[0]);
+  //   setQuantity(joinedQuantity[0]);
+  // }, [cartData]);
+
+  // console.log('Type of quantity:', typeof quantity);
+
+  // Example usage
+  console.log('Quantity:', quantity);
+
+  // const [refreshing, setRefreshing] = useState(false);
+
+  // const Qunatity = cartData;
+
+  // const onRefresh = async () => {
+  //   setRefreshing(true);
+  //   await dispatch(fetchCartProducts());
+  //   setRefreshing(false);
+  // };
+  useEffect(() => {
+    if (refreshing) {
+      dispatch(fetchCartProducts());
+      console.log('it is refreshing');
+      setRefreshing(false);
+    }
+  }, [dispatch, refreshing]);
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    await dispatch(fetchCartProducts());
-    setRefreshing(false);
-  };
+  }, []);
   useEffect(() => {
     if (!showModal) {
       dispatch(fetchCartProducts());
     }
   }, [showModal]);
-  const handleUpdate = async () => {
+  // const handleUpdate = async () => {
+  //   try {
+  //     const token = await AsyncStorage.getItem('token');
+  //     const cartItems = cartData?.cartItems;
+  //     if (!cartItems || cartItems.length === 0) {
+  //       console.log('Cart is empty, cannot update');
+  //       return;
+  //     }
+  //     const items = {
+  //       cartItems: cartItems.map(item => ({
+  //         productId: item.product.id,
+  //         quantity: item.quantity, // Use the new quantity
+  //       })),
+  //     };
+  //     const Newdata = items.cartItems[0];
+  //     console.log('items data is', Newdata);
+  //     const response = await fetch(QuantityApi, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify(Newdata),
+  //     });
+  //     const data = await response.json();
+  //     console.log('Update response:', data);
+  //   } catch (error) {
+  //     console.error('Update error:', error);
+  //   }
+  // };
+  const handleUpdate = async (newQuantity, productId) => {
     try {
       const token = await AsyncStorage.getItem('token');
-      const cartItems = cartData?.cartItems;
-      if (!cartItems || cartItems.length === 0) {
-        console.log('Cart is empty, cannot update');
-        return;
-      }
-      const items = {
-        cartItems: cartItems.map(item => ({
-          id: 0,
-          productId: item.product.id,
-          quantity: item.product.quantity,
-          rentalEndDate: rentalEndDate.toISOString(),
-          rentalStartDate: rentalStartDate.toISOString(),
-        })),
+      // const cartItems = cartData?.cartItems;
+      // if (!cartItems || cartItems.length === 0) {
+      //   console.log('Cart is empty, cannot update');
+      //   return;
+      // }
+      // const items = {
+      //   cartItems: cartItems.map(item => ({
+      //     productId: item.product.id,
+      //     quantity: item.quantity === newQuantity ? item.quantity : newQuantity,
+      //   })),
+      // };
+      const data = {
+        productId: productId,
+        quantity: newQuantity,
       };
-      const response = await fetch(cartUpdate, {
+
+      console.log('Important data is :', newQuantity, productId);
+      const response = await fetch(QuantityApi, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(items),
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
-      console.log('Update response:', data); // log the API response for debugging
+      const Data = await response.json();
+      console.log('Update response:', Data);
+      setRefreshing(true);
     } catch (error) {
-      console.error('Update error:', error);
+      // console.error('Update error:', error);
     }
   };
 
@@ -100,7 +190,7 @@ function useCart() {
       navigation.navigate('CheckoutScreen');
       console.log('Checkout Session created:', data);
     } catch (error) {
-      console.error('Error creating Checkout Session:', error);
+      // console.error('Error creating Checkout Session:', error);
     }
   };
   const handleRemove = async (productId: any) => {
@@ -158,8 +248,69 @@ function useCart() {
 
   const dispatch = useDispatch();
   const CartProducts = useSelector(state => state.CartProducts.data);
-  console.log(JSON.stringify(CartProducts));
-  console.log('cart succes');
+  // console.log(JSON.stringify(CartProducts));
+  // console.log('cart succes data', CartProducts);
+  //Api call for products
+  // const selectUserProducts = useSelector(state => state.UserProducts.data);
+  // console.log('selectUserProducts', selectUserProducts);
+  // const Productid = cartData && cartData.cartItems;
+  // console.log('card data is for id:', Productid);
+
+  // const Productid = cartData && cartData.cartItems;
+  // console.log('card data is for id:', Productid);
+
+  // if (Productid && Array.isArray(Productid)) {
+  //   const productIds = Productid.map(item => item.product.id);
+  //   console.log('Product IDs:', productIds);
+
+  //   const fetchQuantityData = async () => {
+  //     try {
+  //       const result = await ApiService.get(`${ProductsById}/${productIds}`);
+  //       console.log('result of products is:', result.quantity);
+  //       setQuantity(result.quantity);
+  //     } catch (error) {
+  //       console.error('Error fetching quantity data:', error);
+  //     }
+  //   };
+
+  //   fetchQuantityData();
+  // }
+
+  // console.log(quantity);
+  const handleIncrement = useCallback(
+    item => {
+      const productId = item.product.id;
+      console.log('itemID', productId);
+      const productQuantity = item.product.quantity;
+      console.log('Validation of product Quantity is ', productQuantity);
+      if (item.quantity === productQuantity) {
+        setisButtondisable(true);
+      } else {
+        const Quantity = item.quantity + 1;
+        console.log(Quantity);
+        handleUpdate(Quantity, productId);
+      }
+      // setRefreshing(prevRefreshing => !prevRefreshing);
+      console.log('refreshing :', refreshing); // Toggle the value of refreshing
+    },
+    [handleUpdate],
+  );
+
+  const handleDecrement = item => {
+    console.log(item.quantity);
+    const productId = item.product.id;
+    const newQuantity = item.quantity - 1;
+    console.log('itemID', productId);
+    handleUpdate(newQuantity, productId);
+    setisButtondisable(false);
+    // setRefreshing(true);
+  };
+
+  useEffect(() => {
+    console.log('Refreshing:', refreshing);
+    // setRefreshing(true);
+  }, [refreshing]);
+
   return {
     CartProducts,
     handleCheckout,
@@ -176,7 +327,13 @@ function useCart() {
     openModal,
     closeModal,
     showModal,
+    colorScheme,
+    quantity,
+    setQuantity,
+    handleDecrement,
+    handleIncrement,
+    isplusDisable,
+    // fetchQuantityData,
   };
 }
 export default useCart;
-
