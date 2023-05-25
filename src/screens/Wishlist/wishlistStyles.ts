@@ -118,7 +118,7 @@ import Colors from '../../constants/Colors';
 import {color} from 'react-native-elements/dist/helpers';
 const style = StyleSheet.create({
   textStyle: {
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 24,
     fontFamily: 'Poppins-SemiBold',
     // fontWeight: 'bold',
@@ -136,11 +136,19 @@ const style = StyleSheet.create({
     borderRadius: 8,
     // flexDirection: 'row',
     // backgroundColor: '#000',
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.Inputtext,
     marginLeft: 20,
     // marginRight: 20,
     // marginBottom: 10,
     margin: 10,
+  },
+  textStylewishlist: {
+    color: Colors.black,
+    fontSize: 24,
+    marginLeft: '37%',
+    // marginBottom: 20,
+    marginTop: 10,
+    fontFamily: 'Poppins-SemiBold',
   },
   imageContainer: {
     // backgroundColor: 'green',
@@ -162,7 +170,7 @@ const style = StyleSheet.create({
     fontSize: 12,
     // fontWeight: '600',
     fontFamily: 'Poppins-Medium',
-    color: Colors.white,
+    color: Colors.black,
   },
   addButton: {
     borderColor: '#3E54AC',

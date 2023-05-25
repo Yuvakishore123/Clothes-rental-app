@@ -1,5 +1,6 @@
 export default {
-  main: 'black',
+  main: '#F5F5F5',
+  // main: '#F0F0F0',
   primary: '#f54',
   Inputtext: 'rgba(255, 255, 255, 0.5)',
   Textinput: 'rgba(255, 255, 255, 0.2)',

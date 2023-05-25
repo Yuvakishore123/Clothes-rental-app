@@ -14,6 +14,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import BackButton from '../../components/atoms/BackButton/BackButton';
 import HeadingText from '../../components/atoms/HeadingText/HeadingText';
+import {ScrollView} from 'react-native-gesture-handler';
 const EditAddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -40,7 +41,7 @@ const EditAddress = () => {
   } = useEditaddress();
   const {isLoading} = OwnerAddressCustomHook();
   return (
-    <View style={style.headercontainer}>
+    <ScrollView style={style.headercontainer}>
       {isLoading ? (
         <>
           <SkeletonPlaceholder>
@@ -99,12 +100,12 @@ const EditAddress = () => {
                 onChangeText={text => setAddressLine1(text)}
                 style={style.inputAddress}
               />
-              {/* <Text style={style.textField}>Street / Area </Text>
+              <Text style={style.textField}>Street / Area </Text>
               <TextInput
                 value={addressLine2}
                 onChangeText={text => setAddressLine2(text)}
                 style={style.inputAddress}
-              /> */}
+              />
               <Text style={style.textField}> State</Text>
               <TextInput
                 value={state}
@@ -136,7 +137,7 @@ const EditAddress = () => {
                     value="Home"
                     status={selectedOption === 'Home' ? 'checked' : 'unchecked'}
                     onPress={() => handleOptionChange('Home')}
-                    color="#FFFFFF"
+                    color="black"
                   />
                   <Text style={style.textRadio}>Home</Text>
                 </View>
@@ -147,7 +148,7 @@ const EditAddress = () => {
                       selectedOption === 'Office' ? 'checked' : 'unchecked'
                     }
                     onPress={() => handleOptionChange('Office')}
-                    color="#FFFFFF"
+                    color="black"
                   />
                   <Text style={style.textRadio}>Office</Text>
                 </View>
@@ -176,7 +177,7 @@ const EditAddress = () => {
           </View>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 export default EditAddress;

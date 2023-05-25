@@ -17,13 +17,27 @@ function Useformik() {
       ),
   });
 
-  const handleLogin = () => {
-    dispatch(Login(email, password));
+  // const handleLogin = () => {
+  //   dispatch(Login(email, password));
+  // };
+  const handleLogin = async () => {
+    try {
+      await dispatch(Login(email, password));
+      openModal();
+    } catch (error) {}
   };
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showModal, setShowModal] = useState(false);
   const [passwordError, setPasswordError] = useState<string>('');
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -44,9 +58,18 @@ function Useformik() {
     formik.setFieldValue('password', value);
   };
 
+  // const handleBlur = (field: string) => {
+  //   formik.setFieldTouched(field);
+  // };
   const handleBlur = (field: string) => {
     formik.setFieldTouched(field);
   };
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
 
   return {
     email,
@@ -54,6 +77,9 @@ function Useformik() {
     handleEmailChange,
     handlePasswordChange,
     handleBlur,
+    openModal,
+    closeModal,
+    showModal,
     formik,
     passwordError,
     setPasswordError,

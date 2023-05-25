@@ -363,8 +363,9 @@ import {
   TextInput,
   RefreshControl,
   FlatList,
+  useColorScheme,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Carousal from './Carousal';
 import {
   postProductToAPI,
@@ -382,6 +383,7 @@ import Colors from '../../constants/Colors';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import ProfileData from '../../constants/ProfileData';
+import Styles from '../../constants/themeColors';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -403,6 +405,10 @@ const Homescreen = ({navigation}: Props) => {
   const allProducts = useSelector(state => state.UserProducts.data);
   const [showModal, setShowModal] = useState(false);
   const [wishlistList, setWishlistList] = useState([]);
+  const colorScheme = useColorScheme();
+  useEffect(() => {
+    console.log(colorScheme);
+  });
 
   // console.log(allProducts);
   // const handleHeartClick = item => {
@@ -446,7 +452,8 @@ const Homescreen = ({navigation}: Props) => {
       style={{
         height: '100%',
         width: '100%',
-        backgroundColor: Colors.black,
+        backgroundColor:
+          colorScheme === 'dark' ? Colors.Inputtext : Colors.main,
         overflow: 'scroll',
       }}>
       {loading ? (
@@ -501,7 +508,7 @@ const Homescreen = ({navigation}: Props) => {
             <View
               style={{
                 flex: 1,
-                backgroundColor: Colors.main,
+                backgroundColor: Colors.gray,
                 flexWrap: 'wrap',
               }}>
               {/* Other code */}
@@ -558,7 +565,11 @@ const Homescreen = ({navigation}: Props) => {
           </View>
         </SkeletonPlaceholder>
       ) : (
-        <View style={style.mainContainer}>
+        <View
+          style={[
+            style.mainContainer,
+            colorScheme === 'dark' ? style.blacktheme : style.whiteTheme,
+          ]}>
           {/* <Header title={'Leap'} /> */}
           <View style={{flexDirection: 'row'}}>
             <Text
@@ -568,7 +579,7 @@ const Homescreen = ({navigation}: Props) => {
                 // fontWeight: '900',
                 fontFamily: 'Poppins-SemiBold',
                 fontSize: 15,
-                color: Colors.white,
+                color: colorScheme === 'dark' ? Colors.white : Colors.black,
               }}>
               Welcome {name}
             </Text>
@@ -578,15 +589,24 @@ const Homescreen = ({navigation}: Props) => {
               style={{height: 45, width: 50}}
             />
           </View>
-          <View style={style.searchInputContainer}>
+          <View
+            style={[
+              style.searchInputContainer,
+              colorScheme === 'dark' ? style.cardColor : Styles.main,
+            ]}>
             <Icon
               name="search1"
               size={20}
-              style={{marginLeft: 20, color: Colors.white}}
+              style={{
+                marginLeft: 20,
+                color: colorScheme === 'dark' ? Colors.white : Colors.black,
+              }}
             />
             <TextInput
               placeholder="Search"
-              placeholderTextColor={Colors.white}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.white : Colors.black
+              }
               style={{
                 // height: 10,
                 fontFamily: 'Poppins-Regular',
@@ -595,7 +615,7 @@ const Homescreen = ({navigation}: Props) => {
                 height: 45,
                 marginTop: 8,
                 paddingLeft: 10,
-                color: 'black',
+                // color: 'black',
               }}
               onChangeText={text => {
                 setSearchQuery(text);
@@ -605,14 +625,27 @@ const Homescreen = ({navigation}: Props) => {
             />
           </View>
           <View style={style.categoriesContainer}>
-            <Text style={style.CategoriesText}> Categories for you</Text>
+            <Text
+              style={[
+                style.CategoriesText,
+                colorScheme === 'dark' ? style.whitetext : style.blackText,
+              ]}>
+              {' '}
+              Categories for you
+            </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate('CategoryScreen')}>
               <Text style={style.Seetext}> See all</Text>
             </TouchableOpacity>
           </View>
           <Carousal />
-          <Text style={style.Productstext}>Products for you</Text>
+          <Text
+            style={[
+              style.Productstext,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
+            ]}>
+            Products for you
+          </Text>
           {/* <View
             style={{
               borderBottomColor: '#3E54AC',
@@ -639,7 +672,11 @@ const Homescreen = ({navigation}: Props) => {
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item, id}) => {
                   return (
-                    <View style={style.container}>
+                    <View
+                      style={[
+                        style.container,
+                        colorScheme === 'dark' ? style.cardColor : Styles.main,
+                      ]}>
                       <TouchableOpacity
                         key={item.id}
                         onPress={() =>
@@ -695,7 +732,15 @@ const Homescreen = ({navigation}: Props) => {
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                           }}> */}
-                        <Text style={style.name}>{item.name}</Text>
+                        <Text
+                          style={[
+                            style.name,
+                            colorScheme === 'dark'
+                              ? style.whitetext
+                              : style.blackText,
+                          ]}>
+                          {item.name}
+                        </Text>
                         {/* </View> */}
                         <View style={style.textContainer}>
                           <Text style={style.price}>{'₹' + item.price}</Text>

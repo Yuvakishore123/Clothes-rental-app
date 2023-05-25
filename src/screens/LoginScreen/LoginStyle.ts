@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
     width: '100%',
@@ -27,11 +27,12 @@ const Styles = StyleSheet.create({
     height: 200,
     width: '100%',
     marginTop: 40,
+    marginLeft: 50,
   },
   textinput: {
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     fontFamily: 'Poppins-Regular',
-    color:Colors.white,
+    color: Colors.black,
     marginTop: 20,
     marginLeft: 20,
     borderRadius: 6,
@@ -77,7 +78,7 @@ const Styles = StyleSheet.create({
   otptext: {
     // marginTop: 20,
     alignSelf: 'center',
-    color: Colors.white,
+    color: Colors.black,
     fontFamily: 'Poppins-Regular',
   },
   Otptext: {
@@ -89,17 +90,25 @@ const Styles = StyleSheet.create({
   },
   sign: {
     marginLeft: '45%',
-    marginTop: '40%',
+    marginTop: 30,
     height: 50,
     width: '100%',
     flexDirection: 'row',
     alignSelf: 'center',
   },
+  TitleText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 26,
+    color: Colors.black,
+    marginTop: 70,
+    marginLeft: 20,
+  },
   signuptext: {
     // marginTop: '60%',
     // marginLeft: '22%',
     alignItems: 'center',
-    color: Colors.white,
+    color: Colors.black,
+    // marginTop: 20,
     fontFamily: 'Poppins-Regular',
   },
   Signuptext: {
@@ -110,4 +119,4 @@ const Styles = StyleSheet.create({
   },
 });
 
-export default Styles;
+export default styles;

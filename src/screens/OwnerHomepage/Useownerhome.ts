@@ -4,8 +4,11 @@ import {fetchProducts} from '../../redux/slice/productSlice';
 import {useNavigation} from '@react-navigation/native';
 import Additems from '../Additems/Additems';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {url} from '../../constants/Apis';
+import {Recentlyadded, url} from '../../constants/Apis';
+import useAnalytics from '../AnalyticsPage/useAnalytics';
+import ApiService from '../../network/network';
 function Useownerhome() {
+  const {handleOrders} = useAnalytics();
   const [name, setName] = useState('');
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -13,6 +16,7 @@ function Useownerhome() {
   const [isLoading, setIsLoading] = useState(true);
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [rentedItems, setRentedItems] = useState(0);
+  const [recentyAdded, setRecentlyAdded] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
@@ -22,6 +26,7 @@ function Useownerhome() {
     dispatch(fetchProducts());
     setRefreshing(false);
   };
+  const {HandlePiechart} = useAnalytics();
   useEffect(() => {
     const fetchDashboardData = async () => {
       const token = await AsyncStorage.getItem('token');
@@ -80,6 +85,7 @@ function Useownerhome() {
     return unsubscribe;
   }, [navigation, refresh]);
   const products = useSelector(state => state.products.data);
+
   // console.log(JSON.stringify(products));
   const handleAdditems = () => {
     navigation.navigate(Additems);
@@ -87,9 +93,25 @@ function Useownerhome() {
   const handleMyrentals = () => {
     navigation.navigate('MyRentals');
   };
+  const handleAnalatyics = () => {
+    // handleAnalatyics;
+    HandlePiechart();
+    navigation.navigate('DashboardDetails');
+  };
+  // Recently added Api call
+  useEffect(() => {
+    const FetchRecentlyAdded = async () => {
+      const result = await ApiService.get(Recentlyadded);
+      setRecentlyAdded(result);
+      console.log('result is :', result);
+    };
+    FetchRecentlyAdded();
+  }, []);
+
   return {
     products,
     handleAdditems,
+    handleAnalatyics,
     handleMyrentals,
     name,
     isLoading,
@@ -97,6 +119,7 @@ function Useownerhome() {
     rentedItems,
     refreshing,
     onRefresh,
+    recentyAdded,
   };
 }
 export default Useownerhome;

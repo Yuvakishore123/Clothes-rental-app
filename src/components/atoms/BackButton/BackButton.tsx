@@ -14,7 +14,7 @@ const BackButton = () => {
             style={{marginLeft: 5}}
             name="arrow-back-ios"
             size={16}
-            color="#FFFFFF"
+            color="#000000"
             onPress={() => navigation.goBack()}
           />
         </View>

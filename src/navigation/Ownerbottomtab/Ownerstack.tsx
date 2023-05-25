@@ -24,6 +24,8 @@ import Owneredititems from '../../screens/Owneredititems/Owneredititems';
 import Colors from '../../constants/Colors';
 import EditAddress from '../../screens/EditAddress/EditAddress';
 import {View} from 'react-native';
+import AnalyticScreen from '../../screens/AnalyticsPage/AnalyticScreen';
+import DashboardDetails from '../../screens/OwnerHomepage/DashboardDetails';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -65,8 +67,9 @@ const OwnerHomestack = () => {
       <Stack.Screen name="OwnerHome" component={OwnerHome} />
       {/* <Stack.Screen name="Oproduct" component={OwnerHome} /> */}
       <Stack.Screen name="Additems" component={Additems} />
-
       <Stack.Screen name="MyRentals" component={MyRentals} />
+      {/* <Stack.Screen name="AnalyticScreen" component={DashboardDetails} /> */}
+      <Stack.Screen name="DashboardDetails" component={DashboardDetails} />
       <Stack.Screen name="OproductDetails" component={OproductDetails} />
     </Stack.Navigator>
   );
@@ -91,6 +94,7 @@ const Ownerstack = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           backgroundColor: Colors.main,
           // borderTopLeftRadius: 25,
@@ -99,8 +103,8 @@ const Ownerstack = () => {
           elevation: 30,
           borderColor: Colors.iconscolor,
         },
-        tabBarInactiveTintColor: Colors.white,
-        tabBarActiveTintColor: Colors.black,
+        tabBarInactiveTintColor: Colors.black,
+        tabBarActiveTintColor: Colors.white,
         tabBarLabelStyle: {fontSize: 10, paddingBottom: 5},
       }}>
       <Tab.Screen
@@ -121,7 +125,7 @@ const Ownerstack = () => {
               iconComponent = (
                 <View
                   style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
                     borderRadius: 20,
                     height: 40,
                     width: 40,
@@ -173,7 +177,7 @@ const Ownerstack = () => {
               iconComponent = (
                 <View
                   style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
                     borderRadius: 20,
                     height: 40,
                     width: 40,
@@ -225,7 +229,7 @@ const Ownerstack = () => {
               iconComponent = (
                 <View
                   style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
+                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
                     borderRadius: 20,
                     height: 40,
                     width: 40,
@@ -268,7 +272,8 @@ const getRouteName = (route: Partial<Route<string>>) => {
     routeName?.includes('Owneraddaddress') ||
     routeName?.includes('Owneredititems') ||
     routeName?.includes('OwnerImage') ||
-    routeName?.includes('OproductDetails')
+    routeName?.includes('OproductDetails') ||
+    routeName?.includes('DashboardDetails')
   ) {
     return 'none';
   }

@@ -31,7 +31,9 @@ import MyOrder from '../../screens/MyOrder/MyOrder';
 import EditAddress from '../../screens/EditAddress/EditAddress';
 import {useIsFocused} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
-import {View} from 'react-native';
+import {View, useColorScheme} from 'react-native';
+import Styles from '../../constants/themeColors';
+import useCart from '../../screens/Cart/useCart';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -70,7 +72,7 @@ const CartStack = () => {
       screenOptions={{headerShown: false}}
       initialRouteName="Cart">
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-      <Stack.Screen name="Homescreen" component={Homescreen} />
+      {/* <Stack.Screen name="Homescreen" component={Homescreen} /> */}
       <Stack.Screen
         name="PaymentSuccessScreen"
         component={PaymentSuccessScreen}
@@ -79,7 +81,7 @@ const CartStack = () => {
       <Stack.Screen name="EditAddress" component={EditAddress} />
       <Stack.Screen name="Owneraddaddress" component={Owneraddaddress} />
       <Stack.Screen name="PaymentFailScreen" component={PaymentFailScreen} />
-      <Stack.Screen name="MyOrder" component={MyOrder} />
+      {/* <Stack.Screen name="MyOrder" component={MyOrder} /> */}
       <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
@@ -102,6 +104,7 @@ const ProfileStack = () => {
 
 const MyStack = () => {
   const data = useSelector(state => state);
+  const colorScheme = useColorScheme();
   const isFocused = useIsFocused();
   console.log(data);
   return (
@@ -109,17 +112,19 @@ const MyStack = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           display: isFocused ? 'flex' : 'none',
           width: '100%',
           height: '8%',
+          backgroundColor: Colors.black,
           // marginLeft: -5,
           // backgroundColor: '#ECF2FF',
           // borderTopLeftRadius: 25,
           // borderTopRightRadius: 25,
         },
-        tabBarInactiveTintColor: Colors.white,
-        tabBarActiveTintColor: Colors.black,
+        tabBarInactiveTintColor: Colors.black,
+        tabBarActiveTintColor: Colors.white,
       }}>
       <Tab.Screen
         name="UserHomescreen"
@@ -129,7 +134,8 @@ const MyStack = () => {
             display: getRouteName(route),
             width: '100%',
             height: '8%',
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
           },
           tabBarLabel: 'Home',
           // headerTintColor: '#ECF2FF',
@@ -141,15 +147,33 @@ const MyStack = () => {
             if (route.name === 'UserHomescreen') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <MaterialCommunityIcons name="home" color={color} size={30} />
+                  style={[
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : Colors.white,
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialCommunityIcons
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    name="home"
+                    size={30}
+                  />
                 </View>
               );
             } else if (route.name === 'CategoryScreen') {
@@ -187,7 +211,8 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: Colors.black,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
@@ -200,15 +225,34 @@ const MyStack = () => {
             if (route.name === 'CategoryScreen') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <CategoryIcon name="appstore1" color={color} size={30} />
+                  style={[
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : Colors.white,
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <CategoryIcon
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    name="appstore1"
+                    color={color}
+                    size={30}
+                  />
                 </View>
               );
             } else if (route.name === 'UserHomescreen') {
@@ -248,7 +292,8 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: Colors.black,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
@@ -260,15 +305,34 @@ const MyStack = () => {
             if (route.name === 'Wishlist') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <HeartIcon name="heart" color={color} size={25} />
+                  style={[
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : Colors.white,
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <HeartIcon
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    name="heart"
+                    color={color}
+                    size={25}
+                  />
                 </View>
               );
             } else if (route.name === 'UserHomescreen') {
@@ -306,7 +370,8 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
@@ -319,15 +384,34 @@ const MyStack = () => {
             if (route.name === 'CartScreen') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <MaterialIcon name="shopping-cart" color={color} size={30} />
+                  style={[
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : Colors.white,
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialIcon
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    name="shopping-cart"
+                    color={color}
+                    size={30}
+                  />
                 </View>
               );
             } else if (route.name === 'UserHomescreen') {
@@ -366,7 +450,8 @@ const MyStack = () => {
             width: '100%',
             height: '8%',
             // marginLeft: -5,
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
           },
@@ -378,18 +463,33 @@ const MyStack = () => {
             if (route.name === 'ProfileScreen') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : 'black',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                  style={[
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : Colors.white,
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
                   <MaterialCommunityIcons
                     name="account"
                     color={color}
                     size={30}
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
                   />
                 </View>
               );
@@ -429,7 +529,9 @@ const getRouteName = (route: Partial<Route<string>>) => {
     routeName?.includes('UProductDetails') ||
     routeName?.includes('Subcategory') ||
     routeName?.includes('CategoryProducts') ||
-    routeName?.includes('CheckoutScreen')
+    routeName?.includes('CheckoutScreen') ||
+    routeName?.includes('MyOrder') ||
+    routeName?.includes('EditAddress')
   ) {
     return 'none';
   }

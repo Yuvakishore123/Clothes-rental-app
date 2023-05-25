@@ -76,10 +76,11 @@ import {fetchWishlistProducts} from '../../redux/slice/wishlistSlice';
 import {removeFromWishlist} from '../../redux/actions/actions';
 import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from 'react-native';
+import {Alert, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 function useWishlist() {
   const navigation = useNavigation();
+  const colorScheme = useColorScheme();
   const [refreshing, setRefreshing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
@@ -140,6 +141,7 @@ function useWishlist() {
     closeModal,
     showModal,
     openModal,
+    colorScheme,
   };
 }
 export default useWishlist;

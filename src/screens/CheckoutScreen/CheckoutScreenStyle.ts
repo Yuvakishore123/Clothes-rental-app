@@ -464,9 +464,6 @@
 // // });
 // // export default styles;
 
-
-
-
 // import {StyleSheet} from 'react-native';
 // import Colors from '../../constants/Colors';
 // import {colors} from 'react-native-elements';
@@ -1030,7 +1027,6 @@
 // });
 // export default styles;
 
-
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 import {colors} from 'react-native-elements';
@@ -1043,7 +1039,7 @@ const styles = StyleSheet.create({
   backButtonContainer: {
     height: 40,
     width: 40,
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     borderRadius: 100,
     marginTop: 30,
     marginLeft: 20,
@@ -1098,7 +1094,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   addressText: {
-    color: Colors.white,
+    color: Colors.black,
     // fontWeight: '500',
     fontSize: 16,
     marginTop: 5,
@@ -1309,7 +1305,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'semibold',
     height: 29,
     width: '100%',
-    color: 'white',
+    color: 'black',
     fontSize: 16,
     marginTop: 10,
     fontFamily: 'Poppins-SemiBold',
@@ -1344,8 +1340,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.buttonColor,
     marginTop: 5,
     borderRadius: 100,
-    marginLeft: 20,
-    marginBottom: 10,
+    // marginLeft: 10,
+    marginBottom: 20,
     // color: '#FFFFFF',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -1384,7 +1380,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 24,
     // fontWeight: '500',
-    color: Colors.white,
+    color: Colors.black,
     fontFamily: 'Poppins-Bold',
   },
   productSizeBox: {
@@ -1432,14 +1428,14 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     // marginRight: 35,
   },
-  priceTotalText: {
-    fontSize: 14,
-    // fontWeight: 'bold',
-    // left: 130,
-    fontFamily: 'Poppins-SemiBold',
-    marginLeft: 10,
-    color: Colors.white,
-  },
+  // priceTotalText: {
+  //   fontSize: 14,
+  //   // fontWeight: 'bold',
+  //   // left: 130,
+  //   fontFamily: 'Poppins-SemiBold',
+  //   marginLeft: 10,
+  //   color: Colors.white,
+  // },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1461,9 +1457,11 @@ const styles = StyleSheet.create({
   },
   city: {
     marginLeft: 15,
+    width: 130,
+    height: 70,
     // marginTop: 10,
     color: Colors.black,
-    fontSize: 10,
+    fontSize: 12,
     // fontWeight: '500',
     fontFamily: 'Poppins-Regular',
   },
@@ -1517,6 +1515,45 @@ const styles = StyleSheet.create({
     borderColor: '#3E54AC',
     height: 19,
     width: 19,
+  },
+  GrandtotalContainer: {
+    // backgroundColor: Colors.white,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '85%',
+    marginLeft: 25,
+    marginTop: 20,
+  },
+  shippingContainer: {
+    // backgroundColor: Colors.white,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '85%',
+    marginLeft: 25,
+    // marginTop: 10,
+  },
+  priceTotalText: {
+    fontSize: 16,
+    // fontWeight: 'bold',
+    // left: 130,
+    // marginTop: 5,
+    color: Colors.black,
+    fontFamily: 'Poppins-Medium',
+  },
+  priceTotal: {
+    fontSize: 16,
+    // fontWeight: 'bold',
+    // left: 130,
+    // marginTop: 5,
+    marginLeft: 10,
+    color: Colors.white,
+    fontFamily: 'Poppins-Medium',
+  },
+  GrandtotalText: {
+    color: Colors.black,
+    fontFamily: 'Poppins-Medium',
+    marginLeft: 5,
+    fontSize: 16,
   },
   buttonRentTo: {
     backgroundColor: '#fff',

@@ -267,9 +267,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ADDORDER, removeFromCart} from '../../redux/actions/actions';
 import {cartUpdate, checkoutApi, url} from '../../constants/Apis';
 import {Alert} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import RazorpayCheckout from 'react-native-razorpay';
 import axios from 'axios';
+import React from 'react';
 function useCart() {
   // const {product} = route.params;
   const [refreshing, setRefreshing] = useState(false);
@@ -287,58 +288,44 @@ function useCart() {
   const [isChecked, setIschecked] = useState(true);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(-1);
   const [isCheckedArray, setIsCheckedArray] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        console.log(token);
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        };
-        const response = await axios.get(`${url}/address/listaddress`, {
-          headers,
-        });
-        const data = await response.data;
-        console.log(response.data);
-        setAddress(data);
-        setCity(data.city);
-        setStateName(data.state);
-        setaddressLine1(data.addressLine1);
-        setaddressLine2(data.addressLine2);
-        setpostalCode(data.postalCode);
-        console.log(
-          city,
-          state,
-          country,
-          postalCode,
-          // isCheckedArray,
-          isChecked,
-          addressLine1,
-          addressLine2,
-          // selectedAddress,
-          // setSelectedAddress,
-        );
-        console.log(address);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    setIsFocused(true);
-    fetchData();
-    return () => {
-      setIsFocused(false);
-    };
-  }, [
-    addressLine1,
-    addressLine2,
-    city,
-    country,
-    isChecked,
-    postalCode,
-    setIsFocused,
-    state,
-  ]);
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const token = await AsyncStorage.getItem('token');
+          console.log(token);
+          const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          };
+          const response = await axios.get(`${url}/address/listaddress`, {
+            headers,
+          });
+          const data = await response.data;
+          console.log(response.data);
+          setAddress(data);
+          setCity(data.city);
+          setStateName(data.state);
+          setaddressLine1(data.addressLine1);
+          setaddressLine2(data.addressLine2);
+          setpostalCode(data.postalCode);
+          console.log(
+            city,
+            state,
+            country,
+            postalCode,
+            addressLine1,
+            addressLine2,
+          );
+          console.log(address);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchData();
+    }, []),
+  );
   const cartData = useSelector(state => state.CartProducts.data);
   useEffect(() => {
     dispatch(fetchCartProducts());
@@ -438,7 +425,7 @@ function useCart() {
         Alert.alert(errorMessage);
       });
   };
-  const totalPrice = cartData.totalCost;
+  const totalPrice = cartData.finalPrice;
   const handlePayment = () => {
     const options = {
       description: 'Payment for food items',

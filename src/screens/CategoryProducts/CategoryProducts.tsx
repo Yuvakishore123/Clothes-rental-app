@@ -20,12 +20,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Lottie from 'lottie-react-native';
 import Colors from '../../constants/Colors';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
   const {subcategoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
   const navigation = useNavigation();
   const [wishlistList, setWishlistList] = useState([]);
+  const {colorScheme} = useCart();
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -49,20 +53,34 @@ const CategoryProducts = ({route}) => {
   }, [subcategoryId]);
 
   return (
-    <ScrollView style={style.maincontainer}>
-      <TouchableOpacity
-        style={style.backBtn}
+    <ScrollView
+      style={[
+        style.maincontainer,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
+      {/* <TouchableOpacity
+        style={[
+          style.backBtn,
+          colorScheme === 'dark' ? Styles.whiteTheme : Styles.whiteTheme,
+        ]}
         onPress={() => {
           navigation.goBack();
         }}>
         <MaterialIcon
           name="md-chevron-back"
-          color={Colors.white}
+          color={colorScheme === 'dark' ? Colors.black : Colors.white}
           size={26}
           style={{alignSelf: 'center'}}
         />
       </TouchableOpacity>
-      <Text style={style.textStyle}>Products</Text>
+      <Text
+        style={[
+          style.textStyle,
+          colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+        ]}>
+        Products
+      </Text> */}
+      <HeadingText message={'Products'} />
       <View style={{flex: 1}}>
         {subcategories.length === 0 ? (
           <View>
@@ -71,7 +89,11 @@ const CategoryProducts = ({route}) => {
               source={require('../../../assets/productsEmpty.json')}
               autoPlay
             />
-            <Text style={style.loadtextStyle}>
+            <Text
+              style={[
+                style.loadtextStyle,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
               Products are not Available Right Now
             </Text>
           </View>
@@ -97,7 +119,11 @@ const CategoryProducts = ({route}) => {
                         subcategoryId: item.id,
                       })
                     }>
-                    <View style={style.container}>
+                    <View
+                      style={[
+                        style.container,
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      ]}>
                       <TouchableOpacity
                         key={item.id}
                         onPress={() =>
@@ -114,7 +140,15 @@ const CategoryProducts = ({route}) => {
                       </TouchableOpacity>
                       <View style={style.cardTextContainer}>
                         <View style={style.Cartcontents}>
-                          <Text style={style.name}>{item.name}</Text>
+                          <Text
+                            style={[
+                              style.name,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            {item.name}
+                          </Text>
                         </View>
 
                         <View style={style.textContainer}>

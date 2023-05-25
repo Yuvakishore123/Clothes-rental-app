@@ -7,17 +7,27 @@ const style = StyleSheet.create({
     width: '100%',
     height: 64,
     flexDirection: 'row',
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     borderRadius: 8,
     marginLeft: 20,
     marginTop: 10,
+    elevation: 5,
+  },
+  CategoryText: {
+    color: Colors.black,
+    marginTop: 20,
+    fontFamily: 'Poppins-Bold',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 24,
+    marginLeft: 140,
   },
   imageContainer: {
     marginLeft: 20,
   },
   MainView: {
     width: '90%',
-    backgroundColor: 'black',
+    backgroundColor: '#F0F0F0',
   },
   categoryImage: {
     height: 40,
@@ -26,7 +36,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
   },
   categoryText: {
-    color: Colors.white,
+    color: Colors.black,
     width: '100%',
     // justifyContent: 'space-evenly',
     fontSize: 20,
@@ -36,7 +46,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
   },
   textStyle: {
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 20,
     fontFamily: 'Poppins-Bold',
     // fontWeight: '700',
@@ -47,13 +57,13 @@ const style = StyleSheet.create({
     marginLeft: 120,
     // justifyContent:'flex-end',
     // flexDirection:'row',
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: 'black',
   },
   backBtn: {
     marginTop: 10,
     marginLeft: 25,
     color: 'black',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'white',
     borderRadius: 100,
     width: '9%',
     height: 35,
@@ -62,7 +72,7 @@ const style = StyleSheet.create({
   maincontainer: {
     height: '100%',
     width: '100%',
-    backgroundColor: Colors.main,
+    // backgroundColor: '#F0F0F0',
   },
   loaderContainer: {
     flex: 1,

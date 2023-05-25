@@ -11,9 +11,13 @@ import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import Lottie from 'lottie-react-native';
 import styles from './subcategoryStyles';
 import Colors from '../../constants/Colors';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
+  const {colorScheme} = useCart();
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(() => {
@@ -64,20 +68,28 @@ const SubcategoryList = ({route}) => {
     );
   }
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
-      <TouchableOpacity
+    <ScrollView
+      style={colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme}>
+      <HeadingText message="Subcategories" />
+      {/* <TouchableOpacity
         style={styles.backBtn}
         onPress={() => {
           navigation.goBack();
         }}>
         <MaterialIcon
           name="md-chevron-back"
-          color={Colors.white}
+          color={Colors.black}
           size={26}
           style={{alignSelf: 'center'}}
         />
       </TouchableOpacity>
-      <Text style={styles.textStyle}>Shop by Subcategories</Text>
+      <Text
+        style={[
+          styles.textStyle,
+          colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+        ]}>
+        Shop by Subcategories
+      </Text> */}
       {loading ? (
         <View style={styles.loaderContainer}>
           <Lottie source={require('../../../assets/loading2.json')} autoPlay />
@@ -93,7 +105,11 @@ const SubcategoryList = ({route}) => {
                     subcategoryId: item.id,
                   })
                 }>
-                <View style={styles.categoryBox}>
+                <View
+                  style={[
+                    styles.categoryBox,
+                    colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  ]}>
                   <View style={styles.imageContainer}>
                     <Image
                       source={{uri: item.imageUrl}}
@@ -101,7 +117,13 @@ const SubcategoryList = ({route}) => {
                     />
                   </View>
                   <View>
-                    <Text style={styles.categoryText}>
+                    <Text
+                      style={[
+                        styles.categoryText,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}>
                       {item.subcategoryName}
                     </Text>
                   </View>

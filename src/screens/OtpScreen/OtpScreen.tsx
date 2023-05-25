@@ -7,8 +7,11 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import Lottie from 'lottie-react-native';
 import Styles from '../../screens/OtpScreen/Otpstyles';
+import style from '../../constants/themeColors';
 import Useotp from './Useotp';
+import useCart from '../Cart/useCart';
 export default function LoginScreen() {
   const {
     phoneNo,
@@ -19,23 +22,42 @@ export default function LoginScreen() {
     handleLogin,
     passwordError,
   } = Useotp();
+  const {colorScheme} = useCart();
   return (
-    <ScrollView style={Styles.mainContainer}>
+    <ScrollView
+      style={[
+        Styles.mainContainer,
+        colorScheme === 'dark' ? style.blacktheme : style.whiteTheme,
+      ]}>
       <View style={Styles.container}>
-        <View style={Styles.titleTextContainer}>
-          <Image
+        <View style={[Styles.titleTextContainer]}>
+          <Lottie
+            style={Styles.image}
+            source={require('../../../assets/Otp.json')}
+            autoPlay
+          />
+          {/* <Image
             style={Styles.image}
             source={require('../../../assets/LeapsLogo.png')}
-          />
+          /> */}
         </View>
         <View>
-          <Text style={Styles.Textphonenumber}> Phone number </Text>
+          <Text
+            style={[
+              Styles.Textphonenumber,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
+            ]}>
+            Phone number{' '}
+          </Text>
         </View>
         <View>
           <TextInput
-            style={Styles.textinputphone}
+            style={[
+              Styles.textinputphone,
+              colorScheme === 'dark' ? style.cardColor : style.main,
+            ]}
             placeholder="Enter phone number"
-            placeholderTextColor={'rgba(255, 255, 255, 0.2)'}
+            placeholderTextColor={'black'}
             value={phoneNo}
             autoCapitalize="none"
             keyboardType="numeric"
@@ -43,11 +65,20 @@ export default function LoginScreen() {
           />
         </View>
         <View>
-          <Text style={Styles.TextOTP}>Otp</Text>
+          <Text
+            style={[
+              Styles.TextOTP,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
+            ]}>
+            Otp
+          </Text>
           <TextInput
-            style={Styles.textinputOTP}
+            style={[
+              Styles.textinputOTP,
+              colorScheme === 'dark' ? style.cardColor : style.main,
+            ]}
             placeholder="Enter Otp"
-            placeholderTextColor={'rgba(255, 255, 255, 0.2)'}
+            placeholderTextColor={'black'}
             value={otp}
             secureTextEntry={true}
             onChangeText={handlePasswordChange}
@@ -56,7 +87,13 @@ export default function LoginScreen() {
         {passwordError.length > 0 && <Text>{passwordError}</Text>}
         <View style={Styles.touchablebtnContainer}>
           <TouchableOpacity onPress={GETOTP}>
-            <Text style={Styles.Text}>Get</Text>
+            <Text
+              style={[
+                Styles.Text,
+                colorScheme === 'dark' ? style.whitetext : style.blackText,
+              ]}>
+              Get
+            </Text>
             <Text style={Styles.touchableTextOTP}>Otp</Text>
           </TouchableOpacity>
           <TouchableOpacity style={Styles.touchablebtn} onPress={handleLogin}>

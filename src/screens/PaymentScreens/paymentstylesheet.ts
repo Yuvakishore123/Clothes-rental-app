@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headerText: {
-    color: Colors.white,
+    color: Colors.black,
     // fontWeight: 'bold',
     fontFamily: 'Poppins-SemiBold',
     left: 45,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   failheaderText: {
-    color: Colors.white,
+    color: Colors.black,
     // fontWeight: 'bold',
     fontFamily: 'Poppins-SemiBold',
     left: 45,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     color: Colors.buttonColor,
   },
   successText: {
-    color: Colors.white,
+    color: Colors.black,
     textAlign: 'center',
     marginRight: '35%',
     top: 20,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   successText2: {
-    color: Colors.white,
+    color: Colors.black,
     textAlign: 'center',
     // marginRight: '20%',
     top: 20,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   successText1: {
-    color: Colors.white,
+    color: Colors.black,
     textAlign: 'center',
     marginRight: '30%',
     width: '100%',
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   successText3: {
-    color: Colors.white,
+    color: Colors.black,
     textAlign: 'center',
     // marginRight: '30%',
     width: '100%',

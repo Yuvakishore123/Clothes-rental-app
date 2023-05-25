@@ -106,31 +106,43 @@
 // });
 
 // export default style;
-import {StyleSheet} from 'react-native';
+import {StyleSheet, useColorScheme} from 'react-native';
 import Colors from '../../constants/Colors';
-
 const style = StyleSheet.create({
   container: {
     width: '42%',
     height: 207,
     borderRadius: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
     marginLeft: '3.5%',
     marginRight: '5%',
     marginTop: 10,
     marginBottom: 10,
+    // overflow: 'hidden',
+    shadowColor: '#3E54AC1A',
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 2,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  cardTextContainer: {
+    width: '100%',
   },
   CategoriesText: {
     fontSize: 24,
     // fontWeight: '700',
-    fontFamily: 'Poppins-Medium',
-    color: Colors.white,
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
     marginTop: 15,
     marginLeft: 15,
   },
   Seetext: {
     fontSize: 16,
-    fontWeight: '400',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-Medium',
     color: Colors.buttonColor,
     marginTop: 25,
     // marginLeft: 15,
@@ -146,16 +158,30 @@ const style = StyleSheet.create({
   mainContainer: {
     height: '100%',
     width: '100%',
+  },
+  blacktheme: {
     backgroundColor: Colors.black,
   },
+  whiteTheme: {
+    backgroundColor: Colors.main,
+  },
+  blackText: {
+    color: Colors.black,
+  },
+  whitetext: {
+    color: Colors.main,
+  },
+  cardColor: {
+    backgroundColor: Colors.Textinput,
+  },
   Productstext: {
-    color: Colors.white,
+    color: Colors.black,
     // fontWeight: '700',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 24,
     marginLeft: 20,
     // marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   imageContainer: {
     backgroundColor: '#3E54AC1A',
@@ -175,7 +201,7 @@ const style = StyleSheet.create({
   name: {
     fontSize: 12,
     fontWeight: '400',
-    color: Colors.white,
+    color: Colors.black,
     marginLeft: 10,
     marginTop: 10,
   },
@@ -230,15 +256,21 @@ const style = StyleSheet.create({
   searchInputContainer: {
     height: 45,
     width: '90%',
-    backgroundColor: Colors.Inputtext,
-    // marginTop: 5,
+    backgroundColor: Colors.white,
     marginLeft: 20,
-    // borderColor: '#3E54AC',
-    borderWidth: 2,
     borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.7,
+    shadowRadius: 2,
+    elevation: 4,
   },
+
   // cardTextContainer: {
   //   backgroundColor: Colors.Inputtext,
   //   height: 100,

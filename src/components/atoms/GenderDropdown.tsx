@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     height: 56,
     width: '110%',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#FFFFFF',
+    elevation: 4,
     marginTop: 3,
     // marginLeft: -3,
     borderRadius: 8,
@@ -67,14 +68,16 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
-    fontWeight: '400',
-    color: 'rgba(255, 255, 255, 0.5)',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-Medium',
+    color: 'gray',
     marginLeft: 15,
   },
   selectedTextStyle: {
     fontSize: 18,
-    fontWeight: '400',
-    color: '#FFFFFF',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
@@ -83,14 +86,13 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 15,
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 18,
     // backgroundColor: Colors.white,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-
     color: 'black',
   },
   itemTextStyle: {

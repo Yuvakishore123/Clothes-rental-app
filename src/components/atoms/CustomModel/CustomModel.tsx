@@ -19,12 +19,12 @@ const CustomModal = ({showModal, onClose, message}) => {
               }}>
               <Text
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 16,
                   padding: 9,
                   borderRadius: 30,
                   textAlign: 'center',
-                  fontFamily:'Poppins-SemiBold',
+                  fontFamily: 'Poppins-SemiBold',
                 }}>
                 OK
               </Text>

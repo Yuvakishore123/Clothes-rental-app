@@ -76,7 +76,7 @@ const OwnerEditItemstyles = StyleSheet.create({
     borderBottomRightRadius: 0,
   },
   cardImageContainer: {
-    width: 145,
+    width: '88%',
     height: 145,
     borderRadius: 8,
     alignItems: 'center',
@@ -86,9 +86,11 @@ const OwnerEditItemstyles = StyleSheet.create({
   },
   imagePriceContainer: {
     flexDirection: 'column',
+    width: '45%',
   },
   priceContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    // backgroundColor: 'rgba(5, 5, 5, 0.3)',
+    backgroundColor: '#FFFFFF',
     padding: 8,
     borderRadius: 5,
     marginLeft: 20,
@@ -102,7 +104,7 @@ const OwnerEditItemstyles = StyleSheet.create({
     width: '60%',
   },
   button: {
-    backgroundColor: '#9747FF',
+    backgroundColor: Colors.buttonColor,
     width: 90,
     height: 40,
     borderRadius: 10,
@@ -114,13 +116,13 @@ const OwnerEditItemstyles = StyleSheet.create({
   backContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: Colors.main,
   },
   backButtonCircle: {
     marginTop: -30,
     marginLeft: 25,
     color: 'black',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
     borderRadius: 100,
     width: '75%',
     height: 38,
@@ -128,7 +130,7 @@ const OwnerEditItemstyles = StyleSheet.create({
   },
   backButtonText: {
     fontSize: 24,
-    color: '#FFFFFF',
+    color: Colors.black,
     fontWeight: '700',
     fontFamily: 'Poppins',
     marginTop: 65,
@@ -151,7 +153,8 @@ const OwnerEditItemstyles = StyleSheet.create({
   Addimage: {
     height: 163,
     width: '109%',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
+    elevation: 4,
     marginTop: 20,
     borderRadius: 10,
     alignItems: 'center',
@@ -166,11 +169,12 @@ const OwnerEditItemstyles = StyleSheet.create({
   // },
   Price: {
     fontSize: 16,
-    fontWeight: '400',
-    color: '#FFFFFF',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
     width: '109%',
     height: 56,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
     elevation: 4,
     marginTop: 24,
     borderRadius: 8,
@@ -227,11 +231,12 @@ const OwnerEditItemstyles = StyleSheet.create({
   },
   imagesText: {
     fontSize: 20,
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: Colors.black,
     alignItems: 'center',
     marginTop: 68,
     justifyContent: 'center',
-    fontWeight: '500',
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
 });
 export default OwnerEditItemstyles;

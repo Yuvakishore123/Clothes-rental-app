@@ -33,7 +33,7 @@ const Sizeselection = ({onChange}) => {
           iconStyle={styles.iconStyle}
           data={data}
           search
-          maxHeight={400}
+          maxHeight={200}
           labelField="label"
           valueField="value"
           placeholder={!isFocus ? 'Select size' : '...'}
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     height: 56,
     width: '493%',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#FFFFFF',
     marginTop: 3,
-    // marginLeft: -3,
+    elevation: 4,
     borderRadius: 8,
     padding: 10,
     flexDirection: 'row',
@@ -72,14 +72,16 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
-    fontWeight: '400',
-    color: 'rgba(255, 255, 255, 0.5)',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-SemiBold',
+    color: '#000000',
     marginLeft: 15,
   },
   selectedTextStyle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    // fontWeight: '600',
+    fontFamily: 'Poppins-SemiBold',
+    color: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 15,
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
   },
   inputSearchStyle: {
     height: 40,

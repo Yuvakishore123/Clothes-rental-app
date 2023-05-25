@@ -8,7 +8,7 @@ type Props = {
   onFromDateChange: (date: Date) => void;
   onToDateChange: (date: Date) => void;
 };
-const DatePicker = ({
+const DatePickerNew = ({
   fromDate,
   toDate,
   onFromDateChange,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 100,
     height: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 80,
@@ -102,10 +102,10 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginLeft: 10,
     fontWeight: 'bold',
-    color: Colors.white,
+    color: Colors.black,
     // backgroundColor: Colors.Inputtext,
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
-export default DatePicker;
+export default DatePickerNew;

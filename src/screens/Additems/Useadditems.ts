@@ -100,7 +100,7 @@ function Useadditems() {
       try {
         // setIsLoading(true);
         const token = await AsyncStorage.getItem('token');
-        const response = await axios.get(`${url}/subcategory/listbyid/${1}`, {
+        const response = await axios.get(`${url}/subcategory/listbyid/${3}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -129,7 +129,7 @@ function Useadditems() {
       try {
         // setIsLoading(true);
         const token = await AsyncStorage.getItem('token');
-        const response = await axios.get(`${url}/subcategory/listbyid/${2}`, {
+        const response = await axios.get(`${url}/subcategory/listbyid/${4}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

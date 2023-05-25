@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.white,
   },
   subname: {
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 12,
     // fontWeight: '400',
     // zIndex: 1,

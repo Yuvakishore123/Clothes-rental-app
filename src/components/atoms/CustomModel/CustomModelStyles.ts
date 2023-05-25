@@ -12,7 +12,7 @@ const style = StyleSheet.create({
     backgroundColor: Colors.buttonColor,
     borderRadius: 5,
     width: 400,
-    height: 240,
+    height: 340,
     marginTop: 500,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
@@ -23,7 +23,7 @@ const style = StyleSheet.create({
     color: Colors.white,
     fontSize: 22,
     // fontWeight: 'bold',
-    fontFamily:'Poppins-SemiBold',
+    fontFamily: 'Poppins-SemiBold',
   },
 });
 export default style;

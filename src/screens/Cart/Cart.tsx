@@ -325,48 +325,58 @@ import Colors from '../../constants/Colors';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import Lottie from 'lottie-react-native';
 import {ReactNode, useState} from 'react';
+import Styles from '../../constants/themeColors';
+import DateRangePicker from '../../components/atoms/CalanderPicker';
+import DatePicker from '../../components/atoms/DatePicker Detail';
+import CardDatePiker from '../../components/atoms/DatePicker';
+import CalendarPicker from 'react-native-calendar-picker';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 
 type Props = {
-  route: {name: string};
+  route: {params: {product: any}};
   navigation: any;
 };
 const Cart = ({navigation}: Props) => {
+  // const {productData} = route.params;
   const {
     CartProducts,
     handleCheckout,
     handlecartstate,
+    colorScheme,
     handleRemove,
     refreshing,
     onRefresh,
     closeModal,
     showModal,
     iscartVisible,
+    setRentalStartDate,
+    setRentalEndDate,
+    rentalEndDate,
+    rentalStartDate,
+    quantity,
+    handleDecrement,
+    handleIncrement,
+    setProductQuantity,
+    isplusDisable,
   } = useCart();
   // const cartData = useSelector(state => state.CartProducts.data);
   // console.log('cartItems:', cartData);
   const cartData = useSelector(state => state.CartProducts.data) || {
     cartItems: [],
   };
-  const [quantity, setQuantity] = useState(1);
-  const Quantity = cartData.cartItems.quantity;
-  console.log(cartData.cartItems.quantity);
-  console.log('cartData is ', cartData);
-  const handleDecrement = () => {
-    setQuantity(quantity - 1);
-    setIsQuantity(true);
-    if (quantity === 2) {
-      setIsMinusDisabled(true);
-    }
-    setIsPlusDisabled(false);
-  };
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-    setIsQuantity(true);
-    if (quantity === Quantity - 1) {
-      setIsPlusDisabled(true);
-    }
-    setIsMinusDisabled(false);
-  };
+  const productQuantities = cartData.cartItems.map(item => item.quantity);
+  // setProductQuantity(productQuantities);
+  const Quantity = productQuantities;
+  if (CartProducts && CartProducts.cartItems) {
+    console.log('Product Quantity:');
+    CartProducts.cartItems.forEach(item => {
+      console.log(`- Quantity for item with ID ${item.id}: ${item.quantity}`);
+    });
+  } else {
+    console.log('CartProducts is null or undefined.');
+  }
+
+  console.log('Product Quantity is', productQuantities);
 
   if (!CartProducts) {
     return (
@@ -394,9 +404,30 @@ const Cart = ({navigation}: Props) => {
   }
   return (
     <>
-      <View style={style.mainContainer}>
-        <View style={style.titleContainer}>
-          <Text style={style.titleText}>Cart</Text>
+      <View
+        style={[
+          style.mainContainer,
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
+        <Text
+          style={[
+            style.MainTitleText,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          Cart
+        </Text>
+        <View
+          style={[
+            style.titleContainer,
+            colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+          ]}>
+          <Text
+            style={[
+              style.titleText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Cart products ({cartData.cartItems.length}){' '}
+          </Text>
         </View>
         <View>
           <ScrollView
@@ -414,7 +445,13 @@ const Cart = ({navigation}: Props) => {
                   />
                 </View>
                 <View style={style.textContainer1}>
-                  <Text style={style.noAddressText1}>
+                  <Text
+                    style={[
+                      style.noAddressText1,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}>
                     Hey,it feels so light!
                   </Text>
                 </View>
@@ -458,7 +495,14 @@ const Cart = ({navigation}: Props) => {
                     },
                     index: React.Key | null | undefined,
                   ) => (
-                    <View key={index} style={style.cardContainer}>
+                    <View
+                      key={index}
+                      style={[
+                        style.cardContainer,
+                        colorScheme === 'dark'
+                          ? Styles.Cardcolor2
+                          : Styles.main,
+                      ]}>
                       <View style={style.imageContainer}>
                         <Image
                           source={{uri: item.imageUrl}}
@@ -483,7 +527,7 @@ const Cart = ({navigation}: Props) => {
                           <Text style={style.detailsdescription}>
                             {item.product.size}
                           </Text>
-                          <View style={{flexDirection: 'row'}}>
+                          {/* <View style={{flexDirection: 'row'}}>
                             <View style={style.DateContainer}>
                               <Text style={style.DateTxt}>
                                 {item.rentalStartDate?.toLocaleString()}
@@ -493,13 +537,18 @@ const Cart = ({navigation}: Props) => {
                               <Text style={style.DateTxt}>
                                 {item.rentalEndDate?.toLocaleString()}
                               </Text>
-                              {/* </View> */}
                             </View>
-                            {/* </View> */}
-                          </View>
+                          </View> */}
+                          <CardDatePiker
+                            startDate={item.rentalStartDate?.toLocaleString()}
+                            endDate={item.rentalEndDate?.toLocaleString()}
+                            onStartDateChange={setRentalStartDate}
+                            onEndDateChange={setRentalEndDate}
+                          />
                         </View>
                         <View style={style.removeAndQuantity}>
                           {/* <View style={style.RemoveContainer}> */}
+                          {console.log(isplusDisable)}
                           <TouchableOpacity
                             style={style.RemoveButton}
                             onPress={() => handleRemove(item.product.id)}>
@@ -507,19 +556,28 @@ const Cart = ({navigation}: Props) => {
                           </TouchableOpacity>
                           {/* </View> */}
                           <View style={style.quantityContainer}>
-                            <TouchableOpacity style={style.quantityButton}>
+                            <TouchableOpacity
+                              onPress={() => handleDecrement(item)}
+                              style={style.quantityButton}>
                               {/* <View> */}
                               <Icon name="minus" color={'white'} size={10} />
                               {/* </View> */}
                             </TouchableOpacity>
                             {/* <View> */}
+                            {/* {console.log('Quantity is ', Quantity)} */}
                             <View>
                               <Text style={style.quantityTxt}>
                                 {item.quantity}
                               </Text>
                             </View>
                             {/* </View> */}
-                            <TouchableOpacity style={style.quantityButton}>
+                            <TouchableOpacity
+                              onPress={() => handleIncrement(item)}
+                              disabled={isplusDisable}
+                              style={[
+                                style.quantityButton,
+                                isplusDisable && style.disabled,
+                              ]}>
                               <Icon name="plus" color={'white'} size={10} />
                             </TouchableOpacity>
                             {/* </View> */}
@@ -533,9 +591,22 @@ const Cart = ({navigation}: Props) => {
             )}
           </ScrollView>
           <View style={style.GrandtotalContainer}>
-            <Text style={style.GrandtotalText}>Grand Total</Text>
+            <Text
+              style={[
+                style.GrandtotalText,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Grand Total
+            </Text>
             {/* <Text>Total Amount</Text> */}
-            <Text style={style.priceTotalText}> ₹ {cartData.totalCost}</Text>
+            <Text
+              style={[
+                style.priceTotalText,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              {' '}
+              ₹ {cartData.totalCost}
+            </Text>
           </View>
         </View>
         <View>

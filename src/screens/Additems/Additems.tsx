@@ -91,12 +91,13 @@ const Additems = () => {
         </>
       ) : (
         <>
-          <HeadingText message="Add Products" />
+          {/* <HeadingText message="Add Products" /> */}
 
           <View style={Ownerstyles.Scrollcontainer}>
             <View style={Ownerstyles.scroll}>
+              <Text style={Ownerstyles.EditText}>Add products</Text>
               <TextInput
-                placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                placeholderTextColor={Colors.gray}
                 placeholder="Name"
                 style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                 value={name}
@@ -106,9 +107,8 @@ const Additems = () => {
               {formik.touched.name && formik.errors.name && (
                 <Text style={Styles.errorText}>{formik.errors.name}</Text>
               )}
-
               <TextInput
-                placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                placeholderTextColor={Colors.gray}
                 placeholder="Description"
                 style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                 multiline

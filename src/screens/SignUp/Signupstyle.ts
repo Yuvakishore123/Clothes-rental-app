@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   Container: {
     // height: '100%',
@@ -22,10 +22,11 @@ const styles = StyleSheet.create({
   titleText: {
     // marginTop: 60,
     fontSize: 30,
-    fontWeight: '700',
-    color: Colors.white,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
     // margin: 25,
-    // marginLeft: 55,
+    marginLeft: 20,
   },
   textView: {height: 43, width: 286},
   titleTextContainer: {
@@ -45,9 +46,10 @@ const styles = StyleSheet.create({
     shadowColor: '#52006A',
   },
   cardText: {
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 16,
-    fontWeight: '400',
+    // fontWeight: '400',
+    fontFamily: 'Poppins-Medium',
     marginTop: 10,
     marginLeft: 20,
   },
@@ -58,16 +60,17 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   textinput: {
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     width: '90%',
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 10,
     padding: 10,
     marginLeft: 15,
+    fontFamily: 'Poppins-Regular',
     // opacity: 0.2,
     borderColor: '#3E54AC',
-    color: 'white',
+    color: 'black',
   },
   touchableText: {
     color: 'white',
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     height: 59,
     width: 320,
     backgroundColor: '#9747FF',
-    // marginLeft: 27,
+    marginLeft: 30,
     marginTop: 20,
     borderRadius: 100,
     color: '#FFFFFF',
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
   touchablebtnContainer: {
     justifyContent: 'center',
     // marginLeft: -20,
-    marginTop: -15,
+    marginTop: 15,
     // alignItems:"center",
   },
   subTitileText: {
@@ -121,8 +124,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 100,
-    // marginLeft: 50,
+    height: 250,
+    marginLeft: 50,
     // paddingRight: 30,
   },
   emailText: {
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
   signuptext: {
     marginTop: 20,
     alignItems: 'center',
-    color: Colors.white,
+    color: Colors.black,
     //marginRight: 20,
     //margin: 15,
     //paddingLeft: 25,

@@ -12,6 +12,7 @@ import Colors from '../../constants/Colors';
 import Lottie from 'lottie-react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
+
 const {height} = Dimensions.get('window');
 
 const walkthroughTitleList = [
@@ -46,6 +47,7 @@ export default function SplashScreen() {
     <View style={styles.container}>
       <Swiper
         showsButtons={false}
+        loop={false}
         activeDotColor={Colors.buttonColor}
         activeDotStyle={{
           width: 15,
@@ -61,7 +63,7 @@ export default function SplashScreen() {
           height: 15,
           borderRadius: 7,
           marginTop: 30,
-          backgroundColor: 'transparent',
+          backgroundColor: 'grey',
           borderColor: 'white',
           borderWidth: 1,
           marginRight: 10,
@@ -108,16 +110,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Poppins-Bold',
-    color: 'white',
+    color: 'black',
     marginTop: 400,
     fontSize: 25,
-    // fontWeight: 'bold',
     marginVertical: 20,
   },
   desc: {
     fontSize: 17,
     fontFamily: 'Poppins-Regular',
-    color: 'white',
+    color: 'black',
     paddingHorizontal: 20,
     textAlign: 'center',
   },
@@ -125,7 +126,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins-Bold',
     fontSize: 16,
-    // fontWeight: '500',
     justifyContent: 'center',
   },
   touchablebtn: {

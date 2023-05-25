@@ -210,6 +210,7 @@ import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import {useSelector} from 'react-redux';
 import Colors from '../../constants/Colors';
 import Lottie from 'lottie-react-native';
+import Styles from '../../constants/themeColors';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -221,6 +222,7 @@ const Wishlist = ({navigation}: Props) => {
     closeModal,
     showModal,
     openModal,
+    colorScheme,
   } = useWishlist();
 
   const {refreshing, onRefresh} = useWishlist();
@@ -229,7 +231,11 @@ const Wishlist = ({navigation}: Props) => {
 
   if (!WishlistProducts) {
     return (
-      <View style={{flex: 1, backgroundColor: Colors.main}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colorScheme === 'dark' ? Colors.black : Colors.main,
+        }}>
         <Lottie
           source={require('../../../assets/loading2.json')}
           autoPlay
@@ -249,32 +255,54 @@ const Wishlist = ({navigation}: Props) => {
   }
 
   return (
-    <View style={style.maincontainer}>
+    <View
+      style={[
+        style.maincontainer,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <View style={style.textConatiner}>
-          <Text style={style.textStyle}>
+        <Text
+          style={[
+            style.textStylewishlist,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          Wishlist
+        </Text>
+        <View
+          style={[
+            style.textConatiner,
+            colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+          ]}>
+          <Text
+            style={[
+              style.textStyle,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
             My favorites ({allWishlistProducts.length})
           </Text>
         </View>
         {allWishlistProducts.length === 0 ? (
           <>
             <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-                backgroundColor: Colors.main,
-              }}>
+              style={[
+                {
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  backgroundColor: Colors.main,
+                },
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}>
               <Lottie
                 source={require('../../../assets/wishlistanime.json')}
                 autoPlay
                 style={{
                   height: 200,
                   width: 200,
-                  marginTop: 150,
+                  marginTop: 50,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -291,7 +319,11 @@ const Wishlist = ({navigation}: Props) => {
             </View>
           </>
         ) : (
-          <View style={style.maincontainer}>
+          <View
+            style={[
+              style.maincontainer,
+              colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+            ]}>
             <View
               style={{
                 // flex: 1,
@@ -339,8 +371,15 @@ const Wishlist = ({navigation}: Props) => {
                             width: '50%',
                             // backgroundColor: Colors.green,
                             flexDirection: 'row',
-                          }}>
-                          <View style={style.container} key={index}>
+                          }}
+                          key={index}>
+                          <View
+                            style={[
+                              style.container,
+                              colorScheme === 'dark'
+                                ? Styles.cardColor
+                                : Styles.main,
+                            ]}>
                             <TouchableOpacity
                               // style={{width: '100%', height: '20%'}}
                               onPress={() =>
@@ -357,9 +396,23 @@ const Wishlist = ({navigation}: Props) => {
                             </TouchableOpacity>
                             <View style={style.cardTextContainer}>
                               <View style={style.Cartcontents}>
-                                <Text style={style.name}>{item.name}</Text>
+                                <Text
+                                  style={[
+                                    style.name,
+                                    colorScheme === 'dark'
+                                      ? Styles.whitetext
+                                      : Styles.blackText,
+                                  ]}>
+                                  {item.name}
+                                </Text>
                               </View>
-                              <View style={style.textContainer}>
+                              <View
+                                style={[
+                                  style.textContainer,
+                                  colorScheme === 'dark'
+                                    ? Styles.whitetext
+                                    : Styles.blackText,
+                                ]}>
                                 <Text style={style.price}>
                                   {'₹' + item.price}
                                 </Text>

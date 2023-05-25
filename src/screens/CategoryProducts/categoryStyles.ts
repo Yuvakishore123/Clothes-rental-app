@@ -9,7 +9,7 @@ const style = StyleSheet.create({
     borderRadius: 8,
     // flexDirection: 'row',
     // backgroundColor: '#000',
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     marginLeft: 20,
     // marginRight: 20,
     // marginBottom: 10,
@@ -41,7 +41,7 @@ const style = StyleSheet.create({
   name: {
     fontSize: 10,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors.black,
   },
   addButton: {
     borderColor: '#3E54AC',
@@ -55,9 +55,10 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
   },
   price: {
-    fontSize: 8,
-    fontWeight: '600',
-    color: Colors.white,
+    fontSize: 10,
+    // fontWeight: '600',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.buttonColor,
   },
   rentButton: {
     borderWidth: 1,
@@ -84,7 +85,9 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textContainer: {},
+  textContainer: {
+    marginTop: 5,
+  },
   rentText: {color: '#3E54AC', fontWeight: 'bold', fontSize: 10},
 
   searchInputContainer: {
@@ -96,7 +99,6 @@ const style = StyleSheet.create({
     borderColor: '#3E54AC',
     borderWidth: 2,
     borderRadius: 12,
-
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -104,7 +106,7 @@ const style = StyleSheet.create({
     marginTop: 10,
     marginLeft: 25,
     color: 'black',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'black',
     borderRadius: 100,
     width: '9%',
     height: 35,
@@ -127,8 +129,8 @@ const style = StyleSheet.create({
   textConatiner: {marginLeft: 63, marginTop: 20, flexDirection: 'row'},
 
   textStyle: {
-    color: Colors.white,
-    fontSize: 20,
+    color: Colors.black,
+    fontSize: 24,
     fontFamily: 'Poppins-Bold',
     // fontWeight: '700',
     marginTop: 20,

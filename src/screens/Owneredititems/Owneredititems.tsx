@@ -18,11 +18,13 @@ import EventsDropdown from '../../components/atoms/EventsDropdown';
 import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Sizeselection from '../../components/atoms/Sizeselect';
 import OwnerEditItemstyles from './Owneredititemsstyles';
-import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
+import Lottie from 'lottie-react-native';
 import BackButton from '../../components/atoms/BackButton/BackButton';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+
 const App = () => {
   const {
     data,
@@ -36,7 +38,12 @@ const App = () => {
     imageUrls,
     selectedImage,
     RemoveProducts,
+    closeModal,
+    showModal,
+    setShowModal,
+    handleRemoveImage,
     handleremove,
+    name,
     pickImg,
     handleGenderChange,
     handleEventTypeChange,
@@ -51,43 +58,45 @@ const App = () => {
     setEditProductId,
     FetchData,
     Mapdata,
+    description,
     price,
     quantity,
+    isLoading,
   } = Useowneredititems();
-  const [, setHideId] = useState(null);
-  console.log(data);
-  console.log('Mapped Data is :', Mapdata);
+
+  const [hideId, setHideId] = useState(null);
+
   const handleVisibleModal = () => {
     setViisble(!visible);
     setHideId(null);
   };
+
   const navigation = useNavigation();
-  console.log('data :', data);
+
   return (
     <SafeAreaView>
       <Modal animationType="slide" visible={visible}>
         <SafeAreaView>
           <ScrollView>
             <View style={styles.form}>
-              <BackButton />
               <HeadingText message="Edit product" />
               <View style={Ownerstyles.Scrollcontainer}>
                 <View style={Ownerstyles.scrolledit}>
                   <TextInput
-                    placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                    placeholderTextColor={Colors.black}
                     placeholder="Name"
                     style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
                     onChangeText={setName}
-                    defaultValue={Mapdata.name}
+                    value={name}
                   />
                   <TextInput
-                    placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                    placeholderTextColor={Colors.black}
                     placeholder="Description"
                     multiline
                     style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
                     onChangeText={setDescription}
                     multiline
-                    defaultValue={Mapdata.description}
+                    value={description}
                   />
                   <GenderDropdown
                     onSelectGender={setGender}
@@ -158,19 +167,19 @@ const App = () => {
                   <View>
                     <TextInput
                       style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
-                      placeholder="Select price"
-                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                      placeholder="Set price"
+                      placeholderTextColor={Colors.black}
                       keyboardType="numeric"
                       value={price.toString()}
-                      onChangeText={(value: any) => setPrice(value)}
+                      onChangeText={setPrice}
                     />
                     <TextInput
                       keyboardType="numeric"
-                      placeholder="Select quantity"
-                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                      placeholder="Set quantity"
+                      placeholderTextColor={Colors.black}
                       style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
                       value={quantity.toString()}
-                      onChangeText={(value: any) => setQuantity(value)}
+                      onChangeText={setQuantity}
                     />
                   </View>
                   <View style={Ownerstyles.mainButton}>
@@ -187,25 +196,20 @@ const App = () => {
         </SafeAreaView>
       </Modal>
       <ScrollView>
-        <View style={OwnerEditItemstyles.backContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <View style={OwnerEditItemstyles.backButtonCircle}>
-              <Icons
-                name="chevron-back"
-                color={'#FFFFFF'}
-                size={25}
-                marginTop={5}
-                marginLeft={6}
-              />
-            </View>
-          </TouchableOpacity>
-          <Text style={OwnerEditItemstyles.backButtonText}>Edit products</Text>
+        <View>
+          <HeadingText message="Edit Product" />
         </View>
-
-        {data.map(item => {
-          return (
-            <View style={styles.mainContainer}>
-              <View style={styles.item_course} key={item}>
+        {isLoading ? (
+          <View style={{height: 200, width: 400}}>
+            <Lottie
+              source={require('../../../assets/EditProducts.json')}
+              autoPlay
+            />
+          </View>
+        ) : (
+          data.map(item => (
+            <View style={styles.mainContainer} key={item.id}>
+              <View style={styles.item_course}>
                 <View style={OwnerEditItemstyles.imagePriceContainer}>
                   <View style={OwnerEditItemstyles.cardImageContainer}>
                     <Image
@@ -220,8 +224,10 @@ const App = () => {
                 </View>
                 <View style={OwnerEditItemstyles.buttonContainer}>
                   <TouchableOpacity
-                    onPress={() => FetchData()}
-                    onPressIn={() => setEditProductId(item.id)}>
+                    onPress={() => {
+                      FetchData(item.id);
+                      setEditProductId(item.id);
+                    }}>
                     <View style={OwnerEditItemstyles.button}>
                       <Text style={styles.txt_edit}>Edit</Text>
                     </View>
@@ -233,9 +239,14 @@ const App = () => {
                   </TouchableOpacity>
                 </View>
               </View>
+              <CustomModal
+                showModal={showModal}
+                onClose={closeModal}
+                message="Item Remove From cart!"
+              />
             </View>
-          );
-        })}
+          ))
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -258,8 +269,8 @@ const styles = StyleSheet.create({
     color: Colors.iconscolor,
   },
   mainContainer: {
-    backgroundColor: '#000000',
-    height: 250,
+    backgroundColor: Colors.main,
+    height: 300,
   },
   text_input: {
     padding: 10,
@@ -285,14 +296,15 @@ const styles = StyleSheet.create({
   },
   txt_name: {
     fontSize: 12,
-    fontWeight: '400',
-    fontFamily: 'Poppins',
-    color: '#FFFFFF',
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
   },
   txt_item: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#9747FF',
+    fontSize: 13,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.buttonColor,
   },
   txt_enabled: {
     fontSize: 14,
@@ -308,13 +320,15 @@ const styles = StyleSheet.create({
   },
   txt_del: {
     fontSize: 15,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   txt_edit: {
     fontSize: 15,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   btnContainer: {
     display: 'flex',

@@ -15,6 +15,15 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "reduxdemo";
   }
+  // @Override
+  // protected String getMainComponentName(){
+  //   return "DarkMode";
+  // }
+  // @Override
+  // public void onConfigurationChanged(Configuration newConfig) {
+  //   super.onConfigurationChanged(newConfig);
+  //   getReactInstanceManager().onConfigurationChanged(this, newConfig);
+  // }
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link

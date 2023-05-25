@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 // // /* eslint-disable react-native/no-inline-styles */
 // // import {
 // //   FlatList,
@@ -228,8 +229,6 @@
 // // };
 // // export default Cart;
 
-
-
 // /* eslint-disable react-native/no-inline-styles */
 // import {
 //   FlatList,
@@ -455,7 +454,7 @@
 //               <Text style={style.TextGrand}>Grand Total</Text>
 //               <View style={{alignItems: 'center'}}>
 //                 {/* <View style={style.PlaceOrder}>
-                 
+
 //                   <Text
 //                     style={{color: '#3E54AC', fontWeight: '900', fontSize: 10}}>
 //                     Total Amount
@@ -497,12 +496,16 @@ import useCheckout from './useCheckout';
 import style from './CheckoutScreenStyle';
 import Colors from '../../constants/Colors';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+
 type Props = {
   route: {name: string};
   navigation: any;
 };
+
 const Cart = ({navigation}: Props) => {
-  // const {selectedAddress, setSelectedAddress} = useState('No Selected Address');
   const {
     setIsCheckedArray,
     selectedAddressIndex,
@@ -515,6 +518,7 @@ const Cart = ({navigation}: Props) => {
     isCheckedArray,
     isChecked,
   } = useCheckout();
+  const {colorScheme} = useCart();
   const cartData = useSelector(state => state.CartProducts.data);
   const isAddressEmpty = addressList.length === 0;
   console.log('johnwesly', addressList);
@@ -542,23 +546,21 @@ const Cart = ({navigation}: Props) => {
   }
   return (
     <>
-      <View style={style.Fullcontainer}>
-        <View style={style.backButtonContainer}>
-          <TouchableOpacity
-            style={style.backBtn}
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            <MaterialIcon
-              name="arrow-back-ios"
-              color={Colors.white}
-              size={16}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={style.titleContainer}>
-          <Text style={style.titleText}>Checkout</Text>
-        </View>
+      <View
+        style={[
+          style.Fullcontainer,
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
+        <HeadingText message="Checkout" />
+        {/* <View style={style.titleContainer}>
+          <Text
+            style={[
+              style.titleText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Checkout
+          </Text>
+        </View> */}
         <ScrollView>
           <View>
             <ScrollView
@@ -603,7 +605,12 @@ const Cart = ({navigation}: Props) => {
                   },
                   index: React.Key | null | undefined,
                 ) => (
-                  <View key={index} style={style.cardContainer}>
+                  <View
+                    key={index}
+                    style={[
+                      style.cardContainer,
+                      // colorScheme === 'dark' ? Styles.Cardcolor2 : Styles.main,
+                    ]}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -659,8 +666,14 @@ const Cart = ({navigation}: Props) => {
                 ),
               )}
             </ScrollView>
-            <View style={style.addresscard}>
-              <Text style={style.addressText}>Select Address</Text>
+            <View style={[style.addresscard]}>
+              <Text
+                style={[
+                  style.addressText,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                Select Address
+              </Text>
               <View style={style.addressButton}>
                 <Text
                   style={style.addresschangeText}
@@ -677,16 +690,36 @@ const Cart = ({navigation}: Props) => {
                 <View key={index} style={style.card}>
                   <View style={style.addressContainer}>
                     <View>
-                      <Text style={style.city}>
-                        {'Address: ' + item.addressLine1}
+                      <Text
+                        style={{
+                          width: 60,
+                          marginLeft: 10,
+                          // width: 140,
+                          height: 20,
+                          marginTop: 20,
+                          color: Colors.black,
+                          fontSize: 12,
+                          // fontWeight: '500',
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        {' '}
+                        Address :
                       </Text>
+                      <Text
+                        style={[
+                          style.city,
+                          colorScheme === 'dark'
+                            ? Styles.blackText
+                            : Styles.blackText,
+                        ]}>
+                        <Text>{item.addressLine1},</Text>
+                        {/* </Text>
                       <Text style={style.city}>{'State: ' + item.state}</Text>
-                      <Text style={style.city}>
-                        {'Postal Code: ' + item.postalCode}
-                      </Text>
-                      <Text style={style.city}>{'City: ' + item.city}</Text>
-                      <Text style={style.city}>
-                        {'Country: ' + item.country}
+                      <Text style={style.city}> */}
+                        {item.postalCode},{/* </Text> */}
+                        {/* <Text style={style.city}> */}
+                        {item.city},{/* <Text style={style.city}> */}
+                        {item.country},
                       </Text>
                     </View>
                     <View style={style.containerCheckbox}>
@@ -695,7 +728,7 @@ const Cart = ({navigation}: Props) => {
                       <CheckBox
                         checked={selectedAddressIndex === index}
                         onPress={() => handleCheckboxChange(index)}
-                        checkedColor="#3E54AC"
+                        checkedColor={Colors.buttonColor}
                         containerStyle={style.checkboxContainer}
                         size={24}
                       />
@@ -703,40 +736,41 @@ const Cart = ({navigation}: Props) => {
                   </View>
                 </View>
               ))}
-            <View>
-              <Text style={style.TextGrand}>Grand Total</Text>
-              <View style={{alignItems: 'center'}}>
-                {/* <View style={style.PlaceOrder}>
-                  <Text
-                    style={{color: '#3E54AC', fontWeight: '900', fontSize: 10}}>
-                    Total Amount
-                  </Text>
-                </View> */}
-              </View>
-              {/* <TouchableOpacity
-                style={style.PaymentButton}
-                onPress={handlePayment}>
-                <Text style={style.priceTotalText}>
-                  {' '}
-                  ₹ {cartData.totalCost}
-                </Text>
-                <Text style={style.PaymentButtonText}>Place order</Text>
-              </TouchableOpacity> */}
-              <TouchableOpacity
-                style={[style.PaymentButton, isChecked && {opacity: 0.5}]}
-                onPress={isChecked ? null : handlePayment}
-                disabled={isChecked}>
-                <Text style={style.priceTotalText}>
-                  {' '}
-                  ₹ {cartData.totalCost}
-                </Text>
-                <Text style={style.PaymentButtonText}>Place order</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </ScrollView>
+        <View style={style.GrandtotalContainer}>
+          <Text style={style.GrandtotalText}>Shipping Cost</Text>
+          {/* <Text>Total Amount</Text> */}
+          <Text style={style.priceTotalText}> ₹ {cartData.shippingCost}</Text>
+        </View>
+        <View style={style.shippingContainer}>
+          <Text style={style.GrandtotalText}>Tax</Text>
+          {/* <Text>Total Amount</Text> */}
+          <Text style={style.priceTotalText}> ₹ {cartData.tax}</Text>
+        </View>
+        <View style={style.shippingContainer}>
+          <Text style={style.GrandtotalText}>Grand Total</Text>
+          {/* <Text>Total Amount</Text> */}
+          <Text style={style.priceTotalText}> ₹ {cartData.totalCost}</Text>
+        </View>
+        <View style={style.shippingContainer}>
+          <Text style={style.GrandtotalText}>final Price</Text>
+          {/* <Text>Total Amount</Text> */}
+          <Text style={style.priceTotalText}> ₹ {cartData.finalPrice}</Text>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          {/* <Text style={style.TextGrand}>Grand Total</Text> */}
+          <TouchableOpacity
+            style={[style.PaymentButton, isChecked && {opacity: 0.5}]}
+            onPress={isChecked ? null : handlePayment}
+            disabled={isChecked}>
+            <Text style={style.priceTotal}> ₹ {cartData.finalPrice}</Text>
+            <Text style={style.PaymentButtonText}>Place order</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
 };
+
 export default Cart;

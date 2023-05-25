@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   textStyle: {
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 20,
     fontFamily: 'Poppins-Bold',
     // fontWeight: '700',
@@ -13,13 +13,13 @@ const style = StyleSheet.create({
     marginLeft: 120,
     // justifyContent:'flex-end',
     // flexDirection:'row',
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: 'black',
   },
   backBtn: {
     marginTop: 10,
     marginLeft: 25,
     color: 'black',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'white',
     borderRadius: 100,
     width: '9%',
     height: 35,
@@ -44,10 +44,11 @@ const style = StyleSheet.create({
     width: '90%',
     height: 64,
     flexDirection: 'row',
-    backgroundColor: Colors.Textinput,
+    backgroundColor: Colors.white,
     borderRadius: 8,
     marginLeft: 20,
     marginTop: 10,
+    elevation: 5,
   },
   imageContainer: {
     marginLeft: 20,
@@ -63,7 +64,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
   },
   categoryText: {
-    color: '#ECF2FF',
+    color: 'black',
     width: '100%',
     // justifyContent: 'space-evenly',
     fontSize: 20,

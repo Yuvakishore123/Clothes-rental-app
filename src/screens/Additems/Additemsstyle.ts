@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../constants/Colors';
+import {CollapsedItem} from 'react-native-paper/lib/typescript/src/components/Drawer/Drawer';
 const Ownerstyles = StyleSheet.create({
   mainContainer: {
     backgroundColor: Colors.black,
@@ -21,18 +22,18 @@ const Ownerstyles = StyleSheet.create({
   mainTouchable: {
     height: 49,
     width: '110%',
-    backgroundColor: '#9747FF',
+    backgroundColor: Colors.buttonColor,
     marginTop: 30,
     marginBottom: 30,
     borderRadius: 100,
-    color: '#FFFFFF',
+    color: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 30,
   },
   touchableText: {
     // margin:15,
-    color: 'white',
+    color: Colors.white,
     fontSize: 18,
     fontWeight: '700',
     justifyContent: 'center',
@@ -57,13 +58,13 @@ const Ownerstyles = StyleSheet.create({
     marginTop: 5,
   },
   Namefield: {
-    fontSize: 18,
-    color: '#FFFFFF',
-
+    fontSize: 16,
+    color: Colors.black,
+    fontFamily: 'Poppins-Medium',
     height: 56,
     width: '111%',
-
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    elevation: 4,
+    backgroundColor: Colors.white,
     marginTop: 15,
     borderRadius: 8,
   },
@@ -82,20 +83,29 @@ const Ownerstyles = StyleSheet.create({
   Descriptionfield: {
     width: '111%',
     height: 56,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-
+    backgroundColor: Colors.white,
+    elevation: 4,
     borderRadius: 8,
     marginTop: 23,
-
-    fontSize: 18,
-    color: '#FFFFFF',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+    color: Colors.black,
   },
   Scrollcontainer: {
+    // backgroundColor: Colors.main,
     backgroundColor: Colors.main,
   },
+  EditText: {
+    color: Colors.black,
+    marginTop: 20,
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    marginLeft: 90,
+  },
   genderText: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 16,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-medium',
     color: '#3E54AC',
     marginTop: 26,
     alignItems: 'center',
@@ -103,22 +113,21 @@ const Ownerstyles = StyleSheet.create({
   dropdowntext: {
     justifyContent: 'center',
     color: '#3E54AC',
-    fontSize: 18,
-    fontFamily: 'poppins',
-    fontWeight: '700',
-
+    fontSize: 16,
+    fontFamily: 'Poppins-medium',
+    // fontWeight: '700',
     alignItems: 'center',
   },
   dropdownContainer: {
     height: 48,
     width: 250,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     marginTop: 2,
     borderRadius: 10,
     alignItems: 'center',
   },
   dropdown: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     marginTop: 15,
     borderRadius: 10,
     height: 48,

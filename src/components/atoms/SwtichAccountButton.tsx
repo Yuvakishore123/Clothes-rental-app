@@ -58,7 +58,7 @@ const SwitchAccountButton = () => {
         accessibilityLabel={`Switch account type to ${
           accountType === 'borrower' ? 'owner' : 'borrower'
         }`}>
-        <Text style={styles.label}>Switch</Text>
+        <Text style={styles.label}>{accountType}</Text>
         <IonIcon
           name="chevron-down"
           color={'#FFF'}
@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#000000',
     borderRadius: 100,
     height: 50,
     width: '50%',
@@ -148,7 +149,8 @@ const styles = StyleSheet.create({
   options: {
     position: 'absolute',
     top: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(5, 5, 5, 0.5)',
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonUnselected: {
-    backgroundColor: '#917FB3',
+    backgroundColor: '#000000',
     marginTop: 3,
     marginBottom: 3,
     width: 270,
