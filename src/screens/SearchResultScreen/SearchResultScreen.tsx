@@ -19,6 +19,7 @@ import useSearchresults from './useSearchresults';
 import Sizeselection from '../../components/atoms/Sizeselect';
 import FilterSelectSize from '../../components/atoms/FilterSizes/FilterSizeSelect';
 import PriceRangeDropdown from '../../components/atoms/PriceRange/PriceDropdown';
+import SubCategoryDropdown from '../../components/atoms/SubcategoryDropdown/SubcategoryDropdown';
 const SearchResultsScreen = ({route}) => {
   const navigation = useNavigation();
   const {searchResults} = route.params;
@@ -41,12 +42,18 @@ const SearchResultsScreen = ({route}) => {
     filteredProducts,
     SubcategoryData,
     handleFilterapply,
+    selectedSubCategory,
+    setSelectedSubCategory,
+    subcategoriesData,
   } = useSearchresults();
   const productsToShow =
     filteredProducts.length > 0 ? filteredProducts : searchResults;
   return (
     <View
-      style={colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme}>
+      style={[
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        {width: '100%', height: '100%'},
+      ]}>
       <View style={style.addAddressHeader}>
         <TouchableOpacity style={style.backBtn} onPress={goBackButton}>
           <MaterialIcons color={Colors.black} size={20} name="arrow-back-ios" />
@@ -67,77 +74,13 @@ const SearchResultsScreen = ({route}) => {
           />
         </View>
       </View>
-      {/* {filteredProducts && filteredProducts.length > 0 ? (
-        <FlatList
-          data={filteredProducts} // Use filteredProducts as the data source
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => {
-            return (
-              <View
-                style={{
-                  width: '50%',
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  // backgroundColor:'white',
-                }}>
-                <View
-                  style={{
-                    // alignItems: 'center',
-                    width: '100%',
-                  }}>
-                  <View
-                    style={[
-                      style.container,
-                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
-                    ]}>
-                    <TouchableOpacity
-                      key={item.id}
-                      style={{width: '100%'}}
-                      onPress={() =>
-                        navigation.navigate('UProductDetails', {
-                          product: item,
-                        })
-                      }>
-                      <View style={style.imageContainer}>
-                        <Image
-                          source={{uri: item.imageUrl[0]}}
-                          style={style.image}
-                        />
-                      </View>
-                    </TouchableOpacity>
-                    <View style={style.cardTextContainer}>
-                      <View style={{marginTop: 20}}>
-                        <Text
-                          style={[
-                            style.name,
-                            colorScheme === 'dark'
-                              ? Styles.whitetext
-                              : Styles.blackText,
-                          ]}>
-                          {item.name}
-                        </Text>
-                      </View>
-                      <View style={style.textContainer}>
-                        <Text style={style.price}>{'₹' + item.price}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            );
-          }}
-          numColumns={2}
-        />
-      ) : (
-        <Text>.</Text>
-      )} */}
-
       <Modal
         visible={modalVisible}
         animationType="slide"
-        transparent={false}
+        transparent={true}
         onRequestClose={() => setModalVisible(false)}>
         <View style={style.mainContainer}>
+          <Text style={style.headertext}>Filters</Text>
           <View style={style.modalContainer}>
             <View style={style.sizeDropdown}>
               <Text style={style.filterText}>Select size</Text>
@@ -156,14 +99,29 @@ const SearchResultsScreen = ({route}) => {
                 setMaximumPrice(max);
               }}
             />
-            <TouchableOpacity
-              style={style.touchablecontainer}
-              onPress={handleFilterapply}>
-              <Text style={style.applyText}>Apply</Text>
-            </TouchableOpacity>
+            <Text style={style.priceText}>Select Category</Text>
+            <SubCategoryDropdown
+              value={subcategoriesData} // Pass the subCategories data here
+              onChange={(selectedOption: React.SetStateAction<{}>) =>
+                setSelectedSubCategory(selectedOption)
+              }
+            />
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={style.closetouchablecontainer}
+                onPress={() => setModalVisible(false)}>
+                <Text style={style.closeText}>close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={style.touchablecontainer}
+                onPress={handleFilterapply}>
+                <Text style={style.applyText}>Apply</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
+
       {productsToShow.length > 0 ? (
         <FlatList
           data={productsToShow}

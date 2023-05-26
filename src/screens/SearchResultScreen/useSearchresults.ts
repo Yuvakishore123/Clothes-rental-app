@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FilterProduct, categoriesData} from '../../constants/Apis';
 import ApiService from '../../network/network';
 import SubcategoryList from '../Subcategory/Subcategory';
@@ -7,16 +7,18 @@ const useSearchresults = () => {
   const [minimumPrice, setMinimumPrice] = useState('');
   const [maximumPrice, setMaximumPrice] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [subcategoriesData, setSubcategoriesData] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState({});
   //   const [size, SetSize] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
-  const sizes = ['S', 'M', 'L', 'XL']; // Example sizes, replace with your own data
+  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']; // Example sizes, replace with your own data
 
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.log('adjakjnkmsx', selectedSubCategory);
   const FilterData = async () => {
     try {
       const response = await ApiService.get(
-        `${FilterProduct}?maxPrice=${maximumPrice}&minPrice=${minimumPrice}&size=${selectedSize}&subcategoryId=${3}`,
+        `${FilterProduct}?maxPrice=${maximumPrice}&minPrice=${minimumPrice}&size=${selectedSize}&subcategoryId=${selectedSubCategory}`,
       );
       // Assuming the API response contains an array of filtered products
       setFilteredProducts(response);
@@ -26,14 +28,26 @@ const useSearchresults = () => {
       setFilteredProducts([]);
     }
   };
+
+  useEffect(() => {
+    // Perform the asynchronous data fetching and update the subCategories state
+    SubcategoryData();
+  }, []);
+
   const SubcategoryData = async () => {
     try {
       const response = await ApiService.get(categoriesData);
       console.log('Sub Category data', response);
+      const subCategoriesArray = response.map(category => ({
+        value: category.id,
+        label: category.subcategoryName,
+      }));
+      setSubcategoriesData(subCategoriesArray); // Update the subCategories state with the fetched data
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleFilterButtonPress = () => {
     // FilterData(minimumPrice, maximumPrice, selectedSize);
     SubcategoryData();
@@ -62,6 +76,9 @@ const useSearchresults = () => {
     handleFilterButtonPress,
     SubcategoryData,
     handleFilterapply,
+    selectedSubCategory,
+    setSelectedSubCategory,
+    subcategoriesData,
   };
 };
 

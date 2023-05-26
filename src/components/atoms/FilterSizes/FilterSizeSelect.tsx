@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Animated} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../constants/Colors';
 
 const FilterSelectSize = ({sizes, selectedSize, onSelectSize}) => {
@@ -40,7 +41,14 @@ const FilterSelectSize = ({sizes, selectedSize, onSelectSize}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={handleToggle}>
-        <Text style={styles.text}>{selectedSize}</Text>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.text}>{selectedSize}</Text>
+          <Ionicons
+            name={open ? 'chevron-up-outline' : 'chevron-down-outline'}
+            size={20}
+            color={Colors.white}
+          />
+        </View>
       </TouchableOpacity>
       <Animated.View
         style={[
@@ -65,13 +73,7 @@ export default FilterSelectSize;
 const styles = StyleSheet.create({
   container: {
     width: '95%',
-    // position: 'relative',
     zIndex: 1, // Add zIndex to make the dropdown appear above other components
-  },
-  text: {
-    color: Colors.white,
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 15,
   },
   button: {
     padding: 10,
@@ -79,9 +81,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    color: Colors.white,
+    fontFamily: 'Poppins-SemiBold',
+    marginRight: 260,
+    fontSize: 15,
+  },
   dropdown: {
-    // position: 'absolute',
-    // bottom: '100%', // Change top to bottom
     left: 0,
     right: 0,
     backgroundColor: 'white',
@@ -89,7 +99,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 4,
   },
-
   option: {
     padding: 8,
     alignItems: 'center',

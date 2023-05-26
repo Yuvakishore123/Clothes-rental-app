@@ -1,4 +1,4 @@
-export const url = 'https://6ec0-106-51-70-135.ngrok-free.app/api/v1';
+export const url = 'https://fe5e-106-51-70-135.ngrok-free.app/api/v1';
 export const OwnerProductsUrl = `${url}/product/listOwnerProducts`;
 export const UserProductsUrl = `${url}/product/list`;
 export const AddAddressUrl = `${url}/address/add`;
@@ -17,5 +17,5 @@ export const ProductsById = `${url}/product/listByProductId`;
 export const QuantityApi = `${url}/cart/updateQuantity`;
 export const FilterProduct = `${url}/product/filterProducts`;
 export const pieChartUrl = `${url}/order/dashboardSubCategoriesAnalytics`;
-export const categoriesData = `${url}/category/list`;
+export const categoriesData = `${url}/subcategory/list`;
 export const exportPdf = `${url}/order/exportPdf`;

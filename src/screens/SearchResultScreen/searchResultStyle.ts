@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 import Colors from '../../constants/Colors';
 const style = StyleSheet.create({
   container: {
@@ -92,40 +93,69 @@ const style = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginTop: '50%',
   },
   modalContainer: {
     flex: 1,
+    padding: 16,
   },
   sizeDropdown: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   filterText: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.buttonColor,
-    marginBottom: 10,
+    marginBottom: 8,
+    marginLeft: 10,
   },
-  applyText: {
-    fontSize: 18,
+  headertext: {
+    fontSize: 20,
+    color: Colors.buttonColor,
     fontFamily: 'Poppins-SemiBold',
-    color: Colors.white,
-    // marginBottom: 10,
+    marginTop: 8,
+    marginLeft: '40%',
   },
   priceText: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins-SemiBold',
     color: Colors.buttonColor,
-    marginBottom: 10,
-    marginTop: 10,
+    marginLeft: 10,
+    marginTop: 8,
+    marginBottom: 8,
   },
   touchablecontainer: {
-    padding: 6,
     backgroundColor: Colors.buttonColor,
     borderRadius: 20,
+    // padding: 12,
+    width: '45%',
+    height: 40,
+    marginLeft: 20,
     alignItems: 'center',
-    marginTop: '130%',
+    justifyContent: 'center',
+    marginTop: '45%',
+  },
+  closetouchablecontainer: {
+    backgroundColor: Colors.gray,
+    borderRadius: 30,
+    // padding: 12,
+    width: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '45%',
+  },
+  applyText: {
+    color: Colors.white,
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  closeText: {
+    color: Colors.white,
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
   },
   applyButtonText: {
     color: '#FFFFFF',

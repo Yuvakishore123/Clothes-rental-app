@@ -6,9 +6,11 @@ import {
   pieChartUrl,
 } from '../../constants/Apis';
 import ApiService from '../../network/network';
+import notifee, {AndroidColor, AndroidImportance} from '@notifee/react-native';
 import {encode} from 'base-64';
 import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
+import url from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const useAnalytics = () => {
   const [Data, setData] = useState('');
@@ -41,14 +43,11 @@ const useAnalytics = () => {
   const handleExportpdf = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-      const response = await fetch(
-        'https://8d57-106-51-70-135.ngrok-free.app/api/v1/order/exportPdf',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${url}/order/exportPdf`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       console.log('Response:', response);
       console.log('Response status:', response.status);
       console.log(
@@ -65,6 +64,30 @@ const useAnalytics = () => {
         const filePath = `${RNFetchBlob.fs.dirs.DownloadDir}/file.pdf`;
         await RNFetchBlob.fs.writeFile(filePath, base64String, 'base64');
         console.log('File downloaded successfully:', filePath);
+
+        // Push notification
+        const channelId = await notifee.createChannel({
+          id: 'pdf_download_channel1',
+          name: 'PDF Download Channel1',
+          sound: 'default',
+          importance: AndroidImportance.HIGH,
+          lights: true,
+          lightColor: AndroidColor.RED,
+        });
+
+        await notifee.displayNotification({
+          title: 'Leaps',
+          body: 'PDF file downloaded successfully.',
+          android: {
+            channelId,
+            largeIcon: require('../../../assets/Leaps-1.png'),
+            lights: [AndroidColor.RED, 300, 600],
+            progress: {
+              max: 10,
+              current: 10,
+            },
+          },
+        });
       };
       reader.onerror = error => {
         console.log('Error reading file:', error);

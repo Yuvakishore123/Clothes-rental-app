@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBar,
   Text,
@@ -10,19 +10,15 @@ import {
   useColorScheme,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import DatePicker from '../../components/atoms/DatePicker Detail';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './UProductDetailsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {OwnerProductsById, ProductsById, url} from '../../constants/Apis';
+import {ProductsById, url} from '../../constants/Apis';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import Styles from '../../constants/themeColors';
 import Colors from '../../constants/Colors';
 import DateRangePicker from '../../components/atoms/CalanderPicker';
-import CalendarPicker from 'react-native-calendar-picker';
-import {useNavigation} from '@react-navigation/native';
 import ApiService from '../../network/network';
-import useCart from '../Cart/useCart';
 import {Pagination} from 'react-native-snap-carousel';
 type Props = {
   route: {params: {product: any}};

@@ -1,38 +1,76 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Animated} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon component from the library
 import Colors from '../../../constants/Colors';
+
+const options = [
+  {label: '₹0 - ₹100', min: 0, max: 100},
+  {label: '₹100 - ₹1000', min: 100, max: 1000},
+  {label: '₹1000 - ₹2000', min: 1000, max: 2000},
+  {label: '₹2000 - ₹3000', min: 2000, max: 3000},
+];
 
 const PriceRangeDropdown = ({minPrice, maxPrice, onSelectPriceRange}) => {
   const [open, setOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const dropdownHeight = useRef(new Animated.Value(0)).current;
 
-  const handleToggle = () => {
+  const handleDropdownToggle = () => {
     setOpen(!open);
+    if (!open) {
+      openDropdown();
+    } else {
+      closeDropdown();
+    }
   };
 
-  const handleSelectPriceRange = (min, max) => {
-    onSelectPriceRange(min, max);
-    setOpen(false);
+  const openDropdown = () => {
+    Animated.timing(dropdownHeight, {
+      toValue: options.length * 40, // Adjust the height as per your requirement
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const closeDropdown = () => {
+    Animated.timing(dropdownHeight, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleSelectOption = option => {
+    setSelectedOption(option);
+    onSelectPriceRange(option.min, option.max);
+    setOpen(false); // Adjust the delay as needed to allow time for the selection animation
+    closeDropdown();
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={handleToggle}>
-        <Text style={styles.buttonText}>{`${minPrice} - ${maxPrice}`}</Text>
+      <TouchableOpacity style={styles.button} onPress={handleDropdownToggle}>
+        <Text style={styles.buttonText}>
+          {selectedOption
+            ? selectedOption.label
+            : `₹${minPrice} - ₹${maxPrice}`}
+        </Text>
+        <Icon
+          name={open ? 'chevron-up' : 'chevron-down'}
+          size={20}
+          color={Colors.white}
+        />
       </TouchableOpacity>
-      {open && (
-        <View style={styles.dropdown}>
+      <Animated.View style={[styles.dropdown, {height: dropdownHeight}]}>
+        {options.map((option, index) => (
           <TouchableOpacity
+            key={index}
             style={styles.option}
-            onPress={() => handleSelectPriceRange(100, 1000)}>
-            <Text style={styles.optionText}>₹100 - ₹1000</Text>
+            onPress={() => handleSelectOption(option)}>
+            <Text style={styles.optionText}>{option.label}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.option}
-            onPress={() => handleSelectPriceRange(1000, 2000)}>
-            <Text style={styles.optionText}>₹1000 - ₹2000</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+        ))}
+      </Animated.View>
     </View>
   );
 };
@@ -41,10 +79,11 @@ const styles = StyleSheet.create({
   container: {
     width: '95%',
     borderRadius: 20,
-    // marginTop: 0,
-    // overflow: 'hidden',
   },
   button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: Colors.buttonColor,
@@ -52,14 +91,15 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.white,
-    fontWeight: 'bold',
-    marginLeft: 120,
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
   },
   dropdown: {
     marginTop: 10,
     backgroundColor: Colors.white,
     borderRadius: 8,
     elevation: 5,
+    overflow: 'hidden',
   },
   option: {
     paddingVertical: 10,
