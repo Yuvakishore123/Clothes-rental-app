@@ -1,13 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './paymentstylesheet';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Lottie from 'lottie-react-native';
 import Colors from '../../constants/Colors';
+
 const PaymentSuccessScreen = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const resetStack = setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'CartScreen', params: {screen: 'Cart'}}],
+      });
+    }, 10000); // Adjust the timeout value (in milliseconds) as per your requirement
+
+    return () => clearTimeout(resetStack); // Clear the timeout when the component unmounts
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View>
@@ -75,4 +88,5 @@ const PaymentSuccessScreen = () => {
     </View>
   );
 };
+
 export default PaymentSuccessScreen;

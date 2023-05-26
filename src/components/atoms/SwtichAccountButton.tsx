@@ -2,12 +2,13 @@
 import {useState, useEffect, SetStateAction} from 'react';
 import {setRole} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Animated} from 'react-native'; // Import Animated from react-native
 import Colors from '../../constants/Colors';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {url} from '../../constants/Apis';
+
 const SwitchAccountButton = () => {
   const [showOptions, setShowOptions] = useState(false);
   const dispatch = useDispatch();
@@ -15,12 +16,31 @@ const SwitchAccountButton = () => {
   const [accountType, setAccountType] = useState(
     userType === 'borrower' ? 'borrower' : 'owner',
   );
+
+  // Define animation values
+  const buttonAnimation = useState(new Animated.Value(0))[0];
+  const optionsAnimation = useState(new Animated.Value(0))[0];
+
   useEffect(() => {
     setAccountType(userType === 'owner' ? 'owner' : 'borrower');
   }, [userType]);
+
   const handlePress = () => {
     setShowOptions(!showOptions);
+    // Toggle button animation
+    Animated.timing(buttonAnimation, {
+      toValue: showOptions ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+    // Toggle options animation
+    Animated.timing(optionsAnimation, {
+      toValue: showOptions ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
   };
+
   const handleOptionPress = async (option: SetStateAction<string>) => {
     try {
       setShowOptions(false);
@@ -50,24 +70,29 @@ const SwitchAccountButton = () => {
       console.log(error);
     }
   };
+
   return (
     <View>
       <TouchableOpacity
         onPress={handlePress}
-        style={styles.button}
+        style={[styles.button, {opacity: 0.9}]} // Apply opacity animation
         accessibilityLabel={`Switch account type to ${
           accountType === 'borrower' ? 'owner' : 'borrower'
         }`}>
         <Text style={styles.label}>{accountType}</Text>
         <IonIcon
           name="chevron-down"
-          color={'#FFF'}
+          color={'#fff'}
           size={20}
           marginRight={90}
         />
       </TouchableOpacity>
       {showOptions && (
-        <View style={styles.options}>
+        <Animated.View
+          style={[
+            styles.options,
+            {opacity: optionsAnimation, transform: [{scale: optionsAnimation}]}, // Apply opacity and scale animations
+          ]}>
           <TouchableOpacity
             onPress={() => handleOptionPress('borrower')}
             accessibilityLabel="borrower">
@@ -106,7 +131,7 @@ const SwitchAccountButton = () => {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </Animated.View>
       )}
     </View>
   );
@@ -116,8 +141,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    backgroundColor: '#000000',
-    borderRadius: 100,
+    backgroundColor: '#363062',
+    borderRadius: 40,
     height: 50,
     width: '50%',
     marginLeft: 100,
@@ -150,7 +175,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '100%',
     // backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    backgroundColor: 'rgba(5, 5, 5, 0.5)',
+    backgroundColor: 'rgba(5, 5, 5, 0.1)',
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -176,10 +201,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     paddingVertical: 5,
-    color: '#000000',
+    color: '#ffffff',
   },
   buttonContainer: {
-    backgroundColor: Colors.buttonColor,
+    backgroundColor: '#363062',
     width: 270,
     borderRadius: 15,
     height: 50,
@@ -187,7 +212,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonUnselected: {
-    backgroundColor: '#000000',
+    backgroundColor: '#B8B5FF',
+    opacity: 0.7,
     marginTop: 3,
     marginBottom: 3,
     width: 270,
