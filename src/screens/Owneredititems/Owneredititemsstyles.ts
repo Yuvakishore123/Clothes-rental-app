@@ -7,6 +7,13 @@ const OwnerEditItemstyles = StyleSheet.create({
     width: 145,
     justifyContent: 'center',
   },
+  closetxt: {
+    color: Colors.buttonColor,
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
+    marginLeft: 40,
+    marginTop: 10,
+  },
   card: {
     height: 180,
     width: 160,

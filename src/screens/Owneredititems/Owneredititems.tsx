@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -79,7 +80,9 @@ const App = () => {
         <SafeAreaView>
           <ScrollView>
             <View style={styles.form}>
-              <HeadingText message="Edit product" />
+              <TouchableOpacity onPressIn={() => setViisble(!visible)}>
+                <Text style={OwnerEditItemstyles.closetxt}>Close</Text>
+              </TouchableOpacity>
               <View style={Ownerstyles.Scrollcontainer}>
                 <View style={Ownerstyles.scrolledit}>
                   <TextInput

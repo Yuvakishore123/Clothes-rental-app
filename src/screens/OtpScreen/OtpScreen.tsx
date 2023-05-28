@@ -33,7 +33,7 @@ export default function LoginScreen() {
         <View style={[Styles.titleTextContainer]}>
           <Lottie
             style={Styles.image}
-            source={require('../../../assets/Otp.json')}
+            source={require('../../../assets/otpverifytwo.json')}
             autoPlay
           />
           {/* <Image

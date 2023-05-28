@@ -143,7 +143,7 @@ const Styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 165,
+    height: 205,
     marginTop: '10%',
   },
   errorText: {
