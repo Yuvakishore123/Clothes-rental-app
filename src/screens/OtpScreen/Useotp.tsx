@@ -5,9 +5,18 @@ function Useotp() {
   const [phoneNo, setphoneNo] = useState<string>('');
   const [otp, setotp] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const GETOTP = () => {
     dispatch(getOTP(phoneNo));
+    openModal();
     console.log(phoneNo);
   };
   const handleLogin = () => {
@@ -28,6 +37,9 @@ function Useotp() {
     GETOTP,
     handleLogin,
     passwordError,
+    showModal,
+    openModal,
+    closeModal,
     setPasswordError,
   };
 }

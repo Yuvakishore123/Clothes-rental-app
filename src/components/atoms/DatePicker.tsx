@@ -64,9 +64,10 @@ const CardDatePiker = ({
       <TouchableOpacity
         style={{
           backgroundColor: '#D9D9D9',
-          width: 80,
+          width: 75,
           height: 25,
           borderRadius: 8,
+          marginLeft: 10,
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -74,7 +75,7 @@ const CardDatePiker = ({
         <Text
           style={{
             color: Colors.black,
-            fontSize: 12,
+            fontSize: 10,
           }}>
           {selectedStartDate
             ? moment(selectedStartDate).format('MMM D, YYYY')
@@ -84,8 +85,9 @@ const CardDatePiker = ({
       <TouchableOpacity
         style={{
           backgroundColor: '#D9D9D9',
-          width: 80,
+          width: 75,
           height: 25,
+
           borderRadius: 8,
           alignItems: 'center',
           justifyContent: 'center',
@@ -93,7 +95,7 @@ const CardDatePiker = ({
         onPress={() => onTogglePicker('END_DATE')}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 10,
             color: Colors.black,
           }}>
           {selectedEndDate
@@ -107,6 +109,7 @@ const CardDatePiker = ({
           <CalendarPicker
             startFromMonday={true}
             allowRangeSelection={true}
+            selectedDayColor={Colors.buttonColor}
             selectedStartDate={selectedStartDate}
             selectedEndDate={selectedEndDate}
             onDateChange={onDateChange}
@@ -116,19 +119,26 @@ const CardDatePiker = ({
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '80%',
-              marginLeft: 30,
+              marginLeft: 40,
+              marginTop: 350,
             }}>
             <TouchableOpacity
               style={{
                 backgroundColor: Colors.buttonColor,
-                width: 100,
-                height: 25,
-                borderRadius: 8,
+                width: 140,
+                height: 40,
+                borderRadius: 20,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
               onPress={onClearDates}>
-              <Text>Clear Dates</Text>
+              <Text
+                style={{
+                  color: Colors.white,
+                  fontFamily: 'Poppins-Medium',
+                }}>
+                Clear Dates
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -140,7 +150,13 @@ const CardDatePiker = ({
                 justifyContent: 'center',
               }}
               onPress={() => setShowPicker(false)}>
-              <Text>Done</Text>
+              <Text
+                style={{
+                  color: Colors.white,
+                  fontFamily: 'Poppins-Medium',
+                }}>
+                Done
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

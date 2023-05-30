@@ -20,7 +20,7 @@ const Ownerstyles = StyleSheet.create({
     marginBottom: 40,
   },
   mainTouchable: {
-    height: 49,
+    height: 59,
     width: '110%',
     backgroundColor: Colors.buttonColor,
     marginTop: 30,
@@ -35,6 +35,7 @@ const Ownerstyles = StyleSheet.create({
     // margin:15,
     color: Colors.white,
     fontSize: 18,
+    fontFamily: 'Poppins-SemiBold',
     fontWeight: '700',
     justifyContent: 'center',
   },

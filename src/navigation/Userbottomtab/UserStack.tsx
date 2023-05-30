@@ -1,7 +1,7 @@
 /* eslint-disable curly */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, {useContext} from 'react';
 import Profile from '../../screens/Profile/Profile';
 // import Home from '../../screens/Home/Home';
 import Homescreen from '../../screens/Home/Homescreen';
@@ -34,6 +34,7 @@ import Colors from '../../constants/Colors';
 import {View, useColorScheme} from 'react-native';
 import Styles from '../../constants/themeColors';
 import useCart from '../../screens/Cart/useCart';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -104,7 +105,7 @@ const ProfileStack = () => {
 
 const MyStack = () => {
   const data = useSelector(state => state);
-  const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
   const isFocused = useIsFocused();
   console.log(data);
   return (

@@ -118,7 +118,7 @@
 
 // export default Carousal;
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -131,12 +131,14 @@ import {TouchableOpacity} from 'react-native';
 import {url} from '../../constants/Apis';
 import ApiService from '../../network/network';
 import Colors from '../../constants/Colors';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const Carousal = () => {
   const [active, setActive] = useState(0);
   const [subcategories, setSubcategories] = useState([]);
   const SCREEN_WIDTH = Dimensions.get('window').width;
-
+  const {colorScheme} = useContext(ColorSchemeContext);
   useEffect(() => {
     async function fetchSubcategories() {
       try {
@@ -176,7 +178,15 @@ const Carousal = () => {
                     source={{uri: subcategory.imageUrl}}
                     style={styles.image}
                   />
-                  <Text style={styles.subname}>{subcategory.categoryName}</Text>
+                  <Text
+                    style={[
+                      styles.subname,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}>
+                    {subcategory.categoryName}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -195,7 +205,7 @@ const styles = StyleSheet.create({
   },
   subname: {
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 14,
     // fontWeight: '400',
     // zIndex: 1,
     height: 100,

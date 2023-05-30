@@ -1,22 +1,35 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
 import Useadditems from '../../screens/Additems/Useadditems';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const DropdownComponent = ({value, onChange, genderId}) => {
   // const [categoriesData, setCategoriesData] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
   const {subEventCategoriesData} = Useadditems();
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   return (
     <View style={Ownerstyles.scrollView}>
-      <View style={styles.dropdownContainer}>
+      <View
+        style={[
+          styles.dropdownContainer,
+          colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+        ]}>
         <Dropdown
           style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
+          placeholderStyle={[
+            styles.placeholderStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
+          selectedTextStyle={[
+            styles.selectedTextStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
           inputSearchStyle={styles.inputSearchStyle}
           itemTextStyle={styles.itemTextStyle}
           selectedItemTextStyle={styles.selectedItemTextStyle}

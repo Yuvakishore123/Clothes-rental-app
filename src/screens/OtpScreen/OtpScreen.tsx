@@ -12,6 +12,8 @@ import Styles from '../../screens/OtpScreen/Otpstyles';
 import style from '../../constants/themeColors';
 import Useotp from './Useotp';
 import useCart from '../Cart/useCart';
+import Colors from '../../constants/Colors';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 export default function LoginScreen() {
   const {
     phoneNo,
@@ -21,6 +23,8 @@ export default function LoginScreen() {
     GETOTP,
     handleLogin,
     passwordError,
+    closeModal,
+    showModal,
   } = Useotp();
   const {colorScheme} = useCart();
   return (
@@ -33,7 +37,7 @@ export default function LoginScreen() {
         <View style={[Styles.titleTextContainer]}>
           <Lottie
             style={Styles.image}
-            source={require('../../../assets/Otp.json')}
+            source={require('../../../assets/verify.json')}
             autoPlay
           />
           {/* <Image
@@ -55,9 +59,12 @@ export default function LoginScreen() {
             style={[
               Styles.textinputphone,
               colorScheme === 'dark' ? style.cardColor : style.main,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
             ]}
             placeholder="Enter phone number"
-            placeholderTextColor={'black'}
+            placeholderTextColor={
+              colorScheme === 'dark' ? Colors.Textinput : Colors.black
+            }
             value={phoneNo}
             autoCapitalize="none"
             keyboardType="numeric"
@@ -76,9 +83,12 @@ export default function LoginScreen() {
             style={[
               Styles.textinputOTP,
               colorScheme === 'dark' ? style.cardColor : style.main,
+              colorScheme === 'dark' ? style.whitetext : style.blackText,
             ]}
             placeholder="Enter Otp"
-            placeholderTextColor={'black'}
+            placeholderTextColor={
+              colorScheme === 'dark' ? Colors.Textinput : Colors.black
+            }
             value={otp}
             secureTextEntry={true}
             onChangeText={handlePasswordChange}
@@ -97,9 +107,14 @@ export default function LoginScreen() {
             <Text style={Styles.touchableTextOTP}>Otp</Text>
           </TouchableOpacity>
           <TouchableOpacity style={Styles.touchablebtn} onPress={handleLogin}>
-            <Text style={Styles.touchableTextcontinue}>Continue</Text>
+            <Text style={Styles.touchableTextcontinue}>Sign In</Text>
           </TouchableOpacity>
         </View>
+        <CustomModal
+          showModal={showModal}
+          onClose={closeModal}
+          message="OTP Sent!!"
+        />
       </View>
     </ScrollView>
   );

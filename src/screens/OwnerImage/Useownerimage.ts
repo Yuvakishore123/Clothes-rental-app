@@ -250,6 +250,7 @@ const OwnerImage = () => {
     setShowModal(true);
   };
   const closeModal = () => {
+    navigation.navigate('Home', {screen: 'OwnerHome'});
     setShowModal(false);
   };
   const subcategoryIds = useSelector(
@@ -320,7 +321,7 @@ const OwnerImage = () => {
         imageUrl: imageUrls, // Use the imageUrls state
         material: 'fibre',
         price: price,
-        quantity: quantity,
+        totalQuantity: quantity,
         size: selectedsize,
         subcategoryIds: subcategoryIds,
       };
@@ -334,12 +335,12 @@ const OwnerImage = () => {
       });
       console.log('added', response.data);
       dispatch(addsize(selectedsize));
-      // openModal();
-      navigation.navigate('Home', {screen: 'OwnerHome'});
+      openModal();
+      // navigation.navigate('Home', {screen: 'OwnerHome'});
       // navigation.navigate('OwnerHomestack', {screen: 'OwnerHome'});
     } catch (error) {
       console.log(error);
-      Alert.alert('Failed to add item');
+      // Alert.alert('Failed to add item');
     }
   };
 
@@ -460,6 +461,7 @@ const OwnerImage = () => {
     imageUris,
     closeModal,
     showModal,
+    openModal,
     isLoading,
   };
 };

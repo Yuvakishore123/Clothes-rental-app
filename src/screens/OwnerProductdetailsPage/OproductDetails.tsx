@@ -1,18 +1,12 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {
-  StatusBar,
-  Text,
-  View,
-  ImageBackground,
-  ScrollView,
-  useColorScheme,
-} from 'react-native';
+import React, {useContext} from 'react';
+import {StatusBar, Text, View, ImageBackground, ScrollView} from 'react-native';
 import styles from '../OwnerProductdetailsPage/OproductdetailsStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Styles from '../../constants/themeColors';
 import useCart from '../Cart/useCart';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 
 type Props = {
   route: {params: {product: any}};
@@ -21,7 +15,7 @@ type Props = {
 
 export default function OproductDetails({route, navigation}: Props) {
   const {product} = route.params;
-  const {colorScheme} = useCart();
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   return (
     <View
@@ -62,7 +56,7 @@ export default function OproductDetails({route, navigation}: Props) {
         <Text
           style={[
             styles.startext,
-            colorScheme === 'dark' ? Styles.blackText : Styles.whitetext,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
           ]}>
           {product.name}
         </Text>

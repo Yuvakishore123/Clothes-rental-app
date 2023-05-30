@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -23,13 +23,14 @@ import Colors from '../../constants/Colors';
 import useCart from '../Cart/useCart';
 import Styles from '../../constants/themeColors';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
   const {subcategoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
   const navigation = useNavigation();
   const [wishlistList, setWishlistList] = useState([]);
-  const {colorScheme} = useCart();
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -110,10 +111,10 @@ const CategoryProducts = ({route}) => {
                 flexWrap: 'wrap',
               }}>
               {subcategories &&
-                subcategories.map(item => (
+                subcategories.map((item, index) => (
                   <TouchableOpacity
                     style={{width: '50%'}}
-                    key={item.id} // Add a unique key prop
+                    key={`${item.id.toString()}-${index}`} // Add a unique key prop
                     onPress={() =>
                       navigation.navigate('CategoryProducts', {
                         subcategoryId: item.id,

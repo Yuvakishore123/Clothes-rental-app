@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -11,6 +12,7 @@ import {
   Image,
 } from 'react-native';
 import Useowneredititems from './Useowneredititems';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import GenderDropdown from '../../components/atoms/GenderDropdown';
 import Ownerstyles from '../Additems/Additemsstyle';
 import TypeDropdown from '../../components/atoms/TypeDropdown';
@@ -24,6 +26,8 @@ import Lottie from 'lottie-react-native';
 import BackButton from '../../components/atoms/BackButton/BackButton';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const App = () => {
   const {
@@ -72,20 +76,45 @@ const App = () => {
   };
 
   const navigation = useNavigation();
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   return (
     <SafeAreaView>
       <Modal animationType="slide" visible={visible}>
         <SafeAreaView>
-          <ScrollView>
-            <View style={styles.form}>
-              <HeadingText message="Edit product" />
-              <View style={Ownerstyles.Scrollcontainer}>
+          <ScrollView
+            style={[
+              {width: '100%', height: '100%'},
+              colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+            ]}>
+            {/* <HeadingText message="Edit product" /> */}
+            <TouchableOpacity onPressIn={() => setViisble(!visible)}>
+              <Text style={OwnerEditItemstyles.closetxt}>Close</Text>
+            </TouchableOpacity>
+            <View
+              style={[
+                styles.form,
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}>
+              <View
+                style={[
+                  Ownerstyles.Scrollcontainer,
+                  colorScheme === 'dark'
+                    ? Styles.blacktheme
+                    : Styles.whiteTheme,
+                ]}>
                 <View style={Ownerstyles.scrolledit}>
                   <TextInput
-                    placeholderTextColor={Colors.black}
+                    placeholderTextColor={Colors.white}
                     placeholder="Name"
-                    style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
+                    style={[
+                      Ownerstyles.Namefield,
+                      {paddingLeft: 22},
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}
                     onChangeText={setName}
                     value={name}
                   />
@@ -93,7 +122,14 @@ const App = () => {
                     placeholderTextColor={Colors.black}
                     placeholder="Description"
                     multiline
-                    style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
+                    style={[
+                      Ownerstyles.Descriptionfield,
+                      {paddingLeft: 22},
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}
                     onChangeText={setDescription}
                     multiline
                     value={description}
@@ -128,13 +164,13 @@ const App = () => {
                       />
                     </View>
                   </View>
-                  <View style={OwnerEditItemstyles.ImageBox}>
+                  <View style={[OwnerEditItemstyles.ImageBox]}>
                     <View style={{marginTop: -20}}>
                       {selectedImage ? (
                         <>
                           <ScrollView
                             horizontal
-                            style={OwnerEditItemstyles.imagehorizontal}>
+                            style={[OwnerEditItemstyles.imagehorizontal]}>
                             {imageUrls.map((image, index) => (
                               <Image
                                 style={OwnerEditItemstyles.image}
@@ -154,10 +190,25 @@ const App = () => {
                           </View>
                         </>
                       ) : (
-                        <View style={OwnerEditItemstyles.Addimage}>
+                        <View
+                          style={[
+                            OwnerEditItemstyles.Addimage,
+                            colorScheme === 'dark'
+                              ? Styles.cardColor
+                              : Styles.main,
+                            colorScheme === 'dark'
+                              ? Styles.cardColor
+                              : Styles.main,
+                          ]}>
                           <Text
                             onPress={pickImg}
-                            style={OwnerEditItemstyles.imagesText}>
+                            style={[
+                              OwnerEditItemstyles.imagesText,
+
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
                             Add Image
                           </Text>
                         </View>
@@ -166,7 +217,14 @@ const App = () => {
                   </View>
                   <View>
                     <TextInput
-                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
+                      style={[
+                        OwnerEditItemstyles.Price,
+                        {paddingLeft: 15},
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}
                       placeholder="Set price"
                       placeholderTextColor={Colors.black}
                       keyboardType="numeric"
@@ -177,7 +235,14 @@ const App = () => {
                       keyboardType="numeric"
                       placeholder="Set quantity"
                       placeholderTextColor={Colors.black}
-                      style={[OwnerEditItemstyles.Price, {paddingLeft: 15}]}
+                      style={[
+                        OwnerEditItemstyles.Price,
+                        {paddingLeft: 15},
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}
                       value={quantity.toString()}
                       onChangeText={setQuantity}
                     />
@@ -195,10 +260,47 @@ const App = () => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
-      <ScrollView>
+      <ScrollView
+        style={[
+          {width: '100%', height: '100%'},
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
         <View>
           <HeadingText message="Edit Product" />
         </View>
+        {/* <View
+          style={{
+            flexDirection: 'row',
+            width: '50%',
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}>
+          <View
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: 20,
+              width: 40,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon
+              // style={{marginLeft: 5}}
+              name="arrow-back-ios"
+              size={16}
+              color="black"
+              // onPress={() => navigation.goBack()}
+            /> */}
+        {/* </View>
+          <Text
+            style={[
+              styles.titleText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            My Products
+          </Text>
+        </View> */}
+
         {isLoading ? (
           <View style={{height: 200, width: 400}}>
             <Lottie
@@ -208,17 +310,34 @@ const App = () => {
           </View>
         ) : (
           data.map(item => (
-            <View style={styles.mainContainer} key={item.id}>
-              <View style={styles.item_course}>
-                <View style={OwnerEditItemstyles.imagePriceContainer}>
-                  <View style={OwnerEditItemstyles.cardImageContainer}>
+            <View
+              style={[
+                styles.mainContainer,
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}
+              key={item.id}>
+              <View style={[styles.item_course]}>
+                <View style={[OwnerEditItemstyles.imagePriceContainer]}>
+                  <View style={[OwnerEditItemstyles.cardImageContainer]}>
                     <Image
                       style={OwnerEditItemstyles.cardImage}
                       source={{uri: item.image}}
                     />
                   </View>
-                  <View style={OwnerEditItemstyles.priceContainer}>
-                    <Text style={styles.txt_name}>{item.name}</Text>
+                  <View
+                    style={[
+                      OwnerEditItemstyles.priceContainer,
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                    ]}>
+                    <Text
+                      style={[
+                        styles.txt_name,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}>
+                      {item.name}
+                    </Text>
                     <Text style={styles.txt_item}>₹ {item.price}</Text>
                   </View>
                 </View>
@@ -242,7 +361,7 @@ const App = () => {
               <CustomModal
                 showModal={showModal}
                 onClose={closeModal}
-                message="Item Remove From cart!"
+                message="Product has been deleted!"
               />
             </View>
           ))
@@ -257,8 +376,9 @@ export default App;
 const styles = StyleSheet.create({
   form: {
     backgroundColor: Colors.main,
-    marginLeft: -10,
+    // marginLeft: -10,
   },
+  titleText: {fontFamily: 'Poppins-SemiBold', fontSize: 24, color: 'white'},
 
   txtClose: {
     fontSize: 18,

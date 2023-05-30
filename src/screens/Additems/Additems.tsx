@@ -1,9 +1,17 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import React, {useContext} from 'react';
+// import {ScrollView} from 'react-native-gesture-handler';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import Ownerstyles from './Additemsstyle';
-import {ScrollView} from 'react-native-gesture-handler';
+// import {ScrollView} from 'react-native-gesture-handler';
 import GenderDropdown from '../../components/atoms/GenderDropdown';
 import EventsDropdown from '../../components/atoms/EventsDropdown';
 import TypeDropdown from '../../components/atoms/TypeDropdown';
@@ -11,9 +19,11 @@ import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Useadditems from './Useadditems';
 import Colors from '../../constants/Colors';
 import Styles from '../LoginScreen/LoginStyle';
+import styles from '../../constants/themeColors';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import BackButton from '../../components/atoms/BackButton/BackButton';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const Additems = () => {
   const {
     name,
@@ -32,74 +42,59 @@ const Additems = () => {
     handleBlur,
     formik,
   } = Useadditems();
+  const {colorScheme} = useContext(ColorSchemeContext);
   // const {formik} = AddItemsformik();
   return (
-    <ScrollView style={{backgroundColor: Colors.main}}>
+    <ScrollView
+      style={{
+        backgroundColor: colorScheme === 'dark' ? 'black' : Colors.white,
+      }}>
       {isLoading ? (
         <>
-          <SkeletonPlaceholder>
-            <View
-              style={{
-                backgroundColor: Colors.main,
-              }}>
-              <Text style={Ownerstyles.Imageitem}></Text>
+          <SkeletonPlaceholder
+            backgroundColor={colorScheme === 'dark' ? '#373737' : Colors.gray}>
+            {/* <View style={Ownerstyles.Scrollcontainer}> */}
+            <View style={Ownerstyles.scroll}>
+              <TextInput style={Ownerstyles.Namefield} />
+              <TextInput style={Ownerstyles.Descriptionfield} />
+              <TextInput style={Ownerstyles.Namefield} />
+              <TextInput style={Ownerstyles.Descriptionfield} />
+              <TextInput style={Ownerstyles.Namefield} />
+              <TextInput style={Ownerstyles.Descriptionfield} />
+              <TextInput style={Ownerstyles.Namefield} />
+              <TextInput style={Ownerstyles.Descriptionfield} />
             </View>
-            <View style={Ownerstyles.Scrollcontainer}>
-              <View style={Ownerstyles.scroll}>
-                <Text style={Ownerstyles.Itemname}></Text>
-                <TextInput style={Ownerstyles.Namefield} />
-
-                <Text style={Ownerstyles.Itemname}></Text>
-                <TextInput style={Ownerstyles.Descriptionfield} />
-
-                <Text style={Ownerstyles.Itemname}></Text>
-                <GenderDropdown
-                  onSelectGender={setGender}
-                  onChange={handleGenderChange}
-                />
-                <Text style={Ownerstyles.Itemname}></Text>
-                <TypeDropdown
-                  onSelectType={setItemType}
-                  onChange={handleItemTypeChange}
-                />
-                <Text style={Ownerstyles.Itemname}></Text>
-                <EventsDropdown
-                  onSelectEvent={setEventType}
-                  onChange={handleEventTypeChange}
-                />
-                <Text style={Ownerstyles.Itemname}></Text>
-                <OutfitDropdown
-                  onSelectOutfit={setOutfitType}
-                  onChange={handleOutfitChange}
-                />
-                <View style={Ownerstyles.mainButton}>
-                  <TouchableOpacity
-                    style={[
-                      Ownerstyles.mainTouchable,
-                      {
-                        backgroundColor: formik.isValid
-                          ? Colors.iconscolor
-                          : '#A5C9CA',
-                      },
-                    ]}>
-                    <Text style={Ownerstyles.touchableText}></Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
+            {/* </View> */}
           </SkeletonPlaceholder>
         </>
       ) : (
         <>
           {/* <HeadingText message="Add Products" /> */}
 
-          <View style={Ownerstyles.Scrollcontainer}>
+          <View
+            style={[
+              Ownerstyles.Scrollcontainer,
+              colorScheme === 'dark' ? styles.blacktheme : styles.whiteTheme,
+            ]}>
             <View style={Ownerstyles.scroll}>
-              <Text style={Ownerstyles.EditText}>Add products</Text>
+              <Text
+                style={[
+                  Ownerstyles.EditText,
+                  colorScheme === 'dark' ? styles.whitetext : styles.blackText,
+                ]}>
+                Add products
+              </Text>
               <TextInput
                 placeholderTextColor={Colors.gray}
                 placeholder="Name"
-                style={[Ownerstyles.Namefield, {paddingLeft: 22}]}
+                style={[
+                  Ownerstyles.Namefield,
+                  {paddingLeft: 22},
+                  colorScheme === 'dark' ? styles.cardColor : styles.main,
+                  colorScheme === 'dark'
+                    ? styles.placeholder
+                    : styles.blackText,
+                ]}
                 value={name}
                 onChangeText={handleNameChange}
                 onBlur={() => handleBlur('name')}
@@ -110,7 +105,14 @@ const Additems = () => {
               <TextInput
                 placeholderTextColor={Colors.gray}
                 placeholder="Description"
-                style={[Ownerstyles.Descriptionfield, {paddingLeft: 22}]}
+                style={[
+                  Ownerstyles.Descriptionfield,
+                  {paddingLeft: 22},
+                  colorScheme === 'dark' ? styles.cardColor : styles.main,
+                  colorScheme === 'dark'
+                    ? styles.placeholder
+                    : styles.blackText,
+                ]}
                 multiline
                 onChangeText={handleDescriptionChange}
                 onBlur={() => handleBlur('description')}

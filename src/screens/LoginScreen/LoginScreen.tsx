@@ -57,6 +57,7 @@ export default function LoginScreen() {
           style={[
             styles.textinput,
             colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
           ]}
           placeholder="Email Address"
           placeholderTextColor={
@@ -75,6 +76,7 @@ export default function LoginScreen() {
             style={[
               styles.textinput,
               colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
             ]}
             placeholder="Enter password"
             placeholderTextColor={

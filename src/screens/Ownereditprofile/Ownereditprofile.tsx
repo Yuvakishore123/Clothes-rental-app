@@ -45,15 +45,15 @@ export default function OwnerEditProfileCustomHook() {
     );
   }, [firstName, lastName, email, phoneNumber]);
   return (
-    <ScrollView>
-      <View
-        style={[
-          style.container,
-          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
-        ]}>
-        <View style={style.addAddressHeader}>
-          <HeadingText message="Edit profile" />
-          {/* <TouchableOpacity
+    // <ScrollView>
+    <View
+      style={[
+        style.container,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
+      <View style={style.addAddressHeader}>
+        <HeadingText message="Edit profile" />
+        {/* <TouchableOpacity
             style={[
               style.backBtn,
               colorScheme === 'dark' ? Styles.whiteTheme : Styles.blacktheme,
@@ -69,139 +69,132 @@ export default function OwnerEditProfileCustomHook() {
               marginTop={3}
             />
           </TouchableOpacity> */}
-        </View>
-        <View>
-          {isLoading ? (
-            <SkeletonPlaceholder
-              backgroundColor={
-                colorScheme === 'dark' ? Colors.buttonColor : Colors.gray
-              }>
-              <View>
-                <Text style={style.addAddressText1}></Text>
-                <Text style={style.text}></Text>
-                <TextInput style={style.input} placeholderTextColor="#999" />
-                <Text style={style.text}>LastName</Text>
-                <TextInput style={style.input} />
-                <Text style={style.text}></Text>
-                <TextInput style={style.input} />
-                <Text style={style.text}></Text>
-                <TextInput style={style.input} />
-              </View>
-            </SkeletonPlaceholder>
-          ) : (
+      </View>
+      <View>
+        {isLoading ? (
+          <SkeletonPlaceholder
+            highlightColor="#e0e0e0"
+            backgroundColor={colorScheme === 'dark' ? '#373737' : '#f2f2f2'}>
             <View>
-              {/* <Text
+              <TextInput style={style.input} placeholderTextColor="#999" />
+              <TextInput style={style.input} />
+              <TextInput style={style.input} />
+              <TextInput style={style.input} />
+            </View>
+          </SkeletonPlaceholder>
+        ) : (
+          <View>
+            {/* <Text
                 style={[
                   style.addAddressText1,
                   colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
                 ]}>
                 Edit profile
               </Text> */}
-              {/* <View style={style.line} /> */}
-              <Text
-                style={[
-                  style.text,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}>
-                First name
-              </Text>
-              <TextInput
-                style={[
-                  style.input,
-                  colorScheme === 'dark' ? Styles.cardColor : Styles.whiteTheme,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}
-                placeholderTextColor={
-                  colorScheme === 'dark' ? Colors.white : Colors.white
-                }
-                value={firstName}
-                onChangeText={text => setFirstName(text)}
-              />
-              <Text
-                style={[
-                  style.text,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}>
-                Last name
-              </Text>
-              <TextInput
-                style={[
-                  style.input,
-                  colorScheme === 'dark' ? Styles.cardColor : Styles.whiteTheme,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}
-                value={lastName}
-                onChangeText={text => setLastName(text)}
-              />
-              <Text
-                style={[
-                  style.text,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}>
-                Email
-              </Text>
-              <TextInput
-                style={[
-                  style.emailinput,
-                  colorScheme === 'dark' ? Styles.cardColor : Styles.InputText,
-                  colorScheme === 'dark'
-                    ? Styles.InputText
-                    : Styles.placeholder,
-                ]}
-                value={email}
-                onChangeText={text => setEmail(text)}
-                selectTextOnFocus={false}
-                editable={false}
-              />
-              <Text
-                style={[
-                  style.text,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}>
-                Phone number
-              </Text>
-              <TextInput
-                style={[
-                  style.input,
-                  colorScheme === 'dark' ? Styles.cardColor : Styles.whiteTheme,
-                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-                ]}
-                value={phoneNumber}
-                onChangeText={text => setPhoneNumber(text)}
-              />
-            </View>
-          )}
-        </View>
-        <View style={style.buttons}>
-          <TouchableOpacity
-            style={[
-              style.btnfield,
-              {
-                opacity: isFormValid ? 1 : 0.5,
-                pointerEvents: isFormValid ? 'auto' : 'none',
-              },
-            ]}
-            onPress={handleUpdate} // using handleUpdateWithLoading instead of handleUpdate
-            disabled={!isFormValid}>
-            {isLoading ? (
-              <SkeletonPlaceholder borderRadius={4}>
-                <SkeletonPlaceholder.Item
-                  width={100}
-                  height={20}
-                  borderRadius={5}
-                />
-              </SkeletonPlaceholder>
-            ) : (
-              <Text style={style.btntext}>Update</Text>
-            )}
-          </TouchableOpacity>
-        </View>
-        <CustomModal
-          showModal={showModal}
-          onClose={closeModal}
-          message="Profile Updated!"
-        />
+            {/* <View style={style.line} /> */}
+            <Text
+              style={[
+                style.text,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              First name
+            </Text>
+            <TextInput
+              style={[
+                style.input,
+                colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.white : Colors.white
+              }
+              value={firstName}
+              onChangeText={text => setFirstName(text)}
+            />
+            <Text
+              style={[
+                style.text,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Last name
+            </Text>
+            <TextInput
+              style={[
+                style.input,
+                colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}
+              value={lastName}
+              onChangeText={text => setLastName(text)}
+            />
+            <Text
+              style={[
+                style.text,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Email
+            </Text>
+            <TextInput
+              style={[
+                style.emailinput,
+                colorScheme === 'dark' ? Styles.cardColor : Styles.InputText,
+                colorScheme === 'dark' ? Styles.InputText : Styles.placeholder,
+              ]}
+              value={email}
+              onChangeText={text => setEmail(text)}
+              selectTextOnFocus={false}
+              editable={false}
+            />
+            <Text
+              style={[
+                style.text,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Phone number
+            </Text>
+            <TextInput
+              style={[
+                style.emailinput,
+                colorScheme === 'dark' ? Styles.cardColor : Styles.InputText,
+                colorScheme === 'dark' ? Styles.InputText : Styles.placeholder,
+              ]}
+              value={phoneNumber}
+              onChangeText={text => setPhoneNumber(text)}
+              editable={false}
+            />
+          </View>
+        )}
       </View>
-    </ScrollView>
+      <View style={style.buttons}>
+        <TouchableOpacity
+          style={[
+            style.btnfield,
+            {
+              opacity: isFormValid ? 1 : 0.5,
+              pointerEvents: isFormValid ? 'auto' : 'none',
+            },
+          ]}
+          onPress={handleUpdate} // using handleUpdateWithLoading instead of handleUpdate
+          disabled={!isFormValid}>
+          {isLoading ? (
+            <SkeletonPlaceholder borderRadius={4}>
+              <SkeletonPlaceholder.Item
+                width={100}
+                height={20}
+                borderRadius={5}
+              />
+            </SkeletonPlaceholder>
+          ) : (
+            <Text style={style.btntext}>Update</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Profile Updated!"
+      />
+    </View>
+    // </ScrollView>
   );
 }

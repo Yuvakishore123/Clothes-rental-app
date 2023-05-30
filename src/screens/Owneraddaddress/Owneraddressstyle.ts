@@ -19,12 +19,14 @@ const OwnerAddressStyles = StyleSheet.create({
   },
   textFieldpincode: {
     color: Colors.white,
-    fontWeight: '400',
+    // fontWeight: '400',
     fontSize: 18,
-    marginTop: 5,
-    alignItems: 'center',
-    marginBottom: 10,
-    marginRight: -48,
+    marginLeft: 40,
+    marginTop: 10,
+    fontFamily: 'Poppins-Medium',
+    // alignItems: 'center',
+    // marginBottom: 10,
+    // marginRight: -48,
   },
   texttypeField: {
     color: Colors.white,
@@ -83,7 +85,7 @@ const OwnerAddressStyles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    // elevation: 5,
+    elevation: 5,
   },
   deleteBtn: {
     padding: 7,
@@ -279,6 +281,7 @@ const OwnerAddressStyles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: '#9747FF',
     borderRadius: 100,
+    marginBottom: 20,
   },
   errorText: {
     color: Colors.red,
@@ -318,7 +321,7 @@ const OwnerAddressStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 45,
-    width: '69%',
+    width: '85%',
     marginLeft: 5,
     borderRadius: 5,
   },
@@ -389,7 +392,7 @@ const OwnerAddressStyles = StyleSheet.create({
   containerRadio: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    // marginLeft: 50,
+    marginRight: 30,
     marginBottom: 10,
   },
   optionRadio: {

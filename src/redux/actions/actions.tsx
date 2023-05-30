@@ -130,7 +130,7 @@ export const getOTP = (phoneNo: string) => {
       const response = await axios.post(`${url}/phoneNo`, {
         phoneNo,
       });
-      Alert.alert('OTP'), console.log('otp send');
+      // Alert.alert('OTP'), console.log('otp send');
       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
     } catch (error) {
       dispatch({type: VERIFY_OTP_FAILURE, payload: error});

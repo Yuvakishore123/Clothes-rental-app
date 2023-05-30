@@ -6,12 +6,14 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
+  TextInput,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OwnerImagestyles from './OwnerImagestyles';
 import Sizeselection from '../../components/atoms/Sizeselect';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
+// import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Useownerimage from './Useownerimage';
 import Styles from '../LoginScreen/LoginStyle';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
@@ -21,6 +23,8 @@ import BackButton from '../../components/atoms/BackButton/BackButton';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
 import Lottie from 'lottie-react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import styles from '../../constants/themeColors';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 export default function Owneraddimages() {
   const {
     onHandleOwnerItems,
@@ -41,25 +45,46 @@ export default function Owneraddimages() {
     isLoading,
   } = Useownerimage();
   const areImagesUploaded = imageUrls && imageUrls.length > 0;
+  const {colorScheme} = useContext(ColorSchemeContext);
   // console.log('johnresly', imageUrls);
   return (
-    <ScrollView style={{height: '100%', backgroundColor: Colors.black}}>
-      <View style={OwnerImagestyles.Scroll}>
+    <ScrollView
+      style={[
+        {height: '100%', backgroundColor: Colors.black},
+        colorScheme === 'dark' ? styles.blacktheme : styles.whiteTheme,
+      ]}>
+      <View
+        style={[
+          OwnerImagestyles.Scroll,
+          colorScheme === 'dark' ? styles.blacktheme : styles.whiteTheme,
+        ]}>
         <HeadingText message="Add products" />
-        <View style={OwnerImagestyles.form}>
+        <View style={[OwnerImagestyles.form]}>
           {/* <Spinner
             visible={isLoading}
             textContent={'Loading...'}
             textStyle={{color: Colors.white}}
           /> */}
-          <View style={OwnerImagestyles.ImageBox}>
+          <View style={[OwnerImagestyles.ImageBox]}>
             {imageUrls && areImagesUploaded ? (
               <>
-                <ScrollView horizontal style={OwnerImagestyles.imagehorizontal}>
+                <ScrollView
+                  horizontal
+                  style={[
+                    OwnerImagestyles.imagehorizontal,
+                    colorScheme === 'dark'
+                      ? styles.blacktheme
+                      : styles.whiteTheme,
+                  ]}>
                   {imageUrls.map((image, index) => (
-                    <View key={index} style={OwnerImagestyles.ImageContainer}>
+                    <View key={index} style={[OwnerImagestyles.ImageContainer]}>
                       <Image
-                        style={OwnerImagestyles.image}
+                        style={[
+                          OwnerImagestyles.image,
+                          colorScheme === 'dark'
+                            ? styles.cardColor
+                            : styles.whiteTheme,
+                        ]}
                         source={{uri: image}}
                       />
                       <TouchableOpacity
@@ -86,30 +111,35 @@ export default function Owneraddimages() {
               </>
             ) : (
               <>
-                <TouchableOpacity
-                  style={OwnerImagestyles.Addimage}
-                  onPress={pickImages}>
-                  <Lottie
-                    source={require('../../../assets/addimageol.json')}
-                    style={OwnerImagestyles.imagesText}
-                    autoPlay
-                  />
-                  {isLoading && (
-                    <View style={OwnerImagestyles.overlay}>
-                      <ActivityIndicator size="large" color="black" />
-                    </View>
-                  )}
-                  {!isLoading && (
-                    <Text style={OwnerImagestyles.imagetxt}></Text>
-                  )}
-                </TouchableOpacity>
-
-                {/* <Spinner
-                  visible={isLoading}
-                  textContent={'Loading...'}
-                  textStyle={{color: Colors.white}}
-                  style={{width: 200, height: 200}} // Add this line
-                /> */}
+                {isLoading ? (
+                  <View style={OwnerImagestyles.overlay}>
+                    <ActivityIndicator size="large" color="black" />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={[
+                      OwnerImagestyles.Addimage,
+                      colorScheme === 'dark' ? styles.cardColor : styles.main,
+                    ]}
+                    onPress={pickImages}>
+                    <Lottie
+                      source={require('../../../assets/addimageol.json')}
+                      style={OwnerImagestyles.imagesText}
+                      autoPlay
+                    />
+                    {!isLoading && (
+                      <Text
+                        style={[
+                          OwnerImagestyles.imagetxt,
+                          colorScheme === 'dark'
+                            ? styles.whitetext
+                            : styles.blackText,
+                        ]}>
+                        Add Images{' '}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                )}
               </>
             )}
             <View style={OwnerImagestyles.Sizecontainer}>
@@ -125,9 +155,14 @@ export default function Owneraddimages() {
               )}
             </View>
             <TextInput
-              style={[OwnerImagestyles.Price, {paddingLeft: 25}]}
+              style={[
+                OwnerImagestyles.Price,
+                {paddingLeft: 25},
+                colorScheme === 'dark' ? styles.cardColor : styles.whiteTheme,
+                colorScheme === 'dark' ? styles.placeholder : styles.blackText,
+              ]}
               placeholder="Select price"
-              placeholderTextColor="black"
+              placeholderTextColor="gray"
               keyboardType="numeric"
               onChangeText={handlePriceChange}
               onBlur={() => handleBlur('price')}
@@ -138,8 +173,13 @@ export default function Owneraddimages() {
             <TextInput
               keyboardType="numeric"
               placeholder="Select quantity"
-              placeholderTextColor="black"
-              style={[OwnerImagestyles.quantity, {paddingLeft: 25}]}
+              placeholderTextColor="gray"
+              style={[
+                OwnerImagestyles.quantity,
+                {paddingLeft: 25},
+                colorScheme === 'dark' ? styles.cardColor : styles.whiteTheme,
+                colorScheme === 'dark' ? styles.placeholder : styles.blackText,
+              ]}
               onChangeText={handleQuantityChange}
               onBlur={() => handleBlur('quantity')}
             />

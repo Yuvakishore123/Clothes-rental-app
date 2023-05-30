@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   StatusBar,
   Text,
@@ -25,6 +31,7 @@ import {useNavigation} from '@react-navigation/native';
 import ApiService from '../../network/network';
 import useCart from '../Cart/useCart';
 import {Pagination} from 'react-native-snap-carousel';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 type Props = {
   route: {params: {product: any}};
   navigation: any;
@@ -42,7 +49,7 @@ export default function UDetailScreen({route, navigation}: Props) {
   const [productData, setProductData] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const Quantity = product.quantity;
-  const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
   // const {fetchQuantityData} = useCart();
   // const navigation = useNavigation();
   useEffect(() => {
@@ -218,7 +225,7 @@ export default function UDetailScreen({route, navigation}: Props) {
           <Text
             style={[
               styles.detailsPrice,
-              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              colorScheme === 'dark' ? Styles.priceTect : Styles.priceTect,
             ]}>
             ₹{product.price}
           </Text>

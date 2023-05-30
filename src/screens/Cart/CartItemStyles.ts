@@ -512,6 +512,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: 150,
     width: '90%',
+    elevation: 4,
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,
@@ -762,8 +763,9 @@ const styles = StyleSheet.create({
   },
   RemoveButtonText: {
     color: 'white',
-    fontSize: 9,
-    fontWeight: '500',
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    // fontWeight: '500',
     justifyContent: 'center',
   },
   UpdateButtonText: {
@@ -883,7 +885,9 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     // left: 130,
     // marginTop: 5,
+    width: '100%',
     color: Colors.black,
+    marginLeft: 40,
     fontFamily: 'Poppins-Medium',
   },
   buttonContainer: {

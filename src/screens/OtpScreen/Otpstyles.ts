@@ -78,8 +78,8 @@ const Styles = StyleSheet.create({
     color: 'hsla(266, 100%, 64%, 1)',
     fontSize: 18,
     fontWeight: '400',
-    marginLeft: '51%',
-    marginTop: '-6.5%',
+    marginLeft: '50%',
+    marginTop: '-6.0%',
     justifyContent: 'center',
   },
   touchableTextcontinue: {
@@ -98,9 +98,9 @@ const Styles = StyleSheet.create({
   },
   touchablebtn: {
     height: 59,
-    width: '80%',
+    width: '85%',
     backgroundColor: '#9747FF',
-    margin: 45,
+    margin: 35,
     marginTop: '10%',
     borderRadius: 100,
     justifyContent: 'center',
@@ -143,7 +143,7 @@ const Styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 165,
+    height: 235,
     marginTop: '10%',
   },
   errorText: {

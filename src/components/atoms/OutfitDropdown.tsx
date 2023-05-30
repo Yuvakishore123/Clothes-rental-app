@@ -1,27 +1,42 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
 import axios from 'axios';
 import Useadditems from '../../screens/Additems/Useadditems';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const DropdownComponent = ({value, onChange}) => {
   const {subOutfitCategoriesData} = Useadditems();
-
+  const {colorScheme} = useContext(ColorSchemeContext);
   // const [categoriesData, setCategoriesData] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
 
   return (
     <View style={Ownerstyles.scrollView}>
-      <View style={styles.dropdownContainer}>
+      <View
+        style={[
+          styles.dropdownContainer,
+          colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+        ]}>
         <Dropdown
           style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
+          placeholderStyle={[
+            styles.placeholderStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
+          selectedTextStyle={[
+            styles.selectedTextStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
           inputSearchStyle={styles.inputSearchStyle}
           itemTextStyle={styles.itemTextStyle}
-          selectedItemTextStyle={styles.selectedItemTextStyle}
+          selectedItemTextStyle={[
+            styles.selectedItemTextStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
           itemContainerStyle={styles.itemContainerStyle}
           selectedItemContainerStyle={styles.selectedItemContainerStyle}
           iconStyle={styles.iconStyle}

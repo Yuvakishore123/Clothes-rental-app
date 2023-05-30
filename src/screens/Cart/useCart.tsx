@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCartProducts} from '../../redux/slice/cartSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,7 @@ import {Alert, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import RazorpayCheckout from 'react-native-razorpay';
 import ApiService from '../../network/network';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 function useCart() {
   // const {product} = route.params;
   const [refreshing, setRefreshing] = useState(false);
@@ -23,10 +24,12 @@ function useCart() {
   const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   // const [quantity, setQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
   const [isplusDisable, setisButtondisable] = useState(false); // Added loading state
   const navigation = useNavigation();
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
+  const isLoading = useSelector(state => state.CartProducts.isLoader);
 
   // const CartData = useSelector(state => state.CartProducts.data) || {
   //   cartItems: [],
@@ -281,7 +284,7 @@ function useCart() {
     item => {
       const productId = item.product.id;
       console.log('itemID', productId);
-      const productQuantity = item.product.quantity;
+      const productQuantity = item.product.availableQuantities;
       console.log('Validation of product Quantity is ', productQuantity);
       if (item.quantity === productQuantity) {
         setisButtondisable(true);
@@ -290,7 +293,7 @@ function useCart() {
         console.log(Quantity);
         handleUpdate(Quantity, productId);
       }
-      // setRefreshing(prevRefreshing => !prevRefreshing);
+      setRefreshing(prevRefreshing => !prevRefreshing);
       console.log('refreshing :', refreshing); // Toggle the value of refreshing
     },
     [handleUpdate],
@@ -317,7 +320,7 @@ function useCart() {
     handleRemove,
     refreshing,
     setRefreshing,
-    onRefresh,
+    // onRefresh,
     handlePayment,
     handleUpdate,
     rentalStartDate,
@@ -333,6 +336,7 @@ function useCart() {
     handleDecrement,
     handleIncrement,
     isplusDisable,
+    isLoading,
     // fetchQuantityData,
   };
 }

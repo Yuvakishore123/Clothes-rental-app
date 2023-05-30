@@ -44,6 +44,7 @@ const style = StyleSheet.create({
   profileText: {
     marginLeft: 15,
     width: '100%',
+    marginTop: 8,
     // fontWeight: 'bold',
     // color: '#FFFFFF',
     color: Colors.black,
@@ -114,6 +115,7 @@ const style = StyleSheet.create({
     marginLeft: 25,
     marginRight: 20,
     borderRadius: 10,
+    elevation: 4,
   },
   btnPText: {
     marginLeft: 20,
@@ -187,6 +189,7 @@ const style = StyleSheet.create({
   buttonContainer: {
     marginTop: 15,
     zIndex: 2,
+    // flexDirection: 'row',
   },
 });
 export default style;

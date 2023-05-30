@@ -19,7 +19,6 @@ const style = StyleSheet.create({
   },
   redCircle: {
     backgroundColor: '#FFFFFF',
-
     borderRadius: 20,
     width: 40,
     height: 40,

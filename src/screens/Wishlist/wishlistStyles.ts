@@ -119,7 +119,7 @@ import {color} from 'react-native-elements/dist/helpers';
 const style = StyleSheet.create({
   textStyle: {
     color: Colors.black,
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
     // fontWeight: 'bold',
   },
@@ -129,7 +129,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.main,
   },
-  textConatiner: {marginLeft: 20, marginTop: 40},
+  textConatiner: {marginLeft: 20, marginTop: 10},
   container: {
     width: '83%',
     height: 200,

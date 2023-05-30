@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {Text, TouchableOpacity, View, FlatList} from 'react-native';
+// import {FlatList} from 'react-native-gesture-handler';
 import {OwnerAddressCustomHook} from './Useowneraddress';
 import style from './Owneraddressstyle';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -48,6 +48,7 @@ const Owneraddresspage = () => {
               {item.city},{item.state},{item.country}
             </Text>
           </View>
+
           {/* <Text
             style={[
               style.input,
@@ -86,7 +87,7 @@ const Owneraddresspage = () => {
             <MaterialIcons
               name="edit"
               size={25}
-              color={[colorScheme === 'dark' ? Colors.white : Colors.black]}
+              color={colorScheme === 'dark' ? Colors.white : Colors.black}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -147,11 +148,13 @@ const Owneraddresspage = () => {
               </View>
             </View>
           ) : (
-            <FlatList
-              data={addressList}
-              renderItem={renderAddressItem}
-              keyExtractor={item => item.id.toString()}
-            />
+            <View style={{marginBottom: 10}}>
+              <FlatList
+                data={addressList}
+                renderItem={renderAddressItem}
+                keyExtractor={item => item.id.toString()}
+              />
+            </View>
           )}
           <CustomModal
             showModal={showModal}

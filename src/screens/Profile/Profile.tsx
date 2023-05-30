@@ -3,7 +3,7 @@ import React from 'react';
 import style from '../Ownerprofile/OwnerProfilestyle';
 import SwitchAccountButton from '../../components/atoms/SwtichAccountButton';
 import AddImages from '../../components/atoms/AddImages';
-import ProfileData from '../../constants/ProfileData';
+import ProfileData from './ProfileData';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
@@ -11,11 +11,15 @@ import {Logout} from '../../redux/actions/actions';
 import useCart from '../Cart/useCart';
 import Styles from '../../constants/themeColors';
 import Colors from '../../constants/Colors';
+import ToggleButton from 'react-native-paper/lib/typescript/src/components/ToggleButton/ToggleButton';
+import Togglebutton from '../../components/atoms/Colorscheme/Togglebutton';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {TextInput} from 'react-native-gesture-handler';
 type Props = {
   navigation: any;
 };
 const Profile = ({navigation}: Props) => {
-  const {name, email, phonenumber} = ProfileData();
+  const {name, email, phonenumber, isLoading} = ProfileData();
   const {colorScheme} = useCart();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -29,38 +33,63 @@ const Profile = ({navigation}: Props) => {
       ]}>
       <ScrollView style={{width: '100%', height: '100%'}}>
         <View style={style.buttonContainer}>
-          <SwitchAccountButton />
+          <View>
+            <SwitchAccountButton />
+            <Togglebutton />
+          </View>
+
+          {/* <View style={{flexDirection: 'row', marginLeft: '80%'}}> */}
+          {/* <Text
+              style={[
+                {fontFamily: 'Poppins-Medium', fontSize: 16},
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              {colorScheme}
+            </Text> */}
+          {/* </View> */}
         </View>
+        {/* <Togglebutton /> */}
         <View style={style.imageContainer}>
           <AddImages />
         </View>
-        <View
-          style={[
-            style.card,
-            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
-          ]}>
-          <Text
+        {isLoading ? (
+          <SkeletonPlaceholder
+            highlightColor="#e0e0e0"
+            backgroundColor={colorScheme === 'dark' ? '#373737' : '#f2f2f2'}>
+            <View>
+              <TextInput style={style.card} placeholderTextColor="#999" />
+            </View>
+          </SkeletonPlaceholder>
+        ) : (
+          <View
             style={[
-              style.profileText,
-              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              style.card,
+              colorScheme === 'dark' ? Styles.cardColor : Styles.main,
             ]}>
-            {name}
-          </Text>
-          <Text
-            style={[
-              style.profileText1,
-              colorScheme === 'dark' ? Styles.InputText : Styles.main,
-            ]}>
-            {email}
-          </Text>
-          <Text
-            style={[
-              style.profileText1,
-              colorScheme === 'dark' ? Styles.InputText : Styles.main,
-            ]}>
-            {phonenumber}
-          </Text>
-        </View>
+            <Text
+              style={[
+                style.profileText,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              {name}
+            </Text>
+            <Text
+              style={[
+                style.profileText1,
+                colorScheme === 'dark' ? Styles.InputText : Styles.main,
+              ]}>
+              {email}
+            </Text>
+            <Text
+              style={[
+                style.profileText1,
+                colorScheme === 'dark' ? Styles.InputText : Styles.main,
+              ]}>
+              {phonenumber}
+            </Text>
+          </View>
+        )}
+
         {/* </View> */}
         <View style={style.profileFields}>
           <TouchableOpacity
@@ -160,6 +189,7 @@ const Profile = ({navigation}: Props) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
       <View style={{marginTop: 10}} />
     </View>
   );

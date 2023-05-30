@@ -195,6 +195,7 @@
 // export default Wishlist;
 /* eslint-disable react-native/no-inline-styles */
 import {
+  ActivityIndicator,
   Image,
   RefreshControl,
   ScrollView,
@@ -223,12 +224,38 @@ const Wishlist = ({navigation}: Props) => {
     showModal,
     openModal,
     colorScheme,
+    // isLoading,
   } = useWishlist();
 
   const {refreshing, onRefresh} = useWishlist();
   const allWishlistProducts = useSelector(state => state.WishlistProducts.data);
   console.log('hey', allWishlistProducts);
-
+  const isLoading = useSelector(state => state.WishlistProducts.isLoader);
+  console.log(isLoading);
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colorScheme === 'dark' ? Colors.black : Colors.main,
+        }}>
+        <Lottie
+          source={require('../../../assets/loading2.json')}
+          autoPlay
+          style={{
+            height: 200,
+            width: 200,
+            alignSelf: 'center',
+            marginTop: '50%',
+            justifyContent: 'center',
+          }}
+        />
+        <Text style={{color: Colors.white, marginLeft: '30%'}}>
+          The Items are Loading...
+        </Text>
+      </View>
+    );
+  }
   if (!WishlistProducts) {
     return (
       <View

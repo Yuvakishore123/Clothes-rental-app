@@ -357,6 +357,7 @@ const Cart = ({navigation}: Props) => {
     handleDecrement,
     handleIncrement,
     setProductQuantity,
+    isLoading,
     isplusDisable,
   } = useCart();
   // const cartData = useSelector(state => state.CartProducts.data);
@@ -366,6 +367,7 @@ const Cart = ({navigation}: Props) => {
   };
   const productQuantities = cartData.cartItems.map(item => item.quantity);
   // setProductQuantity(productQuantities);
+
   const Quantity = productQuantities;
   if (CartProducts && CartProducts.cartItems) {
     console.log('Product Quantity:');
@@ -378,7 +380,7 @@ const Cart = ({navigation}: Props) => {
 
   console.log('Product Quantity is', productQuantities);
 
-  if (!CartProducts) {
+  if (!cartData) {
     return (
       <View
         style={{
@@ -432,9 +434,10 @@ const Cart = ({navigation}: Props) => {
         <View>
           <ScrollView
             style={style.ScrollContainer}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }>
+            // refreshControl={
+            //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            // }
+          >
             {cartData?.cartItems.length === 0 ? (
               <View style={style.noAddressContainer1}>
                 <View style={style.titleTextContainer1}>
@@ -499,9 +502,7 @@ const Cart = ({navigation}: Props) => {
                       key={index}
                       style={[
                         style.cardContainer,
-                        colorScheme === 'dark'
-                          ? Styles.Cardcolor2
-                          : Styles.main,
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
                       ]}>
                       <View style={style.imageContainer}>
                         <Image
@@ -512,19 +513,47 @@ const Cart = ({navigation}: Props) => {
                       <View style={style.subContainer}>
                         <View style={style.cardTextContainer}>
                           <View style={{width: 100, height: 20}}>
-                            <Text style={style.productname}>
+                            <Text
+                              style={[
+                                style.productname,
+                                colorScheme === 'dark'
+                                  ? Styles.whitetext
+                                  : Styles.blackText,
+                              ]}>
                               {item.product.name}
                             </Text>
                           </View>
-                          <Text style={style.name}>Rent </Text>
+                          <Text
+                            style={[
+                              style.name,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            Rent{' '}
+                          </Text>
                           <Text style={style.priceText}>
                             {'₹' + item.product.price}
                           </Text>
                         </View>
-                        <View style={style.sizeContainer}>
-                          <Text style={style.sizeText}>Size -</Text>
+                        <View style={[style.sizeContainer]}>
+                          <Text
+                            style={[
+                              style.sizeText,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            Size
+                          </Text>
                           {/* <View style={style.productSizeBox}> */}
-                          <Text style={style.detailsdescription}>
+                          <Text
+                            style={[
+                              style.detailsdescription,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
                             {item.product.size}
                           </Text>
                           {/* <View style={{flexDirection: 'row'}}>
@@ -566,7 +595,13 @@ const Cart = ({navigation}: Props) => {
                             {/* <View> */}
                             {/* {console.log('Quantity is ', Quantity)} */}
                             <View>
-                              <Text style={style.quantityTxt}>
+                              <Text
+                                style={[
+                                  style.quantityTxt,
+                                  colorScheme === 'dark'
+                                    ? Styles.whitetext
+                                    : Styles.blackText,
+                                ]}>
                                 {item.quantity}
                               </Text>
                             </View>
@@ -599,14 +634,15 @@ const Cart = ({navigation}: Props) => {
               Grand Total
             </Text>
             {/* <Text>Total Amount</Text> */}
-            <Text
-              style={[
-                style.priceTotalText,
-                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
-              ]}>
-              {' '}
-              ₹ {cartData.totalCost}
-            </Text>
+            <View style={{width: 100, height: 25}}>
+              <Text
+                style={[
+                  style.priceTotalText,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                ₹ {cartData.totalCost}
+              </Text>
+            </View>
           </View>
         </View>
         <View>

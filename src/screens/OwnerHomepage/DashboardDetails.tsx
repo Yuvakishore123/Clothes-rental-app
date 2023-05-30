@@ -309,7 +309,7 @@
 // };
 // export default DashboardDetails;
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Image,
   Text,
@@ -317,13 +317,16 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  Dimensions,
 } from 'react-native';
 import {
   VictoryChart,
   VictoryBar,
   VictoryPie,
   VictoryLabel,
+  VictoryAxis,
 } from 'victory-native';
+import {PieChart, LineChart} from 'react-native-chart-kit';
 
 import Colors from '../../constants/Colors';
 import useAnalytics from '../AnalyticsPage/useAnalytics';
@@ -331,6 +334,11 @@ import style from '../OwnerHomepage/OwnerHomestyle';
 import BackButton from '../../components/atoms/BackButton/BackButton';
 import Lottie from 'lottie-react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import Icons from 'react-native-vector-icons/MaterialIcons';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import AnalyticsDropdown from '../../components/atoms/AnalyticsDropdown/AnalyticsDropdown';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 const monthNames = [
   'Jan',
   'Feb',
@@ -356,13 +364,28 @@ const DashboardDetails = () => {
     piechart,
     HandlePiechart,
     handleExportpdf,
+    CategoriePieData,
   } = useAnalytics();
+  const {colorScheme} = useContext(ColorSchemeContext);
   const [showModel, setShowModel] = useState(false);
   const [selectedBarIndex, setSelectedBarIndex] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [monthtitle, setmonthtitle] = useState(
     monthNames[new Date().getMonth()],
   );
+  const [selectedData, setSelectedData] = useState('quantity'); // Selected data for the bar graph
+  const [lineChartData, setLineChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  });
+
+  const handleDataSelect = data => {
+    setSelectedData(data);
+  };
   console.log('orderData:', orderData);
   const handleVisibleModal = () => {
     setShowModel(!showModel);
@@ -428,10 +451,9 @@ const DashboardDetails = () => {
     const selectedBarIndex = rentalData.findIndex(
       data => data.month === selectedMonth,
     );
-
     setSelectedMonth(selectedMonthFormatted);
     setSelectedBarIndex(selectedBarIndex);
-
+    const {size, rentalPrice} = barData;
     const filteredOrderData = {};
     Object.keys(orderData).forEach(month => {
       if (month === selectedMonthFormatted) {
@@ -441,7 +463,12 @@ const DashboardDetails = () => {
     handleOrders(filteredOrderData);
   };
 
+  // const getBarColor = ({datum, index}) => {
+  //   return selectedBarIndex === index ? Colors.buttonColor : 'grey';
+  // };
   const getBarColor = ({datum, index}) => {
+    const selectedValue =
+      selectedData === 'quantity' ? 'totalNumberOfItems' : 'totalEarnings';
     return selectedBarIndex === index ? Colors.buttonColor : 'grey';
   };
 
@@ -450,15 +477,37 @@ const DashboardDetails = () => {
   const pieChartData =
     piechart && piechart[selectedMonth] ? piechart[selectedMonth] : {};
 
+  // const getRandomColor = () => {
+  //   const letters = '0123456789ABCDEF';
+  //   let color = '#';
+  //   for (let i = 0; i < 6; i++) {
+  //     color += letters[Math.floor(Math.random() * 16)];
+  //   }
+  //   return color;
+  // };
+  const chartColors = [
+    '#594AB5',
+    '#E28B5E',
+    '#7CB9E8',
+    '#B5E8A1',
+    '#F1C5D4',
+    '#F5D96C',
+    '#B6A2D3',
+    '#7F8FA6',
+    '#E8DAEF',
+    '#D2B4DE',
+  ];
+
   // Transform the data for the pie chart
   const transformedData = Object.entries(pieChartData).map(
-    ([subcategory, {totalOrders}]) => ({
-      x: subcategory,
-      y: totalOrders,
+    ([subcategory, {totalOrders}], index) => ({
+      name: subcategory,
+      value: totalOrders,
+      color: chartColors[index % chartColors.length],
+      // Generate a random color for each data point
     }),
   );
 
-  // Display the transformed data
   console.log(transformedData);
 
   // const transformedData = Object.entries(pieChartData).map(
@@ -470,25 +519,28 @@ const DashboardDetails = () => {
   console.log('pieChartData is ', pieChartData);
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.white}}>
+    <View style={[{flex: 1, backgroundColor: Colors.white}]}>
       {loading ? (
         <View>
           <Lottie
             source={require('../../../assets/analyticstwo.json')}
             autoPlay
-            style={{
-              height: 300,
-              width: 300,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginRight: 20,
-              marginTop: 100,
-            }}
+            style={[
+              {
+                height: 300,
+                width: 300,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 20,
+                marginTop: 100,
+              },
+            ]}
           />
         </View>
       ) : (
-        <ScrollView style={{backgroundColor: Colors.white, flex: 1}}>
+        <ScrollView style={{backgroundColor: '#ECF2FF', flex: 1}}>
           <>
+            {/* <HeadingText message={'Analytics'} /> */}
             <View style={{flexDirection: 'row'}}>
               <BackButton />
               <Text
@@ -496,14 +548,19 @@ const DashboardDetails = () => {
                   color: 'black',
                   fontFamily: 'Poppins-SemiBold',
                   fontSize: 25,
-                  marginTop: 26,
+                  marginTop: 20,
                   marginLeft: 70,
                   alignSelf: 'center',
                 }}>
                 Analytics
               </Text>
             </View>
-            <View style={{width: '100%'}}>
+            <View
+              style={{
+                width: '90%',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
               <Text
                 style={{
                   color: 'black',
@@ -515,42 +572,67 @@ const DashboardDetails = () => {
                 }}>
                 {monthtitle}
               </Text>
-              <View>
-                <TouchableOpacity
-                  style={style.exportContainer}
-                  onPress={handleExportpdf}>
-                  <Text style={style.exportText}> Export</Text>
-                  <Icon
-                    name="export"
-                    size={15}
-                    color={Colors.white}
-                    style={{marginLeft: 10}}
-                  />
-                </TouchableOpacity>
+              <View style={{flexDirection: 'row'}}>
+                <AnalyticsDropdown onSelect={handleDataSelect} />
               </View>
             </View>
-            <VictoryChart width={400} height={300}>
-              <VictoryBar
-                data={rentalData}
-                x="month"
-                y="totalNumberOfItems"
-                barWidth={25}
-                style={{
-                  data: {
-                    fill: getBarColor,
-                  },
-                }}
-                labels={({datum}) => `${datum.totalNumberOfItems}`}
-                events={[
-                  {
-                    target: 'data',
-                    eventHandlers: {
-                      onPress: handleBarClick,
+            <View style={{marginLeft: 10}}>
+              <VictoryChart width={Dimensions.get('window').width} height={300}>
+                <VictoryAxis
+                  tickFormat={monthNames}
+                  style={{
+                    axis: {stroke: 'black'},
+                    axisLabel: {fontSize: 14, padding: 30},
+                    tickLabels: {fontSize: 12, padding: 5},
+                  }}
+                  label="Month"
+                />
+                <VictoryAxis
+                  dependentAxis
+                  tickFormat={value =>
+                    selectedData === 'quantity'
+                      ? `${value}`
+                      : `${value / 1000}k`
+                  }
+                  style={{
+                    axis: {stroke: 'black'},
+                    axisLabel: {fontSize: 14, padding: 30},
+                    tickLabels: {fontSize: 12, padding: 5},
+                  }}
+                  label={
+                    selectedData === 'quantity' ? 'Quantity' : 'Rental Amount'
+                  }
+                />
+                <VictoryBar
+                  data={rentalData}
+                  x="month"
+                  y={
+                    selectedData === 'quantity'
+                      ? 'totalNumberOfItems'
+                      : 'totalEarnings'
+                  }
+                  barWidth={23}
+                  style={{
+                    data: {
+                      fill: getBarColor,
                     },
-                  },
-                ]}
-              />
-            </VictoryChart>
+                  }}
+                  labels={({datum}) =>
+                    selectedData === 'quantity'
+                      ? `${datum.totalNumberOfItems}`
+                      : `${Math.round(datum.totalEarnings / 1000)}k`
+                  }
+                  events={[
+                    {
+                      target: 'data',
+                      eventHandlers: {
+                        onPress: handleBarClick,
+                      },
+                    },
+                  ]}
+                />
+              </VictoryChart>
+            </View>
             {selectedBarIndex !== null && (
               <>
                 <View style={{flexDirection: 'row'}}>
@@ -561,7 +643,8 @@ const DashboardDetails = () => {
                       marginLeft: 38,
                       marginTop: 30,
                       borderRadius: 20,
-                      backgroundColor: 'rgba(217, 217, 217, 0.3)',
+                      backgroundColor: 'white',
+                      elevation: 4,
                     }}>
                     <Text
                       style={{
@@ -593,7 +676,8 @@ const DashboardDetails = () => {
                       marginLeft: 38,
                       marginTop: 30,
                       borderRadius: 20,
-                      backgroundColor: 'rgba(217, 217, 217, 0.3)',
+                      backgroundColor: 'white',
+                      elevation: 4,
                     }}>
                     <Text
                       style={{
@@ -618,7 +702,7 @@ const DashboardDetails = () => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <View
+                {/* <View
                   style={{
                     // flex: 1,
                     height: '100%',
@@ -626,37 +710,89 @@ const DashboardDetails = () => {
                     // backgroundColor: Colors.black,
                     // justifyContent: 'center',
                     // alignItems: 'center',
-                  }}>
+                  }}> */}
+                <View style={{alignItems: 'center'}}>
                   <Text
                     style={{
                       color: Colors.black,
-                      fontFamily: 'Poppins-SemiBold',
+                      fontFamily: 'Poppins-Medium',
                       fontSize: 20,
-                      marginTop: 26,
-                      marginLeft: 25,
-                      // alignSelf: 'center',
+                      marginBottom: 10,
+                      marginTop: 30,
                     }}>
-                    SubCategories Data
+                    Sub-categories
                   </Text>
-                  <View>
-                    <VictoryPie
-                      width={400}
-                      height={350}
+                  <View
+                    style={{
+                      elevation: 4,
+                      shadowColor: 'white',
+                      shadowOffset: {width: 0, height: 2},
+                      shadowOpacity: 0.2,
+                      shadowRadius: 4,
+                    }}>
+                    <PieChart
                       data={transformedData}
-                      colorScale={['#FF4D4D', '#4D79FF', '#4DFFB2', '#FFFF4D']}
-                      labels={({datum}) => `${datum.x}\n(${datum.y})`}
-                      labelComponent={<VictoryLabel />}
-                      labelRadius={({innerRadius}) => innerRadius + 130}
-                      style={{
-                        labels: {
-                          fill: 'black',
-                          fontSize: 12,
-                          fontWeight: 'bold',
-                        },
+                      width={Dimensions.get('window').width}
+                      height={210}
+                      chartConfig={{
+                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        // Decrease the font size here
                       }}
+                      accessor="value"
+                      backgroundColor="transparent"
+                      absolute
                     />
                   </View>
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-Medium',
+                      color: 'black',
+                      fontSize: 20,
+                      marginTop: 20,
+                    }}>
+                    {' '}
+                    Rental Earnings{' '}
+                  </Text>
+                  <LineChart
+                    data={{
+                      labels: rentalData.map(data => data.month),
+                      datasets: [
+                        {
+                          data: rentalData.map(data => data.totalEarnings),
+                        },
+                      ],
+                    }}
+                    width={Dimensions.get('window').width}
+                    height={220}
+                    style={{
+                      marginLeft: -10,
+                      marginTop: 20,
+                    }}
+                    withHorizontalLabels={true}
+                    chartConfig={{
+                      backgroundGradientFrom: 'rgba(255, 255, 255, 0)', // Transparent background start color
+                      backgroundGradientTo: 'rgba(255, 255, 255, 0)', // Transparent background end color
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `rgba(89, 74, 181, ${opacity})`,
+                    }}
+                    fromZero
+                    yAxisInterval={10}
+                  />
                 </View>
+                <View>
+                  <TouchableOpacity
+                    style={style.exportContainer}
+                    onPress={handleExportpdf}>
+                    <Text style={style.exportText}>Export</Text>
+                    <Icon
+                      name="export"
+                      size={15}
+                      color={Colors.white}
+                      style={{marginLeft: 10}}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {/* </View> */}
                 <View
                   style={{
                     marginTop: 20,
@@ -676,22 +812,39 @@ const DashboardDetails = () => {
                           width: '100%',
                           height: '100%',
                         }}>
-                        {orderData[selectedMonth].map(order => (
-                          <View key={order.id} style={style.dashcard}>
+                        {orderData[selectedMonth].map((order, index) => (
+                          <View
+                            key={`${order.id}-${index}`}
+                            style={style.dashcard}>
                             <View style={style.dashcardContainer}>
                               <Image
                                 source={{uri: order.imageUrl}}
                                 style={style.dashboardimage}
                               />
-                              <View key={order.id} style={{marginTop: 0}}>
+                              <View
+                                key={order.id}
+                                style={{
+                                  marginTop: 0,
+                                  width: 200,
+                                  height: 40,
+                                  // backgroundColor: Colors.white,
+                                }}>
                                 <Text style={style.Order}>
-                                  Order ID: {order.id}
+                                  Order ID: {order.borrowerId}
                                 </Text>
-                                <Text style={style.Product}>
-                                  {order.product.name}
+                                {/* <Text>Rented by</Text> */}
+                                <Text style={style.borrowerName}>
+                                  {order.borrowerName}
                                 </Text>
-                                <Text style={style.price}>{order.price}</Text>
-                                <Text style={style.order}>{order.status}</Text>
+                                {/* <Text style={style.Product}></Text> */}
+                                <Text style={style.price}>
+                                  ₹ {order.rentalCost}
+                                </Text>
+                                <Text style={style.order}> {order.name}</Text>
+                                <Text style={style.order}>
+                                  {' '}
+                                  {order.borrowerPhoneNumber}
+                                </Text>
                               </View>
                             </View>
                           </View>

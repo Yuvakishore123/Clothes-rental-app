@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -17,11 +18,12 @@ import Colors from '../../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Styles from '../../constants/themeColors';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
   useEffect(() => {
     axios
       .get(`${url}/category/list`)

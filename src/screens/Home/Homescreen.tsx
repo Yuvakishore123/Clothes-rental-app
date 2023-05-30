@@ -365,7 +365,7 @@ import {
   FlatList,
   useColorScheme,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Carousal from './Carousal';
 import {
   postProductToAPI,
@@ -382,8 +382,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import ProfileData from '../../constants/ProfileData';
+import ProfileData from '../Profile/ProfileData';
 import Styles from '../../constants/themeColors';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Togglebutton from '../../components/atoms/Colorscheme/Togglebutton';
 type Props = {
   route: {name: string};
   navigation: any;
@@ -400,12 +402,15 @@ const Homescreen = ({navigation}: Props) => {
     searchProducts,
     setSearchQuery,
     loading,
+    closeModal,
+    showModal,
     // recommendations,
   } = useHome();
   const allProducts = useSelector(state => state.UserProducts.data);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [wishlistList, setWishlistList] = useState([]);
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
   useEffect(() => {
     console.log(colorScheme);
   });
@@ -415,12 +420,12 @@ const Homescreen = ({navigation}: Props) => {
   //   dispatch(postProductToAPI(item));
   //   console.log('success');
   // };
-  const openModal = () => {
-    setShowModal(true);
-  };
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
 
   if (!UserProducts) {
     return (
@@ -452,117 +457,108 @@ const Homescreen = ({navigation}: Props) => {
       style={{
         height: '100%',
         width: '100%',
-        backgroundColor:
-          colorScheme === 'dark' ? Colors.Inputtext : Colors.main,
+        backgroundColor: colorScheme === 'dark' ? Colors.black : Colors.main,
         overflow: 'scroll',
       }}>
       {loading ? (
-        <SkeletonPlaceholder>
-          <View
+        <SkeletonPlaceholder
+          highlightColor="#e0e0e0"
+          backgroundColor={colorScheme === 'dark' ? '#373737' : '#f2f2f2'}>
+          {/* <View
+              style={[
+                style.mainContainer,
+                colorScheme === 'dark' ? style.blacktheme : style.whiteTheme,
+              ]}> */}
+          <Text
             style={{
-              backgroundColor: Colors.main,
-              height: 900,
-              width: 400,
-            }}>
-            <Text
+              marginLeft: 26,
+              marginTop: 10,
+              width: 70,
+              // fontWeight: '900',
+              fontFamily: 'Poppins-SemiBold',
+              fontSize: 15,
+              color: colorScheme === 'dark' ? Colors.white : Colors.black,
+            }}></Text>
+          <View
+            style={[
+              style.searchInputContainer,
+              colorScheme === 'dark' ? style.cardColor : Styles.main,
+            ]}>
+            <TextInput
+              placeholder="Search"
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.white : Colors.black
+              }
               style={{
-                marginLeft: 26,
-                marginTop: 10,
-                fontWeight: '900',
-                fontFamily: 'poppins',
-                fontSize: 15,
-                color: '#3E54AC',
-              }}></Text>
-
-            <View style={style.searchInputContainer}>
-              <TextInput
-                style={{fontSize: 20, paddingLeft: 10, color: 'black'}}
-              />
-            </View>
-            <View
-              style={{
-                marginTop: 20,
-                height: 200,
-                width: 400,
+                // height: 10,
                 borderRadius: 40,
-              }}></View>
-            <Text
-              style={{
-                marginTop: 20,
-                fontSize: 18,
-                color: '#3E54AC',
-                fontWeight: 'bold',
-                alignItems: 'center',
-                textAlign: 'center',
-                justifyContent: 'center',
-                fontFamily: 'poppins',
-              }}></Text>
-            <View
-              style={{
-                borderBottomColor: '#3E54AC',
-                borderBottomWidth: 1,
-                marginHorizontal: 154,
-                marginTop: 10,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 16,
+                width: '90%',
+                height: 45,
+                marginTop: 8,
+                paddingLeft: 10,
+                // color: 'black',
               }}
             />
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: Colors.gray,
-                flexWrap: 'wrap',
-              }}>
-              {/* Other code */}
-              <View style={{flexDirection: 'row'}}>
-                <View
-                  style={{
-                    marginTop: 20,
-                    // marginLeft: 5,
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    marginBottom: 50,
-                    flexWrap: 'wrap',
-                    // justifyContent: 'space-between',
-                    backgroundColor: Colors.main,
-                  }}>
-                  <View style={style.container}>
-                    <TouchableOpacity>
-                      <View style={style.imageContainer}>
-                        <Text style={style.image}></Text>
-                      </View>
-                    </TouchableOpacity>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                      }}>
-                      <View style={style.cardTextContainer}>
-                        <Text style={style.name}></Text>
-                      </View>
-                      <View style={style.textContainer}>
-                        <Text style={style.price}></Text>
-                        <TouchableOpacity style={style.rentButton}>
-                          <Text style={style.rentText}></Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                    <TouchableOpacity
-                      style={style.wishlistButton}></TouchableOpacity>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    marginTop: 50,
-                    // marginLeft: 5,
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    marginBottom: 50,
-                    flexWrap: 'wrap',
-                    // justifyContent: 'space-between',
-                    backgroundColor: Colors.main,
-                  }}></View>
-              </View>
+          </View>
+          <Text
+            style={{
+              marginLeft: 26,
+              marginTop: 30,
+              width: 300,
+              height: 25,
+              borderRadius: 50,
+              // fontWeight: '900',
+              fontFamily: 'Poppins-SemiBold',
+              fontSize: 15,
+              color: colorScheme === 'dark' ? Colors.white : Colors.black,
+            }}></Text>
+          <View style={style.categoriesContainer}>
+            <Text
+              style={[
+                style.CategoriesText,
+                colorScheme === 'dark' ? style.whitetext : style.blackText,
+              ]}></Text>
+            <TouchableOpacity>
+              <Text style={style.Seetext}></Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <TextInput style={style.img}></TextInput>
+            </View>
+            <View>
+              <TextInput style={style.img}></TextInput>
+            </View>
+            <View>
+              <TextInput style={style.img}></TextInput>
+            </View>
+            <View>
+              <TextInput style={style.img}></TextInput>
+            </View>
+            <View>
+              <TextInput style={style.img}></TextInput>
             </View>
           </View>
+          <View style={[style.container, {marginTop: 70}]}>
+            <TouchableOpacity>
+              <View style={style.imageContainer}>
+                <TextInput style={style.image}></TextInput>
+                <TouchableOpacity style={style.wishlistButton}>
+                  <MaterialIcons size={20} color={'red'} name="cards-heart" />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+            {/* <View style={style.cardTextContainer}> */}
+            <Text style={style.name}></Text>
+            {/* </View> */}
+            {/* <View style={style.textContainer}> */}
+            <Text style={style.price}></Text>
+            {/* </View> */}
+            {/* </View> */}
+          </View>
+          {/* </View> */}
         </SkeletonPlaceholder>
       ) : (
         <View
@@ -588,6 +584,12 @@ const Homescreen = ({navigation}: Props) => {
               autoPlay
               style={{height: 45, width: 50}}
             />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+                marginLeft: 20,
+              }}></View>
           </View>
           <View
             style={[
@@ -607,16 +609,19 @@ const Homescreen = ({navigation}: Props) => {
               placeholderTextColor={
                 colorScheme === 'dark' ? Colors.white : Colors.black
               }
-              style={{
-                // height: 10,
-                fontFamily: 'Poppins-Regular',
-                fontSize: 16,
-                width: '100%',
-                height: 45,
-                marginTop: 8,
-                paddingLeft: 10,
-                // color: 'black',
-              }}
+              style={[
+                {
+                  // height: 10,
+                  fontFamily: 'Poppins-Regular',
+                  fontSize: 16,
+                  width: '100%',
+                  height: 45,
+                  marginTop: 8,
+                  paddingLeft: 10,
+                  color: 'black',
+                },
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}
               onChangeText={text => {
                 setSearchQuery(text);
                 // searchProducts(text);
@@ -757,7 +762,7 @@ const Homescreen = ({navigation}: Props) => {
       <CustomModal
         showModal={showModal}
         onClose={closeModal}
-        message="Need to set Rental dates!"
+        message="Item Removed from Wishlist!!"
       />
     </SafeAreaView>
   );

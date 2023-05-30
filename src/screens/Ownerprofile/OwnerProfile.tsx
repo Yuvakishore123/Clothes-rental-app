@@ -1,20 +1,27 @@
-import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import React from 'react';
 import style from './OwnerProfilestyle';
 import SwitchAccountButton from '../../components/atoms/SwtichAccountButton';
 import AddImages from '../../components/atoms/AddImages';
-import ProfileData from '../../constants/ProfileData';
+import ProfileData from '../Profile/ProfileData';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import {Logout} from '../../redux/actions/actions';
 import useCart from '../Cart/useCart';
 import Styles from '../../constants/themeColors';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 type Props = {
   navigation: any;
 };
 const OwnerProfile = ({navigation}: Props) => {
-  const {name, email, phonenumber} = ProfileData();
+  const {name, email, phonenumber, isLoading} = ProfileData();
   const {colorScheme} = useCart();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -33,33 +40,43 @@ const OwnerProfile = ({navigation}: Props) => {
         <View style={style.imageContainer}>
           <AddImages />
         </View>
-        <View
-          style={[
-            style.card,
-            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
-          ]}>
-          <Text
+        {isLoading ? (
+          <SkeletonPlaceholder
+            highlightColor="#e0e0e0"
+            backgroundColor={colorScheme === 'dark' ? '#373737' : '#f2f2f2'}>
+            <View>
+              <TextInput style={style.card} placeholderTextColor="#999" />
+            </View>
+          </SkeletonPlaceholder>
+        ) : (
+          <View
             style={[
-              style.profileText,
-              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              style.card,
+              colorScheme === 'dark' ? Styles.cardColor : Styles.main,
             ]}>
-            {name}
-          </Text>
-          <Text
-            style={[
-              style.profileText1,
-              colorScheme === 'dark' ? Styles.InputText : Styles.main,
-            ]}>
-            {email}
-          </Text>
-          <Text
-            style={[
-              style.profileText1,
-              colorScheme === 'dark' ? Styles.InputText : Styles.main,
-            ]}>
-            {phonenumber}
-          </Text>
-        </View>
+            <Text
+              style={[
+                style.profileText,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              {name}
+            </Text>
+            <Text
+              style={[
+                style.profileText1,
+                colorScheme === 'dark' ? Styles.InputText : Styles.main,
+              ]}>
+              {email}
+            </Text>
+            <Text
+              style={[
+                style.profileText1,
+                colorScheme === 'dark' ? Styles.InputText : Styles.main,
+              ]}>
+              {phonenumber}
+            </Text>
+          </View>
+        )}
         {/* </View> */}
         <View style={style.profileFields}>
           <TouchableOpacity

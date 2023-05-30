@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/OwnerHomepage/OwnerHomestyle';
@@ -6,6 +6,8 @@ import Colors from '../../constants/Colors';
 import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import axios from 'axios';
 import {object} from 'yup';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 // import AntDesign from '@expo/vector-icons/AntDesign';
 const data = [
   {label: 'XS', value: '1'},
@@ -18,13 +20,22 @@ const Sizeselection = ({onChange}) => {
   //   const [CategoriesData, setCategoriesData] = useState([]);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const {colorScheme} = useContext(ColorSchemeContext);
+
   return (
     <View style={Ownerstyles.scrollView}>
-      <View style={styles.dropdownContainer}>
+      <View
+        style={[
+          styles.dropdownContainer,
+          colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+        ]}>
         <Dropdown
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
+          selectedTextStyle={[
+            styles.selectedTextStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+          ]}
           inputSearchStyle={styles.inputSearchStyle}
           itemTextStyle={styles.itemTextStyle}
           selectedItemTextStyle={styles.selectedItemTextStyle}
@@ -74,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     // fontWeight: '400',
     fontFamily: 'Poppins-SemiBold',
-    color: '#000000',
+    color: 'gray',
     marginLeft: 15,
   },
   selectedTextStyle: {

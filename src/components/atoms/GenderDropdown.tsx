@@ -1,27 +1,46 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Ownerstyles from '../../screens/Additems/Additemsstyle';
 import Colors from '../../constants/Colors';
 import Useadditems from '../../screens/Additems/Useadditems';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const DropdownComponent = ({value, onChange}) => {
   const {categoriesData} = Useadditems();
   const [isFocus, setIsFocus] = useState(false);
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   return (
     <View style={Ownerstyles.scrollView}>
-      <View style={styles.dropdownContainer}>
+      <View
+        style={[
+          styles.dropdownContainer,
+          colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+        ]}>
         <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
+          style={[styles.dropdown]}
+          placeholderStyle={[styles.placeholderStyle]}
+          selectedTextStyle={[
+            styles.selectedTextStyle,
+            colorScheme === 'dark' ? Styles.InputText : Styles.black,
+          ]}
+          inputSearchStyle={[
+            styles.inputSearchStyle,
+            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+          ]}
           iconStyle={styles.iconStyle}
           itemTextStyle={styles.itemTextStyle}
           selectedItemTextStyle={styles.selectedItemTextStyle}
-          itemContainerStyle={styles.itemContainerStyle} // Add this line
-          selectedItemContainerStyle={styles.selectedItemContainerStyle}
+          itemContainerStyle={[
+            styles.itemContainerStyle,
+            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+          ]} // Add this line
+          selectedItemContainerStyle={[
+            styles.selectedItemContainerStyle,
+            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+          ]}
           data={categoriesData}
           search
           maxHeight={200}

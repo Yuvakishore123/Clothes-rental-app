@@ -15,8 +15,12 @@ function Usesignup() {
       .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits')
       .required('Phone number is required'),
     password: Yup.string()
-      .min(8, 'Must be at least 8 characters')
-      .required('Password is required'),
+      .min(8)
+      .required('Please enter password')
+      .matches(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+        'Must contain special characters and uppercase letters',
+      ),
   });
 
   const navigation = useNavigation();

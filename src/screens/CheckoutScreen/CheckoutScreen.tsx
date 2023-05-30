@@ -609,7 +609,7 @@ const Cart = ({navigation}: Props) => {
                     key={index}
                     style={[
                       style.cardContainer,
-                      // colorScheme === 'dark' ? Styles.Cardcolor2 : Styles.main,
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
                     ]}>
                     <View
                       style={{
@@ -625,7 +625,13 @@ const Cart = ({navigation}: Props) => {
                       </View>
                       <View style={style.cardTextContainer}>
                         <View style={style.productContainer}>
-                          <Text style={style.productname}>
+                          <Text
+                            style={[
+                              style.productname,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
                             {item.product.name}
                           </Text>
                           <Text style={style.priceText}>
@@ -633,17 +639,45 @@ const Cart = ({navigation}: Props) => {
                           </Text>
                         </View>
                         <View style={style.sizeContainer}>
-                          <Text style={style.sizeText}>
+                          <Text
+                            style={[
+                              style.sizeText,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
                             {' '}
                             Size-{item.product.size}
                           </Text>
-                          <Text style={style.name}>Rent From</Text>
+                          <Text
+                            style={[
+                              style.name,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            Rent From
+                          </Text>
                         </View>
                         <View style={style.SizeandDate}>
                           <View style={style.quantityContainer}>
                             {/* {console.log(item.product.quantity)} */}
-                            <Text style={style.quantityText}>Quantity : </Text>
-                            <Text style={style.quantityText}>
+                            <Text
+                              style={[
+                                style.quantityText,
+                                colorScheme === 'dark'
+                                  ? Styles.whitetext
+                                  : Styles.blackText,
+                              ]}>
+                              Quantity :
+                            </Text>
+                            <Text
+                              style={[
+                                style.quantityText,
+                                colorScheme === 'dark'
+                                  ? Styles.whitetext
+                                  : Styles.blackText,
+                              ]}>
                               {item.quantity}
                             </Text>
                           </View>
@@ -674,9 +708,9 @@ const Cart = ({navigation}: Props) => {
                 ]}>
                 Select Address
               </Text>
-              <View style={style.addressButton}>
+              <View style={[style.addressButton]}>
                 <Text
-                  style={style.addresschangeText}
+                  style={[style.addresschangeText]}
                   onPress={() => {
                     navigation.navigate('Owneraddresspage');
                   }}>
@@ -687,29 +721,38 @@ const Cart = ({navigation}: Props) => {
             {/* <Text style={{margin: 5, width: '100%'}}>{selectedAddress}</Text> */}
             {addressList &&
               addressList.map((item, index) => (
-                <View key={index} style={style.card}>
-                  <View style={style.addressContainer}>
+                <View
+                  key={index}
+                  style={[
+                    style.card,
+                    colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  ]}>
+                  <View style={[style.addressContainer]}>
                     <View>
                       <Text
-                        style={{
-                          width: 60,
-                          marginLeft: 10,
-                          // width: 140,
-                          height: 20,
-                          marginTop: 20,
-                          color: Colors.black,
-                          fontSize: 12,
-                          // fontWeight: '500',
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        {' '}
+                        style={[
+                          {
+                            width: 60,
+                            marginLeft: 10,
+                            // width: 140,
+                            height: 20,
+                            marginTop: 20,
+                            color: Colors.black,
+                            fontSize: 12,
+                            // fontWeight: '500',
+                            fontFamily: 'Poppins-Regular',
+                          },
+                          colorScheme === 'dark'
+                            ? Styles.whitetext
+                            : Styles.blackText,
+                        ]}>
                         Address :
                       </Text>
                       <Text
                         style={[
                           style.city,
                           colorScheme === 'dark'
-                            ? Styles.blackText
+                            ? Styles.whitetext
                             : Styles.blackText,
                         ]}>
                         <Text>{item.addressLine1},</Text>
@@ -723,7 +766,15 @@ const Cart = ({navigation}: Props) => {
                       </Text>
                     </View>
                     <View style={style.containerCheckbox}>
-                      <Text style={style.textCheckbox}>Delivery Address</Text>
+                      <Text
+                        style={[
+                          style.textCheckbox,
+                          colorScheme === 'dark'
+                            ? Styles.whitetext
+                            : Styles.blackText,
+                        ]}>
+                        Delivery Address
+                      </Text>
                       {console.log(isChecked)}
                       <CheckBox
                         checked={selectedAddressIndex === index}
@@ -738,25 +789,77 @@ const Cart = ({navigation}: Props) => {
               ))}
           </View>
         </ScrollView>
-        <View style={style.GrandtotalContainer}>
-          <Text style={style.GrandtotalText}>Shipping Cost</Text>
+        <View style={[style.GrandtotalContainer]}>
+          <Text
+            style={[
+              style.GrandtotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Shipping Cost
+          </Text>
           {/* <Text>Total Amount</Text> */}
-          <Text style={style.priceTotalText}> ₹ {cartData.shippingCost}</Text>
+          <Text
+            style={[
+              style.priceTotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            {' '}
+            ₹ {cartData.shippingCost}
+          </Text>
         </View>
         <View style={style.shippingContainer}>
-          <Text style={style.GrandtotalText}>Tax</Text>
+          <Text
+            style={[
+              style.GrandtotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Tax
+          </Text>
           {/* <Text>Total Amount</Text> */}
-          <Text style={style.priceTotalText}> ₹ {cartData.tax}</Text>
+          <Text
+            style={[
+              style.priceTotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            {' '}
+            ₹ {cartData.tax}
+          </Text>
+        </View>
+        <View style={[style.shippingContainer]}>
+          <Text
+            style={[
+              style.GrandtotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Grand Total
+          </Text>
+          {/* <Text>Total Amount</Text> */}
+          <Text
+            style={[
+              style.priceTotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            {' '}
+            ₹ {cartData.totalCost}
+          </Text>
         </View>
         <View style={style.shippingContainer}>
-          <Text style={style.GrandtotalText}>Grand Total</Text>
+          <Text
+            style={[
+              style.GrandtotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            final Price
+          </Text>
           {/* <Text>Total Amount</Text> */}
-          <Text style={style.priceTotalText}> ₹ {cartData.totalCost}</Text>
-        </View>
-        <View style={style.shippingContainer}>
-          <Text style={style.GrandtotalText}>final Price</Text>
-          {/* <Text>Total Amount</Text> */}
-          <Text style={style.priceTotalText}> ₹ {cartData.finalPrice}</Text>
+          <Text
+            style={[
+              style.priceTotalText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            {' '}
+            ₹ {cartData.finalPrice}
+          </Text>
         </View>
         <View style={{alignItems: 'center'}}>
           {/* <Text style={style.TextGrand}>Grand Total</Text> */}

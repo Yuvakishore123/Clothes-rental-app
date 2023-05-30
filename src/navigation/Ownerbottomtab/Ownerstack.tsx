@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, {useContext} from 'react';
 import OwnerEditProfile from '../../screens/Ownereditprofile/Ownereditprofile';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -26,6 +26,7 @@ import EditAddress from '../../screens/EditAddress/EditAddress';
 import {View} from 'react-native';
 import AnalyticScreen from '../../screens/AnalyticsPage/AnalyticScreen';
 import DashboardDetails from '../../screens/OwnerHomepage/DashboardDetails';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -88,6 +89,7 @@ const Owneradditemsstack = () => {
   );
 };
 const Ownerstack = () => {
+  const {colorScheme} = useContext(ColorSchemeContext);
   const isFocused = useIsFocused();
   return (
     <Tab.Navigator
@@ -113,7 +115,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             height: '7%',
           },
           tabBarIcon: ({focused, color}) => {
@@ -124,15 +127,32 @@ const Ownerstack = () => {
             if (route.name === 'Home') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <MaterialIcon name="home" color={color} size={30} />
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialIcon
+                    name="home"
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    color={color}
+                    size={30}
+                  />
                 </View>
               );
             } else if (route.name === 'Additem') {
@@ -163,7 +183,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: '7%',
@@ -176,17 +197,30 @@ const Ownerstack = () => {
             if (route.name === 'Additem') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
                   <MaterialCommunityIcons
                     name="plus-box"
                     color={color}
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
                     size={35}
                   />
                 </View>
@@ -201,6 +235,9 @@ const Ownerstack = () => {
                   name="account"
                   color={color}
                   size={42}
+                  style={{
+                    color: colorScheme === 'dark' ? Colors.white : Colors.black,
+                  }}
                 />
               );
             }
@@ -215,7 +252,8 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: '7%',
@@ -228,17 +266,30 @@ const Ownerstack = () => {
             if (route.name === 'ProfileScreen') {
               iconComponent = (
                 <View
-                  style={{
-                    backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
-                    borderRadius: 20,
-                    height: 40,
-                    width: 40,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
                   <MaterialCommunityIcons
                     name="account"
                     color={color}
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
                     size={35}
                   />
                 </View>

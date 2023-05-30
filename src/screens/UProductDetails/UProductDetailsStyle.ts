@@ -34,8 +34,9 @@ const styles = StyleSheet.create({
   detailsPrice: {
     marginTop: 10,
     marginLeft: 10,
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 16,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
     color: Colors.buttonColor,
   },
   detailsaddPrice: {

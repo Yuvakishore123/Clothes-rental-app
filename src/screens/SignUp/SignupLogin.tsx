@@ -75,7 +75,9 @@ export default function SignUpScreen() {
                 colorScheme === 'dark' ? Style.whitetext : Style.blackText,
               ]}
               placeholder="Enter First name"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.Textinput : Colors.black
+              }
               value={firstName}
               autoCapitalize="words"
               // textColor="white"
@@ -95,7 +97,9 @@ export default function SignUpScreen() {
                 colorScheme === 'dark' ? Style.whitetext : Style.blackText,
               ]}
               placeholder="Enter Last name"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.Textinput : Colors.black
+              }
               value={lastName}
               autoCapitalize="words"
               onChangeText={handleLastNameChange}
@@ -114,7 +118,9 @@ export default function SignUpScreen() {
                 colorScheme === 'dark' ? Style.whitetext : Style.blackText,
               ]}
               placeholder="Enter email"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.Textinput : Colors.black
+              }
               value={email}
               autoCapitalize="none"
               onChangeText={handleEmailChange}
@@ -133,7 +139,9 @@ export default function SignUpScreen() {
                 colorScheme === 'dark' ? Style.whitetext : Style.blackText,
               ]}
               placeholder="Enter Phone number"
-              placeholderTextColor={Colors.black}
+              placeholderTextColor={
+                colorScheme === 'dark' ? Colors.Textinput : Colors.black
+              }
               value={phoneNumber}
               // secureTextEntry={true}
               onChangeText={handlephoneNumber}
@@ -151,7 +159,9 @@ export default function SignUpScreen() {
               colorScheme === 'dark' ? Style.whitetext : Style.blackText,
             ]}
             placeholder="Enter password"
-            placeholderTextColor={Colors.black}
+            placeholderTextColor={
+              colorScheme === 'dark' ? Colors.Textinput : Colors.black
+            }
             value={password}
             secureTextEntry={true}
             onChangeText={handlePasswordChange}

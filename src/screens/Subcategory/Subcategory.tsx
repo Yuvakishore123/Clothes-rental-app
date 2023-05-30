@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {url} from '../../constants/Apis';
@@ -14,16 +14,17 @@ import Colors from '../../constants/Colors';
 import useCart from '../Cart/useCart';
 import Styles from '../../constants/themeColors';
 import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const SubcategoryList = ({route}) => {
   const {categoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
-  const {colorScheme} = useCart();
+  // const {colorScheme} = useCart();
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const {colorScheme} = useContext(ColorSchemeContext);
   useEffect(() => {
     const fetchSubcategories = async () => {
       const token = await AsyncStorage.getItem('token'); // replace with your actual token
-
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,12 +45,15 @@ const SubcategoryList = ({route}) => {
   if (loading) {
     return (
       <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          backgroundColor: Colors.main,
-        }}>
+        style={[
+          {
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            backgroundColor: Colors.main,
+          },
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
         <Lottie
           source={require('../../../assets/loading2.json')}
           autoPlay
@@ -61,7 +65,11 @@ const SubcategoryList = ({route}) => {
             borderRadius: 40,
           }}
         />
-        <Text style={{color: Colors.white, fontSize: 15, fontWeight: '600'}}>
+        <Text
+          style={[
+            {color: Colors.white, fontSize: 15, fontWeight: '600'},
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
           The Items are Loading...
         </Text>
       </View>

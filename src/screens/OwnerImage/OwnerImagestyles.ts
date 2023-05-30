@@ -9,6 +9,16 @@ const OwnerImagestyles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  overlay: {
+    height: 163,
+    width: '150%',
+    // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: Colors.white,
+    borderRadius: 15,
+    justifyContent: 'center',
+    elevation: 4,
+    alignItems: 'center',
+  },
   TitletextContainer: {
     flexDirection: 'row',
     margin: 15,
@@ -16,6 +26,12 @@ const OwnerImagestyles = StyleSheet.create({
   },
   form: {
     marginLeft: 10,
+  },
+  imagetxt: {
+    color: Colors.black,
+    marginTop: 120,
+    fontFamily: 'Poppins-Bold',
+    fontSize: 14,
   },
   touchableContainer: {
     height: 40,

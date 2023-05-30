@@ -43,6 +43,13 @@ const OwnerEditItemstyles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 5,
   },
+  closetxt: {
+    color: Colors.buttonColor,
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
+    marginLeft: 40,
+    marginTop: 10,
+  },
   mainContainer: {
     backgroundColor: Colors.main,
     height: '100%',

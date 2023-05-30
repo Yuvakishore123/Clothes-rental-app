@@ -97,7 +97,7 @@ const Useowneredititems = () => {
       setMapdata(ProductData);
       setName(ProductData.name);
       setPrice(ProductData.price);
-      setQuantity(ProductData.quantity);
+      setQuantity(ProductData.totalQuantity);
       setDescription(ProductData.description);
       return ProductData;
     } catch (error) {
@@ -336,7 +336,7 @@ const Useowneredititems = () => {
         material: 'fibre',
         name: name,
         price: price,
-        quantity: quantity,
+        totalQuantity: quantity,
         size: selectedsize,
         subcategoryIds: [itemType, outfitType, eventType],
       };
@@ -367,11 +367,11 @@ const Useowneredititems = () => {
       console.log(data);
 
       dispatch(addsize(selectedsize));
-      Alert.alert('Item Successfully Edited');
+      // Alert.alert('Item Successfully Edited');
       navigation.navigate('OwnerProfile');
     } catch (error) {
       console.log(error);
-      Alert.alert('Failed to Edit Item');
+      // Alert.alert('Failed to Edit Item');
     }
   };
   const RemoveProducts = async (productId: any) => {
@@ -394,7 +394,7 @@ const Useowneredititems = () => {
       .catch(error => {
         console.error(error);
         const errorMessage = `Error removing item from ProductsList: ${error.message}`;
-        Alert.alert(errorMessage);
+        // Alert.alert(errorMessage);
       });
   };
 

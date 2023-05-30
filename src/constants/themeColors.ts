@@ -33,6 +33,9 @@ const Styles = StyleSheet.create({
   ButtonColor: {
     backgroundColor: Colors.buttonColor,
   },
+  priceTect: {
+    color: Colors.buttonColor,
+  },
 });
 
 export default Styles;

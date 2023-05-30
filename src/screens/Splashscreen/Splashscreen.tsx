@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,8 @@ import Colors from '../../constants/Colors';
 import Lottie from 'lottie-react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
 
 const {height} = Dimensions.get('window');
 
@@ -30,21 +32,26 @@ const walkthroughTitleList = [
   },
   {
     id: 3,
-    title: 'Dress like you’re already famous',
-    desc: 'Stop Thinking, Just Buy It',
+    title: 'Be Trendy for every Mood',
+    desc: 'Stop Thinking, Just Rent It',
     icon: <Lottie source={require('../../../assets/splash3.json')} autoPlay />,
   },
 ];
 
 export default function SplashScreen() {
   const navigation = useNavigation();
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   const handleLoginPress = () => {
     navigation.navigate('Login'); // Replace 'Login' with the actual name of your login screen component
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
       <Swiper
         showsButtons={false}
         loop={false}
@@ -57,7 +64,9 @@ export default function SplashScreen() {
           marginRight: 10,
           marginLeft: 10,
         }}
-        containerStyle={{backgroundColor: Colors.main}}
+        // containerStyle={[
+        //   colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        // ]}
         dotStyle={{
           width: 15,
           height: 15,
@@ -77,10 +86,27 @@ export default function SplashScreen() {
         }}>
         {walkthroughTitleList.map(item => {
           return (
-            <View key={item.id} style={styles.slide}>
+            <View
+              key={item.id}
+              style={[
+                styles.slide,
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}>
               {item.icon}
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.desc}>{item.desc}</Text>
+              <Text
+                style={[
+                  styles.title,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                {item.title}
+              </Text>
+              <Text
+                style={[
+                  styles.desc,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                {item.desc}
+              </Text>
               {item.id === walkthroughTitleList.length && (
                 <TouchableOpacity
                   style={styles.touchablebtn}

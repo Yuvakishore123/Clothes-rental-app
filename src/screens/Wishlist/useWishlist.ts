@@ -70,7 +70,7 @@
 //   };
 // }
 // export default useWishlist;
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchWishlistProducts} from '../../redux/slice/wishlistSlice';
 import {removeFromWishlist} from '../../redux/actions/actions';
@@ -78,11 +78,13 @@ import {url} from '../../constants/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 function useWishlist() {
   const navigation = useNavigation();
-  const colorScheme = useColorScheme();
+  const {colorScheme} = useContext(ColorSchemeContext);
   const [refreshing, setRefreshing] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const openModal = () => {
     setShowModal(true);
   };
@@ -142,6 +144,7 @@ function useWishlist() {
     showModal,
     openModal,
     colorScheme,
+    isLoading,
   };
 }
 export default useWishlist;
