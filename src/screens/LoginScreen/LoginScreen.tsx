@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   TextInput,
@@ -10,10 +12,13 @@ import {
 } from 'react-native';
 import Useformik from './Useloginscreen';
 import {useNavigation} from '@react-navigation/native';
-import Styles from './LoginStyle';
+import styles from './LoginStyle';
 import Colors from '../../constants/Colors';
-import style from '../Profile/profileStyles';
-
+// import Style from '../Profile/profilestyles';
+import Lottie from 'lottie-react-native';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
 export default function LoginScreen() {
   const navigation = useNavigation();
   const {
@@ -23,70 +28,115 @@ export default function LoginScreen() {
     handlePasswordChange,
     handleBlur,
     formik,
+    closeModal,
+    showModal,
     passwordError,
     handleLogin,
   } = Useformik();
-
+  const {colorScheme} = useCart();
   return (
-    <ScrollView style={Styles.mainContainer}>
-      <Image
-        style={Styles.image}
-        source={require('../../../Assets/LeapsLogo.png')}
+    <View
+      style={[
+        styles.mainContainer,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
+      <Lottie
+        style={styles.image}
+        source={require('../../../assets/loginlottie.json')}
+        autoPlay
       />
       <View>
+        <Text
+          style={[
+            styles.TitleText,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          SignIn
+        </Text>
+      </View>
+      <View>
         <TextInput
-          style={Styles.textinput}
+          style={[
+            styles.textinput,
+            colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}
           placeholder="Email Address"
-          placeholderTextColor={Colors.Inputtext}
+          placeholderTextColor={
+            colorScheme === 'dark' ? Colors.Textinput : Colors.black
+          }
           value={email}
           autoCapitalize="none"
           onChangeText={handleEmailChange}
           onBlur={() => handleBlur('email')}
         />
         {formik.touched.email && formik.errors.email && (
-          <Text style={Styles.errorText}>{formik.errors.email} </Text>
+          <Text style={styles.errorText}>{formik.errors.email} </Text>
         )}
         <View>
           <TextInput
-            style={Styles.textinput}
+            style={[
+              styles.textinput,
+              colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}
             placeholder="Enter password"
-            placeholderTextColor={Colors.Inputtext}
+            placeholderTextColor={
+              colorScheme === 'dark' ? Colors.Textinput : Colors.black
+            }
             value={password}
             secureTextEntry={true}
             onChangeText={handlePasswordChange}
             onBlur={() => handleBlur('password')}
           />
           {formik.touched.password && formik.errors.password && (
-            <Text style={Styles.errorText}>{formik.errors.password} </Text>
+            <Text style={styles.errorText}>{formik.errors.password} </Text>
           )}
         </View>
         {passwordError.length > 0 && <Text>{passwordError}</Text>}
       </View>
-      <View style={Styles.touchablebtnContainer}>
+      <View style={styles.touchablebtnContainer}>
         <TouchableOpacity
           disabled={!formik.isValid}
           style={[
-            Styles.touchablebtn,
+            styles.touchablebtn,
             {
-              backgroundColor: formik.isValid ? Colors.buttonColor : '#A5C9CA',
+              backgroundColor: formik.isValid ? Colors.buttonColor : '#A7D8DE',
             },
           ]}
           onPress={handleLogin}>
-          <Text style={Styles.touchableText}>Sign in</Text>
+          <Text style={styles.touchableText}>Sign in</Text>
         </TouchableOpacity>
       </View>
-      <View style={Styles.otp}>
-        <Text style={Styles.otptext}>Continue with </Text>
+      <View style={styles.otp}>
+        <Text
+          style={[
+            styles.otptext,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          Continue with{' '}
+        </Text>
         <TouchableOpacity onPress={() => navigation.navigate('OtpScreen')}>
-          <Text style={Styles.Otptext}>OTP</Text>
+          <Text style={styles.Otptext}>OTP</Text>
         </TouchableOpacity>
       </View>
-      <View style={Styles.sign}>
-        <Text style={Styles.signuptext}>Don't have an account? </Text>
+      <View style={styles.sign}>
+        <Text
+          style={[
+            styles.signuptext,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          Don't have an account?{' '}
+        </Text>
         <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
-          <Text style={Styles.Signuptext}>Sign up</Text>
+          <Text style={styles.Signuptext}>Sign up</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+      <CustomModal
+        showModal={showModal}
+        onClose={closeModal}
+        message="Invalid Credentials!"
+      />
+    </View>
   );
 }

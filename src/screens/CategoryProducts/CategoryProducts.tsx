@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -9,20 +9,28 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {postProductToAPI} from '../../redux/actions/actions';
 import style from './categoryStyles';
 import {url} from '../../constants/Apis';
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Lottie from 'lottie-react-native';
+import Colors from '../../constants/Colors';
+import useCart from '../Cart/useCart';
+import Styles from '../../constants/themeColors';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 const CategoryProducts = ({route}) => {
   const dispatch = useDispatch();
   const {subcategoryId} = route.params;
   const [subcategories, setSubcategories] = useState([]);
   const navigation = useNavigation();
   const [wishlistList, setWishlistList] = useState([]);
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -46,53 +54,77 @@ const CategoryProducts = ({route}) => {
   }, [subcategoryId]);
 
   return (
-    <ScrollView style={style.maincontainer}>
-      <View style={style.textConatiner}>
-        <View style={style.dheader}>
-          <Icon
-            name="arrow-back-ios"
-            size={18}
-            color="#3E54AC"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-        <Text style={style.textStyle}>Products</Text>
-      </View>
+    <ScrollView
+      style={[
+        style.maincontainer,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
+      {/* <TouchableOpacity
+        style={[
+          style.backBtn,
+          colorScheme === 'dark' ? Styles.whiteTheme : Styles.whiteTheme,
+        ]}
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <MaterialIcon
+          name="md-chevron-back"
+          color={colorScheme === 'dark' ? Colors.black : Colors.white}
+          size={26}
+          style={{alignSelf: 'center'}}
+        />
+      </TouchableOpacity>
+      <Text
+        style={[
+          style.textStyle,
+          colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+        ]}>
+        Products
+      </Text> */}
+      <HeadingText message={'Products'} />
       <View style={{flex: 1}}>
         {subcategories.length === 0 ? (
           <View>
             <Lottie
-              style={{flex: 1, width: 400}}
-              source={require('../../../Assets/productpage.json')}
+              style={{height: 400, width: '100%', marginLeft: 15}}
+              source={require('../../../assets/productsEmpty.json')}
               autoPlay
             />
-            <Text style={style.loadtextStyle}>
+            <Text
+              style={[
+                style.loadtextStyle,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
               Products are not Available Right Now
             </Text>
           </View>
         ) : (
           <View
             style={{
-              marginTop: 20,
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginBottom: 100,
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              backgroundColor: '#ECF2FF',
+              width: '100%',
             }}>
-            {subcategories &&
-              subcategories.map(item => (
-                <TouchableOpacity
-                  key={item.id} // Add a unique key prop
-                  onPress={() =>
-                    navigation.navigate('CategoryProducts', {
-                      subcategoryId: item.id,
-                    })
-                  }>
-                  <View>
-
-                    <View style={style.container}>
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+              }}>
+              {subcategories &&
+                subcategories.map((item, index) => (
+                  <TouchableOpacity
+                    style={{width: '50%'}}
+                    key={`${item.id.toString()}-${index}`} // Add a unique key prop
+                    onPress={() =>
+                      navigation.navigate('CategoryProducts', {
+                        subcategoryId: item.id,
+                      })
+                    }>
+                    <View
+                      style={[
+                        style.container,
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      ]}>
                       <TouchableOpacity
                         key={item.id}
                         onPress={() =>
@@ -108,35 +140,20 @@ const CategoryProducts = ({route}) => {
                         </View>
                       </TouchableOpacity>
                       <View style={style.cardTextContainer}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <Text style={style.name}>{item.name}</Text>
-                          {/* <TouchableOpacity
-                            style={style.addButton}
-                            onPress={() => {}}>
-                            <Text
-                              style={{
-                                color: '#3E54AC',
-                                fontWeight: 'bold',
-                                fontSize: 12,
-                              }}>
-                              +
-                            </Text>
-                          </TouchableOpacity> */}
+                        <View style={style.Cartcontents}>
+                          <Text
+                            style={[
+                              style.name,
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            {item.name}
+                          </Text>
                         </View>
 
                         <View style={style.textContainer}>
                           <Text style={style.price}>{'₹' + item.price}</Text>
-                          {/* <TouchableOpacity
-                            style={style.rentButton}
-                            onPress={() => {
-                              Alert.alert('Need to select Rental dates');
-                            }}>
-                            <Text style={style.rentText}>Rent</Text>
-                          </TouchableOpacity> */}
                         </View>
                       </View>
 
@@ -157,21 +174,23 @@ const CategoryProducts = ({route}) => {
                           }
                         }}>
                         {wishlistList.includes(item.id) ? (
-                          <Image
-                            source={require('../../../Assets/fillheart.png')}
-                            style={{width: 24, height: 24}}
+                          <MaterialIcons
+                            size={20}
+                            color={'red'}
+                            name="cards-heart"
                           />
                         ) : (
-                          <Image
-                            source={require('../../../Assets/heart.png')}
-                            style={{width: 24, height: 24}}
+                          <MaterialIcons
+                            size={20}
+                            color={'white'}
+                            name="cards-heart"
                           />
                         )}
                       </TouchableOpacity>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              ))}
+                  </TouchableOpacity>
+                ))}
+            </View>
           </View>
         )}
       </View>

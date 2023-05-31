@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, {useContext} from 'react';
 import OwnerEditProfile from '../../screens/Ownereditprofile/Ownereditprofile';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -11,13 +12,21 @@ import MyRentals from '../../screens/My Rentals/MyRentals';
 import OwnerHome from '../../screens/OwnerHomepage/OwnerHome';
 import Additems from '../../screens/Additems/Additems';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Route, getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {
+  Route,
+  getFocusedRouteNameFromRoute,
+  useIsFocused,
+} from '@react-navigation/native';
 import OwnerImage from '../../screens/OwnerImage/OwnerImage';
 import Imagepicker from '../../components/atoms/Imagepicker';
 import OproductDetails from '../../screens/OwnerProductdetailsPage/OproductDetails';
 import Owneredititems from '../../screens/Owneredititems/Owneredititems';
 import Colors from '../../constants/Colors';
 import EditAddress from '../../screens/EditAddress/EditAddress';
+import {View} from 'react-native';
+import AnalyticScreen from '../../screens/AnalyticsPage/AnalyticScreen';
+import DashboardDetails from '../../screens/OwnerHomepage/DashboardDetails';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 // import Init from './src/redux/actions/actions';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -59,8 +68,9 @@ const OwnerHomestack = () => {
       <Stack.Screen name="OwnerHome" component={OwnerHome} />
       {/* <Stack.Screen name="Oproduct" component={OwnerHome} /> */}
       <Stack.Screen name="Additems" component={Additems} />
-
       <Stack.Screen name="MyRentals" component={MyRentals} />
+      {/* <Stack.Screen name="AnalyticScreen" component={DashboardDetails} /> */}
+      <Stack.Screen name="DashboardDetails" component={DashboardDetails} />
       <Stack.Screen name="OproductDetails" component={OproductDetails} />
     </Stack.Navigator>
   );
@@ -79,11 +89,14 @@ const Owneradditemsstack = () => {
   );
 };
 const Ownerstack = () => {
+  const {colorScheme} = useContext(ColorSchemeContext);
+  const isFocused = useIsFocused();
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           backgroundColor: Colors.main,
           // borderTopLeftRadius: 25,
@@ -92,8 +105,8 @@ const Ownerstack = () => {
           elevation: 30,
           borderColor: Colors.iconscolor,
         },
-        tabBarInactiveTintColor: 'grey',
-        tabBarActiveTintColor: '#3E54AC',
+        tabBarInactiveTintColor: Colors.black,
+        tabBarActiveTintColor: Colors.white,
         tabBarLabelStyle: {fontSize: 10, paddingBottom: 5},
       }}>
       <Tab.Screen
@@ -102,14 +115,66 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
-            // borderTopLeftRadius: 25,
-            // borderTopRightRadius: 25,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             height: '7%',
           },
-          tabBarIcon: ({color}) => (
-            <MaterialIcon name="house" color={color} size={42} />
-          ),
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'Home') {
+              iconComponent = (
+                <View
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialIcon
+                    name="home"
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    color={color}
+                    size={30}
+                  />
+                </View>
+              );
+            } else if (route.name === 'Additem') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="plus-box"
+                  color={color}
+                  size={42}
+                />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={42}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
       <Tab.Screen
@@ -118,15 +183,67 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: '7%',
           },
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="plus-box" color={color} size={42} />
-          ),
-          // <MaterialCommunityIcons name="plus-box" color={color} size={40} />
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'Additem') {
+              iconComponent = (
+                <View
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialCommunityIcons
+                    name="plus-box"
+                    color={color}
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    size={35}
+                  />
+                </View>
+              );
+            } else if (route.name === 'Home') {
+              iconComponent = (
+                <MaterialIcon name="home" color={color} size={30} />
+              );
+            } else if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={42}
+                  style={{
+                    color: colorScheme === 'dark' ? Colors.white : Colors.black,
+                  }}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
       <Tab.Screen
@@ -135,14 +252,64 @@ const Ownerstack = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getRouteName(route),
-            backgroundColor: Colors.main,
+            backgroundColor:
+              colorScheme === 'dark' ? Colors.black : Colors.white,
             // borderTopLeftRadius: 25,
             // borderTopRightRadius: 25,
             height: '7%',
           },
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={42} />
-          ),
+          tabBarIcon: ({focused, color}) => {
+            if (!isFocused) return null;
+
+            let iconComponent;
+
+            if (route.name === 'ProfileScreen') {
+              iconComponent = (
+                <View
+                  style={[
+                    {
+                      backgroundColor: focused ? Colors.buttonColor : '#F0F0F0',
+                      borderRadius: 20,
+                      height: 40,
+                      width: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    {
+                      backgroundColor: focused
+                        ? Colors.buttonColor
+                        : colorScheme === 'dark'
+                        ? Colors.black
+                        : Colors.white,
+                    },
+                  ]}>
+                  <MaterialCommunityIcons
+                    name="account"
+                    color={color}
+                    style={{
+                      color:
+                        colorScheme === 'dark' ? Colors.white : Colors.black,
+                    }}
+                    size={35}
+                  />
+                </View>
+              );
+            } else if (route.name === 'Home') {
+              iconComponent = (
+                <MaterialIcon name="home" color={color} size={30} />
+              );
+            } else if (route.name === 'Additem') {
+              iconComponent = (
+                <MaterialCommunityIcons
+                  name="plus-box"
+                  color={color}
+                  size={35}
+                />
+              );
+            }
+
+            return iconComponent;
+          },
         })}
       />
     </Tab.Navigator>
@@ -156,7 +323,8 @@ const getRouteName = (route: Partial<Route<string>>) => {
     routeName?.includes('Owneraddaddress') ||
     routeName?.includes('Owneredititems') ||
     routeName?.includes('OwnerImage') ||
-    routeName?.includes('OproductDetails')
+    routeName?.includes('OproductDetails') ||
+    routeName?.includes('DashboardDetails')
   ) {
     return 'none';
   }

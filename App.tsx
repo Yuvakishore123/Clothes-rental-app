@@ -221,6 +221,9 @@ import OwnerNavigation from './src/navigation/OwnerNavigation';
 import Animation from './src/screens/animation';
 import PaymentSuccessScreen from './src/screens/PaymentScreens/PaymentSuccessScreen';
 import PaymentFailScreen from './src/screens/PaymentScreens/PaymentFailScreen';
+import SplashScreen from './src/screens/Splashscreen/Splashscreen';
+import {ColorSchemeProvider} from './ColorSchemeContext';
+import Lottie from 'lottie-react-native';
 // import { useSelector } from 'react-redux';
 const Stack = createSharedElementStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -242,9 +245,11 @@ const MyStacknavigation = () => {
 const AuthStack = () => {
   return (
     <Stack.Navigator
+      initialRouteName="SplashScreen"
       screenOptions={{
         headerShown: false,
       }}>
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
 
       <Stack.Screen name="SignupScreen" component={SignupScreen} />
@@ -265,10 +270,15 @@ const RootNavigation = () => {
   useEffect(() => {
     init();
   }, []);
+  useEffect(() => {
+    const delay = setTimeout(init, 2000); // Add a delay of 2 seconds before initializing
+    return () => clearTimeout(delay); // Clear the timeout if the component unmounts before the delay is completed
+  }, []);
   if (loading === true) {
     return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" color={Colors.primary} />
+      <View
+        style={{flex: 1, justifyContent: 'center', backgroundColor: 'black'}}>
+        <Lottie source={require('./assets/Loginloading.json')} autoPlay loop />
       </View>
     );
   }
@@ -281,11 +291,13 @@ const RootNavigation = () => {
 };
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <RootNavigation />
-      </NavigationContainer>
-    </Provider>
+    <ColorSchemeProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <RootNavigation />
+        </NavigationContainer>
+      </Provider>
+    </ColorSchemeProvider>
     // <NavigationContainer>
     //   <PaymentSuccessScreen />
     // </NavigationContainer>

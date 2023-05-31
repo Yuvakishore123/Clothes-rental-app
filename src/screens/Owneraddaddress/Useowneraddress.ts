@@ -1,11 +1,12 @@
-
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {removeAddress} from '../../redux/actions/actions';
 import axios from 'axios';
 import {url} from '../../constants/Apis';
+import {url} from '../../constants/Apis';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ApiService from '../../network/network';
 
 export const OwnerAddressCustomHook = () => {
   const [addressList, setAddress] = useState([]);
@@ -13,15 +14,18 @@ export const OwnerAddressCustomHook = () => {
   const [addressLine1, setaddressLine1] = useState('');
   const [addressLine2, setaddressLine2] = useState('');
   // const [addressType, setaddressType] = useState('');
+  // const [addressType, setaddressType] = useState('');
   const [postalCode, setpostalCode] = useState('');
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
   const [isFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const navigation = useNavigation();
-
+  // const {FetchAddress} = OwnerAddressCustomHook();
   const openModal = () => {
     setShowModal(true);
   };
@@ -30,7 +34,7 @@ export const OwnerAddressCustomHook = () => {
     fetchData();
   };
 
-  const fetchData = (async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     try {
       const token = await AsyncStorage.getItem('token');
@@ -43,6 +47,7 @@ export const OwnerAddressCustomHook = () => {
         headers,
       });
       const data = await response.data;
+      setIsLoading(false);
       setIsLoading(false);
       console.log(response.data);
       setIsLoading(false);
@@ -65,9 +70,11 @@ export const OwnerAddressCustomHook = () => {
       );
     } catch (error) {
       console.log(error);
+      setIsLoading(true);
     }
-  // eslint-disable-next-line prettier/prettier
-  });
+    // eslint-disable-next-line prettier/prettier
+  };
+  // Pincode Api call
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -79,6 +86,10 @@ export const OwnerAddressCustomHook = () => {
   const dispatch = useDispatch();
   const handleEditItems = item => {
     navigation.navigate('EditAddress', {address: item});
+  };
+  const handlePostalCodeChange = text => {
+    setpostalCode(text);
+    FetchAddress();
   };
 
   const handleOwnerAddAddress = () => {
@@ -113,5 +124,6 @@ export const OwnerAddressCustomHook = () => {
     openModal,
     closeModal,
     handleEditItems,
+    // FetchAddress,
   };
 };

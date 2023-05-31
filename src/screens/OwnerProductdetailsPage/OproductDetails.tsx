@@ -1,9 +1,12 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext} from 'react';
 import {StatusBar, Text, View, ImageBackground, ScrollView} from 'react-native';
 import styles from '../OwnerProductdetailsPage/OproductdetailsStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Styles from '../../constants/themeColors';
+import useCart from '../Cart/useCart';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
 
 type Props = {
   route: {params: {product: any}};
@@ -12,9 +15,14 @@ type Props = {
 
 export default function OproductDetails({route, navigation}: Props) {
   const {product} = route.params;
+  const {colorScheme} = useContext(ColorSchemeContext);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
       <StatusBar translucent backgroundColor={'rgba(0,0,0,0)'} />
       <View style={styles.dheader}>
         <Icon
@@ -39,17 +47,37 @@ export default function OproductDetails({route, navigation}: Props) {
           ))}
         </View>
       </ScrollView>
-      <View style={[styles.detailsContainer, {marginTop: -50}]}>
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-          <Text style={styles.headingtext}>Name</Text>
-        </View>
-        <Text style={styles.startext}>{product.name}</Text>
-        <View style={{marginTop: 10}}>
-          <Text style={styles.headingtext}>Price</Text>
+      <View
+        style={[
+          styles.detailsContainer,
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+          {marginTop: -50},
+        ]}>
+        <Text
+          style={[
+            styles.startext,
+            colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+          ]}>
+          {product.name}
+        </Text>
+        <View style={{marginTop: 20}}>
+          <Text
+            style={[
+              styles.headingtext,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Price
+          </Text>
         </View>
         <Text style={styles.detailsdescription}>₹ {product.price}</Text>
-        <View style={{marginTop: 10}}>
-          <Text style={styles.headingtext}>Description</Text>
+        <View style={{marginTop: 20}}>
+          <Text
+            style={[
+              styles.headingtext,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            Description
+          </Text>
         </View>
         <Text style={styles.detailsdescription}>{product.description}</Text>
       </View>

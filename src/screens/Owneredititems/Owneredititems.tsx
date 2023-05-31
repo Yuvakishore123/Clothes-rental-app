@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -11,6 +12,7 @@ import {
   Image,
 } from 'react-native';
 import Useowneredititems from './Useowneredititems';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import GenderDropdown from '../../components/atoms/GenderDropdown';
 import Ownerstyles from '../Additems/Additemsstyle';
 import TypeDropdown from '../../components/atoms/TypeDropdown';
@@ -18,10 +20,15 @@ import EventsDropdown from '../../components/atoms/EventsDropdown';
 import OutfitDropdown from '../../components/atoms/OutfitDropdown';
 import Sizeselection from '../../components/atoms/Sizeselect';
 import OwnerEditItemstyles from './Owneredititemsstyles';
-import Icons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../constants/Colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Lottie from 'lottie-react-native';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
+
 const App = () => {
   const {
     data,
@@ -35,7 +42,12 @@ const App = () => {
     imageUrls,
     selectedImage,
     RemoveProducts,
+    closeModal,
+    showModal,
+    setShowModal,
+    handleRemoveImage,
     handleremove,
+    name,
     pickImg,
     handleGenderChange,
     handleEventTypeChange,
@@ -50,135 +62,196 @@ const App = () => {
     setEditProductId,
     FetchData,
     Mapdata,
+    description,
     price,
     quantity,
+    isLoading,
   } = Useowneredititems();
-  const [, setHideId] = useState(null);
-  console.log(data);
-  console.log('Mapped Data is :', Mapdata);
+
+  const [hideId, setHideId] = useState(null);
 
   const handleVisibleModal = () => {
     setViisble(!visible);
     setHideId(null);
   };
+
   const navigation = useNavigation();
-  console.log('data :', data);
+  const {colorScheme} = useContext(ColorSchemeContext);
+
   return (
     <SafeAreaView>
-      <View style={styles.header_container} />
       <Modal animationType="slide" visible={visible}>
         <SafeAreaView>
-          <ScrollView>
-            <View style={styles.form}>
-              <TouchableOpacity onPress={handleVisibleModal}>
-                <Text style={styles.txtClose}>Close</Text>
-              </TouchableOpacity>
-              <View style={Ownerstyles.Scrollcontainer}>
-                <View style={Ownerstyles.scroll}>
-                  <Text style={Ownerstyles.Itemname}>Name</Text>
+          <ScrollView
+            style={[
+              {width: '100%', height: '100%'},
+              colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+            ]}>
+            {/* <HeadingText message="Edit product" /> */}
+            <TouchableOpacity onPressIn={() => setViisble(!visible)}>
+              <Text style={OwnerEditItemstyles.closetxt}>Close</Text>
+            </TouchableOpacity>
+            <View
+              style={[
+                styles.form,
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}>
+              <View
+                style={[
+                  Ownerstyles.Scrollcontainer,
+                  colorScheme === 'dark'
+                    ? Styles.blacktheme
+                    : Styles.whiteTheme,
+                ]}>
+                <View style={Ownerstyles.scrolledit}>
                   <TextInput
-                    style={Ownerstyles.Namefield}
+                    placeholderTextColor={Colors.white}
+                    placeholder="Name"
+                    style={[
+                      Ownerstyles.Namefield,
+                      {paddingLeft: 22},
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}
                     onChangeText={setName}
-                    defaultValue={Mapdata.name}
+                    value={name}
                   />
-                  <Text style={Ownerstyles.Itemname}>Description</Text>
                   <TextInput
-                    style={Ownerstyles.Descriptionfield}
+                    placeholderTextColor={Colors.black}
+                    placeholder="Description"
+                    multiline
+                    style={[
+                      Ownerstyles.Descriptionfield,
+                      {paddingLeft: 22},
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}
                     onChangeText={setDescription}
                     multiline
-                    defaultValue={Mapdata.description}
+                    value={description}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Gender</Text>
                   <GenderDropdown
                     onSelectGender={setGender}
                     onChange={handleGenderChange}
                   />
-                  <Text style={Ownerstyles.Itemname}>Select Type</Text>
-                  <TypeDropdown
-                    onSelectType={setItemType}
-                    onChange={handleItemTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Event</Text>
-                  <EventsDropdown
-                    onSelectEvent={setEventType}
-                    onChange={handleEventTypeChange}
-                  />
-                  <Text style={Ownerstyles.Itemname}>Select Outfit </Text>
-                  <OutfitDropdown
-                    onSelectOutfit={setOutfitType}
-                    onChange={handleOutfitChange}
-                  />
-                  <View style={OwnerEditItemstyles.Sizecontainer}>
-                    <Text style={OwnerEditItemstyles.Sizetext}> Size</Text>
-                    <Sizeselection
-                      onSelectSize={setSelectedsize}
-                      onChange={handleSizeTypeChange}
+                  <View style={{marginTop: -18}}>
+                    <TypeDropdown
+                      onSelectType={setItemType}
+                      onChange={handleItemTypeChange}
                     />
                   </View>
-                  <View style={OwnerEditItemstyles.ImageBox}>
-                    <Text style={OwnerEditItemstyles.addImagesText}>
-                      Add Images *
-                    </Text>
-                    {selectedImage ? (
-                      <>
-                        <ScrollView
-                          horizontal
-                          style={OwnerEditItemstyles.imagehorizontal}>
-                          {imageUrls.map((image, index) => (
-                            <Image
-                              style={OwnerEditItemstyles.image}
-                              source={{uri: image}}
-                              key={index}
-                            />
-                          ))}
-                        </ScrollView>
-                        <View style={OwnerEditItemstyles.removeContainer}>
-                          <TouchableOpacity
-                            onPress={handleremove}
-                            style={OwnerEditItemstyles.touchableContainer}>
-                            <Text style={OwnerEditItemstyles.removeText}>
-                              Remove
-                            </Text>
-                          </TouchableOpacity>
+                  <View style={{marginTop: -26}}>
+                    <EventsDropdown
+                      onSelectEvent={setEventType}
+                      onChange={handleEventTypeChange}
+                    />
+                  </View>
+                  <View style={{marginTop: -12}}>
+                    <OutfitDropdown
+                      onSelectOutfit={setOutfitType}
+                      onChange={handleOutfitChange}
+                    />
+                  </View>
+                  <View style={OwnerEditItemstyles.Sizecontainer}>
+                    <View style={{marginTop: -16}}>
+                      <Sizeselection
+                        onSelectSize={setSelectedsize}
+                        onChange={handleSizeTypeChange}
+                      />
+                    </View>
+                  </View>
+                  <View style={[OwnerEditItemstyles.ImageBox]}>
+                    <View style={{marginTop: -20}}>
+                      {selectedImage ? (
+                        <>
+                          <ScrollView
+                            horizontal
+                            style={[OwnerEditItemstyles.imagehorizontal]}>
+                            {imageUrls.map((image, index) => (
+                              <Image
+                                style={OwnerEditItemstyles.image}
+                                source={{uri: image}}
+                                key={index}
+                              />
+                            ))}
+                          </ScrollView>
+                          <View style={OwnerEditItemstyles.removeContainer}>
+                            <TouchableOpacity
+                              onPress={handleremove}
+                              style={OwnerEditItemstyles.touchableContainer}>
+                              <Text style={OwnerEditItemstyles.removeText}>
+                                Remove
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </>
+                      ) : (
+                        <View
+                          style={[
+                            OwnerEditItemstyles.Addimage,
+                            colorScheme === 'dark'
+                              ? Styles.cardColor
+                              : Styles.main,
+                            colorScheme === 'dark'
+                              ? Styles.cardColor
+                              : Styles.main,
+                          ]}>
+                          <Text
+                            onPress={pickImg}
+                            style={[
+                              OwnerEditItemstyles.imagesText,
+
+                              colorScheme === 'dark'
+                                ? Styles.whitetext
+                                : Styles.blackText,
+                            ]}>
+                            Add Image
+                          </Text>
                         </View>
-                      </>
-                    ) : (
-                      // <Mainbutton onPress={undefined} text="remove" />
-                      <View style={OwnerEditItemstyles.Addimage}>
-                        <MaterialIcons
-                          style={OwnerEditItemstyles.AddIcon}
-                          name="add-to-photos"
-                        />
-                        <Text
-                          onPress={pickImg}
-                          style={OwnerEditItemstyles.imagesText}>
-                          Add Image
-                        </Text>
-                      </View>
-                    )}
+                      )}
+                    </View>
                   </View>
                   <View>
-                    <Text style={OwnerEditItemstyles.Pricetext}> Price</Text>
                     <TextInput
-                      style={OwnerEditItemstyles.Price}
+                      style={[
+                        OwnerEditItemstyles.Price,
+                        {paddingLeft: 15},
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}
+                      placeholder="Set price"
+                      placeholderTextColor={Colors.black}
                       keyboardType="numeric"
                       value={price.toString()}
-                      onChangeText={(value: any) => setPrice(value)}
+                      onChangeText={setPrice}
                     />
-                    <Text style={OwnerEditItemstyles.Pricetext}> Quantity</Text>
                     <TextInput
                       keyboardType="numeric"
-                      style={OwnerEditItemstyles.Price}
+                      placeholder="Set quantity"
+                      placeholderTextColor={Colors.black}
+                      style={[
+                        OwnerEditItemstyles.Price,
+                        {paddingLeft: 15},
+                        colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}
                       value={quantity.toString()}
-                      onChangeText={(value: any) => setQuantity(value)}
+                      onChangeText={setQuantity}
                     />
-                    {/* <Mainbutton text="Continue" onPress={handleItems} /> */}
                   </View>
                   <View style={Ownerstyles.mainButton}>
                     <TouchableOpacity
                       style={Ownerstyles.mainTouchable}
                       onPress={handleedit}>
-                      <Text style={Ownerstyles.touchableText}>Edit Item</Text>
+                      <Text style={Ownerstyles.touchableText}>Save</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -187,34 +260,93 @@ const App = () => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
-      <ScrollView>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={OwnerEditItemstyles.backContainer}>
-            <Icons name="chevron-back" color={'#3E54AC'} size={30} />
-            <Text style={OwnerEditItemstyles.backButtonText}>My Products</Text>
-          </View>
-        </TouchableOpacity>
+      <ScrollView
+        style={[
+          {width: '100%', height: '100%'},
+          colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+        ]}>
+        <View>
+          <HeadingText message="Edit Product" />
+        </View>
+        {/* <View
+          style={{
+            flexDirection: 'row',
+            width: '50%',
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}>
+          <View
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: 20,
+              width: 40,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon
+              // style={{marginLeft: 5}}
+              name="arrow-back-ios"
+              size={16}
+              color="black"
+              // onPress={() => navigation.goBack()}
+            /> */}
+        {/* </View>
+          <Text
+            style={[
+              styles.titleText,
+              colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+            ]}>
+            My Products
+          </Text>
+        </View> */}
 
-        {data.map(item => {
-          return (
-            <>
-              <View style={styles.item_course} key={item}>
-                <View style={OwnerEditItemstyles.imagePriceContainer}>
-                  <View style={OwnerEditItemstyles.cardImageContainer}>
+        {isLoading ? (
+          <View style={{height: 200, width: 400}}>
+            <Lottie
+              source={require('../../../assets/EditProducts.json')}
+              autoPlay
+            />
+          </View>
+        ) : (
+          data.map(item => (
+            <View
+              style={[
+                styles.mainContainer,
+                colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+              ]}
+              key={item.id}>
+              <View style={[styles.item_course]}>
+                <View style={[OwnerEditItemstyles.imagePriceContainer]}>
+                  <View style={[OwnerEditItemstyles.cardImageContainer]}>
                     <Image
                       style={OwnerEditItemstyles.cardImage}
                       source={{uri: item.image}}
                     />
                   </View>
-                  <View style={OwnerEditItemstyles.priceContainer}>
-                    <Text style={styles.txt_name}>{item.name}</Text>
+                  <View
+                    style={[
+                      OwnerEditItemstyles.priceContainer,
+                      colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                    ]}>
+                    <Text
+                      style={[
+                        styles.txt_name,
+                        colorScheme === 'dark'
+                          ? Styles.whitetext
+                          : Styles.blackText,
+                      ]}>
+                      {item.name}
+                    </Text>
                     <Text style={styles.txt_item}>₹ {item.price}</Text>
                   </View>
                 </View>
                 <View style={OwnerEditItemstyles.buttonContainer}>
                   <TouchableOpacity
-                    onPress={() => FetchData()}
-                    onPressIn={() => setEditProductId(item.id)}>
+                    onPress={() => {
+                      FetchData(item.id);
+                      setEditProductId(item.id);
+                    }}>
                     <View style={OwnerEditItemstyles.button}>
                       <Text style={styles.txt_edit}>Edit</Text>
                     </View>
@@ -226,9 +358,14 @@ const App = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </>
-          );
-        })}
+              <CustomModal
+                showModal={showModal}
+                onClose={closeModal}
+                message="Product has been deleted!"
+              />
+            </View>
+          ))
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -238,10 +375,10 @@ export default App;
 
 const styles = StyleSheet.create({
   form: {
-    marginTop: 10,
     backgroundColor: Colors.main,
-    marginLeft: -10,
+    // marginLeft: -10,
   },
+  titleText: {fontFamily: 'Poppins-SemiBold', fontSize: 24, color: 'white'},
 
   txtClose: {
     fontSize: 18,
@@ -250,6 +387,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 15,
     color: Colors.iconscolor,
+  },
+  mainContainer: {
+    backgroundColor: Colors.main,
+    height: 300,
   },
   text_input: {
     padding: 10,
@@ -269,26 +410,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item_course: {
-    // padding: 15,
     marginLeft: 30,
     marginTop: 15,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#e2e2e2',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // backgroundColor: 'green',
   },
   txt_name: {
     fontSize: 12,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54ACCC',
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.black,
   },
   txt_item: {
-    fontSize: 10,
-    // marginTop: 5,
-    fontWeight: '600',
-    color: '#3E54AC99',
+    fontSize: 13,
+    // fontWeight: '700',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.buttonColor,
   },
   txt_enabled: {
     fontSize: 14,
@@ -304,15 +440,15 @@ const styles = StyleSheet.create({
   },
   txt_del: {
     fontSize: 15,
-    // marginTop: 5,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   txt_edit: {
     fontSize: 15,
-    // marginTop: 5,
-    color: 'white',
-    fontWeight: '500',
+    color: Colors.white,
+    // fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold',
   },
   btnContainer: {
     display: 'flex',

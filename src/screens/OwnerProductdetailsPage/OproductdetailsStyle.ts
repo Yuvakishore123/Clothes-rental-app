@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   detailsContainer: {
     height: '100%',
     width: '100%',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
     // paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: Colors.main,
@@ -85,8 +85,9 @@ const styles = StyleSheet.create({
   },
   headingtext: {
     fontSize: 20,
-    fontWeight: '900',
-    color: '#3E54AC',
+    // fontWeight: '900',
+    fontFamily: 'Poppins-SemiBold',
+    color: Colors.white,
     // width: '80%',
   },
   image: {
@@ -94,10 +95,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   startext: {
-    marginTop: 10,
-    color: '#3E54AC',
-    fontWeight: '400',
-    fontSize: 15,
+    marginTop: -70,
+    color: Colors.white,
+    fontFamily: 'Poppins-Bold',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // shadowRadius: 90,
+    // shadowOpacity: 0.9,
+    marginLeft: 10,
+    // fontWeight: '700',
+    zIndex: 1,
+    fontSize: 35,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)', // Shadow color
+    textShadowOffset: {width: -1, height: 1}, // Shadow offset
+    textShadowRadius: 5, // Shadow blur radius
   },
   title: {
     fontFamily: '800',
@@ -108,10 +118,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   detailsdescription: {
-    marginLeft: 5,
     marginTop: 10,
-    lineHeight: 22,
-    color: '#493d8a',
+    marginLeft: 10,
+    fontSize: 15,
+    fontWeight: '400',
+    color: Colors.buttonColor,
   },
   sizelabel: {
     width: 200,

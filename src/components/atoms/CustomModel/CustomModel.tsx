@@ -2,6 +2,7 @@
 import {Modal, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import style from './CustomModelStyles';
+import Colors from '../../../constants/Colors';
 const CustomModal = ({showModal, onClose, message}) => {
   return (
     <Modal visible={showModal} animationType="slide" transparent>
@@ -12,17 +13,18 @@ const CustomModal = ({showModal, onClose, message}) => {
             <TouchableOpacity
               onPress={onClose}
               style={{
-                backgroundColor: '#3E54AC',
+                backgroundColor: Colors.main,
                 borderRadius: 40,
                 width: 200,
               }}>
               <Text
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 16,
                   padding: 9,
                   borderRadius: 30,
                   textAlign: 'center',
+                  fontFamily: 'Poppins-SemiBold',
                 }}>
                 OK
               </Text>

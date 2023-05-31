@@ -130,7 +130,7 @@ export const getOTP = (phoneNo: string) => {
       const response = await axios.post(`${url}/phoneNo`, {
         phoneNo,
       });
-      Alert.alert('OTP'), console.log('otp send');
+      // Alert.alert('OTP'), console.log('otp send');
       dispatch({type: VERIFY_OTP_SUCCESS, payload: response.data});
     } catch (error) {
       dispatch({type: VERIFY_OTP_FAILURE, payload: error});
@@ -285,15 +285,16 @@ export const postProductToAPI = item => {
   return async dispatch => {
     try {
       const token = await AsyncStorage.getItem('token');
+      const id = item.id;
       console.log(token);
       // make API call
-      const response = await fetch(`${url}/wishlist/addtowishlist`, {
+      const response = await fetch(`${url}/wishlist/add?productId=${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(item),
+        body: JSON.stringify(item.id),
       });
       const data = await response.json();
       // update the Redux store with the response data

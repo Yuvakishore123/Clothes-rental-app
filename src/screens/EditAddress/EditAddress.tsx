@@ -1,6 +1,12 @@
 /* eslint-disable react/self-closing-comp */
-import {Text, TouchableOpacity, View, TextInput} from 'react-native';
-import React from 'react';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import React, {useContext} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import style from '../Owneraddaddress/Owneraddressstyle';
 import {OwnerAddAddressCustomHook} from '../Owneraddaddress/Useowneraddaddress';
@@ -12,6 +18,11 @@ import {OwnerAddressCustomHook} from '../Owneraddaddress/Useowneraddress';
 import {useEditaddress} from './UseEditAddress';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import CustomModal from '../../components/atoms/CustomModel/CustomModel';
+import BackButton from '../../components/atoms/BackButton/BackButton';
+import HeadingText from '../../components/atoms/HeadingText/HeadingTest';
+import {ColorSchemeContext} from '../../../ColorSchemeContext';
+import Styles from '../../constants/themeColors';
+import styles from './editAddressStyles';
 const EditAddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -36,135 +47,197 @@ const EditAddress = () => {
     state,
     setCity,
   } = useEditaddress();
+  const {colorScheme} = useContext(ColorSchemeContext);
   const {isLoading} = OwnerAddressCustomHook();
   return (
-    <View>
+    <ScrollView
+      style={[
+        style.headercontainer,
+        colorScheme === 'dark' ? Styles.blacktheme : Styles.whiteTheme,
+      ]}>
       {isLoading ? (
         <>
-          <SkeletonPlaceholder>
-            <View style={style.addAddressHeader}>
-              <View style={style.addAddressContainer}>
-                <Text style={style.addAddressText}></Text>
-              </View>
-            </View>
+          <SkeletonPlaceholder
+            highlightColor="#e0e0e0"
+            backgroundColor={colorScheme === 'dark' ? '#373737' : '#f2f2f2'}>
             <View style={style.subContainer}>
-              <Text style={style.Titletext}></Text>
-              <Text style={style.titleContainer}>
-                ____________________________
-              </Text>
-              <Text style={style.textField}> </Text>
               <View>
                 <TextInput style={style.inputAddress} />
-                <Text style={style.textField}> </Text>
                 <TextInput style={style.inputAddress} />
-                <Text style={style.textField}></Text>
-                <TextInput value={state} style={style.inputAddress} />
-                <View style={style.textContainer}>
-                  <Text style={style.textField}> </Text>
-                  <Text style={style.textField}> </Text>
-                </View>
-                <View style={style.cityContainer}>
-                  <TextInput style={style.smalltextInputs} />
-                </View>
-                <Text style={style.textField}></Text>
-                <View style={style.containerRadio}>
-                  <View style={style.optionRadio}>
-                    <Text style={style.textRadio}></Text>
-                  </View>
-                  <View style={style.optionRadio}>
-                    <Text style={style.textRadio}></Text>
-                  </View>
-                </View>
-                <View style={style.containerCheckbox}>
-                  <Text style={style.textCheckbox}></Text>
-                </View>
+                <TextInput style={style.inputAddress} />
+                <TextInput style={style.inputAddress} />
+                <TextInput style={style.inputAddress} />
+                <TextInput style={style.inputAddress} />
+              </View>
+              <View style={style.btnfieldupdateAddress}>
+                <Text style={styles.btntextAddress}></Text>
               </View>
             </View>
           </SkeletonPlaceholder>
         </>
       ) : (
         <>
-          <View style={style.addAddressHeader}>
-            <TouchableOpacity
-              style={style.backBtn}
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <MaterialIcons
-                color={Colors.iconscolor}
-                size={26}
-                name="arrow-back-ios"
-              />
-            </TouchableOpacity>
-            <View style={style.addAddressContainer}>
-              <Text style={style.addAddressText}> Address</Text>
-            </View>
-          </View>
-          <View style={style.subContainer}>
-            <Text style={style.Titletext}>Add Address</Text>
-            <Text style={style.titleContainer}>
-              ____________________________
+          {/* <BackButton /> */}
+
+          <HeadingText message="Edit address" />
+          <View style={styles.subContainer}>
+            {/* <Text style={style.Titletext}>Edit address</Text> */}
+            <Text
+              style={[
+                styles.textField,
+                colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+              ]}>
+              Flat no / Building
             </Text>
-            <Text style={style.textField}>Flat no / Building </Text>
             <View>
               <TextInput
                 value={addressLine1}
                 onChangeText={text => setAddressLine1(text)}
-                style={style.inputAddress}
+                style={[
+                  styles.inputAddress,
+                  colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+                ]}
               />
-              <Text style={style.textField}>Street / Area </Text>
+              <Text
+                style={[
+                  styles.textField,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                Street / Area{' '}
+              </Text>
               <TextInput
                 value={addressLine2}
                 onChangeText={text => setAddressLine2(text)}
-                style={style.inputAddress}
+                style={[
+                  styles.inputAddress,
+                  colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+                ]}
               />
-              <Text style={style.textField}> State</Text>
+              <Text
+                style={[
+                  styles.textField,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                State
+              </Text>
               <TextInput
                 value={state}
-                style={style.inputAddress}
+                style={[
+                  styles.inputAddress,
+                  colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                  colorScheme === 'dark' ? Styles.InputText : Styles.blackText,
+                ]}
                 onChangeText={text => setStateName(text)}
               />
               <View style={style.textContainer}>
-                <Text style={style.textField}> City </Text>
-                <Text style={style.textField}> Pincode </Text>
+                <Text
+                  style={[
+                    styles.textField,
+                    colorScheme === 'dark'
+                      ? Styles.whitetext
+                      : Styles.blackText,
+                  ]}>
+                  City
+                </Text>
+                <Text
+                  style={[
+                    style.textFieldpincode,
+                    colorScheme === 'dark'
+                      ? Styles.whitetext
+                      : Styles.blackText,
+                  ]}>
+                  Pincode{' '}
+                </Text>
               </View>
               <View style={style.cityContainer}>
                 <TextInput
                   value={city}
-                  style={style.smalltextInputs}
+                  placeholder={
+                    colorScheme === 'dark' ? Colors.InputText : Colors.black
+                  }
+                  style={[
+                    styles.smalltextInputs,
+                    colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                    colorScheme === 'dark'
+                      ? Styles.InputText
+                      : Styles.blackText,
+                  ]}
                   onChangeText={text => {
                     setCity(text);
                   }}
                 />
                 <TextInput
-                  style={style.smalltextInputs}
+                  style={[
+                    styles.smalltextInputs,
+                    colorScheme === 'dark' ? Styles.cardColor : Styles.main,
+                    colorScheme === 'dark'
+                      ? Styles.InputText
+                      : Styles.blackText,
+                  ]}
+                  placeholder={
+                    colorScheme === 'dark' ? Colors.InputText : Colors.black
+                  }
                   value={postalCode}
                   onChangeText={setPostalCode}
                 />
               </View>
-              <Text style={style.textField}> Type Of Address</Text>
+              <Text
+                style={[
+                  styles.texttypeField,
+                  colorScheme === 'dark' ? Styles.whitetext : Styles.blackText,
+                ]}>
+                Type Of Address
+              </Text>
               <View style={style.containerRadio}>
-                <View style={style.optionRadio}>
-                  <Text style={style.textRadio}>Home</Text>
+                <View style={[style.optionRadio]}>
                   <RadioButton
                     value="Home"
                     status={selectedOption === 'Home' ? 'checked' : 'unchecked'}
                     onPress={() => handleOptionChange('Home')}
+                    color={colorScheme === 'dark' ? Colors.white : Colors.black}
                   />
+                  <Text
+                    style={[
+                      style.textRadio,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}>
+                    Home
+                  </Text>
                 </View>
                 <View style={style.optionRadio}>
-                  <Text style={style.textRadio}>Office</Text>
                   <RadioButton
                     value="Office"
                     status={
                       selectedOption === 'Office' ? 'checked' : 'unchecked'
                     }
                     onPress={() => handleOptionChange('Office')}
+                    color={colorScheme === 'dark' ? Colors.white : Colors.black}
                   />
+                  <Text
+                    style={[
+                      style.textRadio,
+                      colorScheme === 'dark'
+                        ? Styles.whitetext
+                        : Styles.blackText,
+                    ]}>
+                    Office
+                  </Text>
                 </View>
               </View>
               <View style={style.containerCheckbox}>
-                <Text style={style.textCheckbox}>Make Default Address</Text>
+                <Text
+                  style={[
+                    styles.textCheckbox,
+                    colorScheme === 'dark'
+                      ? Styles.whitetext
+                      : Styles.blackText,
+                  ]}>
+                  Make Default Address
+                </Text>
                 <CheckBox
                   checked={isChecked}
                   onPress={handleCheckboxChange}
@@ -175,9 +248,9 @@ const EditAddress = () => {
               </View>
             </View>
             <TouchableOpacity
-              style={style.btnfieldAddress}
+              style={styles.btnfieldupdateAddress}
               onPress={handleUpdateAddress}>
-              <Text style={style.btntextAddress}>Update Address </Text>
+              <Text style={[styles.btntextAddress]}>Update Address </Text>
             </TouchableOpacity>
             <CustomModal
               showModal={showModal}
@@ -187,7 +260,7 @@ const EditAddress = () => {
           </View>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 export default EditAddress;

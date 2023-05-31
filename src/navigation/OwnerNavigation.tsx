@@ -21,9 +21,8 @@
 
 // const styles = StyleSheet.create({});
 
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {StatusBar} from 'react-native';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import Ownerstack from './Ownerbottomtab/Ownerstack';
 import {useSelector} from 'react-redux';
 import MyStack from './Userbottomtab/UserStack';

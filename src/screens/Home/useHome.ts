@@ -7,18 +7,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {removeFromWishlist} from '../../redux/actions/actions';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import ApiService from '../../network/network';
 function useHome() {
   const [refreshing, setRefreshing] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [Data, setData] = useState([]);
   const [oldData, setOldDate] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  // const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const searchProducts = async (query: any) => {
     try {
-      const response = await fetch(`${url}/product/search?query=${query}`);
-      const data = await response.json();
+      const data = await ApiService.get(`${url}/product/search?query=${query}`);
+      // const data = await response.json();
       navigation.navigate('SearchResultsScreen', {searchResults: data});
       setData(data);
       setOldDate(data);
@@ -27,9 +29,16 @@ function useHome() {
       console.error(error);
     }
   };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     dispatch(fetchUserProducts());
-    setLoading(false);
+    // setLoading(false);
   }, []);
   const onRefresh = async () => {
     setRefreshing(true);
@@ -49,7 +58,8 @@ function useHome() {
       .then(data => {
         // console.log('Item removed from cart:', data);
         dispatch(removeFromWishlist(productId));
-        Alert.alert('Item Removed from Wishlist');
+        // Alert.alert('Item Removed from Wishlist');
+        openModal();
       })
       .catch(error => {
         console.log(error);
@@ -58,6 +68,7 @@ function useHome() {
 
   const dispatch = useDispatch();
   const WishlistProducts = useSelector(state => state.WishlistProducts.data);
+  const loading = useSelector(state => state.UserProducts.isLoader);
   console.log(JSON.stringify(WishlistProducts));
   return {
     WishlistProducts,
@@ -70,6 +81,9 @@ function useHome() {
     searchProducts,
     setSearchQuery,
     loading,
+    openModal,
+    closeModal,
+    showModal,
   };
 }
 export default useHome;

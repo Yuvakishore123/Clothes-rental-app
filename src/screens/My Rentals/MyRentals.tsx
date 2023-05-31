@@ -20,7 +20,7 @@ export default function OwnerHome({navigation}: Props) {
           height: '100%',
         }}>
         <Image
-          source={require('../../../Assets/LoginImage.png')}
+          source={require('../../../assets/LoginImage.png')}
           style={{
             height: 200,
             width: 200,

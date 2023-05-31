@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-shadow */
 import {SetStateAction, useEffect, useState} from 'react';
 import axios from 'axios';
-import {EditItemsUrl, OwnerCategoryUrl} from '../../constants/Apis';
+import {
+  EditItemsUrl,
+  OwnerCategoryUrl,
+  ProductsById,
+} from '../../constants/Apis';
 import {url as baseUrl} from '../../constants/Apis';
 import {
   addGenderData,
@@ -14,6 +19,7 @@ import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ApiService from '../../network/network';
+import {Data} from 'victory-core';
 const Useowneredititems = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -30,8 +36,10 @@ const Useowneredititems = () => {
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
   const [visible, setViisble] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   console.log('snj xkcvn', editProductId);
   const openModal = () => {
     setShowModal(true);
@@ -52,6 +60,7 @@ const Useowneredititems = () => {
     setSelectedItem(item);
   };
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
@@ -67,25 +76,34 @@ const Useowneredititems = () => {
           image: item.imageUrl[0],
         }));
         setData(mappedData);
+        console.log(name);
+        console.log(response.data);
+        // setName(mappedData.name);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(true);
       }
     };
     fetchData();
   }, []);
-  const FetchData = async () => {
+  console.log(name);
+  const FetchData = async editProductId => {
     try {
       setViisble(true);
       const ProductData = await ApiService.get(
-        `https://479d-180-151-211-116.ngrok-free.app/api/v1/product/listByProductId/${editProductId}`,
+        `${ProductsById}/${editProductId}`,
       );
       console.log('ProductData', ProductData);
       setMapdata(ProductData);
+      setName(ProductData.name);
       setPrice(ProductData.price);
-      setQuantity(ProductData.quantity);
+      setQuantity(ProductData.totalQuantity);
+      setDescription(ProductData.description);
       return ProductData;
     } catch (error) {
       console.log('error is :', error);
+      console.log('editProductId', editProductId);
     }
   };
   const [categoriesData, setCategoriesData] = useState([]);
@@ -200,7 +218,7 @@ const Useowneredititems = () => {
   }, []);
   const getImageUrl = async () => {
     const url = await AsyncStorage.getItem('url');
-    setUrl(url);
+    // setUrl(url);
     console.log('Retrieved URL:', url);
   };
   useEffect(() => {
@@ -319,7 +337,7 @@ const Useowneredititems = () => {
         material: 'fibre',
         name: name,
         price: price,
-        quantity: quantity,
+        totalQuantity: quantity,
         size: selectedsize,
         subcategoryIds: [itemType, outfitType, eventType],
       };
@@ -350,11 +368,11 @@ const Useowneredititems = () => {
       console.log(data);
 
       dispatch(addsize(selectedsize));
-      Alert.alert('Item Successfully Edited');
+      // Alert.alert('Item Successfully Edited');
       navigation.navigate('OwnerProfile');
     } catch (error) {
       console.log(error);
-      Alert.alert('Failed to Edit Item');
+      // Alert.alert('Failed to Edit Item');
     }
   };
   const RemoveProducts = async (productId: any) => {
@@ -369,11 +387,15 @@ const Useowneredititems = () => {
     })
       .then(data => {
         dispatch(removeproducts(productId));
+        openModal();
+        setTimeout(() => {
+          navigation.navigate('OwnerProfile');
+        }, 4000);
       })
       .catch(error => {
         console.error(error);
         const errorMessage = `Error removing item from ProductsList: ${error.message}`;
-        Alert.alert(errorMessage);
+        // Alert.alert(errorMessage);
       });
   };
 
@@ -444,6 +466,9 @@ const Useowneredititems = () => {
     FetchData,
     Mapdata,
     quantity,
+    openModal,
+    isLoading,
+    setIsLoading,
   };
 };
 

@@ -7,8 +7,16 @@ function OwnerEditProfileCustomHook() {
   // Initialize isLoading to true
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     const fetchProfileData = async () => {
       setIsLoading(true);
@@ -65,7 +73,8 @@ function OwnerEditProfileCustomHook() {
       });
       console.log();
       if (response.ok) {
-        Alert.alert('Profile updated!');
+        // Alert.alert('Profile updated!');
+        openModal();
         // navigation.navigate('OwnerProfile');
       } else {
         throw new Error('Failed to update profile');
@@ -87,6 +96,9 @@ function OwnerEditProfileCustomHook() {
     handleReset,
     handleUpdate,
     isLoading,
+    openModal,
+    closeModal,
+    showModal,
   };
 }
 export default OwnerEditProfileCustomHook;
