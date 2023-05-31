@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 // import {launchImageLibrary} from 'react-native-image-picker';
 // import {View, Text, Button, Image} from 'react-native';
 // import React, {useState} from 'react';
@@ -78,24 +79,6 @@ const Imagepicker = () => {
         imageUpload(image.path);
       });
     };
-    // const imageUpload = imagePath => {
-    //   const imageData = new FormData();
-    //   imageData.append('file', {
-    //     uri: imagePath,
-    //     name: 'file',
-    //   });
-    //   axios({
-    //     method: 'post',
-    //     url: 'http://e5f3-180-151-211-33.ngrok.io/file/upload',
-    //     data: imageData,
-    //   })
-    //     .then(function (response) {
-    //       console.log('image uploaded', response);
-    //     })
-    //     .catch(function (error) {
-    //       console.log('error uploading image', error);
-    //     });
-    // };
     const imageUpload = async (imagePath: string) => {
       const formdata = new FormData();
       const token = await AsyncStorage.getItem('token');

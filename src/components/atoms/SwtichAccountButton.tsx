@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/react-in-jsx-scope */
 // /* eslint-disable react/react-in-jsx-scope */
 // import {useState, useEffect, SetStateAction} from 'react';
 // import {setRole} from '../../redux/actions/actions';
@@ -212,13 +214,13 @@ const SwitchAccountButton = () => {
   const dispatch = useDispatch();
   const userType = useSelector(state => state.Rolereducer.role);
   const [accountType, setAccountType] = useState(
-    userType === 'borrower' ? 'borrower' : 'owner',
+    userType === 'borrower' ? 'Borrower' : 'Owner',
   );
   // Define animation values
   const buttonAnimation = useState(new Animated.Value(0))[0];
   const optionsAnimation = useState(new Animated.Value(0))[0];
   useEffect(() => {
-    setAccountType(userType === 'owner' ? 'owner' : 'borrower');
+    setAccountType(userType === 'owner' ? 'Owner' : 'Borrower');
   }, [userType]);
   const handlePress = () => {
     setShowOptions(!showOptions);
@@ -301,7 +303,7 @@ const SwitchAccountButton = () => {
                     ? styles.optionSelected
                     : styles.option
                 }>
-                {'borrower'}
+                {'Borrower'}
               </Text>
             </View>
           </TouchableOpacity>
@@ -320,7 +322,7 @@ const SwitchAccountButton = () => {
                     ? styles.optionSelected
                     : styles.option
                 }>
-                {'owner'}
+                {'Owner'}
               </Text>
             </View>
           </TouchableOpacity>

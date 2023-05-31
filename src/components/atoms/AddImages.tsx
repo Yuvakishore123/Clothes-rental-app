@@ -4,14 +4,18 @@ import React, {useEffect} from 'react';
 import {Avatar, Button} from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const AddImages = () => {
   const [Pic, setPic] = React.useState('');
+
   const setToastMsg = (msg: string) => {
     ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
   };
+
   useEffect(() => {
     retrieveImageFromStorage();
   }, []);
+
   const retrieveImageFromStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('@selected_image');
@@ -22,6 +26,7 @@ const AddImages = () => {
       console.log(error);
     }
   };
+
   const saveImageToStorage = async value => {
     try {
       await AsyncStorage.setItem('@selected_image', value);
@@ -29,6 +34,7 @@ const AddImages = () => {
       console.log(error);
     }
   };
+
   const uploadImage = () => {
     let options = {
       mediaType: 'photo',
@@ -48,6 +54,7 @@ const AddImages = () => {
       }
     });
   };
+
   const removeImage = async () => {
     setPic('');
     setToastMsg('image Removed');
@@ -57,23 +64,33 @@ const AddImages = () => {
       console.log(error);
     }
   };
+
   return (
     <View>
       <View style={styles.centerContent}>
-        <Avatar.Image
-          size={100}
-          source={{uri: 'data:image/png;base64,' + Pic}}
-        />
+        {Pic ? (
+          <Avatar.Image
+            size={100}
+            source={{uri: 'data:image/png;base64,' + Pic}}
+          />
+        ) : (
+          <Avatar.Image
+            size={100}
+            source={require('../../../assets/profile.jpg')}
+          />
+        )}
       </View>
       <View
         style={[styles.centerContent, {marginTop: 15, flexDirection: 'row'}]}>
-        <Button onPress={() => uploadImage()}> Upload Image </Button>
-        <Button onPress={() => removeImage()}> Remove Image </Button>
+        <Button onPress={() => uploadImage()}> Upload</Button>
+        <Button onPress={() => removeImage()}> Remove</Button>
       </View>
     </View>
   );
 };
+
 export default AddImages;
+
 const styles = StyleSheet.create({
   centerContent: {
     alignItems: 'center',
