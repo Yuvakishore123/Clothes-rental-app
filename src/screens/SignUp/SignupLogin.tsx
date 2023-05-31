@@ -8,7 +8,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Lottie from 'lottie-react-native';
 import Usesignup from './Usesignup';
 import {useNavigation} from '@react-navigation/native';
-// import style from '../Ownereditprofile/Ownereditprofilestyle';
 import style from '../Owneraddaddress/Owneraddressstyle';
 import {RadioButton} from 'react-native-paper';
 import Style from '../../constants/themeColors';

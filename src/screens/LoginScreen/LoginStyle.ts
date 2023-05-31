@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
   },
   Otptext: {
     marginTop: 15,
+  Otptext: {
+    marginTop: 15,
     alignItems: 'center',
     color: Colors.buttonColor,
     // fontWeight: '700',
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     flexDirection: 'row',
+    alignSelf: 'center',
     alignSelf: 'center',
   },
   TitleText: {
@@ -111,6 +114,8 @@ const styles = StyleSheet.create({
     // marginTop: 20,
     fontFamily: 'Poppins-Regular',
   },
+  Signuptext: {
+    // marginTop: 230,
   Signuptext: {
     // marginTop: 230,
     alignItems: 'center',

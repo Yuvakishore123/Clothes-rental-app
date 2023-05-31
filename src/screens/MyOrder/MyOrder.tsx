@@ -38,6 +38,7 @@ const MyOrder = ({navigation}: Props) => {
   const onRefresh = async () => {
     setRefreshing(true);
     dispatch(fetchOrderProducts());
+    dispatch(fetchOrderProducts());
     setRefreshing(false);
   };
   useEffect(() => {

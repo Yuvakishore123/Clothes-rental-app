@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {removeAddress} from '../../redux/actions/actions';
 import axios from 'axios';
 import {url} from '../../constants/Apis';
+import {url} from '../../constants/Apis';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ApiService from '../../network/network';
@@ -13,9 +14,12 @@ export const OwnerAddressCustomHook = () => {
   const [addressLine1, setaddressLine1] = useState('');
   const [addressLine2, setaddressLine2] = useState('');
   // const [addressType, setaddressType] = useState('');
+  // const [addressType, setaddressType] = useState('');
   const [postalCode, setpostalCode] = useState('');
   const [country, setCountry] = useState('india');
   const [state, setStateName] = useState('');
+  const [isFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState('');
@@ -43,6 +47,7 @@ export const OwnerAddressCustomHook = () => {
         headers,
       });
       const data = await response.data;
+      setIsLoading(false);
       setIsLoading(false);
       console.log(response.data);
       setIsLoading(false);

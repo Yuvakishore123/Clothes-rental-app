@@ -13,6 +13,7 @@ function Useownerhome() {
   const [name, setName] = useState('');
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [totalEarnings, setTotalEarnings] = useState(0);

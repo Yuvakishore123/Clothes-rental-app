@@ -20,6 +20,7 @@ export default function LoginScreen() {
     otp,
     handlephoneNumberChange,
     handlePasswordChange,
+
     GETOTP,
     handleLogin,
     passwordError,

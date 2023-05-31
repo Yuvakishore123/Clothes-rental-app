@@ -204,6 +204,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
+import React from 'react';
 // import CartItem from '../Cart/CartItem';
 import useWishlist from './useWishlist';
 import style from './wishlistStyles';

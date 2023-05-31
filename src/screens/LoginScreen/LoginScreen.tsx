@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   TextInput,

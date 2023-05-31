@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 250,
     marginLeft: 50,
-    // paddingRight: 30,
   },
   emailText: {
     backgroundColor: 'white',

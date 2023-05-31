@@ -44,6 +44,7 @@ export default function UDetailScreen({route, navigation}: Props) {
   const [showModal, setShowModal] = useState(false);
   const [showwModal, settShowModal] = useState(false);
   const [, setIsQuantity] = useState(true);
+  const [, setIsQuantity] = useState(true);
   const [isMinusDisabled, setIsMinusDisabled] = useState(true);
   const [isPlusDisabled, setIsPlusDisabled] = useState(false);
   const [productData, setProductData] = useState('');
